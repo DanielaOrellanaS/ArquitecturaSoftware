@@ -1,12 +1,11 @@
 package com.banquito.accounts.model;
-
 import java.sql.Date;
 
 public class RelationshipClient {
     private RelationshipClientPK pk;
-    private String relation_type;
-    private Date start_date;
-    private Date end_date;
+    private String relationType;
+    private Date startDate;
+    private Date endDate;
 
     public RelationshipClient() {
     }
@@ -14,8 +13,6 @@ public class RelationshipClient {
     public RelationshipClient(RelationshipClientPK pk) {
         this.pk = pk;
     }
-
-    //preguntar
 
     public RelationshipClientPK getPk() {
         return pk;
@@ -25,29 +22,27 @@ public class RelationshipClient {
         this.pk = pk;
     }
 
-    public String getRelation_type() {
-        return relation_type;
+    public String getRelationType() {
+        return relationType;
     }
 
-    public void setRelation_type(String relation_type) {
-        this.relation_type = relation_type;
+    public void setRelationType(String relationType) {
+        this.relationType = relationType;
     }
 
-    public Date getStart_date() {
-        return start_date;
+    public Date getStartDate() {
+        return startDate;
     }
 
-    public void setStart_date(Date start_date) {
-        this.start_date = start_date;
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
     }
 
-    public Date getEnd_date() {
-        return end_date;
+    public Date getEndDate() {
+        return endDate;
     }
 
-    public void setEnd_date(Date end_date) {
-        this.end_date = end_date;
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
     }
 }
-
-

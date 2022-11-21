@@ -1,24 +1,22 @@
 package com.banquito.accounts.model;
 
-import javax.sql.rowset.serial.SerialArray;
-
 public class RelationshipClientPK {
-    private SerialArray codeRelationship;
+    private int codeRelationship;
     private int codeClient;
     private int codeClientRelationship;
 
     public RelationshipClientPK() {
     }
 
-    public RelationshipClientPK(SerialArray codeRelationship, int codeClient, int codeClientRelationship) {
+    public RelationshipClientPK(int codeRelationship, int codeClient, int codeClientRelationship) {
         this.codeRelationship = codeRelationship;
         this.codeClient = codeClient;
         this.codeClientRelationship = codeClientRelationship;
     }
-    public SerialArray getCodeRelationship() {
+    public int getCodeRelationship() {
         return codeRelationship;
     }
-    public void setCodeRelationship(SerialArray codeRelationship) {
+    public void setCodeRelationship(int codeRelationship) {
         this.codeRelationship = codeRelationship;
     }
     public int getCodeClient() {
