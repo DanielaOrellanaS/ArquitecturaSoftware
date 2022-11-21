@@ -24,7 +24,7 @@ public class Client {
     private String fingerprint;
     private String nationality;
     private String maritalStatus;
-    private String monthlyAvgIncome;
+    private double monthlyAvgIncome;
     private String basicServicesDocument;
     private String incomeTaxDocument;
     private String articlesAssociationDoc;
@@ -207,11 +207,11 @@ public class Client {
         this.maritalStatus = maritalStatus;
     }
 
-    public String getMonthlyAvgIncome() {
+    public double getMonthlyAvgIncome() {
         return monthlyAvgIncome;
     }
 
-    public void setMonthlyAvgIncome(String monthlyAvgIncome) {
+    public void setMonthlyAvgIncome(double monthlyAvgIncome) {
         this.monthlyAvgIncome = monthlyAvgIncome;
     }
 
