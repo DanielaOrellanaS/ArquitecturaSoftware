@@ -1,34 +1,41 @@
 package com.banquito.accounts.model;
 
 public class BranchPK {
-    private String CodeBranch;
-    private String CodeBankEntity;
-    private int CodeLocation;
+    private String codeBranch;
+    private String codeBankEntity;
+    private int codeLocation;
 
     public BranchPK() {
     }
+
     public BranchPK(String codeBranch, String codeBankEntity, int codeLocation) {
-        CodeBranch = codeBranch;
-        CodeBankEntity = codeBankEntity;
-        CodeLocation = codeLocation;
+        this.codeBranch = codeBranch;
+        this.codeBankEntity = codeBankEntity;
+        this.codeLocation = codeLocation;
     }
+
     public String getCodeBranch() {
-        return CodeBranch;
+        return codeBranch;
     }
+
     public void setCodeBranch(String codeBranch) {
-        CodeBranch = codeBranch;
+        this.codeBranch = codeBranch;
     }
+
     public String getCodeBankEntity() {
-        return CodeBankEntity;
+        return codeBankEntity;
     }
+
     public void setCodeBankEntity(String codeBankEntity) {
-        CodeBankEntity = codeBankEntity;
+        this.codeBankEntity = codeBankEntity;
     }
+
     public int getCodeLocation() {
-        return CodeLocation;
+        return codeLocation;
     }
+
     public void setCodeLocation(int codeLocation) {
-        CodeLocation = codeLocation;
+        this.codeLocation = codeLocation;
     }
 
     

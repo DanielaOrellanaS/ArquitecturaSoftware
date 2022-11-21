@@ -3,14 +3,14 @@ import java.sql.Timestamp;
 
 public class AccountClient{
     private AccountClientePK pk;
-    private Timestamp CreateDate;
+    private Timestamp createDate;
 
     public AccountClient() {
     }
 
     public AccountClient(AccountClientePK pk, Timestamp createDate) {
         this.pk = pk;
-        CreateDate = createDate;
+        this.createDate = createDate;
     }
 
     public AccountClientePK getPk() {
@@ -22,12 +22,16 @@ public class AccountClient{
     }
 
     public Timestamp getCreateDate() {
-        return CreateDate;
+        return createDate;
     }
 
     public void setCreateDate(Timestamp createDate) {
-        CreateDate = createDate;
+        this.createDate = createDate;
     }
+    
+    
+
+   
     
     
     

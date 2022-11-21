@@ -1,33 +1,34 @@
 package com.banquito.accounts.model;
 
 public class AccountSignaturePK {
-    private int CodeAccount;
-    private int CodeClient;
+    private int codeAccount;
+    private int codeClient;
 
     public AccountSignaturePK() {
     }
 
     public AccountSignaturePK(int codeAccount, int codeClient) {
-        CodeAccount = codeAccount;
-        CodeClient = codeClient;
+        this.codeAccount = codeAccount;
+        this.codeClient = codeClient;
     }
 
     public int getCodeAccount() {
-        return CodeAccount;
+        return codeAccount;
     }
 
     public void setCodeAccount(int codeAccount) {
-        CodeAccount = codeAccount;
+        this.codeAccount = codeAccount;
     }
 
     public int getCodeClient() {
-        return CodeClient;
+        return codeClient;
     }
 
     public void setCodeClient(int codeClient) {
-        CodeClient = codeClient;
+        this.codeClient = codeClient;
     }
     
+
     
 
     
