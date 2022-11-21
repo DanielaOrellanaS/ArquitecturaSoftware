@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!DOCTYPE module >
+
+<module name="Checker">
+    <property name="fileExtensions" value=""/>
+    <module name="MethodLength">
+      <property name="max" value="60"/>
+    </module>
+    <module name="TreeWalker">
+      <property name="fileExtensions" value="java"/>
+      <module name="AvoidStarImport"/>
+      <module name="ConstantName"/>
+      <module name="EmptyBlock"/>
+      <property name="tabWidth" value="4"/>
+    </module>
+  </module>
