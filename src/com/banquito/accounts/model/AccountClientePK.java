@@ -2,31 +2,34 @@ package com.banquito.accounts.model;
 
 
 public class AccountClientePK {
-    private int CodeAccount;
-    private int CodeCuent;
+    private int codeAccount;
+    private int codeCuent;
 
     public AccountClientePK() {
     }
-    
+
     public AccountClientePK(int codeAccount, int codeCuent) {
-        CodeAccount = codeAccount;
-        CodeCuent = codeCuent;
+        this.codeAccount = codeAccount;
+        this.codeCuent = codeCuent;
     }
 
     public int getCodeAccount() {
-        return CodeAccount;
+        return codeAccount;
     }
 
     public void setCodeAccount(int codeAccount) {
-        CodeAccount = codeAccount;
+        this.codeAccount = codeAccount;
     }
 
     public int getCodeCuent() {
-        return CodeCuent;
+        return codeCuent;
     }
 
     public void setCodeCuent(int codeCuent) {
-        CodeCuent = codeCuent;
+        this.codeCuent = codeCuent;
     }
+    
+    
+    
     
 }

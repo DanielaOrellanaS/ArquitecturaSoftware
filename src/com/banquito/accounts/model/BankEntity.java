@@ -1,32 +1,39 @@
 package com.banquito.accounts.model;
 
 public class BankEntity {
-    private String CodeBankEntity;
-    private String CodeBankInternational;
+    private String codeBankEntity;
+    private String codeBankInternational;
     private String name;
 
     public BankEntity() {
     }
+
     public BankEntity(String codeBankEntity, String codeBankInternational, String name) {
-        CodeBankEntity = codeBankEntity;
-        CodeBankInternational = codeBankInternational;
+        this.codeBankEntity = codeBankEntity;
+        this.codeBankInternational = codeBankInternational;
         this.name = name;
     }
+
     public String getCodeBankEntity() {
-        return CodeBankEntity;
+        return codeBankEntity;
     }
+
     public void setCodeBankEntity(String codeBankEntity) {
-        CodeBankEntity = codeBankEntity;
+        this.codeBankEntity = codeBankEntity;
     }
+
     public String getCodeBankInternational() {
-        return CodeBankInternational;
+        return codeBankInternational;
     }
+
     public void setCodeBankInternational(String codeBankInternational) {
-        CodeBankInternational = codeBankInternational;
+        this.codeBankInternational = codeBankInternational;
     }
+
     public String getName() {
         return name;
     }
+
     public void setName(String name) {
         this.name = name;
     }
