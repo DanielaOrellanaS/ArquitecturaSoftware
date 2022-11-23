@@ -56,10 +56,10 @@ public class Account {
     private Timestamp cancelDate;
 
     @Column(name = "PRESENT_BALANCE", scale = 17, precision = 2, nullable = false)
-    private double presentBlance;
+    private Double presentBlance;
 
     @Column(name = "AVAILABLE_BALANCE", scale = 17, precision = 2, nullable = false)
-    private double avalibleBalance;
+    private Double avalibleBalance;
 
     public Account(Integer codeAccount) {
         this.codeAccount = codeAccount;
