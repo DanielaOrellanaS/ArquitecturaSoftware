@@ -25,26 +25,26 @@ public class RelationshipClient {
     @EqualsAndHashCode.Include
     @Id
     @Column(name = "CODE_RELATIONSHIP", nullable = false )
-    public Integer codeRelationship;
+    private Integer codeRelationship;
     
     @ManyToOne
     @JoinColumn(name = "CODE_CLIENT", referencedColumnName = "CODE_CLIENT", nullable = false)
-    public Client codeClient;
+    private Client codeClient;
 
     @ManyToOne
     @JoinColumn(name = "CODE_CLIENT_RELATIONSHIP", referencedColumnName = "CODE_CLIENT", nullable = false)
-    public Client codeClientRelationship;
+    private Client codeClientRelationship;
 
     @Column(name = "RELATIONSHIP_TYPE", length = 32, nullable = false)
-    public String relationshipType;
+    private String relationshipType;
 
     @Column(name = "START_DATE", nullable = false)
     @Temporal(TemporalType.DATE)
-    public Date startDate;
+    private Date startDate;
 
     @Column(name = "END_DATE", nullable = false)
     @Temporal(TemporalType.DATE)
-    public Date endDate;
+    private Date endDate;
 
     public RelationshipClient(Integer codeRelationship) {
         this.codeRelationship = codeRelationship;
