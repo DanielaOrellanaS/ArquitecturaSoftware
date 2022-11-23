@@ -9,11 +9,15 @@ import com.banquito.corepasivos.geographic.model.GeoLocation;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Data
 @NoArgsConstructor
 @Entity
+@Getter
+@Setter
 @Table(name = "BRANCH")
 public class Branch {
     @EqualsAndHashCode.Include
