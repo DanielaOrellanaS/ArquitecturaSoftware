@@ -5,6 +5,7 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 
 @Data
 @NoArgsConstructor
@@ -30,7 +31,7 @@ public class AssociatedService {
     private String chargeVat;
 
     @Column(name="FEE", nullable=false)
-    private Number fee;
+    private BigDecimal fee;
 
     public AssociatedService(String codeAssociatedService) {
         this.codeAssociatedService = codeAssociatedService;
