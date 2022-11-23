@@ -10,6 +10,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -20,18 +21,19 @@ import lombok.Setter;
 @Getter
 @Setter
 @Table(name="ACCOUNT_CLIENT")
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 
 public class AccountClient implements Serializable{
     
     @EmbeddedId
-    private AccountClientPK key;
+    private AccountClientPK pk;
     
     @Column(name="CREATE_DATE", nullable=false)
     @Temporal(TemporalType.TIMESTAMP)
     private Timestamp createDate;
 
-    public AccountClient (AccountClientPK key, Timestamp createDate){
-        this.key = key;
+    public AccountClient (AccountClientPK pk, Timestamp createDate){
+        this.pk = pk;
         this.createDate = createDate;
     }
 
