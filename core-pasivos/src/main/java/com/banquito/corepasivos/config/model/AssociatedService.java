@@ -1,13 +1,13 @@
 package com.banquito.corepasivos.config.model;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
 
-@Data
+@Getter
+@Setter
+@ToString
 @NoArgsConstructor
 @Entity
 @Table(name="ASSOCIATED_SERVICE")

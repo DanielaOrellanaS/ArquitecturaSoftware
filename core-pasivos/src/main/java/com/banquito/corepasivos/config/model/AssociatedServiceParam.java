@@ -1,14 +1,15 @@
 package com.banquito.corepasivos.config.model;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
-@Data
+@Getter
+@Setter
+@ToString
 @NoArgsConstructor
 @Entity
+@IdClass(AssociatedServiceParamKey.class)
 @Table(name="ASSOCIATED_SERVICE_PARAM")
 public class AssociatedServiceParam {
 
@@ -17,9 +18,10 @@ public class AssociatedServiceParam {
     @Column(name="CODE_PARAM", length=16, nullable=false)
     private String codeParam;
 
+    @Id
     @ManyToOne
     @JoinColumn(name="CODE_ASSOCIATED_SERVICE", nullable=false)
-    private AssociatedService codeAssociatedServiceParam;
+    private AssociatedService codeAssociatedService;
 
     @Column(name="VALUE_TYPE", length=3, nullable=false)
     private String valueType;
