@@ -3,6 +3,7 @@ package com.banquito.corepasivos.config.model;
 import java.sql.Timestamp;
 
 import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -18,7 +19,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "ACCOUNT_ASSO_SERVICE_PARAM")
 public class AccountAssociatedServiceParam {
-
+    @EmbeddedId
     private AccountAssociatedServiceParamPK pk;
 
     @Column(name = "STATUS", length = 3, nullable = false)

@@ -2,6 +2,7 @@ package com.banquito.corepasivos.config.model;
 
 
 import javax.persistence.Column;
+import javax.persistence.Embeddable;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
@@ -12,7 +13,7 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-@Entity
+@Embeddable
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class AccountAssociatedServiceParamPK {
     @EqualsAndHashCode.Include
