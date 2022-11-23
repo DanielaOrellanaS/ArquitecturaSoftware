@@ -28,15 +28,15 @@ public class Product {
     private String codeProduct;
 
     @ManyToOne
-    @JoinColumn(name = "CODE_PRODUCT_TYPE", referencedColumnName = "CODE_PRODUCT_TYPE", nullable = false)
+    @JoinColumn(name = "CODE_PRODUCT_TYPE", referencedColumnName = "CODE_PRODUCT", nullable = false)
     private String codeProductType;
 
     @ManyToOne
-    @JoinColumn(name = "CODE_SEGMENT", referencedColumnName = "CODE_SEGMENT", nullable = true)
+    @JoinColumn(name = "CODE_SEGMENT", referencedColumnName = "CODE_PRODUCT", nullable = true)
     private String codeSegment;
 
     @ManyToOne
-    @JoinColumn(name = "CODE_INTEREST_RATE", referencedColumnName = "CODE_INTEREST_RATE", nullable = false)
+    @JoinColumn(name = "CODE_INTEREST_RATE", referencedColumnName = "CODE_PRODUCT", nullable = false)
     private String codeInterestrate;
 
     @Column(name = "NAME", nullable = false, length = 64)
