@@ -1,6 +1,5 @@
-package com.banquito.corepasivos.general.model;
+package com.banquito.corepasivos.config.model;
 
-import java.lang.annotation.Inherited;
 import java.sql.Timestamp;
 
 import javax.persistence.Column;
@@ -8,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -27,10 +27,10 @@ public class InterestRateLog {
     @Column(name="VALUE", scale=5, precision=2, nullable=false)
     private Double value;
     @Column(name="START_DATE", nullable=false)
-    @Temporal(TemporalType.Timestamp)
+    @Temporal(TemporalType.TIMESTAMP)
     private Timestamp startDate;
-    @Column(name="START_DATE", nullable=true)
-    @Temporal(TemporalType.Timestamp)
+    @Column(name="END_DATE", nullable=true)
+    @Temporal(TemporalType.TIMESTAMP)
     private Timestamp endDate;
     @Column(name="STATUS", length=3, nullable=false)
     private String status;
