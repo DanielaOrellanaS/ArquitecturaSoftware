@@ -5,6 +5,8 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -25,13 +27,16 @@ public class Product {
     @Column(name = "CODE_PRODUCT", nullable = false, length = 32)
     private String codeProduct;
 
-    @Column(name = "CODE_PRODUCT:TYPE", nullable = false, length = 32)
+    @ManyToOne
+    @JoinColumn(name = "CODE_PRODUCT_TYPE", referencedColumnName = "CODE_PRODUCT_TYPE", nullable = false)
     private String codeProductType;
 
-    @Column(name = "CODE_SEGMEN", nullable = true, length = 16)
+    @ManyToOne
+    @JoinColumn(name = "CODE_SEGMENT", referencedColumnName = "CODE_SEGMENT", nullable = true)
     private String codeSegment;
 
-    @Column(name = "CODE_INTEREST_RATE", nullable = false, length = 8)
+    @ManyToOne
+    @JoinColumn(name = "CODE_INTEREST_RATE", referencedColumnName = "CODE_INTEREST_RATE", nullable = false)
     private String codeInterestrate;
 
     @Column(name = "NAME", nullable = false, length = 64)
