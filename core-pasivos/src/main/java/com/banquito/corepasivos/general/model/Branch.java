@@ -18,6 +18,7 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Table(name = "BRANCH")
 public class Branch {
     @EqualsAndHashCode.Include

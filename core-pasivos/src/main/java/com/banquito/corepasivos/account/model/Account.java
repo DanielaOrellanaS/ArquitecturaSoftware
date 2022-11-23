@@ -16,12 +16,11 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Data
-
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
-
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Table(name = "ACCOUNT")
 public class Account {
     @EqualsAndHashCode.Include
@@ -45,12 +44,15 @@ public class Account {
     private String status;
 
     @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "CREATE_DATE", nullable = false)
     private Timestamp createDate;
 
     @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "LAST_UPDATE_DATE", nullable = false)
     private Timestamp lastUpdateDate;
 
     @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "CANCEL_DATE", nullable = false)
     private Timestamp cancelDate;
 
     @Column(name = "PRESENT_BALANCE", scale = 17, precision = 2, nullable = false)

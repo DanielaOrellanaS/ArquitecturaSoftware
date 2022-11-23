@@ -16,7 +16,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Data
-
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
 @Getter
 @Setter
@@ -41,12 +41,14 @@ public class Transaction {
     private String reference;
 
     @Column(name = "VALUE", scale = 17, precision = 2, nullable = false)
-    private double value;
+    private Double value;
 
     @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "CREATE_DATE", nullable = false)
     private Timestamp createDate;
 
     @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "EXECUTE_DATE", nullable = false)
     private Timestamp executeDate;
 
     @Column(name = "STATUS", nullable = false)

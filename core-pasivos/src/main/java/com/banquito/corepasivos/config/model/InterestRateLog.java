@@ -20,6 +20,7 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Table(name = "INTEREST_RATE_LOG")
 public class InterestRateLog {
     @EqualsAndHashCode.Include
