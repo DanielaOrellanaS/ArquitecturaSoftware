@@ -1,6 +1,6 @@
 package com.banquito.corepasivos.client.model;
 
-import java.sql.Date;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,14 +8,17 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @Data
-@NoArgsConstructor
 @Entity
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@NoArgsConstructor
 @Table(name = "RELATIONSHIP_CLIENT")
 public class RelationshipClient {
 
@@ -36,9 +39,11 @@ public class RelationshipClient {
     public String relationshipType;
 
     @Column(name = "START_DATE", nullable = false)
+    @Temporal(TemporalType.DATE)
     public Date startDate;
 
     @Column(name = "END_DATE", nullable = false)
+    @Temporal(TemporalType.DATE)
     public Date endDate;
 
     public RelationshipClient(Integer codeRelationship) {
