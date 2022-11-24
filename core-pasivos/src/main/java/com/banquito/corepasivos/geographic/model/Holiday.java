@@ -34,5 +34,5 @@ public class Holiday {
 
     public Holiday(Date date){
         this.date=date;
-    }
+    }
 }
