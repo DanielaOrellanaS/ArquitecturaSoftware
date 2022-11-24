@@ -1,19 +1,17 @@
-package com.banquito.corepasivos.geographic.model;
+package com.banquito.corepasivos.geographic;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
 
 @Entity
+@Data
 @Table(name = "GEO_COUNTRY")
-@Getter
-@Setter
 @NoArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class GeoCountry {
@@ -32,5 +30,4 @@ public class GeoCountry {
 	public GeoCountry(String codeCountry) {
 		this.codeCountry = codeCountry;
 	}
-
 }
