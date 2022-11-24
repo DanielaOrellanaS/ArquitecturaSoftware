@@ -4,6 +4,8 @@ import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import lombok.Data;
@@ -16,11 +18,12 @@ import lombok.NoArgsConstructor;
 @Table(name = "CLIENT_REFERENCE")
 public class ClientReference {
     @EqualsAndHashCode.Include
-    @EmbeddedId
+    @Id
     @Column(name = "CODE_REFERENCE", length = 8, nullable = false)
     private Integer codeReference;
-    @Column(name = "CODE_CLIENT", length = 4, nullable = false)
-    private Integer codeClient;
+    @ManyToOne
+    @JoinColumn(name = "CODE_CLIENT", referencedColumnName = "CODE_CLIENT", length = 4, nullable = false)
+    private Client codeClient;
     @Column(name = "NAME", length = 64, nullable = false)
     private String name;
     @Column(name = "PHONE", length = 16, nullable = false)
@@ -28,7 +31,7 @@ public class ClientReference {
     @Column(name = "RELATED", length = 64, nullable = false)
     private String related;
 
-    public ClientReference(String codeReference) {
+    public ClientReference(Integer codeReference) {
         this.codeReference = codeReference;
     }
 }
