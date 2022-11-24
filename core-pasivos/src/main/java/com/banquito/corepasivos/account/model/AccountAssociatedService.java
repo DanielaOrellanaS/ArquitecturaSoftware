@@ -1,4 +1,4 @@
-package com.banquito.corepasivos.account;
+package com.banquito.corepasivos.account.model;
 
 import java.util.Date;
 
@@ -20,7 +20,7 @@ import lombok.NoArgsConstructor;
 public class AccountAssociatedService {
     
     @EmbeddedId
-    private AccountAssociatedServicePK pk;
+    private AccountAssociatedService pk;
 
     @Column(name = "STATUS", nullable = false, length = 3)
     private String status;
@@ -33,7 +33,7 @@ public class AccountAssociatedService {
     @Temporal(TemporalType.DATE)
     private Date endDate;
 
-    public AccountAssociatedService(AccountAssociatedServicePK pk, String status, Date startDate, Date endDate) {
+    public AccountAssociatedService(AccountAssociatedService pk, String status, Date startDate, Date endDate) {
         this.pk = pk;
         this.status = status;
         this.startDate = startDate;
