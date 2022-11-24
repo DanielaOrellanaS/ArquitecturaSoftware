@@ -20,10 +20,9 @@ import lombok.Setter;
 
 public class GeoStructure {
 
-    @Id
     @EqualsAndHashCode.Include
-    @Column(name = "GEO_LEVEL", nullable = false, scale = 2, precision = 0)
-    private Double  geoLevel;
+    @Column(name = "GEO_LEVEL", nullable = false, scale = 2)
+    private BigDecimal  geoLevel;
 
     @ManyToOne
     @JoinColumn(name = "CODE_COUNTRY", referencedColumnName = "CODE_COUNTRY", nullable = false)
