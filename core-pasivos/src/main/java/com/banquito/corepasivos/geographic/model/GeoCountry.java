@@ -1,4 +1,4 @@
-package com.banquito.corepasivos.geographic;
+package com.banquito.corepasivos.geographic.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
