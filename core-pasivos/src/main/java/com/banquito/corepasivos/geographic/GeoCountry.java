@@ -7,13 +7,9 @@ import javax.persistence.Table;
 
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
 
 @Entity
 @Table(name = "GEO_COUNTRY")
-@Getter
-@Setter
 @NoArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class GeoCountry {
@@ -32,5 +28,4 @@ public class GeoCountry {
 	public GeoCountry(String codeCountry) {
 		this.codeCountry = codeCountry;
 	}
-
 }
