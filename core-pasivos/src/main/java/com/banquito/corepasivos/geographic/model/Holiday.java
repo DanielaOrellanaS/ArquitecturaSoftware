@@ -33,6 +33,11 @@ public class Holiday {
     private String type;
 
     public Holiday(Date date){
+<<<<<<< HEAD
+        this.date = date;
+    }
+=======
         this.date=date;
     }
+>>>>>>> 7f75f5f330743bd51c0f3ef6421d5c4e2482bab2
 }
