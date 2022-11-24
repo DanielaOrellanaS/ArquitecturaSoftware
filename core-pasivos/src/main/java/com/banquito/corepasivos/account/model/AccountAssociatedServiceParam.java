@@ -1,45 +1,27 @@
-package com.banquito.corepasivos.account.model;
+package com.banquito.corepasivos.config.model;
 
-import java.sql.Timestamp;
+import lombok.*;
 
-import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import javax.persistence.*;
 
 @Data
 @NoArgsConstructor
+@IdClass(AssociatedServiceParamKey.class)
 @Entity
-@Table(name = "ACCOUNT_ASSO_SERVICE_PARAM")
-public class AccountAssociatedServiceParam {
+@Table(name="ASSOCIATED_SERVICE_PARAM")
+public class AssociatedServiceParam {
+
     @EqualsAndHashCode.Include
     @EmbeddedId
-    private AccountAssociatedServiceParamPK accountAssociatedServiceParamPK;
+    private AssociatedServiceParamKey associatedServiceParamKey;
 
-    @Column(name = "STATUS", length = 3, nullable = false)
-    private String status;
-    @Column(name = "TEXT_VALUE", length = 128, nullable = false)
-    private String textValue;
-    @Column(name = "DATE_VALUE", nullable = true)
-    @Temporal(TemporalType.TIMESTAMP)
-    private Timestamp dateValue;
-    @Column(name = "NUMBER_VALUE", length = 17, precision = 2, nullable = true)
-    private Number numberValue;
-    @Column(name = "CREATE_DATE", nullable = true)
-    @Temporal(TemporalType.TIMESTAMP)
-    private Timestamp createDate;
-    @Column(name = "END_DATE", nullable = true)
-    @Temporal(TemporalType.TIMESTAMP)
-    private Timestamp endDate;
+    @Column(name="VALUE_TYPE", length=3, nullable=false)
+    private String valueType;
 
-    public AccountAssociatedServiceParam(AccountAssociatedServiceParamPK accountAssociatedServiceParamPK) {
-        this.accountAssociatedServiceParamPK = accountAssociatedServiceParamPK;
+    @Column(name="NAME", length=64, nullable=false)
+    private String name;
+
+    public AssociatedServiceParam(AssociatedServiceParamKey associatedServiceParamKey) {
+        this.associatedServiceParamKey = associatedServiceParamKey;
     }
-
 }

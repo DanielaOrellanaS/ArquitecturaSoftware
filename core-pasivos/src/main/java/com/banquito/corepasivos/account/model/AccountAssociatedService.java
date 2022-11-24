@@ -1,43 +1,37 @@
-package com.banquito.corepasivos.account.model;
+package com.banquito.corepasivos.config.model;
 
-import java.util.Date;
+import lombok.*;
 
-import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import javax.persistence.*;
+import java.math.BigDecimal;
 
-@Entity
 @Data
 @NoArgsConstructor
-@Table(name = "ACCOUNT_ASSOCIATED_SERVICE")
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class AccountAssociatedService {
+@Entity
+@Table(name="ASSOCIATED_SERVICE")
+public class AssociatedService {
 
-    @EmbeddedId
-    private AccountAssociatedService pk;
+    @EqualsAndHashCode.Include
+    @Id
+    @Column(name="CODE_ASSOCIATED_SERVICE", length=16, nullable=false)
+    private String codeAssociatedService;
 
-    @Column(name = "STATUS", nullable = false, length = 3)
-    private String status;
+    @Column(name="NAME", length=64, nullable=false)
+    private String name;
 
-    @Column(name = "START_DATE", nullable = false)
-    @Temporal(TemporalType.DATE)
-    private Date startDate;
+    @Column(name="ALLOW_PAYMENT", length=1, nullable=false)
+    private String allowPayment;
 
-    @Column(name = "END_DATE")
-    @Temporal(TemporalType.DATE)
-    private Date endDate;
+    @Column(name="PAYMENT_METHOD", length=3, nullable=true)
+    private String paymentMethod;
 
-    public AccountAssociatedService(AccountAssociatedService pk, String status, Date startDate, Date endDate) {
-        this.pk = pk;
-        this.status = status;
-        this.startDate = startDate;
-        this.endDate = endDate;
+    @Column(name="CHARGE_VAT", length=1, nullable=false)
+    private String chargeVat;
+
+    @Column(name="FEE", nullable=false)
+    private BigDecimal fee;
+
+    public AssociatedService(String codeAssociatedService) {
+        this.codeAssociatedService = codeAssociatedService;
     }
-
 }
