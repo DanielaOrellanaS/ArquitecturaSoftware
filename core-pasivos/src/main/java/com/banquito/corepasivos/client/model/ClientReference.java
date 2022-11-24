@@ -19,7 +19,7 @@ import lombok.NoArgsConstructor;
 public class ClientReference {
     @EqualsAndHashCode.Include
     @Id
-    @Column(name = "CODE_REFERENCE", length = 8, nullable = false)
+    @Column(name = "CODE_REFERENCE", nullable = false)
     private Integer codeReference;
     @ManyToOne
     @JoinColumn(name = "CODE_CLIENT", referencedColumnName = "CODE_CLIENT", length = 4, nullable = false)
