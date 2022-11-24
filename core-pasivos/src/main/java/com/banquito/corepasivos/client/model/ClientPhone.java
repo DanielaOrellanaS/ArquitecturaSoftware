@@ -1,12 +1,11 @@
 package com.banquito.corepasivos.client.model;
 
 import javax.persistence.Column;
-import javax.persistence.Embedded;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.IdClass;
 import javax.persistence.Table;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -14,22 +13,21 @@ import lombok.NoArgsConstructor;
 @Data
 @Entity
 @Table(name = "PHONE")
-@IdClass(PhonePK.class)
+@IdClass(ClientPhonePK.class)
 @NoArgsConstructor
-@AllArgsConstructor
-public class Phone {
+public class ClientPhone {
 
     @EqualsAndHashCode.Include
-    @Embedded
-    private PhonePK phonePk;
-    @Column(name = "TYPE", nullable = false)
+    @EmbeddedId
+    private ClientPhonePK phonePk;
+    @Column(name = "TYPE", length = 3, nullable = false)
     private String type;
 
-    public Phone(PhonePK phonePk) {
+    public ClientPhone(ClientPhonePK phonePk) {
         this.phonePk = phonePk;
     }
 
-    public PhonePK getPhonePk() {
+    public ClientPhonePK getPhonePk() {
         return phonePk;
     }
 
