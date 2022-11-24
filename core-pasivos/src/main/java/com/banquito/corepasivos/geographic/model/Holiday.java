@@ -16,10 +16,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Data
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
-@Getter
-@Setter
 @NoArgsConstructor
 @Table(name = "HOLIDAY")
 public class Holiday {
