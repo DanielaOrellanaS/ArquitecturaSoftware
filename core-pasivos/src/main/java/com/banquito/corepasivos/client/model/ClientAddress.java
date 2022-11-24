@@ -8,20 +8,14 @@ import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @Data
 @Entity
 @Table(name = "CLIENT_ADRESS")
 @NoArgsConstructor
 @AllArgsConstructor
-@Getter
-@Setter
 public class ClientAddress {
-    @EqualsAndHashCode.Include
     @Id
     @Column(name = "CODE_CLIENT", nullable = false)
     private Integer codeAddress;
