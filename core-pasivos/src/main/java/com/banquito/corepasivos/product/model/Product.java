@@ -1,5 +1,6 @@
 package com.banquito.corepasivos.product.model;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -66,7 +67,7 @@ public class Product {
     private String typeClient;
 
     @Column(name = "MIN_OPENING_BALANCE", nullable = false, scale = 17, precision = 2)
-    private Double minOpeningBalance;
+    private BigDecimal minOpeningBalance;
 
     public Product(String codeProduct) {
         this.codeProduct = codeProduct;
