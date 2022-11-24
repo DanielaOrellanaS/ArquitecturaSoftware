@@ -5,10 +5,12 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @Entity
+@Data
 @Table(name = "GEO_COUNTRY")
 @NoArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
