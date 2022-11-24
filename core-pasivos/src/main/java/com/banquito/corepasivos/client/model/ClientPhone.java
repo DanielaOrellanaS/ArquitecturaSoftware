@@ -26,16 +26,4 @@ public class ClientPhone {
     public ClientPhone(ClientPhonePK phonePk) {
         this.phonePk = phonePk;
     }
-
-    public ClientPhonePK getPhonePk() {
-        return phonePk;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
 }
