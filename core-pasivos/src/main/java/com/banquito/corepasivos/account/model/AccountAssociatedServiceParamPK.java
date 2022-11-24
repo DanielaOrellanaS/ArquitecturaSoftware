@@ -9,7 +9,6 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
-
 @Data
 @NoArgsConstructor
 @Embeddable
@@ -44,6 +43,5 @@ public class AccountAssociatedServiceParamPK {
         this.codeAccocuntAssociatedService = codeAccocuntAssociatedService;
         this.codeProduct = codeProduct;
     }
-
 
 }
