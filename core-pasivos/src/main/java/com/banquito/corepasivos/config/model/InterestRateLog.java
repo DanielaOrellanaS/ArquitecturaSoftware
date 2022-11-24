@@ -1,5 +1,6 @@
 package com.banquito.corepasivos.config.model;
 
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 
 import javax.persistence.Column;
@@ -25,7 +26,7 @@ public class InterestRateLog {
     @Column(name="CODE_INTEREST_RATE", length=8, nullable=false)
     private String codeInterestRate;
     @Column(name="VALUE", scale=5, precision=2, nullable=false)
-    private Double value;
+    private BigDecimal value;
     @Column(name="START_DATE", nullable=false)
     @Temporal(TemporalType.TIMESTAMP)
     private Timestamp startDate;
