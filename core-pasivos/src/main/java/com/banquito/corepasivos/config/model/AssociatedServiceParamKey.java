@@ -1,6 +1,7 @@
 package com.banquito.corepasivos.config.model;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
@@ -13,6 +14,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 @Embeddable
 public class AssociatedServiceParamKey implements Serializable {
+    @EqualsAndHashCode.Include
     @Column(name="CODE_PARAM", length=16, nullable=false)
     private String codeParam;
 
