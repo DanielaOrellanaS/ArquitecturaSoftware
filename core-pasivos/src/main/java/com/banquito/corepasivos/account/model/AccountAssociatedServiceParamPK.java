@@ -1,4 +1,4 @@
-package com.banquito.corepasivos.account;
+package com.banquito.corepasivos.account.model;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
@@ -8,7 +8,6 @@ import javax.persistence.Id;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-
 
 @Data
 @NoArgsConstructor
@@ -44,6 +43,5 @@ public class AccountAssociatedServiceParamPK {
         this.codeAccocuntAssociatedService = codeAccocuntAssociatedService;
         this.codeProduct = codeProduct;
     }
-
 
 }

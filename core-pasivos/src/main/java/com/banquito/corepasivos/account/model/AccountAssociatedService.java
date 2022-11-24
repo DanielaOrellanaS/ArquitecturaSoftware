@@ -1,4 +1,4 @@
-package com.banquito.corepasivos.account;
+package com.banquito.corepasivos.account.model;
 
 import java.util.Date;
 
@@ -18,7 +18,7 @@ import lombok.NoArgsConstructor;
 @Table(name = "ACCOUNT_ASSOCIATED_SERVICE")
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class AccountAssociatedService {
-    
+
     @EmbeddedId
     private AccountAssociatedServicePK pk;
 
