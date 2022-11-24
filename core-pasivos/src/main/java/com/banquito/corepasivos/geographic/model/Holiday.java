@@ -4,7 +4,6 @@ import java.sql.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -14,14 +13,12 @@ import lombok.EqualsAndHashCode;
 
 import lombok.NoArgsConstructor;
 
-
 @Data
 @Entity
 @NoArgsConstructor
 @Table(name = "HOLIDAY")
 public class Holiday {
     @EqualsAndHashCode.Include
-    @Id
     @Column(name = "DATE", nullable = false)
     @Temporal(TemporalType.DATE)
     private Date date;
@@ -32,12 +29,7 @@ public class Holiday {
     @Column(name = "TYPE", length = 3, nullable = false)
     private String type;
 
-    public Holiday(Date date){
-<<<<<<< HEAD
+    public Holiday(Date date) {
         this.date = date;
-    }
-=======
-        this.date=date;
     }
->>>>>>> 7f75f5f330743bd51c0f3ef6421d5c4e2482bab2
 }
