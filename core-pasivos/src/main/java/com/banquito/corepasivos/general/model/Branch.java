@@ -4,6 +4,9 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
+import com.banquito.corepasivos.geographic.model.GeoLocation;
+
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -19,7 +22,7 @@ public class Branch {
     private String code;
     @Column(name = "CODE_BANK_ENTITY", length = 16, nullable = false)
     private BankEntity codeBankEntity;
-    @Column(name = "CODE_LOCATION", nullable = false)
+    @Column(name = "CODE_LOCATION", length = 4, nullable = false)
     private GeoLocation codeLocation;
     @Column(name = "CODE_BANK_INTERNATIONAL", length = 8, nullable = false)
     private String codeBankInternational;
