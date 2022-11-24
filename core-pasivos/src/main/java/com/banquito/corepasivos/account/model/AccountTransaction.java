@@ -1,4 +1,4 @@
-package com.banquito.corepasivos.service.model;
+package com.banquito.corepasivos.account.model;
 
 import java.sql.Timestamp;
 
@@ -14,7 +14,7 @@ import lombok.EqualsAndHashCode;
 @Data
 @Entity
 @Table(name = "TRANSACTION")
-public class Transaction {
+public class AccountTransaction {
     @EqualsAndHashCode.Include
     @Column(name = "CODE_TRANSACTION", length = 16, nullable = false)
     private Integer codeTransaction;
@@ -45,7 +45,7 @@ public class Transaction {
     @Column(name = "STATUS", nullable = false)
     private String status;
 
-    public Transaction(Integer codeTransaction) {
+    public AccountTransaction(Integer codeTransaction) {
         this.codeTransaction = codeTransaction;
     }
 

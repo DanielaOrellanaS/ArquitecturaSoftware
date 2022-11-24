@@ -1,4 +1,4 @@
-package com.banquito.corepasivos.geographic.model;
+package com.banquito.corepasivos.general.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -20,37 +20,37 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class GeoLocation {
-    
-    @EqualsAndHashCode.Include
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "CODE_LOCATION", nullable = false)
-    private Integer codeLocation;
 
-    @ManyToOne
-    @JoinColumn(name = "GEO_CODE_LOCATION_PARENT", referencedColumnName = "CODE_LOCATION")    
-    @Column(name = "GEO_CODE_LOCATION_PARENT", nullable = true)
-    private GeoLocation codeLocationParent;
+  @EqualsAndHashCode.Include
+  @Id
+  @GeneratedValue(strategy = GenerationType.AUTO)
+  @Column(name = "CODE_LOCATION", nullable = false)
+  private Integer codeLocation;
 
-    @OneToMany(mappedBy = "codeLocationParent")
-    
-    @ManyToOne
-    @Column(name = "CODE_COUNTRY", length = 2, nullable = false)
-    private GeoCountry codeCountry;
+  @ManyToOne
+  @JoinColumn(name = "GEO_CODE_LOCATION_PARENT", referencedColumnName = "CODE_LOCATION")
+  @Column(name = "GEO_CODE_LOCATION_PARENT", nullable = true)
+  private GeoLocation codeLocationParent;
 
-    @Column(name = "GEO_LEVEL", length = 2, nullable = false)
-    private Integer level;
+  @OneToMany(mappedBy = "codeLocationParent")
 
-    @Column(name = "NAME", length = 64, nullable = true)
-    private String name;
+  @ManyToOne
+  @Column(name = "CODE_COUNTRY", length = 2, nullable = false)
+  private GeoCountry codeCountry;
 
-    @Column(name = "PHONE_CODE_AREA", length = 2, nullable = true)
-    private String phoneCodeArea;
+  @Column(name = "GEO_LEVEL", length = 2, nullable = false)
+  private Integer level;
 
-    @Column(name = "ZIP_CODE", length = 16, nullable = true)
-    private String zipCode;
+  @Column(name = "NAME", length = 64, nullable = true)
+  private String name;
 
-    public GeoLocation (Integer codeLocation) {
-		this.codeLocation = codeLocation;
-	}
+  @Column(name = "PHONE_CODE_AREA", length = 2, nullable = true)
+  private String phoneCodeArea;
+
+  @Column(name = "ZIP_CODE", length = 16, nullable = true)
+  private String zipCode;
+
+  public GeoLocation(Integer codeLocation) {
+    this.codeLocation = codeLocation;
+  }
 }

@@ -1,4 +1,4 @@
-package com.banquito.corepasivos.config.model;
+package com.banquito.corepasivos.account.model;
 
 import lombok.*;
 
@@ -6,22 +6,22 @@ import javax.persistence.*;
 
 @Data
 @NoArgsConstructor
-@IdClass(AssociatedServiceParamKey.class)
+@IdClass(AccountAssociatedServicePK.class)
 @Entity
-@Table(name="ASSOCIATED_SERVICE_PARAM")
-public class AssociatedServiceParam {
+@Table(name = "ASSOCIATED_SERVICE_PARAM")
+public class AccountAssociatedServiceParam {
 
     @EqualsAndHashCode.Include
     @EmbeddedId
-    private AssociatedServiceParamKey associatedServiceParamKey;
+    private AccountAssociatedServicePK associatedServiceParamKey;
 
-    @Column(name="VALUE_TYPE", length=3, nullable=false)
+    @Column(name = "VALUE_TYPE", length = 3, nullable = false)
     private String valueType;
 
-    @Column(name="NAME", length=64, nullable=false)
+    @Column(name = "NAME", length = 64, nullable = false)
     private String name;
 
-    public AssociatedServiceParam(AssociatedServiceParamKey associatedServiceParamKey) {
+    public AccountAssociatedServiceParam(AccountAssociatedServicePK associatedServiceParamKey) {
         this.associatedServiceParamKey = associatedServiceParamKey;
     }
 }

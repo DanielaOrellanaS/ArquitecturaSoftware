@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Embeddable
 @NoArgsConstructor
 @Data
-public class ClientPhonePK implements Serializable {
+public class PhonePK implements Serializable {
 
     @Column(name = "PHONE_NUMBER", length = 16, nullable = false)
     private String phoneNumber;

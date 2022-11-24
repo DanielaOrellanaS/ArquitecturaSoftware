@@ -13,17 +13,17 @@ import lombok.NoArgsConstructor;
 @Data
 @Entity
 @Table(name = "CLIENT_PHONE")
-@IdClass(ClientPhonePK.class)
+@IdClass(PhonePK.class)
 @NoArgsConstructor
-public class ClientPhone {
+public class Phone {
 
     @EqualsAndHashCode.Include
     @EmbeddedId
-    private ClientPhonePK phonePk;
+    private PhonePK phonePk;
     @Column(name = "TYPE", length = 3, nullable = false)
     private String type;
 
-    public ClientPhone(ClientPhonePK phonePk) {
+    public Phone(PhonePK phonePk) {
         this.phonePk = phonePk;
     }
 }

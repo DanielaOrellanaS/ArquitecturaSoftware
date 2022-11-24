@@ -1,4 +1,4 @@
-package com.banquito.corepasivos.config.model;
+package com.banquito.corepasivos.account.model;
 
 import lombok.*;
 
@@ -8,30 +8,30 @@ import java.math.BigDecimal;
 @Data
 @NoArgsConstructor
 @Entity
-@Table(name="ASSOCIATED_SERVICE")
-public class AssociatedService {
+@Table(name = "ASSOCIATED_SERVICE")
+public class AccountAssociatedService {
 
     @EqualsAndHashCode.Include
     @Id
-    @Column(name="CODE_ASSOCIATED_SERVICE", length=16, nullable=false)
+    @Column(name = "CODE_ASSOCIATED_SERVICE", length = 16, nullable = false)
     private String codeAssociatedService;
 
-    @Column(name="NAME", length=64, nullable=false)
+    @Column(name = "NAME", length = 64, nullable = false)
     private String name;
 
-    @Column(name="ALLOW_PAYMENT", length=1, nullable=false)
+    @Column(name = "ALLOW_PAYMENT", length = 1, nullable = false)
     private String allowPayment;
 
-    @Column(name="PAYMENT_METHOD", length=3, nullable=true)
+    @Column(name = "PAYMENT_METHOD", length = 3, nullable = true)
     private String paymentMethod;
 
-    @Column(name="CHARGE_VAT", length=1, nullable=false)
+    @Column(name = "CHARGE_VAT", length = 1, nullable = false)
     private String chargeVat;
 
-    @Column(name="FEE", nullable=false)
+    @Column(name = "FEE", nullable = false)
     private BigDecimal fee;
 
-    public AssociatedService(String codeAssociatedService) {
+    public AccountAssociatedService(String codeAssociatedService) {
         this.codeAssociatedService = codeAssociatedService;
     }
 }

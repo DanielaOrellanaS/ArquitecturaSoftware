@@ -1,4 +1,4 @@
-package com.banquito.corepasivos.config.model;
+package com.banquito.corepasivos.product.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

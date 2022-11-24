@@ -1,4 +1,4 @@
-package com.banquito.corepasivos.geographic.model;
+package com.banquito.corepasivos.general.model;
 
 import java.math.BigDecimal;
 
