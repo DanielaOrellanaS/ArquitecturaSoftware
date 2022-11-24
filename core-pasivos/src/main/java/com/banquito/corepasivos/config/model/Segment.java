@@ -20,8 +20,6 @@ public class Segment {
     @Id 
     @Column(name="CODE_SEGMENT", length=16, nullable=false)
     private String codeSegment;
-    @Column(name="CODE_INTEREST_LOG", nullable=true)
-    private Integer codeClient;
     @Column(name="NAME", length=64, nullable=false)
     private String name;
     @Column(name="STATUS", length=3, nullable=false)
