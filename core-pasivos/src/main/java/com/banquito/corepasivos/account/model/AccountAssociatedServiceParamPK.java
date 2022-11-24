@@ -2,8 +2,6 @@ package com.banquito.corepasivos.account.model;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
-import javax.persistence.Entity;
-import javax.persistence.Id;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -15,23 +13,19 @@ import lombok.NoArgsConstructor;
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class AccountAssociatedServiceParamPK {
     @EqualsAndHashCode.Include
-   
+
     @Column(name = "CODE_PARAM", length = 16, nullable = false)
     private String codeParam;
 
-    
     @Column(name = "CODE_ASSOCIATED_SERVICE", length = 16, nullable = false)
     private String codeAssociatedService;
 
-    
     @Column(name = "CODE_ACCOUNT", nullable = false)
     private Integer codeAccount;
-    
-    
+
     @Column(name = "CODE_ACCOUNT_ASSO_SERVICE", length = 16, nullable = false)
     private String codeAccocuntAssociatedService;
-  
-    
+
     @Column(name = "CODE_PRODUCT", length = 32, nullable = false)
     private String codeProduct;
 
