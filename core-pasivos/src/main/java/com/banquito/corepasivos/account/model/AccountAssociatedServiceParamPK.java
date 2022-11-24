@@ -15,28 +15,28 @@ import lombok.NoArgsConstructor;
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class AccountAssociatedServiceParamPK {
     @EqualsAndHashCode.Include
-    @Id
+   
     @Column(name = "CODE_PARAM", length = 16, nullable = false)
     private String codeParam;
-    @EqualsAndHashCode.Include
-    @Id
+
+    
     @Column(name = "CODE_ASSOCIATED_SERVICE", length = 16, nullable = false)
     private String codeAssociatedService;
-    @EqualsAndHashCode.Include
-    @Id
-    @Column(name = "CODE_ACCOUNT", length = 4, nullable = false)
+
+    
+    @Column(name = "CODE_ACCOUNT", nullable = false)
     private Integer codeAccount;
-    @EqualsAndHashCode.Include
-    @Id
-    @Column(name = "CODE_ACCOUNT_ASSO_SERVICE", length = 4, nullable = false)
+    
+    
+    @Column(name = "CODE_ACCOUNT_ASSO_SERVICE", length = 16, nullable = false)
     private String codeAccocuntAssociatedService;
-    @EqualsAndHashCode.Include
-    @Id
+  
+    
     @Column(name = "CODE_PRODUCT", length = 32, nullable = false)
-    private int codeProduct;
+    private String codeProduct;
 
     public AccountAssociatedServiceParamPK(String codeParam, String codeAssociatedService, Integer codeAccount,
-            String codeAccocuntAssociatedService, int codeProduct) {
+            String codeAccocuntAssociatedService, String codeProduct) {
         this.codeParam = codeParam;
         this.codeAssociatedService = codeAssociatedService;
         this.codeAccount = codeAccount;

@@ -19,8 +19,9 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "ACCOUNT_ASSO_SERVICE_PARAM")
 public class AccountAssociatedServiceParam {
+    @EqualsAndHashCode.Include
     @EmbeddedId
-    private AccountAssociatedServiceParamPK pk;
+    private AccountAssociatedServiceParamPK accountAssociatedServiceParamPK;
 
     @Column(name = "STATUS", length = 3, nullable = false)
     private String status;
@@ -38,8 +39,8 @@ public class AccountAssociatedServiceParam {
     @Temporal(TemporalType.TIMESTAMP)
     private Timestamp endDate;
 
-    public AccountAssociatedServiceParam(AccountAssociatedServiceParamPK pk) {
-        this.pk = pk;
+    public AccountAssociatedServiceParam(AccountAssociatedServiceParamPK accountAssociatedServiceParamPK) {
+        this.accountAssociatedServiceParamPK = accountAssociatedServiceParamPK;
     }
 
 }
