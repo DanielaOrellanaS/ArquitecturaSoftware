@@ -1,5 +1,7 @@
 package com.banquito.corepasivos.account.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
@@ -11,7 +13,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Embeddable
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class AccountAssociatedServiceParamPK {
+public class AccountAssociatedServiceParamPK implements Serializable {
     @EqualsAndHashCode.Include
 
     @Column(name = "CODE_PARAM", length = 16, nullable = false)
