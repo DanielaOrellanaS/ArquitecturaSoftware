@@ -11,9 +11,9 @@ import javax.persistence.TemporalType;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.Getter;
+
 import lombok.NoArgsConstructor;
-import lombok.Setter;
+
 
 @Data
 @Entity
@@ -33,6 +33,11 @@ public class Holiday {
     private String type;
 
     public Holiday(Date date){
+<<<<<<< HEAD
         this.date = date;
     }
+=======
+        this.date=date;
+    }
+>>>>>>> 7f75f5f330743bd51c0f3ef6421d5c4e2482bab2
 }
