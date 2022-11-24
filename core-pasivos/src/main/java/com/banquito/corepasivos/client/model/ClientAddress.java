@@ -6,7 +6,6 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -14,7 +13,6 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "CLIENT_ADRESS")
 @NoArgsConstructor
-@AllArgsConstructor
 public class ClientAddress {
     @Id
     @Column(name = "CODE_CLIENT", nullable = false)
