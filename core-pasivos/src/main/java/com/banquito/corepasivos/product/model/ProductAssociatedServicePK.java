@@ -14,12 +14,9 @@ import lombok.NoArgsConstructor;
 public class ProductAssociatedServicePK {
     
     @EqualsAndHashCode.Include
-    @Id
     @Column(name = "CODE_ASSOCIATED_SERVICE", length = 16, nullable = false)
     private String codeAssociatedService;
 
-    @EqualsAndHashCode.Include
-    @Id
     @Column(name = "CODE_PRODUCT", length = 32, nullable = false)
     private String codeProduct;
 

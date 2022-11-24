@@ -1,5 +1,7 @@
 package com.banquito.corepasivos.product.model;
 
+import java.math.BigDecimal;
+
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
@@ -18,6 +20,6 @@ public class ProductAssociatedService {
     private ProductAssociatedService pk;
 
     @Column(name = "FEE", nullable = false, scale = 17, precision = 2)
-    private Double fee;
+    private BigDecimal fee;
 
 }

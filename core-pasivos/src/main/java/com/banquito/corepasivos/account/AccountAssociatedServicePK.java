@@ -14,17 +14,12 @@ import lombok.NoArgsConstructor;
 public class AccountAssociatedServicePK {
 
     @EqualsAndHashCode.Include
-    @Id
     @Column(name = "CODE_ACCOUNT", length = 4, nullable = false)
-    private int codeAccount;
+    private Integer codeAccount;
 
-    @EqualsAndHashCode.Include
-    @Id
     @Column(name = "CODE_ASSOCIATED_SERVICE", length = 16, nullable = false)
     private String codeAssociatedService;
 
-    @EqualsAndHashCode.Include
-    @Id
     @Column(name = "CODE_PRODUCT", length = 32, nullable = false)
     private String codeProduct;
 }
