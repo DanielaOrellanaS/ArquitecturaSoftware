@@ -1,7 +1,0 @@
-{
-    "java.checkstyle.properties": {
-        "basedir":  "${workspaceFolder}"
-    },
-    "java.checkstyle.configuration": "${workspaceFolder}\\.vscode\\checkstyle.xml",
-    "java.checkstyle.version": "10.4"
-}
