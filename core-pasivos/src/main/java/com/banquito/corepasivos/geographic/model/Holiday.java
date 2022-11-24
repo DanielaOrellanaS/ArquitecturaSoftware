@@ -11,9 +11,9 @@ import javax.persistence.TemporalType;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.Getter;
+
 import lombok.NoArgsConstructor;
-import lombok.Setter;
+
 
 @Data
 @Entity
