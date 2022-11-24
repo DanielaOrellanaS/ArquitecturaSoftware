@@ -33,6 +33,6 @@ public class Holiday {
     private String type;
 
     public Holiday(Date date){
-        this.date=date;
+        this.date = date;
     }
 }

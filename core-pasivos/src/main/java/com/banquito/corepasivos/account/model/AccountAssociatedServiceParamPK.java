@@ -1,4 +1,4 @@
-package com.banquito.corepasivos.account;
+package com.banquito.corepasivos.account.model;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
