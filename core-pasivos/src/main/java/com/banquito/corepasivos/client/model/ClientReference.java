@@ -1,6 +1,7 @@
 package com.banquito.corepasivos.client.model;
 
 import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -15,11 +16,11 @@ import lombok.NoArgsConstructor;
 @Table(name = "CLIENT_REFERENCE")
 public class ClientReference {
     @EqualsAndHashCode.Include
-    @Id
+    @EmbeddedId
     @Column(name = "CODE_REFERENCE", length = 8, nullable = false)
-    private String codeReference;
+    private Integer codeReference;
     @Column(name = "CODE_CLIENT", length = 4, nullable = false)
-    private int codeClient;
+    private Integer codeClient;
     @Column(name = "NAME", length = 64, nullable = false)
     private String name;
     @Column(name = "PHONE", length = 16, nullable = false)
