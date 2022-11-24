@@ -1,5 +1,6 @@
 package com.banquito.corepasivos.account.model;
 
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 
 import javax.persistence.Column;
@@ -47,10 +48,10 @@ public class Account {
     private Timestamp cancelDate;
 
     @Column(name = "PRESENT_BALANCE", scale = 17, precision = 2, nullable = false)
-    private Double presentBlance;
+    private BigDecimal presentBlance;
 
     @Column(name = "AVAILABLE_BALANCE", scale = 17, precision = 2, nullable = false)
-    private Double avalibleBalance;
+    private BigDecimal avalibleBalance;
 
     public Account(Integer codeAccount) {
         this.codeAccount = codeAccount;

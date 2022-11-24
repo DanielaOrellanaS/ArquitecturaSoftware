@@ -18,7 +18,7 @@ import lombok.NoArgsConstructor;
 @Table(name = "ACCOUNT_ASSOCIATED_SERVICE")
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class AccountAssociatedService {
-    
+
     @EmbeddedId
     private AccountAssociatedService pk;
 
