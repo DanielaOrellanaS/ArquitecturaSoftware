@@ -9,11 +9,12 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
-@Data
-@NoArgsConstructor
 @Entity
 @Table(name = "SEGMENT")
+@NoArgsConstructor
+@Data
 public class Segment {
+
     @EqualsAndHashCode.Include
     @Id
     @Column(name = "CODE_SEGMENT", length = 16, nullable = false)
