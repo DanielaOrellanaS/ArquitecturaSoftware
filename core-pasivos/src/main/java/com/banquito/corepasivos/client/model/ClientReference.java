@@ -1,8 +1,15 @@
 package com.banquito.corepasivos.client.model;
 
 import javax.persistence.Column;
+import javax.persistence.Embedded;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinColumns;
+import javax.persistence.ManyToOne;
+import javax.persistence.MapsId;
 import javax.persistence.Table;
 
 import lombok.Data;
@@ -16,13 +23,8 @@ import lombok.NoArgsConstructor;
 public class ClientReference {
 
     @EqualsAndHashCode.Include
-    @Id
-    @Column(name = "CODE_REFERENCE", nullable = false)
-    private Integer codeReference;
-    @Column(name = "IDENTIFICATION_TYPE", length = 3, nullable = false)
-    private String identificationType;
-    @Column(name = "IDENTIFICATION", length = 20, nullable = false)
-    private String identification;
+    @EmbeddedId
+    private ClientReferencePK clientReferencePK;
     @Column(name = "CODE_CLIENT", nullable = false)
     private Integer codeClient;
     @Column(name = "NAME", length = 64, nullable = false)
@@ -32,7 +34,11 @@ public class ClientReference {
     @Column(name = "RELATED", length = 64, nullable = true)
     private String related;
 
-    public ClientReference(Integer codeReference) {
-        this.codeReference = codeReference;
+    @ManyToOne
+    @MapsId("IDENTIFICATION")
+    private Client client;
+
+    public ClientReference(ClientReferencePK clientReferencePK) {
+        this.clientReferencePK = clientReferencePK;
     }
 }

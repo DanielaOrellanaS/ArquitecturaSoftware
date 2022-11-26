@@ -4,8 +4,10 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.banquito.corepasivos.client.model.ClientReference;
+import com.banquito.corepasivos.client.model.ClientReferencePK;
 
 @Repository
 public class ClientServiceImpl implements ClientReferenceService {
@@ -14,6 +16,7 @@ public class ClientServiceImpl implements ClientReferenceService {
     private ClientReference clientReference;
 
     @Override
+    @Transactional
     public ClientReference createClientReference(ClientReference clientReference) {
         // TODO Auto-generated method stub
         return null;
@@ -26,13 +29,15 @@ public class ClientServiceImpl implements ClientReferenceService {
     }
 
     @Override
-    public ClientReference updaClientReference(ClientReference clientReference, Integer codeReference) {
+    @Transactional
+    public ClientReference updateClientReference(ClientReference clientReference, ClientReferencePK clientReferencePK) {
         // TODO Auto-generated method stub
         return null;
     }
 
     @Override
-    public void deleteClientReference(Integer codeReference) {
+    @Transactional
+    public void deleteClientReference(ClientReferencePK clientReferencePK) {
         // TODO Auto-generated method stub
 
     }
