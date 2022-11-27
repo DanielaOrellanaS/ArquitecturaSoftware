@@ -2,42 +2,38 @@ package com.banquito.corepasivos.account.model;
 
 import java.io.Serializable;
 
-import javax.persistence.Column;
 import javax.persistence.Embeddable;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinColumns;
+
+import javax.persistence.OneToMany;
 
 import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+
 
 @Data
-@NoArgsConstructor
 @Embeddable
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
+
 public class AccountAssociatedServiceParamPK implements Serializable {
-    @EqualsAndHashCode.Include
 
-    @Column(name = "CODE_PARAM", length = 16, nullable = false)
-    private String codeParam;
+    @OneToMany
+   @JoinColumns({
+           @JoinColumn(name = "code_account", referencedColumnName = "code_account"),
+           @JoinColumn(name = "code_local_account", referencedColumnName = "code_local_account"),
+           @JoinColumn(name = "code_international_account", referencedColumnName = "code_international_account"),
+           @JoinColumn(name = "code_account_asso_service", referencedColumnName = "code_account_asso_service"),
+           @JoinColumn(name = "code_product", referencedColumnName = "code_product"),
+           @JoinColumn(name = "code_product_type", referencedColumnName = "code_product_type")
+   })
+   private AccountAssociatedService accountAssociatedService;
 
-    @Column(name = "CODE_ASSOCIATED_SERVICE", length = 16, nullable = false)
-    private String codeAssociatedService;
-
-    @Column(name = "CODE_ACCOUNT", nullable = false)
-    private Integer codeAccount;
-
-    @Column(name = "CODE_ACCOUNT_ASSO_SERVICE", length = 16, nullable = false)
-    private String codeAccocuntAssociatedService;
-
-    @Column(name = "CODE_PRODUCT", length = 32, nullable = false)
-    private String codeProduct;
-
-    public AccountAssociatedServiceParamPK(String codeParam, String codeAssociatedService, Integer codeAccount,
-            String codeAccocuntAssociatedService, String codeProduct) {
-        this.codeParam = codeParam;
-        this.codeAssociatedService = codeAssociatedService;
-        this.codeAccount = codeAccount;
-        this.codeAccocuntAssociatedService = codeAccocuntAssociatedService;
-        this.codeProduct = codeProduct;
-    }
+   @OneToMany
+   @JoinColumns({
+           @JoinColumn(name = "code_param", referencedColumnName = "code_param"),
+           @JoinColumn(name = "code_associated_service", referencedColumnName = "code_associated_service"),
+           
+   })
+   private AssociatedServiceParam associatedServiceParam;
+    
 
 }

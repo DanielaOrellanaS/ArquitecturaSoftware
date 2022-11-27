@@ -2,26 +2,42 @@ package com.banquito.corepasivos.account.model;
 
 import lombok.*;
 
+import java.math.BigDecimal;
+import java.sql.Date;
+
 import javax.persistence.*;
 
 @Data
 @NoArgsConstructor
-@IdClass(AccountAssociatedServicePK.class)
 @Entity
-@Table(name = "ASSOCIATED_SERVICE_PARAM")
+@Table(name = "account_asso_service_param")
 public class AccountAssociatedServiceParam {
 
-    @EqualsAndHashCode.Include
     @EmbeddedId
-    private AccountAssociatedServicePK associatedServiceParamKey;
+    private AccountAssociatedServicePK pk;
 
-    @Column(name = "VALUE_TYPE", length = 3, nullable = false)
-    private String valueType;
+    @Column(name = "status", length = 3, nullable = false)
+    private String status;
 
-    @Column(name = "NAME", length = 64, nullable = false)
-    private String name;
+    @Column(name = "text_value", length = 128, nullable = true)
+    private String textValue;
 
-    public AccountAssociatedServiceParam(AccountAssociatedServicePK associatedServiceParamKey) {
-        this.associatedServiceParamKey = associatedServiceParamKey;
+    @Column(name = "date_value", nullable = true)
+    @Temporal(TemporalType.DATE)
+    private Date dateValue;
+
+    @Column(name = "number_value",  nullable = true)
+    private BigDecimal numberValue;
+
+    @Column(name = "create_date", nullable = false)
+    @Temporal(TemporalType.DATE)
+    private Date createDate;
+
+    @Column(name = "end_date",  nullable = true)
+    @Temporal(TemporalType.DATE)
+    private Date endDate;
+
+    public AccountAssociatedServiceParam(AccountAssociatedServicePK pk) {
+        this.pk = pk;
     }
 }

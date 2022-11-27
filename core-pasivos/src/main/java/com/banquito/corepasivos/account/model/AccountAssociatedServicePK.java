@@ -1,30 +1,38 @@
 package com.banquito.corepasivos.account.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
-import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinColumns;
+import javax.persistence.OneToMany;
+
+import com.banquito.corepasivos.product.model.ProductAssociatedService;
+
 import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
 
 @Data
-@NoArgsConstructor
 @Embeddable
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class AccountAssociatedServicePK {
 
-    @EqualsAndHashCode.Include
-    @Id
-    @Column(name = "CODE_ACCOUNT", length = 4, nullable = false)
-    private int codeAccount;
+public class AccountAssociatedServicePK implements Serializable{
+   @OneToMany
+   @JoinColumns({
+           @JoinColumn(name = "code_account", referencedColumnName = "code_account"),
+           @JoinColumn(name = "code_local_account", referencedColumnName = "code_local_account"),
+           @JoinColumn(name = "code_international_account", referencedColumnName = "code_international_account"),
+           
+   })
+   private Account account;
 
-    @EqualsAndHashCode.Include
-    @Id
-    @Column(name = "CODE_ASSOCIATED_SERVICE", length = 16, nullable = false)
-    private String codeAssociatedService;
+   @OneToMany
+   @JoinColumns({
+           @JoinColumn(name = "code_associated_service", referencedColumnName = "code_associated_service"),
+           @JoinColumn(name = "code_product", referencedColumnName = "code_product"),
+           @JoinColumn(name = "code_product_type", referencedColumnName = "code_product_type"),
+           
+   })
+   private ProductAssociatedService productAssociatedService;
 
-    @EqualsAndHashCode.Include
-    @Id
-    @Column(name = "CODE_PRODUCT", length = 32, nullable = false)
-    private String codeProduct;
+   
 }

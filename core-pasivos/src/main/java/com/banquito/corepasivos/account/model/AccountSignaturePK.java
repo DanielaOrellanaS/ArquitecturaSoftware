@@ -13,7 +13,7 @@ import lombok.Data;
 
 @Data
 @Embeddable
-public class AccountClientPK implements Serializable {
+public class AccountSignaturePK implements Serializable {
 
     @ManyToOne
     @JoinColumns({
@@ -30,4 +30,5 @@ public class AccountClientPK implements Serializable {
             @JoinColumn(name = "identification", referencedColumnName = "identification")
     })
     private Client client;
+
 }

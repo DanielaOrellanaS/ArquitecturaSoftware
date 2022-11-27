@@ -10,32 +10,26 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-
 
 @Data
 @NoArgsConstructor
 @Entity
+@Table(name = "ACCOUNT_CLIENT")
+public class AccountClient implements Serializable {
 
-@Table(name="ACCOUNT_CLIENT")
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
-
-public class AccountClient implements Serializable{
-    
     @EmbeddedId
     private AccountClientPK pk;
-    
-    @Column(name="CREATE_DATE", nullable=false)
+
+    @Column(name = "CREATE_DATE", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Timestamp createDate;
 
-    public AccountClient (AccountClientPK pk, Timestamp createDate){
+    @Column(name = "STATUS", length = 3, nullable = false)
+    private String status;
+
+    public AccountClient(AccountClientPK pk) {
         this.pk = pk;
-        this.createDate = createDate;
     }
 
-    
-
-    
 }
