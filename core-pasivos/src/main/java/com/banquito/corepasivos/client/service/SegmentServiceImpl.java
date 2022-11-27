@@ -23,9 +23,13 @@ public class SegmentServiceImpl implements SegmentService {
     }
 
     @Override
-    public List<Segment> fetchSegments() {
-        // TODO Auto-generated method stub
-        return null;
+    public List<Segment> readSegments() {
+        return this.segmentRepository.findAll();
+    }
+
+    @Override
+    public Segment readSegmentByCode(String codeSegment) {
+        return this.segmentRepository.findByCodeSegment(codeSegment).get(0);
     }
 
     @Override

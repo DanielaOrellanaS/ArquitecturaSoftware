@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
+// import org.springframework.transaction.annotation.Transactional;
 
 import com.banquito.corepasivos.client.model.ClientReference;
 import com.banquito.corepasivos.client.model.ClientReferencePK;
@@ -17,27 +17,38 @@ public class ClientReferenceServiceImpl implements ClientReferenceService {
     private ClientReferenceRepository clientReferenceRepository;
 
     @Override
-    @Transactional
     public ClientReference createClientReference(ClientReference clientReference) {
         // TODO Auto-generated method stub
         return null;
     }
 
     @Override
-    public List<ClientReference> fetchClientReferences() {
-        // TODO Auto-generated method stub
-        return null;
+    public List<ClientReference> readAllClients() {
+        return this.clientReferenceRepository.findAll();
     }
 
     @Override
-    @Transactional
+    public ClientReference readByCode(Integer code) {
+        return this.clientReferenceRepository.findByKeyCode(code).get(0);
+    }
+
+    @Override
+    public List<ClientReference> readByClientIdentification(String identification) {
+        return this.clientReferenceRepository.findByKeyIdentification(identification);
+    }
+
+    @Override
+    public List<ClientReference> readByClientIdentificationType(String identificationType) {
+        return this.clientReferenceRepository.findByKeyIdentificationtype(identificationType);
+    }
+
+    @Override
     public ClientReference updateClientReference(ClientReference clientReference, ClientReferencePK clientReferencePK) {
         // TODO Auto-generated method stub
         return null;
     }
 
     @Override
-    @Transactional
     public void deleteClientReference(ClientReferencePK clientReferencePK) {
         // TODO Auto-generated method stub
 
