@@ -1,52 +1,65 @@
 package com.banquito.corepasivos.account.model;
 
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.*;
 
 import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
 @Entity
-@Table(name = "TRANSACTION")
+@Table(name = "account_transaction")
 public class AccountTransaction {
-    @EqualsAndHashCode.Include
-    @Column(name = "CODE_TRANSACTION", length = 16, nullable = false)
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ACCOUNT_TRANSACTION_SEQ")
+    @SequenceGenerator(sequenceName = "account_transaction_code_transaction_seq", allocationSize = 1, name = "ACCOUNT_TRANSACTION_SEQ")
+    @Column(name = "code_transaction", nullable = false)
     private Integer codeTransaction;
 
-    @Column(name = "CODE_ACCOUNT", nullable = true)
-    private Integer codeAccount;
+    @ManyToOne
+    @JoinColumns({
+            @JoinColumn(name = "code_account", referencedColumnName = "code_account"),
+            @JoinColumn(name = "code_local_account", referencedColumnName = "code_local_account"),
+            @JoinColumn(name = "code_international_account", referencedColumnName = "code_international_account")
+    })
+    private Account account;
 
-    @Column(name = "CODE_UNIQUE_TRANSACTION", nullable = false)
+    @Column(name = "code_unique_transaction", length = 64, nullable = false)
     private String codeUniqueTransaction;
 
-    @Column(name = "TYPE", nullable = false)
+    @Column(name = "type", length = 3, nullable = false)
     private String type;
 
-    @Column(name = "REFERENCE", nullable = false)
+    @Column(name = "recipient_account_number", length = 34, nullable = false)
+    private String recipientAccountNumber;
+
+    @Column(name = "recipient_type", length = 3, nullable = false)
+    private String recipientType;
+
+    @Column(name = "recipient_bank", length = 64, nullable = false)
+    private String recipientBank;
+
+    @Column(name = "reference", length = 64, nullable = false)
     private String reference;
 
-    @Column(name = "VALUE", scale = 17, precision = 2, nullable = false)
-    private Double value;
+    @Column(name = "description", length = 128, nullable = true)
+    private String description;
+
+    @Column(name = "value", nullable = false)
+    private BigDecimal value;
 
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "CREATE_DATE", nullable = false)
+    @Column(name = "create_date", nullable = false)
     private Timestamp createDate;
 
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "EXECUTE_DATE", nullable = false)
+    @Column(name = "execute_date", nullable = true)
     private Timestamp executeDate;
 
-    @Column(name = "STATUS", nullable = false)
+    @Column(name = "status", length = 3, nullable = false)
     private String status;
-
-    public AccountTransaction(Integer codeTransaction) {
-        this.codeTransaction = codeTransaction;
-    }
-
 }
