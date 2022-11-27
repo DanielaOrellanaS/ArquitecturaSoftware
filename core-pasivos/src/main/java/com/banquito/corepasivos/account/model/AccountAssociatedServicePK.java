@@ -27,10 +27,10 @@ public class AccountAssociatedServicePK implements Serializable{
    @Column(name = "code_product_type", length = 32, nullable = false)
    private String codeProductType;
 
-   public AccountAssociatedServicePK(Integer codeAcount, String codeLocalAcount, String codeInternationalAccount,
+   public AccountAssociatedServicePK(Integer codeAccount, String codeLocalAccount, String codeInternationalAccount,
    String codeAssociatedService, String codeProduct,String codeProductType){
-    this.codeAccount = codeAcount;
-    this.codeLocalAccount = codeLocalAcount;
+    this.codeAccount = codeAccount;
+    this.codeLocalAccount = codeLocalAccount;
     this.codeInternationalAccount = codeInternationalAccount;
     this.codeAssociatedService = codeAssociatedService;
     this.codeProduct = codeProduct;
