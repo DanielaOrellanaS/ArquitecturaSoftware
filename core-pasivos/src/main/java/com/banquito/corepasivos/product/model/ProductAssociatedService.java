@@ -1,23 +1,23 @@
 package com.banquito.corepasivos.product.model;
+import lombok.*;
 
-import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
-import javax.persistence.Table;
-
-
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import javax.persistence.*;
+import java.math.BigDecimal;
 
 @Data
 @NoArgsConstructor
 @Entity
-@Table(name = "ACCOUNT_ASSOCIATED_SERVICE_PARAM")
+@Table(name="PRODUCT_ASSOCIATED_SERVICE")
 public class ProductAssociatedService {
+
+    @EqualsAndHashCode.Include
     @EmbeddedId
-    private ProductAssociatedService pk;
+    private ProductAssociatedServicePK pk;
 
-    @Column(name = "FEE", nullable = false, scale = 17, precision = 2)
-    private Double fee;
+    @Column(name="FEE", scale=17, precision=2, nullable=false)
+    private BigDecimal fee;
 
+    public ProductAssociatedService(ProductAssociatedServicePK pk) {
+        this.pk = pk;
+    }
 }
