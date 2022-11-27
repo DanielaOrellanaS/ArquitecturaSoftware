@@ -9,7 +9,6 @@ import javax.persistence.*;
 
 @Data
 @NoArgsConstructor
-@IdClass(AccountAssociatedServicePK.class)
 @Entity
 @Table(name = "account_asso_service_param")
 public class AccountAssociatedServiceParam {
