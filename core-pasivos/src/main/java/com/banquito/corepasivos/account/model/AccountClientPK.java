@@ -2,42 +2,32 @@ package com.banquito.corepasivos.account.model;
 
 import java.io.Serializable;
 
-import javax.persistence.Column;
+import javax.persistence.JoinColumns;
 import javax.persistence.Embeddable;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
+import com.banquito.corepasivos.client.model.Client;
 
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Data
 @Embeddable
-@NoArgsConstructor
 public class AccountClientPK implements Serializable {
-    @Column(name = "CODE_ACCOUNT", nullable = false)
-    private Integer codeAccount;
 
-    @Column(name = "CODE_LOCAL_ACCOUNT", length = 20, nullable = false)
-    private String codeLocalAccount;
+    @ManyToOne
+    @JoinColumns({
+            @JoinColumn(name = "code_account", referencedColumnName = "code_account"),
+            @JoinColumn(name = "code_local_account", referencedColumnName = "code_local_account"),
+            @JoinColumn(name = "code_international_account", referencedColumnName = "code_international_account")
+    })
+    private Account account;
 
-    @Column(name = "CODE_INTERNATIONAL_ACCOUNT", length = 34, nullable = false)
-    private String codeInternationalAccount;
-
-    @Column(name = "CODE_CLIENT", nullable = false)
-    private Integer codeClient;
-
-    @Column(name = "IDENTIFICATION_TYPE", length = 3, nullable = false)
-    private String identificationType;
-
-    @Column(name = "IDENTIFICATION", length = 20, nullable = false)
-    private String identification;
-
-    public AccountClientPK(Integer codeAccount, String codeLocalAccount, String codeInternationalAccount,
-            Integer codeClient, String identificationType, String identification) {
-        this.codeAccount = codeAccount;
-        this.codeLocalAccount = codeLocalAccount;
-        this.codeInternationalAccount = codeInternationalAccount;
-        this.codeClient = codeClient;
-        this.identificationType = identificationType;
-        this.identification = identification;
-    }
-
+    @ManyToOne
+    @JoinColumns({
+            @JoinColumn(name = "code_client", referencedColumnName = "code_client"),
+            @JoinColumn(name = "identification_type", referencedColumnName = "identification_type"),
+            @JoinColumn(name = "identification", referencedColumnName = "identification")
+    })
+    private Client client;
 }

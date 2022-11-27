@@ -6,67 +6,59 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
-@Entity
 @Data
+@Entity
 @NoArgsConstructor
 @Table(name = "PRODUCT")
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Product {
 
     @Id
-    @EqualsAndHashCode.Include
-    @Column(name = "CODE_PRODUCT", nullable = false, length = 32)
+    @Column(name = "CODE_PRODUCT", length = 32, nullable = false)
     private String codeProduct;
 
-    @ManyToOne
-    @JoinColumn(name = "CODE_PRODUCT_TYPE", referencedColumnName = "CODE_PRODUCT", nullable = false)
-    private String codeProductType;
+    @Column(name = "CODE_PRODUCT_TYPE", length = 32, nullable = false)
+    private String productType;
 
-    @ManyToOne
-    @JoinColumn(name = "CODE_SEGMENT", referencedColumnName = "CODE_PRODUCT", nullable = true)
-    private String codeSegment;
+    @Column(name = "CODE_SEGMENT", length = 16, nullable = true)
+    private String segment;
 
-    @ManyToOne
-    @JoinColumn(name = "CODE_INTEREST_RATE", referencedColumnName = "CODE_PRODUCT", nullable = false)
-    private String codeInterestrate;
+    @Column(name = "CODE_INTEREST_RATE", length = 8, nullable = true)
+    private String interestRate;
 
-    @Column(name = "NAME", nullable = false, length = 64)
+    @Column(name = "NAME", length = 64, nullable = false)
     private String name;
 
-    @Column(name = "STATUS", nullable = false, length = 3)
+    @Column(name = "STATUS", length = 3, nullable = false)
     private String status;
 
     @Column(name = "START_DATE", nullable = false)
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date startDate;
 
     @Column(name = "END_DATE", nullable = true)
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date endDate;
 
-    @Column(name = "TEMPORALITY_ACCOUNT_STATE", nullable = true, length = 3)
+    @Column(name = "TEMPORALITY_ACCOUNT_STATE", length = 3, nullable = true)
     private String temporalityAccountState;
 
-    @Column(name = "USE_CHECKBOOK", nullable = true, length = 1)
+    @Column(name = "USE_CHECKBOOK", length = 1, nullable = true)
     private String useCheckbook;
 
-    @Column(name = "ALLOW_TRANSFERENCES", nullable = true, length = 1)
+    @Column(name = "ALLOW_TRANSFERENCES", length = 1, nullable = true)
     private String allowTransferences;
 
-    @Column(name = "TYPE_CLIENT", nullable = true, length = 3)
+    @Column(name = "TYPE_CLIENT", length = 3, nullable = true)
     private String typeClient;
 
-    @Column(name = "MIN_OPENING_BALANCE", nullable = false, scale = 17, precision = 2)
+    @Column(name = "MIN_OPENING_BALANCE", scale = 17, precision = 2, nullable = false)
     private BigDecimal minOpeningBalance;
 
     public Product(String codeProduct) {
