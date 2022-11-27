@@ -1,5 +1,7 @@
 package com.banquito.corepasivos.client.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
@@ -7,7 +9,7 @@ import lombok.Data;
 
 @Data
 @Embeddable
-public class ClientAddressPK {
+public class ClientAddressPK implements Serializable {
     @Column(name = "code_address", nullable = false)
     private Integer codeAddress;
     @Column(name = "code_client", nullable = false)

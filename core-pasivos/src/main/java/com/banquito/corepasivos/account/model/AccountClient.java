@@ -2,6 +2,8 @@ package com.banquito.corepasivos.account.model;
 
 import java.io.Serializable;
 import java.security.Timestamp;
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
@@ -23,7 +25,8 @@ public class AccountClient implements Serializable {
 
     @Column(name = "CREATE_DATE", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
-    private Timestamp createDate;
+    private Date createDate;
+    // private Timestamp createDate;
 
     @Column(name = "STATUS", length = 3, nullable = false)
     private String status;

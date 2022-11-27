@@ -5,6 +5,7 @@ import lombok.*;
 import javax.persistence.*;
 
 import java.sql.Timestamp;
+import java.util.Date;
 
 @Data
 @NoArgsConstructor
@@ -20,11 +21,13 @@ public class AccountAssociatedService {
 
     @Column(name="start_date", nullable=false)
     @Temporal(TemporalType.TIMESTAMP)
-    private Timestamp starDate;
+    // private Timestamp starDate;
+    private Date starDate;
     
     @Column(name="end_date", nullable=true)
     @Temporal(TemporalType.TIMESTAMP)
-    private Timestamp endDate;
+    // private Timestamp endDate;
+    private Date endDate;
 
     
     public AccountAssociatedService(AccountAssociatedServicePK pk) {

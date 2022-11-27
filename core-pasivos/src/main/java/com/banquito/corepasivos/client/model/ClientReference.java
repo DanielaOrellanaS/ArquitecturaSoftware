@@ -30,12 +30,12 @@ public class ClientReference {
     @Column(name = "RELATED", length = 64, nullable = true)
     private String related;
 
-    @ManyToOne
+/*     @ManyToOne
     @JoinColumns({
         @JoinColumn(name = "IDENTIFICATION", referencedColumnName = "IDENTIFICATION", insertable = false, updatable = false, nullable = true),
         @JoinColumn(name = "IDENTIFICATION_TYPE", referencedColumnName = "IDENTIFICATION_TYPE", insertable = false, updatable = false, nullable = true)
     })
-    private Client client;
+    private Client client; */
 
     public ClientReference(ClientReferencePK key) {
         this.key = key;

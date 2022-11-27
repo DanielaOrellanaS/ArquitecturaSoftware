@@ -2,6 +2,7 @@ package com.banquito.corepasivos.account.model;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.util.Date;
 
 import javax.persistence.*;
 
@@ -36,15 +37,18 @@ public class Account {
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "create_date", nullable = false)
-    private Timestamp createDate;
+    // private Timestamp createDate;
+    private Date createDate;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "last_update_date", nullable = false)
-    private Timestamp lastUpdateDate;
+    // private Timestamp lastUpdateDate;
+    private Date lastUpdateDate;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "close_date", nullable = true)
-    private Timestamp closeDate;
+    // private Timestamp closeDate;
+    private Date closeDate;
 
     @Column(name = "present_balance", nullable = false)
     private BigDecimal presentBalance;

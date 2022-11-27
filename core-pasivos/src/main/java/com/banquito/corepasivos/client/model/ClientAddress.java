@@ -28,14 +28,6 @@ public class ClientAddress {
     private String latitude;
     @Column(name = "longitude", length = 32, nullable = false)
     private String longitude;
-
-    @OneToOne
-    @JoinColumns({
-        @JoinColumn(name = "code_client", referencedColumnName = "code_client", insertable = false, updatable = false),
-        @JoinColumn(name = "identification_type", referencedColumnName = "identification_type", insertable = false, updatable = false),
-        @JoinColumn(name = "identification", referencedColumnName = "identification", insertable = false, updatable = false)
-    })
-    private Client client;
     
     public ClientAddress(ClientAddressPK pk) {
         this.pk = pk;

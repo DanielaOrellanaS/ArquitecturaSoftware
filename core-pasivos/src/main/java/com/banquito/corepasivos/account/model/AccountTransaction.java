@@ -1,7 +1,7 @@
 package com.banquito.corepasivos.account.model;
 
 import java.math.BigDecimal;
-import java.sql.Timestamp;
+import java.util.Date;
 
 import javax.persistence.*;
 
@@ -54,11 +54,13 @@ public class AccountTransaction {
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "create_date", nullable = false)
-    private Timestamp createDate;
+    // private Timestamp createDate;
+    private Date createDate;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "execute_date", nullable = true)
-    private Timestamp executeDate;
+    private Date executeDate;
+    // private Timestamp executeDate;
 
     @Column(name = "status", length = 3, nullable = false)
     private String status;

@@ -1,7 +1,7 @@
 package com.banquito.corepasivos.account.model;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
@@ -21,7 +21,7 @@ public class AccountSignature implements Serializable {
     @EmbeddedId
     private AccountSignaturePK pk;
 
-    @Column(name = "SIGNATURE_REFERENCE", length = 2048,  nullable = false)
+    @Column(name = "SIGNATURE_REFERENCE", length = 2048, nullable = false)
     private String signatureReference;
 
     @Column(name = "ROLE", length = 64, nullable = false)

@@ -13,7 +13,6 @@ import lombok.NoArgsConstructor;
 @Data
 @Entity
 @Table(name = "CLIENT_PHONE")
-@IdClass(PhonePK.class)
 @NoArgsConstructor
 public class Phone {
 

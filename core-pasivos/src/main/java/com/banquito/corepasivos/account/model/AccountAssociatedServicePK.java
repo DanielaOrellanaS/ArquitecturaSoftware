@@ -4,35 +4,23 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinColumns;
-import javax.persistence.OneToMany;
-
-import com.banquito.corepasivos.product.model.ProductAssociatedService;
 
 import lombok.Data;
 
 @Data
 @Embeddable
+public class AccountAssociatedServicePK implements Serializable {
+        @Column(name = "CODE_ACCOUNT", nullable = false)
+        private Integer codeAccount;
+        @Column(name = "CODE_LOCAL_ACCOUNT", length = 20, nullable = false)
+        private String codeLocalAccount;
+        @Column(name = "CODE_INTERNATIONAL_ACCOUNT", length = 34, nullable = false)
+        private String codeInternationalAccount;
+        @Column(name = "CODE_ASSOCIATED_SERVICE", length = 16, nullable = false)
+        private String associatedService;
+        @Column(name = "CODE_PRODUCT", length = 32, nullable = false)
+        private String codeProduct;
+        @Column(name = "CODE_PRODUCT_TYPE", length = 32, nullable = false)
+        private String codeProductType;
 
-public class AccountAssociatedServicePK implements Serializable{
-   @OneToMany
-   @JoinColumns({
-           @JoinColumn(name = "code_account", referencedColumnName = "code_account"),
-           @JoinColumn(name = "code_local_account", referencedColumnName = "code_local_account"),
-           @JoinColumn(name = "code_international_account", referencedColumnName = "code_international_account"),
-           
-   })
-   private Account account;
-
-   @OneToMany
-   @JoinColumns({
-           @JoinColumn(name = "code_associated_service", referencedColumnName = "code_associated_service"),
-           @JoinColumn(name = "code_product", referencedColumnName = "code_product"),
-           @JoinColumn(name = "code_product_type", referencedColumnName = "code_product_type"),
-           
-   })
-   private ProductAssociatedService productAssociatedService;
-
-   
 }

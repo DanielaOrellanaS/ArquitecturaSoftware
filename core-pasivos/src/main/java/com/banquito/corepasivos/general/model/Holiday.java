@@ -1,9 +1,10 @@
 package com.banquito.corepasivos.general.model;
 
-import java.sql.Date;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -13,12 +14,13 @@ import lombok.EqualsAndHashCode;
 
 import lombok.NoArgsConstructor;
 
-@Data
 @Entity
-@NoArgsConstructor
 @Table(name = "HOLIDAY")
+@Data
+@NoArgsConstructor
 public class Holiday {
     @EqualsAndHashCode.Include
+    @Id
     @Column(name = "DATE", nullable = false)
     @Temporal(TemporalType.DATE)
     private Date date;

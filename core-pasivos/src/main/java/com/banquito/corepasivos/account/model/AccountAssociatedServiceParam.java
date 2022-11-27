@@ -3,7 +3,7 @@ package com.banquito.corepasivos.account.model;
 import lombok.*;
 
 import java.math.BigDecimal;
-import java.sql.Date;
+import java.util.Date;
 
 import javax.persistence.*;
 
