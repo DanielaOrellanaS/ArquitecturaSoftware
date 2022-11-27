@@ -6,38 +6,50 @@ import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
 import lombok.Data;
-import lombok.EqualsAndHashCode;
+
 import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
 @Embeddable
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class AccountAssociatedServiceParamPK implements Serializable {
-    @EqualsAndHashCode.Include
 
-    @Column(name = "CODE_PARAM", length = 16, nullable = false)
+public class AccountAssociatedServiceParamPK implements Serializable {
+    
+
+    @Column(name = "code_param", length = 16, nullable = false)
     private String codeParam;
 
-    @Column(name = "CODE_ASSOCIATED_SERVICE", length = 16, nullable = false)
+    @Column(name = "code_associated_service", length = 16, nullable = false)
     private String codeAssociatedService;
 
-    @Column(name = "CODE_ACCOUNT", nullable = false)
+    @Column(name = "code_account", nullable = false)
     private Integer codeAccount;
 
-    @Column(name = "CODE_ACCOUNT_ASSO_SERVICE", length = 16, nullable = false)
-    private String codeAccocuntAssociatedService;
+    @Column(name = "code_local_account", length = 20, nullable = false)
+    private String codeLocalAccount;
 
-    @Column(name = "CODE_PRODUCT", length = 32, nullable = false)
+    @Column(name = "code_international_account", length = 34, nullable = false)
+    private String codeInternationalAccount;
+
+    @Column(name = "code_account_asso_service", length = 16, nullable = false)
+    private String codeAccountAssoService;
+    @Column(name = "code_product", length = 32, nullable = false)
     private String codeProduct;
+    @Column(name = "code_product_type", length = 32, nullable = false)
+    private String codeProductType;
 
     public AccountAssociatedServiceParamPK(String codeParam, String codeAssociatedService, Integer codeAccount,
-            String codeAccocuntAssociatedService, String codeProduct) {
+            String codeLocalAccount, String codeInternationalAccount,String codeAccountAssoService,
+            String codeProduct,String codeProductType ) {
         this.codeParam = codeParam;
         this.codeAssociatedService = codeAssociatedService;
         this.codeAccount = codeAccount;
-        this.codeAccocuntAssociatedService = codeAccocuntAssociatedService;
+        this.codeLocalAccount = codeLocalAccount;
+        this.codeInternationalAccount = codeInternationalAccount;
+        this.codeAccountAssoService = codeAccountAssoService;
         this.codeProduct = codeProduct;
+        this.codeProductType = codeProductType;
+        
     }
 
 }
