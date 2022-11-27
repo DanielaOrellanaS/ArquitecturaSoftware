@@ -38,7 +38,7 @@ public class AccountSignature implements Serializable {
     @Temporal(TemporalType.DATE)
     private Date startDate;
 
-    @Column(name = "END_DATE", nullable = false)
+    @Column(name = "END_DATE", nullable = true)
     @Temporal(TemporalType.DATE)
     private Date endDate;
 
