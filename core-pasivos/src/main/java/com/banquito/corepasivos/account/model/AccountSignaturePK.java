@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Data
 @Embeddable
 @NoArgsConstructor
-public class AccountClientPK implements Serializable {
+public class AccountSignaturePK implements Serializable {
     @Column(name = "CODE_ACCOUNT", nullable = false)
     private Integer codeAccount;
 
@@ -30,7 +30,7 @@ public class AccountClientPK implements Serializable {
     @Column(name = "IDENTIFICATION", length = 20, nullable = false)
     private String identification;
 
-    public AccountClientPK(Integer codeAccount, String codeLocalAccount, String codeInternationalAccount,
+    public AccountSignaturePK(Integer codeAccount, String codeLocalAccount, String codeInternationalAccount,
             Integer codeClient, String identificationType, String identification) {
         this.codeAccount = codeAccount;
         this.codeLocalAccount = codeLocalAccount;
@@ -39,5 +39,4 @@ public class AccountClientPK implements Serializable {
         this.identificationType = identificationType;
         this.identification = identification;
     }
-
 }

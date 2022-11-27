@@ -3,35 +3,31 @@ package com.banquito.corepasivos.account.model;
 import lombok.*;
 
 import javax.persistence.*;
-import java.math.BigDecimal;
+
+import java.sql.Timestamp;
 
 @Data
 @NoArgsConstructor
 @Entity
-@Table(name = "ASSOCIATED_SERVICE")
+@Table(name = "account_associated_service")
 public class AccountAssociatedService {
 
-    @EqualsAndHashCode.Include
-    @Id
-    @Column(name = "CODE_ASSOCIATED_SERVICE", length = 16, nullable = false)
-    private String codeAssociatedService;
+    @EmbeddedId
+    private AccountAssociatedServicePK pk;
 
-    @Column(name = "NAME", length = 64, nullable = false)
-    private String name;
+    @Column (name = "status", length = 3, nullable = false)
+    private String status;
 
-    @Column(name = "ALLOW_PAYMENT", length = 1, nullable = false)
-    private String allowPayment;
+    @Column(name="start_date", nullable=false)
+    @Temporal(TemporalType.TIMESTAMP)
+    private Timestamp starDate;
+    
+    @Column(name="end_date", nullable=true)
+    @Temporal(TemporalType.TIMESTAMP)
+    private Timestamp endDate;
 
-    @Column(name = "PAYMENT_METHOD", length = 3, nullable = true)
-    private String paymentMethod;
-
-    @Column(name = "CHARGE_VAT", length = 1, nullable = false)
-    private String chargeVat;
-
-    @Column(name = "FEE", nullable = false)
-    private BigDecimal fee;
-
-    public AccountAssociatedService(String codeAssociatedService) {
-        this.codeAssociatedService = codeAssociatedService;
+    
+    public AccountAssociatedService(AccountAssociatedServicePK pk) {
+        this.pk = pk;
     }
 }
