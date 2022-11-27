@@ -8,12 +8,13 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.banquito.corepasivos.client.model.ClientReference;
 import com.banquito.corepasivos.client.model.ClientReferencePK;
+import com.banquito.corepasivos.client.repository.ClientReferenceRepository;
 
 @Repository
-public class ClientServiceImpl implements ClientReferenceService {
+public class ClientReferenceServiceImpl implements ClientReferenceService {
 
     @Autowired
-    private ClientReference clientReference;
+    private ClientReferenceRepository clientReferenceRepository;
 
     @Override
     @Transactional
