@@ -3,17 +3,19 @@ package com.banquito.corepasivos.product.model;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
-@Entity
-@Table(name = "INTEREST_RATE")
 @Data
 @NoArgsConstructor
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@Entity
+@Table(name = "INTEREST_RATE")
+
+
 public class InterestRate {
 
     @EqualsAndHashCode.Include
@@ -33,4 +35,6 @@ public class InterestRate {
     public InterestRate(String codeInterestRate) {
         this.codeInterestRate = codeInterestRate;
     }
+
+
 }
