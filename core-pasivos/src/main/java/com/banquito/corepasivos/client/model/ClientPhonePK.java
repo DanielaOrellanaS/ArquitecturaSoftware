@@ -14,12 +14,12 @@ public class ClientPhonePK implements Serializable {
     @Column(name = "phone_number", length = 16, nullable = false)
     private String phoneNumber;
 
-    @Column(name = "code_client", length = 4, nullable = false)
+    @Column(name = "code_client", nullable = false)
     private Integer codeClient;
 
     @Column(name = "identification_type", length = 3, nullable = false)
-    private Integer identificationType;
+    private String identificationType;
 
     @Column(name = "identification", length = 20, nullable = false)
-    private Integer identification;
+    private String identification;
 }
