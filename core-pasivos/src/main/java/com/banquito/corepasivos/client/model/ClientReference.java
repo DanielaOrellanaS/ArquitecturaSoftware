@@ -1,24 +1,26 @@
 package com.banquito.corepasivos.client.model;
 
-import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
-import javax.persistence.Table;
-
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.*;
+
+@Data
+@NoArgsConstructor
 @Entity
 @Table(name = "client_reference")
-@NoArgsConstructor
-@Data
 public class ClientReference {
 
     @EmbeddedId
     private ClientReferencePK pk;
 
-    @Column(name = "code_client", nullable = false)
-    private Integer codeClient;
+    @ManyToOne
+    @JoinColumns({
+            @JoinColumn(name = "identification_type", referencedColumnName = "identification_type", insertable = false, updatable = false),
+            @JoinColumn(name = "identification", referencedColumnName = "identification", insertable = false, updatable = false),
+            @JoinColumn(name = "code_client", referencedColumnName = "code_client", insertable = false, updatable = false)
+    })
+    private Client client;
 
     @Column(name = "name", length = 64, nullable = false)
     private String name;
@@ -32,20 +34,4 @@ public class ClientReference {
     public ClientReference(ClientReferencePK pk) {
         this.pk = pk;
     }
-
-    /*
-     * @ManyToOne
-     * 
-     * @JoinColumns({
-     * 
-     * @JoinColumn(name = "IDENTIFICATION", referencedColumnName = "IDENTIFICATION",
-     * insertable = false, updatable = false, nullable = true),
-     * 
-     * @JoinColumn(name = "IDENTIFICATION_TYPE", referencedColumnName =
-     * "IDENTIFICATION_TYPE", insertable = false, updatable = false, nullable =
-     * true)
-     * })
-     * private Client client;
-     */
-
 }
