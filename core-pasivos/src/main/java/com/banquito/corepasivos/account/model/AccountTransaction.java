@@ -15,16 +15,16 @@ import lombok.NoArgsConstructor;
 public class AccountTransaction {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ACCOUNT_TRANSACTION_SEQ")
-    @SequenceGenerator(sequenceName = "account_transaction_code_transaction_seq", allocationSize = 1, name = "ACCOUNT_TRANSACTION_SEQ")
+    /*@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ACCOUNT_TRANSACTION_SEQ")
+    @SequenceGenerator(sequenceName = "account_transaction_code_transaction_seq", allocationSize = 1, name = "ACCOUNT_TRANSACTION_SEQ")*/
     @Column(name = "code_transaction", nullable = false)
     private Integer codeTransaction;
 
     @ManyToOne
     @JoinColumns({
-            @JoinColumn(name = "code_account", referencedColumnName = "code_account"),
-            @JoinColumn(name = "code_local_account", referencedColumnName = "code_local_account"),
-            @JoinColumn(name = "code_international_account", referencedColumnName = "code_international_account")
+            @JoinColumn(name = "code_account", referencedColumnName = "code_account", insertable = false, updatable = false),
+            @JoinColumn(name = "code_local_account", referencedColumnName = "code_local_account", insertable = false, updatable = false),
+            @JoinColumn(name = "code_international_account", referencedColumnName = "code_international_account" , insertable = false, updatable = false)
     })
     private Account account;
 
@@ -54,13 +54,11 @@ public class AccountTransaction {
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "create_date", nullable = false)
-    // private Timestamp createDate;
     private Date createDate;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "execute_date", nullable = true)
     private Date executeDate;
-    // private Timestamp executeDate;
 
     @Column(name = "status", length = 3, nullable = false)
     private String status;

@@ -2,15 +2,16 @@ package com.banquito.corepasivos.account.model;
 
 import lombok.Data;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
 import java.io.Serializable;
 
 @Data
 @Embeddable
 public class AccountPK implements Serializable {
 
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ACCOUNT_SEQ")
-    @SequenceGenerator(sequenceName = "account_code_account_seq", allocationSize = 1, name = "ACCOUNT_SEQ")
+    /*@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ACCOUNT_SEQ")
+    @SequenceGenerator(sequenceName = "account_code_account_seq", allocationSize = 1, name = "ACCOUNT_SEQ")*/
     @Column(name = "code_account", nullable = false)
     private Integer codeAccount;
 

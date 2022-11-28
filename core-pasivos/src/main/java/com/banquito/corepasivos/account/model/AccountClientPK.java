@@ -16,16 +16,21 @@ import lombok.Data;
 @Embeddable
 public class AccountClientPK implements Serializable {
 
-        @Column(name = "CODE_ACCOUNT", nullable = false)
+        @Column(name = "code_account", nullable = false)
         private Integer codeAccount;
-        @Column(name = "CODE_LOCAL_ACCOUNT", length = 20, nullable = false)
+
+        @Column(name = "code_local_account", length = 20, nullable = false)
         private String codeLocalAccount;
-        @Column(name = "CODE_INTERNATIONAL_ACCOUNT", length = 34, nullable = false)
+
+        @Column(name = "code_international_account", length = 34, nullable = false)
         private String codeInternationalAccount;
-        @Column(name = "CODE_CLIENT", nullable = false)
+
+        @Column(name = "code_client", nullable = false)
         private Integer codeClient;
-        @Column(name = "IDENTIFICATION_TYPE", length = 3, nullable = false)
+
+        @Column(name = "identification_type", length = 3, nullable = false)
         private String identificationType;
-        @Column(name = "IDENTIFICATION", length = 20, nullable = false)
+
+        @Column(name = "identification", length = 20, nullable = false)
         private String identification;
 }

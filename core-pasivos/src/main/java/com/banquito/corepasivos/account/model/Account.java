@@ -1,14 +1,14 @@
 package com.banquito.corepasivos.account.model;
 
-import java.math.BigDecimal;
-import java.sql.Timestamp;
-import java.util.Date;
+import com.banquito.corepasivos.general.model.Branch;
+import com.banquito.corepasivos.product.model.Product;
+import com.banquito.corepasivos.product.model.ProductAssociatedService;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import java.math.BigDecimal;
+import java.util.Date;
 
 @Data
 @NoArgsConstructor
@@ -16,38 +16,37 @@ import lombok.NoArgsConstructor;
 @Table(name = "account")
 public class Account {
 
-    @EqualsAndHashCode.Include
     @EmbeddedId
-    AccountPK accountPK;
+    AccountPK pk;
 
-    @Column(name = "code_product", length = 32, nullable = false)
-    private String codeProduct;
+    @ManyToOne
+    @JoinColumns({
+            @JoinColumn(name = "code_product", referencedColumnName = "code_product", insertable = false, updatable = false),
+            @JoinColumn(name = "code_product_type", referencedColumnName = "code_product_type", insertable = false, updatable = false),
+    })
+    private Product product;
 
-    @Column(name = "code_branch", length = 3, nullable = false)
-    private String codeBranch;
-
-    @Column(name = "entity_bank_code", length = 16, nullable = false)
-    private String entityBankCode;
-
-    @Column(name = "international_bank_code", length = 16, nullable = false)
-    private String internationalBankCode;
+    @ManyToOne
+    @JoinColumns({
+            @JoinColumn(name = "code_branch", referencedColumnName = "code_branch", insertable = false, updatable = false),
+            @JoinColumn(name = "entity_bank_code", referencedColumnName = "entity_bank_code", insertable = false, updatable = false),
+            @JoinColumn(name = "international_bank_code", referencedColumnName = "international_bank_code", insertable = false, updatable = false)
+    })
+    private Branch branch;
 
     @Column(name = "status", length = 3, nullable = false)
     private String status;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "create_date", nullable = false)
-    // private Timestamp createDate;
     private Date createDate;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "last_update_date", nullable = false)
-    // private Timestamp lastUpdateDate;
     private Date lastUpdateDate;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "close_date", nullable = true)
-    // private Timestamp closeDate;
     private Date closeDate;
 
     @Column(name = "present_balance", nullable = false)
@@ -57,6 +56,6 @@ public class Account {
     private BigDecimal availableBalance;
 
     public Account(AccountPK accountPK) {
-        this.accountPK = accountPK;
+        this.pk = accountPK;
     }
 }
