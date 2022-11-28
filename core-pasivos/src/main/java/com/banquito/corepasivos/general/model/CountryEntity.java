@@ -10,20 +10,17 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "country_entity")
+@Table(name = "COUNTRY_ENTITY")
 @Data
 @NoArgsConstructor
 public class CountryEntity {
-
     @Id
     @EqualsAndHashCode.Include
-    @Column(name = "code_country", length = 2, nullable = false)
+    @Column(name = "CODE_COUNTRY", length = 2, nullable = false)
     private String codeCountry;
-
-    @Column(name = "code_phone", length = 4, nullable = false)
+    @Column(name = "CODE_PHONE", length = 4, nullable = false)
     private String codePhone;
-
-    @Column(name = "name", length = 64, nullable = false)
+    @Column(name = "NAME", length = 64, nullable = false)
     private String name;
 
     public CountryEntity(String codeCountry) {
