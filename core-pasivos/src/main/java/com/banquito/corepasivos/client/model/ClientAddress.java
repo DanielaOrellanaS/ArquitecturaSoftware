@@ -1,6 +1,5 @@
 package com.banquito.corepasivos.client.model;
 
-import com.banquito.corepasivos.general.model.LocationEntity;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
