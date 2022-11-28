@@ -5,16 +5,16 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.banquito.corepasivos.general.service.BranchService;
+import com.banquito.corepasivos.general.service.HolidayService;
 
 @RestController
-@RequestMapping("/branch")
-public class BranchController {
+@RequestMapping("/holidays")
+public class HolidayController {
     @Autowired
-    BranchService branchService;
+    HolidayService holidayService;
 
     @GetMapping("/all")
-    public Object getBranch() {
-        return this.branchService.getAllBranches();
+    public Object getHoliday() {
+        return this.holidayService.getAllHolidays();
     }
 }

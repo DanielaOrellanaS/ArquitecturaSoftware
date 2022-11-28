@@ -5,16 +5,16 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.banquito.corepasivos.general.service.BranchService;
+import com.banquito.corepasivos.general.service.CountryEntityService;
 
 @RestController
-@RequestMapping("/branch")
-public class BranchController {
+@RequestMapping("/countryentity")
+public class CountryEntityController {
     @Autowired
-    BranchService branchService;
+    CountryEntityService countryEntityService;
 
     @GetMapping("/all")
-    public Object getBranch() {
-        return this.branchService.getAllBranches();
+    public Object getCountryEntity() {
+        return this.countryEntityService.getAllCountryEntities();
     }
 }

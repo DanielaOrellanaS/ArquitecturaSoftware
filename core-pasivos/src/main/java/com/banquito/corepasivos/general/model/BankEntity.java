@@ -9,19 +9,16 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "bank_entity")
+@Table(name = "BANK_ENTITY")
 @Data
 @NoArgsConstructor
 public class BankEntity {
-
     @EmbeddedId
-    private BankEntityPK pk;
-
-    @Column(name = "name", length = 64, nullable = false)
+    private BankEntityPK key;
+    @Column(name = "NAME", length = 64, nullable = false)
     private String name;
 
-    public BankEntity(BankEntityPK pk) {
-        this.pk = pk;
+    public BankEntity(BankEntityPK key) {
+        this.key = key;
     }
-
 }
