@@ -11,7 +11,7 @@ import java.util.List;
 public class AccountSignatureServiceImpl implements AccountSignatureService {
 
     @Autowired
-    AccountSignatureRepository accountSignatureRepository ;
+    AccountSignatureRepository accountSignatureRepository;
 
     @Override
     public List<AccountSignature> getAllAccountSignatures(){
