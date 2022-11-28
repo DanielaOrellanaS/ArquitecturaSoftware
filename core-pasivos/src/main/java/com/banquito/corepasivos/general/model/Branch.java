@@ -27,10 +27,13 @@ public class Branch {
 
     @Column(name = "NAME", length = 64, nullable = false)
     private String name;
-
-    @ManyToOne
-    @JoinColumn(name = "code_location", referencedColumnName = "code_location", insertable = false, updatable = false, nullable = true)
-    private LocationEntity locationEntity;
+    /*
+     * @ManyToOne
+     * 
+     * @JoinColumn(name = "code_location", referencedColumnName = "code_location",
+     * insertable = false, updatable = false, nullable = true)
+     * private LocationEntity locationEntity;
+     */
 
     @ManyToOne
     @JoinColumns({

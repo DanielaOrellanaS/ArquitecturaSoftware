@@ -27,16 +27,23 @@ public class LocationEntity {
 
     @Column(name = "zip_code", length = 16, nullable = false)
     private String zipCode;
-
-    @ManyToOne
-    @JoinColumns({
-        @JoinColumn(name = "code_country", referencedColumnName = "code_country", insertable = false, updatable = false, nullable = true),
-    })
-    private CountryEntity countryEntity;
-
-    @ManyToOne
-    @JoinColumns({
-        @JoinColumn(name = "geo_level", referencedColumnName = "geo_level", insertable = false, updatable = false, nullable = true),
-    })
-    private StructureEntity structureEntity;
+    /*
+     * @ManyToOne
+     * 
+     * @JoinColumns({
+     * 
+     * @JoinColumn(name = "code_country", referencedColumnName = "code_country",
+     * insertable = false, updatable = false, nullable = true),
+     * })
+     * private CountryEntity countryEntity;
+     * 
+     * @ManyToOne
+     * 
+     * @JoinColumns({
+     * 
+     * @JoinColumn(name = "geo_level", referencedColumnName = "geo_level",
+     * insertable = false, updatable = false, nullable = true),
+     * })
+     * private StructureEntity structureEntity;
+     */
 }
