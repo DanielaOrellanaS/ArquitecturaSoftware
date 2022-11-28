@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 public class Client {
 
     @EmbeddedId
-    private ClientPK clientPK;
+    private ClientPK pk;
 
     @Column(name = "client_type", nullable = false, length = 3)
     private String clientType;
@@ -98,7 +98,7 @@ public class Client {
     @JoinColumn(name = "code_segment", referencedColumnName = "code_segment", insertable = false, updatable = false)
     private Segment codeSegment;
 
-    public Client(ClientPK clientPK) {
-        this.clientPK = clientPK;
+    public Client(ClientPK pk) {
+        this.pk = pk;
     }
 }
