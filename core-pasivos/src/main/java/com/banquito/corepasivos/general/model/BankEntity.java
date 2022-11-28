@@ -14,11 +14,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class BankEntity {
     @EmbeddedId
-    private BankEntityPK key;
+    private BankEntityPK pk;
     @Column(name = "NAME", length = 64, nullable = false)
     private String name;
 
-    public BankEntity(BankEntityPK key) {
-        this.key = key;
+    public BankEntity(BankEntityPK pk) {
+        this.pk = pk;
     }
 }
