@@ -96,7 +96,7 @@ public class Client {
 
     @ManyToOne
     @JoinColumn(name = "code_segment", referencedColumnName = "code_segment", insertable = false, updatable = false)
-    private Segment segment;
+    private Segment codeSegment;
 
     public Client(ClientPK clientPK) {
         this.clientPK = clientPK;
