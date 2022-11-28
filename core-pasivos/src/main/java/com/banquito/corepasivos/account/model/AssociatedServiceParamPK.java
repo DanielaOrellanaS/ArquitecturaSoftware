@@ -11,8 +11,9 @@ import lombok.Data;
 @Embeddable
 public class AssociatedServiceParamPK implements Serializable {
 
-    @Column(name = "CODE_PARAM", length = 16, nullable = false)
+    @Column(name = "code_param", length = 16, nullable = false)
     private String codeParam;
-    @Column(name = "CODE_ASSOCIATED_SERVICE", length = 16, nullable = false)
+
+    @Column(name = "code_associated_service", length = 16, nullable = false)
     private String codeAssociatedService;
 }

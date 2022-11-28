@@ -15,6 +15,27 @@ public class AccountAssociatedServiceParam {
     @EmbeddedId
     private AccountAssociatedServicePK pk;
 
+    @Column(name = "status", length = 3, nullable = false)
+    private String status;
+
+    @Column(name = "text_value", length = 128, nullable = true)
+    private String textValue;
+
+    @Column(name = "date_value", nullable = true)
+    @Temporal(TemporalType.DATE)
+    private Date dateValue;
+
+    @Column(name = "number_value", nullable = true)
+    private BigDecimal numberValue;
+
+    @Temporal(TemporalType.DATE)
+    @Column(name = "create_date", nullable = false)
+    private Date createDate;
+
+    @Temporal(TemporalType.DATE)
+    @Column(name = "end_date", nullable = true)
+    private Date endDate;
+
     @ManyToOne
     @JoinColumns({
             @JoinColumn(name = "code_param", referencedColumnName = "code_param", insertable = false, updatable = false),
@@ -31,27 +52,6 @@ public class AccountAssociatedServiceParam {
             @JoinColumn(name = "code_product_type", referencedColumnName = "code_product_type", insertable = false, updatable = false),
     })
     private AccountAssociatedService associatedService;
-
-    @Column(name = "status", length = 3, nullable = false)
-    private String status;
-
-    @Column(name = "text_value", length = 128, nullable = true)
-    private String textValue;
-
-    @Column(name = "date_value", nullable = true)
-    @Temporal(TemporalType.DATE)
-    private Date dateValue;
-
-    @Column(name = "number_value",  nullable = true)
-    private BigDecimal numberValue;
-
-    @Temporal(TemporalType.DATE)
-    @Column(name = "create_date", nullable = false)
-    private Date createDate;
-
-    @Temporal(TemporalType.DATE)
-    @Column(name = "end_date",  nullable = true)
-    private Date endDate;
 
     public AccountAssociatedServiceParam(AccountAssociatedServicePK pk) {
         this.pk = pk;

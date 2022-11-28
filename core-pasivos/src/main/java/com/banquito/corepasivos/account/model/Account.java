@@ -2,7 +2,6 @@ package com.banquito.corepasivos.account.model;
 
 import com.banquito.corepasivos.general.model.Branch;
 import com.banquito.corepasivos.product.model.Product;
-import com.banquito.corepasivos.product.model.ProductAssociatedService;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -17,22 +16,7 @@ import java.util.Date;
 public class Account {
 
     @EmbeddedId
-    AccountPK pk;
-
-    @ManyToOne
-    @JoinColumns({
-            @JoinColumn(name = "code_product", referencedColumnName = "code_product", insertable = false, updatable = false),
-            @JoinColumn(name = "code_product_type", referencedColumnName = "code_product_type", insertable = false, updatable = false),
-    })
-    private Product product;
-
-    @ManyToOne
-    @JoinColumns({
-            @JoinColumn(name = "code_branch", referencedColumnName = "code_branch", insertable = false, updatable = false),
-            @JoinColumn(name = "entity_bank_code", referencedColumnName = "entity_bank_code", insertable = false, updatable = false),
-            @JoinColumn(name = "international_bank_code", referencedColumnName = "international_bank_code", insertable = false, updatable = false)
-    })
-    private Branch branch;
+    private AccountPK pk;
 
     @Column(name = "status", length = 3, nullable = false)
     private String status;
@@ -54,6 +38,21 @@ public class Account {
 
     @Column(name = "available_balance", nullable = false)
     private BigDecimal availableBalance;
+
+    @ManyToOne
+    @JoinColumns({
+            @JoinColumn(name = "code_product", referencedColumnName = "code_product", insertable = false, updatable = false),
+            @JoinColumn(name = "code_product_type", referencedColumnName = "code_product_type", insertable = false, updatable = false),
+    })
+    private Product product;
+
+    @ManyToOne
+    @JoinColumns({
+            @JoinColumn(name = "code_branch", referencedColumnName = "code_branch", insertable = false, updatable = false),
+            @JoinColumn(name = "entity_bank_code", referencedColumnName = "entity_bank_code", insertable = false, updatable = false),
+            @JoinColumn(name = "international_bank_code", referencedColumnName = "international_bank_code", insertable = false, updatable = false)
+    })
+    private Branch branch;
 
     public Account(AccountPK accountPK) {
         this.pk = accountPK;
