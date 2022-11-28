@@ -9,8 +9,6 @@ import java.io.Serializable;
 @Embeddable
 public class ClientPK implements Serializable {
 
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "CLIENT_SEQ")
-    @SequenceGenerator(sequenceName = "client_code_client_seq", allocationSize = 1, name = "CLIENT_SEQ")
     @Column(name = "CODE_CLIENT", nullable = false)
     private Integer codeClient;
 

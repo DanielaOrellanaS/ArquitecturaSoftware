@@ -1,12 +1,10 @@
 package com.banquito.corepasivos.client.model;
 
 import java.sql.Date;
-import java.sql.Timestamp;
 
 import javax.persistence.*;
 
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @Data
