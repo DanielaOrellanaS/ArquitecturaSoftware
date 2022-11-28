@@ -1,24 +1,21 @@
 package com.banquito.corepasivos.client.model;
 
-import java.io.Serializable;
+import lombok.Data;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
+import java.io.Serializable;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
-@Data
 @Embeddable
-@NoArgsConstructor
+@Data
 public class ClientReferencePK implements Serializable {
 
-    @Column(name = "CODE_REFERENCE", nullable = false)
+    @Column(name = "code_reference", nullable = false)
     private Integer code;
 
-    @Column(name = "IDENTIFICATION_TYPE", length = 3, nullable = false)
-    private String identificationtype;
+    @Column(name = "identification_type", length = 3, nullable = false)
+    private String identificationType;
 
-    @Column(name = "IDENTIFICATION", length = 20, nullable = false)
+    @Column(name = "identification", length = 20, nullable = false)
     private String identification;
 }
