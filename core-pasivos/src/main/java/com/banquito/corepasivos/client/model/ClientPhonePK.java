@@ -1,25 +1,25 @@
 package com.banquito.corepasivos.client.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.Embeddable;
 
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
-@Entity
-@Table(name = "client_phone")
 @Data
-@NoArgsConstructor
-public class Phone {
-    @EmbeddedId
-    private PhonePK pk;
+@Embeddable
+public class ClientPhonePK implements Serializable {
 
-    @Column(name = "type", length = 3, nullable = false)
-    private String type;
+    @Column(name = "phone_number", length = 16, nullable = false)
+    private String phoneNumber;
 
-    public Phone(PhonePK pk) {
-        this.pk = pk;
-    }
+    @Column(name = "code_client", length = 4, nullable = false)
+    private Integer codeClient;
+
+    @Column(name = "identification_type", length = 3, nullable = false)
+    private Integer identificationType;
+
+    @Column(name = "identification", length = 20, nullable = false)
+    private Integer identification;
 }
