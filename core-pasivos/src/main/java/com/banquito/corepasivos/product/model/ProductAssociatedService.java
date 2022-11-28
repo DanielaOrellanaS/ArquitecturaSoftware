@@ -14,6 +14,7 @@ public class ProductAssociatedService {
 
     @EmbeddedId
     private ProductAssociatedServicePK pk;
+
     @Column(name = "fee", scale = 17, precision = 2, nullable = false)
     private BigDecimal fee;
 

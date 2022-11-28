@@ -28,28 +28,39 @@ public class Product {
 
     @Column(name = "code_product_type", length = 32, nullable = false)
     private String codeProductType;
+
     @Column(name = "code_segment", length = 16, nullable = false)
     private String codeSegment;
+
     @Column(name = "code_segment", length = 8, nullable = false)
     private String codeInterestRate;
+
     @Column(name = "name", length = 64, nullable = false)
     private String name;
+
     @Column(name = "status", length = 3, nullable = false)
     private String status;
+
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "start_date", nullable = false)
     private Date startDate;
+
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "end_date", nullable = true)
     private Date endDate;
+
     @Column(name = "temporality_account_state", length = 3)
     private String temporalityAccountState;
+
     @Column(name = "use_checkbook", length = 1)
     private String useCheckbook;
+
     @Column(name = "allow_transferences", length = 1)
     private String allowTransferences;
+
     @Column(name = "type_client", length = 3)
     private String typeClient;
+
     @Column(name = "min_opening_balance", scale = 17, precision = 2, nullable = false)
     private BigDecimal minOpeningBalance;
 
@@ -69,5 +80,4 @@ public class Product {
         this.pk = pk;
     }
 
-    
 }

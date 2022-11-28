@@ -12,8 +12,10 @@ import lombok.NoArgsConstructor;
 @Embeddable
 @NoArgsConstructor
 public class ProductPK implements Serializable {
+
     @Column(name = "code_product", length = 32, nullable = false)
     private String codeProduct;
+
     @Column(name = "code_product_type", length = 32, nullable = false)
     private String codeProductType;
 }

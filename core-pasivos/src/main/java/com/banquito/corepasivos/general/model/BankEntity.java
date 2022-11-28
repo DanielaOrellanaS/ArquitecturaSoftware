@@ -13,8 +13,10 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class BankEntity {
+
     @EmbeddedId
     private BankEntityPK pk;
+
     @Column(name = "name", length = 64, nullable = false)
     private String name;
 

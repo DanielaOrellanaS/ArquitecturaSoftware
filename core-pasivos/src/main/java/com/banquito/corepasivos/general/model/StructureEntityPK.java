@@ -15,6 +15,7 @@ public class StructureEntityPK implements Serializable {
 
     @Column(name = "code_country", length = 2, nullable = false)
     private String codeCountry;
+
     @Column(name = "geo_level", nullable = false)
     private Integer geoLevel;
 }

@@ -12,8 +12,10 @@ import lombok.NoArgsConstructor;
 @Embeddable
 @NoArgsConstructor
 public class BankEntityPK implements Serializable {
+
     @Column(name = "entity_bank_code", length = 16, nullable = false)
     private String entityBankCode;
+
     @Column(name = "international_bank_code", length = 16, nullable = false)
     private String internationalBankCode;
 }

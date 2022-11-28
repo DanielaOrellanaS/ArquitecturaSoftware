@@ -10,6 +10,7 @@ import javax.persistence.*;
 @Embeddable
 @NoArgsConstructor
 public class ProductAssociatedServicePK implements Serializable {
+
     @Column(name = "code_associated_service", length = 16, nullable = false)
     private String codeAssociatedService;
 

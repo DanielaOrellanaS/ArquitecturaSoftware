@@ -14,12 +14,15 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class CountryEntity {
+
     @Id
     @EqualsAndHashCode.Include
     @Column(name = "code_country", length = 2, nullable = false)
     private String codeCountry;
+
     @Column(name = "code_phone", length = 4, nullable = false)
     private String codePhone;
+
     @Column(name = "name", length = 64, nullable = false)
     private String name;
 

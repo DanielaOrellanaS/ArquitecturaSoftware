@@ -12,8 +12,6 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import lombok.Data;
-import lombok.EqualsAndHashCode;
-
 import lombok.NoArgsConstructor;
 
 @Entity
@@ -21,15 +19,18 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class Holiday {
-    @EqualsAndHashCode.Include
+
     @Id
-    @Column(name = "holiday_date", nullable = false)
     @Temporal(TemporalType.DATE)
+    @Column(name = "holiday_date", nullable = false)
     private Date date;
+
     @Column(name = "code_location", nullable = true)
     private Integer codeLocation;
+
     @Column(name = "name", length = 64, nullable = false)
     private String name;
+
     @Column(name = "type", length = 3, nullable = false)
     private String type;
 

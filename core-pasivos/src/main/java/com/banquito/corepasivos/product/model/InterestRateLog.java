@@ -24,16 +24,21 @@ public class InterestRateLog {
     @Id
     @Column(name = "code_interest_log", length = 8, nullable = false)
     private String codeInterestLog;
+
     @Column(name = "code_interest_rate", length = 8, nullable = false)
     private String codeInterestRate;
+
     @Column(name = "value", scale = 5, precision = 2, nullable = false)
     private BigDecimal value;
+
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "start_date", nullable = false)
-    @Temporal(TemporalType.TIMESTAMP)
     private Date startDate;
-    @Column(name = "end_date", nullable = true)
+
     @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "end_date", nullable = true)
     private Date endDate;
+
     @Column(name = "status", length = 3, nullable = false)
     private String status;
 

@@ -10,7 +10,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @Entity
@@ -19,21 +18,26 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class LocationEntity {
 
-    @EqualsAndHashCode.Include
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "code_location", nullable = false)
     private Integer codeLocation;
+
     @Column(name = "code_location_parent", nullable = false)
     private Integer codeLocationParent;
+
     @Column(name = "level", nullable = false)
     private Integer level;
+
     @Column(name = "code_country", length = 2, nullable = false)
     private String codeCountry;
+
     @Column(name = "name", length = 64, nullable = false)
     private String name;
+
     @Column(name = "phone_code_area", length = 2, nullable = false)
     private String phoneCodeArea;
+
     @Column(name = "zip_code", length = 16, nullable = false)
     private String zipCode;
 
