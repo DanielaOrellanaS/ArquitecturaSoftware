@@ -10,18 +10,18 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "SEGMENT")
+@Table(name = "segment")
 @NoArgsConstructor
 @Data
 public class Segment {
 
     @EqualsAndHashCode.Include
     @Id
-    @Column(name = "CODE_SEGMENT", length = 16, nullable = false)
+    @Column(name = "code_segment", length = 16, nullable = false)
     private String codeSegment;
-    @Column(name = "NAME", length = 64, nullable = false)
+    @Column(name = "name", length = 64, nullable = false)
     private String name;
-    @Column(name = "STATUS", length = 3, nullable = false)
+    @Column(name = "status", length = 3, nullable = false)
     private String status;
 
     public Segment(String codeSegment) {

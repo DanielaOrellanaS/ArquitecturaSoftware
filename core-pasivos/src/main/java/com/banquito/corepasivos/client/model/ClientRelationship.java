@@ -10,37 +10,45 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "CLIENT_RELATIONSHIP")
+@Table(name = "client_relationship")
 @Data
 @NoArgsConstructor
 public class ClientRelationship {
-    @EqualsAndHashCode.Include
+
     @Id
-    @Column(name = "CODE_RELATIONSHIP", nullable = false)
+    @Column(name = "code_relationship", nullable = false)
     private Integer codeRelationship;
-    @Column(name = "CODE_CLIENT", nullable = false)
+
+    @Column(name = "code_client", nullable = false)
     private Integer codeClient;
-    @Column(name = "IDENTIFICATION_TYPE", length = 3, nullable = false)
+
+    @Column(name = "identification_type", length = 3, nullable = false)
     private String identificationType;
-    @Column(name = "IDENTIFICATION", length = 20, nullable = false)
+
+    @Column(name = "identification", length = 20, nullable = false)
     private String identification;
-    @Column(name = "CODE_CLIENT_RELATIONSHIP", nullable = false)
+
+    @Column(name = "code_client_relationship", nullable = false)
     private Integer codeClientRelationship;
-    @Column(name = "CLI_IDENTIFICATION_TYPE", length = 3, nullable = false)
+
+    @Column(name = "cli_identification_type", length = 3, nullable = false)
     private String cliIdentificationType;
-    @Column(name = "CLI_IDENTIFICATION", length = 20, nullable = false)
+
+    @Column(name = "cli_identification", length = 20, nullable = false)
     private String cliIdentification;
-    @Column(name = "RELATIONSHIP_TYPE", length = 32, nullable = false)
+
+    @Column(name = "relationship_type", length = 32, nullable = false)
     private String relationshipType;
-    @Column(name = "START_DATE", nullable = false)
+
     @Temporal(TemporalType.DATE)
+    @Column(name = "start_date", nullable = false)
     private Date startDate;
-    @Column(name = "END_DATE", nullable = false)
+
     @Temporal(TemporalType.DATE)
+    @Column(name = "end_date", nullable = false)
     private Date endDate;
 
     public ClientRelationship(Integer codeRelationship) {

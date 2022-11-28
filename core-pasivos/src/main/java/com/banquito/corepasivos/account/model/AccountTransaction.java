@@ -15,18 +15,8 @@ import lombok.NoArgsConstructor;
 public class AccountTransaction {
 
     @Id
-    /*@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ACCOUNT_TRANSACTION_SEQ")
-    @SequenceGenerator(sequenceName = "account_transaction_code_transaction_seq", allocationSize = 1, name = "ACCOUNT_TRANSACTION_SEQ")*/
     @Column(name = "code_transaction", nullable = false)
     private Integer codeTransaction;
-
-    @ManyToOne
-    @JoinColumns({
-            @JoinColumn(name = "code_account", referencedColumnName = "code_account", insertable = false, updatable = false),
-            @JoinColumn(name = "code_local_account", referencedColumnName = "code_local_account", insertable = false, updatable = false),
-            @JoinColumn(name = "code_international_account", referencedColumnName = "code_international_account" , insertable = false, updatable = false)
-    })
-    private Account account;
 
     @Column(name = "code_unique_transaction", length = 64, nullable = false)
     private String codeUniqueTransaction;
@@ -62,4 +52,18 @@ public class AccountTransaction {
 
     @Column(name = "status", length = 3, nullable = false)
     private String status;
+
+    @ManyToOne
+    @JoinColumns({
+            @JoinColumn(name = "code_account", referencedColumnName = "code_account", insertable = false, updatable = false),
+            @JoinColumn(name = "code_local_account", referencedColumnName = "code_local_account", insertable = false, updatable = false),
+            @JoinColumn(name = "code_international_account", referencedColumnName = "code_international_account", insertable = false, updatable = false)
+    })
+    private Account account;
+
+    public AccountTransaction(Integer codeTransaction) {
+        this.codeTransaction = codeTransaction;
+    }
+
+    
 }

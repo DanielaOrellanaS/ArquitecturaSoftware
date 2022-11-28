@@ -1,24 +1,28 @@
 package com.banquito.corepasivos.account.model;
 
-import java.io.Serializable;
-import java.security.Timestamp;
 import java.util.Date;
 
 import javax.persistence.*;
 
 import com.banquito.corepasivos.client.model.Client;
-import com.banquito.corepasivos.product.model.Product;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
 @Entity
-@Table(name = "ACCOUNT_CLIENT")
+@Table(name = "account_client")
 public class AccountClient {
 
     @EmbeddedId
     private AccountClientPK pk;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "create_date", nullable = false)
+    private Date createDate;
+
+    @Column(name = "status", length = 3, nullable = false)
+    private String status;
 
     @ManyToOne
     @JoinColumns({
@@ -35,13 +39,6 @@ public class AccountClient {
             @JoinColumn(name = "identification", referencedColumnName = "identification", insertable = false, updatable = false),
     })
     private Client client;
-
-    @Column(name = "create_date", nullable = false)
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date createDate;
-
-    @Column(name = "STATUS", length = 3, nullable = false)
-    private String status;
 
     public AccountClient(AccountClientPK pk) {
         this.pk = pk;

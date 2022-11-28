@@ -8,13 +8,14 @@ import javax.persistence.Embeddable;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+@Data
 @Embeddable
 @NoArgsConstructor
-@Data
 public class PhonePK implements Serializable {
 
-    @Column(name = "PHONE_NUMBER", length = 16, nullable = false)
+    @Column(name = "phone_number", length = 16, nullable = false)
     private String phoneNumber;
-    @Column(name = "CODE_CLIENT", length = 4, nullable = false)
+
+    @Column(name = "code_client", length = 4, nullable = false)
     private Integer codeClient;
 }
