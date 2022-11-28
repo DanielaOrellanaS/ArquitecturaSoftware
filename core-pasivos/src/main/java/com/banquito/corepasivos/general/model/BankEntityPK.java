@@ -9,8 +9,8 @@ import lombok.Data;
 
 @Data
 @Embeddable
-public class BankEntityPK implements Serializable{
-    @Column(name = "ENITITY_BANK_CODE", length = 16, nullable = false)
+public class BankEntityPK implements Serializable {
+    @Column(name = "ENTITY_BANK_CODE", length = 16, nullable = false)
     private String entityBankCode;
     @Column(name = "INTERNATIONAL_BANK_CODE", length = 16, nullable = false)
     private String internationalBankCode;

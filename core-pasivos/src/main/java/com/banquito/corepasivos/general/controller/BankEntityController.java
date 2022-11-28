@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.banquito.corepasivos.general.service.BankEntityService;
 
 @RestController
-@RequestMapping("/bank/entity")
+@RequestMapping("/bank")
 public class BankEntityController {
     @Autowired
     BankEntityService bankEntityService;
