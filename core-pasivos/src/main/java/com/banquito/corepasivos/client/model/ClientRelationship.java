@@ -1,57 +1,49 @@
 package com.banquito.corepasivos.client.model;
 
-import java.util.Date;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Entity
-@Table(name = "client_relationship")
+import javax.persistence.*;
+import java.util.Date;
+
 @Data
 @NoArgsConstructor
+@Entity
+@Table(name = "client_relationship")
 public class ClientRelationship {
 
-    @Id
-    @Column(name = "code_relationship", nullable = false)
-    private Integer codeRelationship;
+	@Id
+	@Column(name = "code_relationship", nullable = false)
+	private Integer codeRelationship;
 
-    @Column(name = "code_client", nullable = false)
-    private Integer codeClient;
+	@ManyToOne
+	@JoinColumns({
+			@JoinColumn(name = "code_client", referencedColumnName = "code_client", insertable = false, updatable = false),
+			@JoinColumn(name = "identification_type", referencedColumnName = "identification_type", insertable = false, updatable = false),
+			@JoinColumn(name = "identification", referencedColumnName = "identification", insertable = false, updatable = false),
+	})
+	private Client client;
 
-    @Column(name = "identification_type", length = 3, nullable = false)
-    private String identificationType;
+	@ManyToOne
+	@JoinColumns({
+			@JoinColumn(name = "code_client_relationship", referencedColumnName = "code_client_relationship", insertable = false, updatable = false),
+			@JoinColumn(name = "cli_identification_type", referencedColumnName = "cli_identification_type", insertable = false, updatable = false),
+			@JoinColumn(name = "cli_identification", referencedColumnName = "cli_identification", insertable = false, updatable = false),
+	})
+	private Client clientRelationship;
 
-    @Column(name = "identification", length = 20, nullable = false)
-    private String identification;
+	@Column(name = "RELATIONSHIP_TYPE", length = 32, nullable = false)
+	private String relationshipType;
 
-    @Column(name = "code_client_relationship", nullable = false)
-    private Integer codeClientRelationship;
+	@Column(name = "START_DATE", nullable = false)
+	@Temporal(TemporalType.DATE)
+	private Date startDate;
 
-    @Column(name = "cli_identification_type", length = 3, nullable = false)
-    private String cliIdentificationType;
+	@Column(name = "END_DATE", nullable = false)
+	@Temporal(TemporalType.DATE)
+	private Date endDate;
 
-    @Column(name = "cli_identification", length = 20, nullable = false)
-    private String cliIdentification;
-
-    @Column(name = "relationship_type", length = 32, nullable = false)
-    private String relationshipType;
-
-    @Temporal(TemporalType.DATE)
-    @Column(name = "start_date", nullable = false)
-    private Date startDate;
-
-    @Temporal(TemporalType.DATE)
-    @Column(name = "end_date", nullable = false)
-    private Date endDate;
-
-    public ClientRelationship(Integer codeRelationship) {
-        this.codeRelationship = codeRelationship;
-    }
+	public ClientRelationship(Integer codeRelationship) {
+		this.codeRelationship = codeRelationship;
+	}
 }
