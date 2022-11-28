@@ -16,7 +16,7 @@ public class AccountSignatureController {
     AccountSignatureService accountSignatureService;
 
     @GetMapping("/all")
-    public Object getInterest() {
+    public Object getAccountSignature() {
         return this.accountSignatureService.getAllAccountSignatures();
     }
     
