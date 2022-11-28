@@ -5,6 +5,8 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -15,21 +17,25 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "HOLIDAY")
+@Table(name = "holiday")
 @Data
 @NoArgsConstructor
 public class Holiday {
     @EqualsAndHashCode.Include
     @Id
-    @Column(name = "DATE", nullable = false)
+    @Column(name = "holiday_date", nullable = false)
     @Temporal(TemporalType.DATE)
     private Date date;
-    @Column(name = "CODE_LOCATION", nullable = true)
+    @Column(name = "code_location", nullable = true)
     private Integer codeLocation;
-    @Column(name = "NAME", length = 64, nullable = false)
+    @Column(name = "name", length = 64, nullable = false)
     private String name;
-    @Column(name = "TYPE", length = 3, nullable = false)
+    @Column(name = "type", length = 3, nullable = false)
     private String type;
+
+    @ManyToOne
+    @JoinColumn(name = "code_location", referencedColumnName = "code_location", insertable = false, updatable = false, nullable = true)
+    private LocationEntity locationEntity;
 
     public Holiday(Date date) {
         this.date = date;

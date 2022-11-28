@@ -6,12 +6,14 @@ import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @Embeddable
-public class BankEntityPK implements Serializable{
-    @Column(name = "ENITITY_BANK_CODE", length = 16, nullable = false)
+@NoArgsConstructor
+public class BankEntityPK implements Serializable {
+    @Column(name = "entity_bank_code", length = 16, nullable = false)
     private String entityBankCode;
-    @Column(name = "INTERNATIONAL_BANK_CODE", length = 16, nullable = false)
+    @Column(name = "international_bank_code", length = 16, nullable = false)
     private String internationalBankCode;
 }

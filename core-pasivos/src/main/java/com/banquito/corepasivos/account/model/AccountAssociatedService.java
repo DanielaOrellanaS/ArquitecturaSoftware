@@ -3,8 +3,6 @@ package com.banquito.corepasivos.account.model;
 import lombok.*;
 
 import javax.persistence.*;
-
-import java.sql.Timestamp;
 import java.util.Date;
 
 @Data
