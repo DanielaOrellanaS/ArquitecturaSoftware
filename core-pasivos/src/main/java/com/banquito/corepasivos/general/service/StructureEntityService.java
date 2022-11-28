@@ -4,5 +4,5 @@ import java.util.List;
 import com.banquito.corepasivos.general.model.StructureEntity;
 
 public interface StructureEntityService {
-    List<StructureEntity> getStructureEntities();
+    List<StructureEntity> getAllStructureEntities();
 }
