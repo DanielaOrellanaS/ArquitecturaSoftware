@@ -1,21 +1,20 @@
 package com.banquito.corepasivos.client.model;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
 
+@Data
+@NoArgsConstructor
 @Entity
 @Table(name = "segment")
-@NoArgsConstructor
-@Data
 public class Segment {
 
-    @EqualsAndHashCode.Include
     @Id
     @Column(name = "code_segment", length = 16, nullable = false)
     private String codeSegment;
