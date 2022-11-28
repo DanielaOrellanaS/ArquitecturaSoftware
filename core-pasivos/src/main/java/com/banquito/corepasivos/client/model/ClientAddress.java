@@ -1,12 +1,10 @@
 package com.banquito.corepasivos.client.model;
 
-import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
-import javax.persistence.Table;
-
+import com.banquito.corepasivos.general.model.LocationEntity;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
 
 @Data
 @NoArgsConstructor
@@ -16,6 +14,18 @@ public class ClientAddress {
 
     @EmbeddedId
     private ClientAddressPK pk;
+
+    @ManyToOne
+    @JoinColumns({
+            @JoinColumn(name = "code_client", referencedColumnName = "code_client", insertable = false, updatable = false),
+            @JoinColumn(name = "identification_type", referencedColumnName = "identification_type", insertable = false, updatable = false),
+            @JoinColumn(name = "identification", referencedColumnName = "identification", insertable = false, updatable = false)
+    })
+    private Client client;
+
+    @ManyToOne
+    @JoinColumn(name = "code_location", referencedColumnName = "code_location", insertable = false, updatable = false)
+    private LocationEntity locationEntity;
 
     @Column(name = "address_line_one", length = 64, nullable = false)
     private String addressLineOne;
@@ -28,9 +38,10 @@ public class ClientAddress {
 
     @Column(name = "longitude", length = 32, nullable = false)
     private String longitude;
-
+    
     public ClientAddress(ClientAddressPK pk) {
         this.pk = pk;
     }
 
+    
 }
