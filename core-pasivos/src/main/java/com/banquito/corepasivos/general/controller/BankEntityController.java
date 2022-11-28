@@ -9,7 +9,7 @@ import com.banquito.corepasivos.general.service.BankEntityService;
 
 @RestController
 @RequestMapping("/bank/entity")
-public class BankEntityCotroller {
+public class BankEntityController {
     @Autowired
     BankEntityService bankEntityService;
 
