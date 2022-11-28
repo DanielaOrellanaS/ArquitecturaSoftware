@@ -1,5 +1,6 @@
 package com.banquito.corepasivos.general.model;
 
+
 import java.io.Serializable;
 import java.math.BigDecimal;
 
@@ -17,6 +18,6 @@ public class StructureEntityPK implements Serializable {
     @Column(name = "code_country", length = 2, nullable = false)
     private String codeCountry;
 
-    @Column(name = "geo_level", scale = 2, precision = 0, nullable = false)
+    @Column(name = "geo_level", nullable = false)
     private BigDecimal geoLevel;
 }

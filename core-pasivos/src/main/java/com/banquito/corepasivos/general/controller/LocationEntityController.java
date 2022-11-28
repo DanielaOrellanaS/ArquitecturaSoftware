@@ -5,16 +5,16 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.banquito.corepasivos.general.service.HolidayService;
+import com.banquito.corepasivos.general.service.LocationEntityService;
 
 @RestController
-@RequestMapping("/holiday")
-public class HolidayController {
+@RequestMapping("/location")
+public class LocationEntityController {
     @Autowired
-    HolidayService holidayService;
+    LocationEntityService locationEntityService;
 
     @GetMapping("/all")
-    public Object getHoliday() {
-        return this.holidayService.getAllHolidays();
+    public Object getLocationEntity() {
+        return this.locationEntityService.getAllLocationEntities();
     }
 }
