@@ -14,7 +14,7 @@ public class BranchController {
     BranchService branchService;
 
     @GetMapping("/all")
-    public Object getInterest() {
+    public Object getBranch() {
         return this.branchService.getAllBranches();
     }
 }
