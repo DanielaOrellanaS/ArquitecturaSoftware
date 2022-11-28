@@ -1,43 +1,50 @@
 package com.banquito.corepasivos.product.model;
 
 import java.math.BigDecimal;
-import java.sql.Timestamp;
 import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
 @Entity
-@Table(name = "INTEREST_RATE_LOG")
+@Table(name = "interest_rate_log")
 public class InterestRateLog {
-    @EqualsAndHashCode.Include
+
     @Id
-    @Column(name = "CODE_INTEREST_LOG", length = 8, nullable = false)
+    @Column(name = "code_interest_log", length = 8, nullable = false)
     private String codeInterestLog;
-    @Column(name = "CODE_INTEREST_RATE", length = 8, nullable = false)
+
+    @Column(name = "code_interest_rate", length = 8, nullable = false)
     private String codeInterestRate;
-    @Column(name = "VALUE", scale = 5, precision = 2, nullable = false)
+
+    @Column(name = "value", scale = 5, precision = 2, nullable = false)
     private BigDecimal value;
-    @Column(name = "START_DATE", nullable = false)
+
     @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "start_date", nullable = false)
     private Date startDate;
-    // private Timestamp startDate;
-    @Column(name = "END_DATE", nullable = true)
+
     @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "end_date", nullable = true)
     private Date endDate;
-    // private Timestamp endDate;
-    @Column(name = "STATUS", length = 3, nullable = false)
+
+    @Column(name = "status", length = 3, nullable = false)
     private String status;
+
+    @ManyToOne
+    @JoinColumn(name = "code_interest_rate", referencedColumnName = "code_interest_rate", insertable = false, updatable = false, nullable = true)
+    private InterestRate interestRate;
 
     public InterestRateLog(String codeInteresLog) {
         this.codeInterestLog = codeInteresLog;

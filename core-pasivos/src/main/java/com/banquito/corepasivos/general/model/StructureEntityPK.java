@@ -6,13 +6,16 @@ import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @Embeddable
+@NoArgsConstructor
 public class StructureEntityPK implements Serializable {
 
-    @Column(name = "CODE_COUNTRY", length = 2, nullable = false)
+    @Column(name = "code_country", length = 2, nullable = false)
     private String codeCountry;
-    @Column(name = "GEO_LEVEL", nullable = false)
+
+    @Column(name = "geo_level", nullable = false)
     private Integer geoLevel;
 }
