@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import com.banquito.corepasivos.client.model.ClientReference;
 
 public interface ClientReferenceRepository extends JpaRepository<ClientReference, Integer> {
-    List<ClientReference> findByKeyCode(Integer codeReference);
-    List<ClientReference> findByKeyIdentificationtype(String identificationType);
-    List<ClientReference> findByKeyIdentification(String identification);
+    List<ClientReference> findByPkCode(Integer codeReference);
+    List<ClientReference> findByPkIdentificationtype(String identificationType);
+    List<ClientReference> findByPkIdentification(String identification);
 }

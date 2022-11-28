@@ -8,11 +8,10 @@ import javax.persistence.Table;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Entity
-@Table(name = "interest_rate")
 @Data
 @NoArgsConstructor
-
+@Entity
+@Table(name = "interest_rate")
 public class InterestRate {
 
     @Id

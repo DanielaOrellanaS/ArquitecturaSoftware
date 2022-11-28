@@ -1,4 +1,4 @@
-package com.banquito.corepasivos.account.model;
+package com.banquito.corepasivos.product.model;
 
 import javax.persistence.*;
 
@@ -12,11 +12,16 @@ import lombok.NoArgsConstructor;
 public class AssociatedServiceParam {
 
     @EmbeddedId
-    private AssociatedServiceParamPK key;
+    private AssociatedServiceParamPK pk;
 
-    @Column(name = "VALUE_TYPE", length = 3, nullable = false)
+    @Column(name = "value_type", length = 3, nullable = false)
     private String valueType;
 
-    @Column(name = "NAME", length = 64, nullable = false)
+    @Column(name = "name", length = 64, nullable = false)
     private String name;
+
+    public AssociatedServiceParam(AssociatedServiceParamPK pk) {
+        this.pk = pk;
+    }
+
 }

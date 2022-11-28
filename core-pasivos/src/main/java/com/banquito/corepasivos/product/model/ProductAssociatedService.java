@@ -23,7 +23,10 @@ public class ProductAssociatedService {
     private AssociatedService associatedService;
 
     @ManyToOne
-    @JoinColumn(name = "code_product", referencedColumnName = "code_product", insertable = false, updatable = false, nullable = true)
+    @JoinColumns({
+        @JoinColumn(name = "code_product", referencedColumnName = "code_product", insertable = false, updatable = false, nullable = true),
+        @JoinColumn(name = "code_product_type", referencedColumnName = "code_product_type", insertable = false, updatable = false, nullable = true)
+    })
     private Product product;
 
     public ProductAssociatedService(ProductAssociatedServicePK pk) {

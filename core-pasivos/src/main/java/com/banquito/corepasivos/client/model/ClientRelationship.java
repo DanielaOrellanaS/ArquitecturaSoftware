@@ -16,6 +16,17 @@ public class ClientRelationship {
 	@Column(name = "code_relationship", nullable = false)
 	private Integer codeRelationship;
 
+	@Column(name = "relationship_type", length = 32, nullable = false)
+	private String relationshipType;
+
+	@Column(name = "start_date", nullable = false)
+	@Temporal(TemporalType.DATE)
+	private Date startDate;
+
+	@Temporal(TemporalType.DATE)
+	@Column(name = "end_date", nullable = false)
+	private Date endDate;
+
 	@ManyToOne
 	@JoinColumns({
 			@JoinColumn(name = "code_client", referencedColumnName = "code_client", insertable = false, updatable = false),
@@ -26,22 +37,11 @@ public class ClientRelationship {
 
 	@ManyToOne
 	@JoinColumns({
-			@JoinColumn(name = "code_client_relationship", referencedColumnName = "code_client_relationship", insertable = false, updatable = false),
-			@JoinColumn(name = "cli_identification_type", referencedColumnName = "cli_identification_type", insertable = false, updatable = false),
-			@JoinColumn(name = "cli_identification", referencedColumnName = "cli_identification", insertable = false, updatable = false),
+			@JoinColumn(name = "code_client_relationship", referencedColumnName = "code_client", insertable = false, updatable = false),
+			@JoinColumn(name = "cli_identification_type", referencedColumnName = "identification_type", insertable = false, updatable = false),
+			@JoinColumn(name = "cli_identification", referencedColumnName = "identification", insertable = false, updatable = false),
 	})
 	private Client clientRelationship;
-
-	@Column(name = "RELATIONSHIP_TYPE", length = 32, nullable = false)
-	private String relationshipType;
-
-	@Column(name = "START_DATE", nullable = false)
-	@Temporal(TemporalType.DATE)
-	private Date startDate;
-
-	@Column(name = "END_DATE", nullable = false)
-	@Temporal(TemporalType.DATE)
-	private Date endDate;
 
 	public ClientRelationship(Integer codeRelationship) {
 		this.codeRelationship = codeRelationship;

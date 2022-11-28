@@ -1,4 +1,4 @@
-package com.banquito.corepasivos.account.model;
+package com.banquito.corepasivos.product.model;
 
 import java.io.Serializable;
 

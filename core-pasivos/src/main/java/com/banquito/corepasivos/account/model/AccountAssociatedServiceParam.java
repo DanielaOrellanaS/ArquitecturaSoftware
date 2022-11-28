@@ -7,6 +7,8 @@ import java.util.Date;
 
 import javax.persistence.*;
 
+import com.banquito.corepasivos.product.model.AssociatedServiceParam;
+
 @Data
 @NoArgsConstructor
 @Entity

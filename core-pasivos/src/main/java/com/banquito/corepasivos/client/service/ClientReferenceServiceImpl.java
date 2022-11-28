@@ -29,17 +29,17 @@ public class ClientReferenceServiceImpl implements ClientReferenceService {
 
     @Override
     public ClientReference readByCode(Integer code) {
-        return this.clientReferenceRepository.findByKeyCode(code).get(0);
+        return this.clientReferenceRepository.findByPkCode(code).get(0);
     }
 
     @Override
     public List<ClientReference> readByClientIdentification(String identification) {
-        return this.clientReferenceRepository.findByKeyIdentification(identification);
+        return this.clientReferenceRepository.findByPkIdentification(identification);
     }
 
     @Override
     public List<ClientReference> readByClientIdentificationType(String identificationType) {
-        return this.clientReferenceRepository.findByKeyIdentificationtype(identificationType);
+        return this.clientReferenceRepository.findByPkIdentificationtype(identificationType);
     }
 
     @Override

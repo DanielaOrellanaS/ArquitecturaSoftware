@@ -14,7 +14,7 @@ public class ClientReferencePK implements Serializable {
     private Integer code;
 
     @Column(name = "identification_type", length = 3, nullable = false)
-    private String identificationType;
+    private String identificationtype;
 
     @Column(name = "identification", length = 20, nullable = false)
     private String identification;
