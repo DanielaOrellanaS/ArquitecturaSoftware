@@ -15,68 +15,89 @@ import lombok.NoArgsConstructor;
 @Table(name="CLIENT")
 public class Client {
 
-    @EqualsAndHashCode.Include
     @EmbeddedId
     ClientPK clientPK;
 
-    @Column(name="CODE_SEGMMENT", length=16, nullable=false)
+    @ManyToOne
+    @JoinColumn(name = "code_segment", referencedColumnName = "code_segment", insertable = false, updatable = false)
     private String codeSegment;
-    @Column(name="CLIENT_TYPE",nullable=false,length = 3)
+
+    @Column(name="client_type", nullable=false, length = 3)
     private String clientType;
-    @Column(name="IDENTIFICATION_TYPE",nullable=false,length = 3)
-    private String identificationType;
-    @Column(name="IDENTIFICATION",nullable=false,length = 20)
-    private String identification;
-    @Column(name="LASTNAME",nullable=false,length = 64)
+    
+    @Column(name="lastname", nullable=false, length = 64)
     private String lastname;
-    @Column(name="NAME",nullable=false,length = 64)
+
+    @Column(name="name", nullable=false, length = 64)
     private String name;
-    @Column(name="FULLNAME",nullable=false,length = 128)
+
+    @Column(name="fullname", nullable=false,length = 128)
     private String fullname;
-    @Column(name="EMAIL",nullable=false,length = 128,unique = true)
+
+    @Column(name="email", nullable=false, length = 128, unique = true)
     private String email;
-    @Column(name="BIRTH_DATE",nullable=false)
+
+    @Column(name="birth_date", nullable=false)
     @Temporal(TemporalType.DATE)
     private Date birthDate;
-    @Column(name="GENDER",nullable=false,length = 1)
+
+    @Column(name="gender", nullable=false, length = 1)
     private String gender;
-    @Column(name="COMPANY_NAME",nullable=true,length = 120)
+
+    @Column(name="company_name", nullable=true, length = 120)
     private String companyName;
-    @Column(name="COMPANY_TYPE",nullable=true,length = 16)
+
+    @Column(name="company_type", nullable=true, length = 16)
     private String companyType;
-    @Column(name="STATUS",nullable=false,length = 3)
+
+    @Column(name="status", nullable=false, length = 3)
     private String status;
-    @Column(name="CREATE_DATE",nullable=false)
+
+    @Column(name="create_date", nullable=false)
     @Temporal(TemporalType.TIMESTAMP)
-    private Timestamp createDate;
-    @Column(name="LAST_STATUS_DATE",nullable=false)
+    private Date createDate;
+
+    @Column(name="last_status_date", nullable=false)
     @Temporal(TemporalType.TIMESTAMP)
-    private Timestamp lastStatusDate;
-    @Column(name="SIGNATURE",nullable=false,length = 128)
+    private Date lastStatusDate; 
+
+    @Column(name="signature", nullable=false, length = 128)
     private String signature;
-    @Column(name="WORK_STATUS",nullable=false,length = 3)
+
+    @Column(name="work_status", nullable=false, length = 3)
     private String workStatus;
-    @Column(name="TAX_PAYMENT_PLACE",nullable=false,length = 2)
+
+    @Column(name="tax_payment_place", nullable=false, length = 2)
     private String taxPaymentPlace;
-    @Column(name="FINGERPRINT",nullable=false,length = 10)
+
+    @Column(name="fingerprint", nullable=false, length = 10)
     private String fingerprint;
-    @Column(name="NATIONALITY",nullable=false,length = 64)
+
+    @Column(name="nationality", nullable=false, length = 64)
     private String nationality;
-    @Column(name="MARITAL_STATUS",nullable=false,length = 3)
+
+    @Column(name="marital_status", nullable=false, length = 3)
     private String maritalStatus;
-    @Column(name="MONTHLY_AVG_INCOME",nullable=false,length = 32)
+
+    @Column(name="monthly_avg_income", nullable=false, length = 32)
     private String monthlyAvgIncome;
-    @Column(name="BASIC_SERVICES_DOCUMENT",nullable=true,length = 2048)
+
+    @Column(name="basic_services_document", nullable=true, length = 2048)
     private String basicServicesDocument;
-    @Column(name="INCOME_TAX_DOCUMENT",nullable=true,length = 2048)
+
+    @Column(name="income_tax_document", nullable=true, length = 2048)
     private String incomeTaxDocument;
-    @Column(name="ARTICLES_ASSOCIATION_DOC",nullable=true,length = 2048)
+
+    @Column(name="articles_association_doc", nullable=true, length = 2048)
     private String articlesAssociationDoc;
-    @Column(name="TIN_DOCUMENT",nullable=true,length = 2048)
+
+    @Column(name="tin_document", nullable=true, length = 2048)
     private String tinDocument;
-    @Column(name="APP_LEGAL_REPRESENT_DOC",nullable=true,length = 2048)
+
+    @Column(name="app_legal_represent_doc", nullable=true, length = 2048)
     private String appLegalRepresentDoc;
-    @Column(name="CAREER",nullable=false,length = 64)
+
+    @Column(name="career", nullable=false, length = 64)
     private String career;
 
     public Client(ClientPK clientPK){
