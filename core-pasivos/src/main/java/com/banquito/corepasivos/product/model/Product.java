@@ -26,13 +26,10 @@ public class Product {
     @EmbeddedId
     private ProductPK pk;
 
-/*     @Column(name = "code_product_type", length = 32, nullable = false)
-    private String codeProductType; */
-
-    @Column(name = "code_segment", length = 16, nullable = false)
+    @Column(name = "code_segment", length = 16)
     private String codeSegment;
 
-    @Column(name = "code_interest_rate", length = 8, nullable = false)
+    @Column(name = "code_interest_rate", length = 8)
     private String codeInterestRate;
 
     @Column(name = "name", length = 64, nullable = false)
@@ -46,7 +43,7 @@ public class Product {
     private Date startDate;
 
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "end_date", nullable = true)
+    @Column(name = "end_date")
     private Date endDate;
 
     @Column(name = "temporality_account_state", length = 3)
@@ -65,15 +62,15 @@ public class Product {
     private BigDecimal minOpeningBalance;
 
     @ManyToOne
-    @JoinColumn(name = "code_product_type", referencedColumnName = "code_product_type", insertable = false, updatable = false, nullable = true)
+    @JoinColumn(name = "code_product_type", referencedColumnName = "code_product_type", insertable = false, updatable = false, nullable = false)
     private ProductType productType;
 
     @ManyToOne
-    @JoinColumn(name = "code_segment", referencedColumnName = "code_segment", insertable = false, updatable = false, nullable = true)
+    @JoinColumn(name = "code_segment", referencedColumnName = "code_segment", insertable = false, updatable = false)
     private Segment segment;
 
     @ManyToOne
-    @JoinColumn(name = "code_interest_rate", referencedColumnName = "code_interest_rate", insertable = false, updatable = false, nullable = true)
+    @JoinColumn(name = "code_interest_rate", referencedColumnName = "code_interest_rate", insertable = false, updatable = false)
     private InterestRate interestRate;
 
     public Product(ProductPK pk) {

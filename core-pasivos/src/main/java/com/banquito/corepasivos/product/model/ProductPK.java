@@ -18,4 +18,5 @@ public class ProductPK implements Serializable {
 
     @Column(name = "code_product_type", length = 32, nullable = false)
     private String codeProductType;
+
 }
