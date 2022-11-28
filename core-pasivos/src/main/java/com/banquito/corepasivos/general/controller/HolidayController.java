@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.banquito.corepasivos.general.service.HolidayService;
 
 @RestController
-@RequestMapping("/holidays")
+@RequestMapping("/holiday")
 public class HolidayController {
     @Autowired
     HolidayService holidayService;
