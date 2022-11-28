@@ -6,27 +6,31 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import java.math.BigDecimal;
 
 @Data
 @Entity
-@Table(name = "ASSOCIATED_SERVICE")
+@Table(name = "associated_service")
 @NoArgsConstructor
 public class AssociatedService {
-    @EqualsAndHashCode.Include
+
     @Id
-    @Column(name = "CODE_ASSOCIATED_SERVICE", length = 16, nullable = false)
+    @Column(name = "code_associated_service", length = 16, nullable = false)
     private String codeAssociatedService;
-    @Column(name = "NAME", length = 64, nullable = false)
+    @Column(name = "name", length = 64, nullable = false)
     private String name;
-    @Column(name = "ALLOW_PAYMENT", length = 1, nullable = false)
+    @Column(name = "allow_payment", length = 1, nullable = false)
     private String allowPayment;
-    @Column(name = "PAYMENT_METHOD", length = 3)
+    @Column(name = "payment_method", length = 3)
     private String pymentMethod;
-    @Column(name = "CHARGE_VAT", length = 1, nullable = false)
+    @Column(name = "charge_vat", length = 1, nullable = false)
     private String ChargeVat;
-    @Column(name = "FEE", nullable = false)
+    @Column(name = "fee", nullable = false)
     private BigDecimal fee;
+
+    public AssociatedService(String codeAssociatedService) {
+        this.codeAssociatedService = codeAssociatedService;
+    }
+
 }

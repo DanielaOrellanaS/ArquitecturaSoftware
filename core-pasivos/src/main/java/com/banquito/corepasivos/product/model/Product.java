@@ -4,8 +4,8 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -17,58 +17,57 @@ import com.banquito.corepasivos.client.model.Segment;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Data
 @Entity
+@Table(name = "product")
+@Data
 @NoArgsConstructor
-@Table(name = "PRODUCT")
 public class Product {
 
-    @Id
-    @Column(name = "CODE_PRODUCT", length = 32, nullable = false)
-    private String codeProduct;
+    @EmbeddedId
+    private ProductPK pk;
+
+    @Column(name = "code_product_type", length = 32, nullable = false)
+    private String codeProductType;
+    @Column(name = "code_segment", length = 16, nullable = false)
+    private String codeSegment;
+    @Column(name = "code_segment", length = 8, nullable = false)
+    private String codeInterestRate;
+    @Column(name = "name", length = 64, nullable = false)
+    private String name;
+    @Column(name = "status", length = 3, nullable = false)
+    private String status;
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "start_date", nullable = false)
+    private Date startDate;
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "end_date", nullable = true)
+    private Date endDate;
+    @Column(name = "temporality_account_state", length = 3)
+    private String temporalityAccountState;
+    @Column(name = "use_checkbook", length = 1)
+    private String useCheckbook;
+    @Column(name = "allow_transferences", length = 1)
+    private String allowTransferences;
+    @Column(name = "type_client", length = 3)
+    private String typeClient;
+    @Column(name = "min_opening_balance", scale = 17, precision = 2, nullable = false)
+    private BigDecimal minOpeningBalance;
 
     @ManyToOne
-    @JoinColumn(name = "CODE_PRODUCT_TYPE", insertable = false, updatable = false, nullable = false)
+    @JoinColumn(name = "code_product_type", referencedColumnName = "code_product_type", insertable = false, updatable = false, nullable = true)
     private ProductType productType;
 
     @ManyToOne
-    @JoinColumn(name = "CODE_SEGMENT", insertable = false, updatable = false)
+    @JoinColumn(name = "code_segment", referencedColumnName = "code_segment", insertable = false, updatable = false, nullable = true)
     private Segment segment;
 
     @ManyToOne
-    @JoinColumn(name = "CODE_INTEREST_RATE", insertable = false, updatable = false)
+    @JoinColumn(name = "interest_rate", referencedColumnName = "interest_rate", insertable = false, updatable = false, nullable = true)
     private InterestRate interestRate;
 
-    @Column(name = "NAME", length = 64, nullable = false)
-    private String name;
-
-    @Column(name = "STATUS", length = 3, nullable = false)
-    private String status;
-
-    @Column(name = "START_DATE", nullable = false)
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date startDate;
-
-    @Column(name = "END_DATE")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date endDate;
-
-    @Column(name = "TEMPORALITY_ACCOUNT_STATE", length = 3)
-    private String temporalityAccountState;
-
-    @Column(name = "USE_CHECKBOOK", length = 1)
-    private String useCheckbook;
-
-    @Column(name = "ALLOW_TRANSFERENCES", length = 1)
-    private String allowTransferences;
-
-    @Column(name = "TYPE_CLIENT", length = 3)
-    private String typeClient;
-
-    @Column(name = "MIN_OPENING_BALANCE", scale = 17, precision = 2, nullable = false)
-    private BigDecimal minOpeningBalance;
-
-    public Product(String codeProduct) {
-        this.codeProduct = codeProduct;
+    public Product(ProductPK pk) {
+        this.pk = pk;
     }
+
+    
 }

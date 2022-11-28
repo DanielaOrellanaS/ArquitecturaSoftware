@@ -1,21 +1,29 @@
 package com.banquito.corepasivos.product.model;
+
 import lombok.*;
 
-import javax.persistence.*;
 import java.math.BigDecimal;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "product_associated_service")
 @Data
 @NoArgsConstructor
-@Entity
-@Table(name="PRODUCT_ASSOCIATED_SERVICE")
 public class ProductAssociatedService {
 
-    @EqualsAndHashCode.Include
     @EmbeddedId
     private ProductAssociatedServicePK pk;
-
-    @Column(name="FEE", scale=17, precision=2, nullable=false)
+    @Column(name = "fee", scale = 17, precision = 2, nullable = false)
     private BigDecimal fee;
+
+    @ManyToOne
+    @JoinColumn(name = "code_associated_service", referencedColumnName = "code_associated_service", insertable = false, updatable = false, nullable = true)
+    private AssociatedService associatedService;
+
+    @ManyToOne
+    @JoinColumn(name = "code_product", referencedColumnName = "code_product", insertable = false, updatable = false, nullable = true)
+    private Product product;
 
     public ProductAssociatedService(ProductAssociatedServicePK pk) {
         this.pk = pk;
