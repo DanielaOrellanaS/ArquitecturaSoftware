@@ -9,8 +9,8 @@ import com.banquito.corepasivos.general.model.StructureEntity;
 import com.banquito.corepasivos.general.repository.StructureEntityReposiroty;
 
 @Service
-public class StructureEntityServicempl implements StructureEntityService{
-    
+public class StructureEntityServiceImpl implements StructureEntityService {
+
     @Autowired
     StructureEntityReposiroty structureEntityReposiroty;
 
