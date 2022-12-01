@@ -31,7 +31,7 @@ public class AssociatedService {
     @Column(name = "charge_vat", length = 1, nullable = false)
     private String ChargeVat;
 
-    @Column(name = "fee", nullable = false)
+    @Column(name = "fee", scale = 17, precision = 2, nullable = false)
     private BigDecimal fee;
 
     public AssociatedService(String codeAssociatedService) {

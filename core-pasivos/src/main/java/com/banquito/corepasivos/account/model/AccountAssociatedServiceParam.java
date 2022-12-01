@@ -27,7 +27,7 @@ public class AccountAssociatedServiceParam {
     @Temporal(TemporalType.DATE)
     private Date dateValue;
 
-    @Column(name = "number_value", nullable = true)
+    @Column(name = "number_value", scale = 17, precision = 2, nullable = true)
     private BigDecimal numberValue;
 
     @Temporal(TemporalType.DATE)

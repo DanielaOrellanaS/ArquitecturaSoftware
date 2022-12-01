@@ -21,7 +21,7 @@ public class LocationEntityPK implements Serializable {
     private Integer codeLocationParent;
 
     @Column(name = "level", nullable = false)
-    private BigDecimal level;
+    private Integer level;
 
     @Column(name = "code_country", length = 2, nullable = false)
     private String codeCountry;

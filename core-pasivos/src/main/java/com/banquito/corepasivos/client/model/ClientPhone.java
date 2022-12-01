@@ -1,6 +1,5 @@
 package com.banquito.corepasivos.client.model;
 
-
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
@@ -21,6 +20,9 @@ public class ClientPhone {
     @EmbeddedId
     private ClientPhonePK pk;
 
+    @Column(name = "type", length = 3, nullable = false)
+    private String type;
+
     @ManyToOne
     @JoinColumns({
             @JoinColumn(name = "code_client", referencedColumnName = "code_client", insertable = false, updatable = false),
@@ -29,8 +31,6 @@ public class ClientPhone {
     })
     private Client client;
 
-    @Column(name = "type", length = 3, nullable = false)
-    private String type;
     public ClientPhone(ClientPhonePK pk) {
         this.pk = pk;
     }

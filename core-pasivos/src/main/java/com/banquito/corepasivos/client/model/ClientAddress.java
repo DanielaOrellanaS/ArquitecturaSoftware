@@ -33,13 +33,6 @@ public class ClientAddress {
             @JoinColumn(name = "identification", referencedColumnName = "identification", insertable = false, updatable = false)
     })
     private Client client;
-    /*
-     * @ManyToOne
-     * 
-     * @JoinColumn(name = "code_location", referencedColumnName = "code_location",
-     * insertable = false, updatable = false)
-     * private LocationEntity locationEntity;
-     */
 
     public ClientAddress(ClientAddressPK pk) {
         this.pk = pk;

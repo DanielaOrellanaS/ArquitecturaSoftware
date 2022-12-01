@@ -39,7 +39,7 @@ public class AccountTransaction {
     @Column(name = "description", length = 128, nullable = true)
     private String description;
 
-    @Column(name = "value", nullable = false)
+    @Column(name = "value", scale = 17, precision = 2, nullable = false)
     private BigDecimal value;
 
     @Temporal(TemporalType.TIMESTAMP)

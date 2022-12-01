@@ -33,10 +33,10 @@ public class Account {
     @Column(name = "close_date", nullable = true)
     private Date closeDate;
 
-    @Column(name = "present_balance", nullable = false)
+    @Column(name = "present_balance", scale = 17, precision = 2, nullable = false)
     private BigDecimal presentBalance;
 
-    @Column(name = "available_balance", nullable = false)
+    @Column(name = "available_balance", scale = 17, precision = 2, nullable = false)
     private BigDecimal availableBalance;
 
     @ManyToOne
