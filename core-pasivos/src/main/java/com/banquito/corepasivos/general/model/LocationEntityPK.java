@@ -1,7 +1,6 @@
 package com.banquito.corepasivos.general.model;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;

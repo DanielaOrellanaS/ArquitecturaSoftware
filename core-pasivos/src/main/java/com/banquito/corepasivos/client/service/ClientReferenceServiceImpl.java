@@ -18,7 +18,6 @@ public class ClientReferenceServiceImpl implements ClientReferenceService {
 
     @Override
     public ClientReference createClientReference(ClientReference clientReference) {
-        // TODO Auto-generated method stub
         return null;
     }
 
@@ -44,13 +43,11 @@ public class ClientReferenceServiceImpl implements ClientReferenceService {
 
     @Override
     public ClientReference updateClientReference(ClientReference clientReference, ClientReferencePK clientReferencePK) {
-        // TODO Auto-generated method stub
         return null;
     }
 
     @Override
     public void deleteClientReference(ClientReferencePK clientReferencePK) {
-        // TODO Auto-generated method stub
 
     }
 

@@ -17,7 +17,6 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Product createProduct(Product product) {
-        // TODO Auto-generated method stub
         return null;
     }
 
@@ -38,14 +37,12 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Product updateProduct(Product product, ProductPK productPK) {
-        // TODO Auto-generated method stub
         return null;
     }
 
     @Override
     public void deleteProduct(ProductPK productPK) {
-        // TODO Auto-generated method stub
-        
+
     }
-    
+
 }

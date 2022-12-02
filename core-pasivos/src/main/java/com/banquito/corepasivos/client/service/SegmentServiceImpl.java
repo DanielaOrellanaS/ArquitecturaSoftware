@@ -18,7 +18,6 @@ public class SegmentServiceImpl implements SegmentService {
     @Override
     @Transactional
     public Segment createSegment(Segment segment) {
-        // TODO Auto-generated method stub
         return null;
     }
 
@@ -35,14 +34,12 @@ public class SegmentServiceImpl implements SegmentService {
     @Override
     @Transactional
     public Segment updateSegment(Segment segment, String codeSegment) {
-        // TODO Auto-generated method stub
         return null;
     }
 
     @Override
     @Transactional
     public void deleteSegment(String codeSegment) {
-        // TODO Auto-generated method stub
 
     }
 
