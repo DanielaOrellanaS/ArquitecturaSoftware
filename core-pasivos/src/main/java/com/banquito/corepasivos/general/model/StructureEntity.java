@@ -7,14 +7,16 @@ import javax.persistence.Table;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.EqualsAndHashCode.Include;
 
-@Entity
-@Table(name = "structure_entity")
 @Data
 @NoArgsConstructor
+@Entity
+@Table(name = "structure_entity")
 public class StructureEntity {
 
     @EmbeddedId
+    @Include
     private StructureEntityPK pk;
 
     @Column(name = "name", length = 64, nullable = false)

@@ -12,10 +12,10 @@ import javax.persistence.TemporalType;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Entity
-@Table(name = "holiday")
 @Data
 @NoArgsConstructor
+@Entity
+@Table(name = "holiday")
 public class Holiday {
 
     @Id
@@ -31,13 +31,6 @@ public class Holiday {
 
     @Column(name = "type", length = 3, nullable = false)
     private String type;
-    /*
-     * @ManyToOne
-     * 
-     * @JoinColumn(name = "code_location", referencedColumnName = "code_location",
-     * insertable = false, updatable = false, nullable = true)
-     * private LocationEntity locationEntity;
-     */
 
     public Holiday(Date date) {
         this.date = date;

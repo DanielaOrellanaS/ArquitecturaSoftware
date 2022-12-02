@@ -9,31 +9,23 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.EqualsAndHashCode.Include;
 
-@Entity
-@Table(name = "branch")
 @Data
 @NoArgsConstructor
+@Entity
+@Table(name = "branch")
 public class Branch {
 
     @EmbeddedId
+    @Include
     private BranchPK pk;
-
-    @Column(name = "code_location", nullable = false)
-    private Integer codeLocation;
 
     @Column(name = "INTERNATIONAL_BRANCH_CODE", length = 8, nullable = false)
     private String internationalBranchCode;
 
     @Column(name = "NAME", length = 64, nullable = false)
     private String name;
-    /*
-     * @ManyToOne
-     * 
-     * @JoinColumn(name = "code_location", referencedColumnName = "code_location",
-     * insertable = false, updatable = false, nullable = true)
-     * private LocationEntity locationEntity;
-     */
 
     @ManyToOne
     @JoinColumns({

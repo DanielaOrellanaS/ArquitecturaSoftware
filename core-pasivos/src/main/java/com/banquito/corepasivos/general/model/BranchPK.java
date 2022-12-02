@@ -6,11 +6,9 @@ import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Data
 @Embeddable
-@NoArgsConstructor
 public class BranchPK implements Serializable {
 
     @Column(name = "code_branch", length = 3, nullable = false)
@@ -21,4 +19,7 @@ public class BranchPK implements Serializable {
 
     @Column(name = "international_bank_code", length = 16, nullable = false)
     private String internationalBankCode;
+
+    @Column(name = "code_location", nullable = false)
+    private Integer codeLocation;
 }

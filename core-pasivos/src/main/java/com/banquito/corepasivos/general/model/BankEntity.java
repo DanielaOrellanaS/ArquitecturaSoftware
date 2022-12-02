@@ -7,14 +7,17 @@ import javax.persistence.Table;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.EqualsAndHashCode.Include;
 
-@Entity
-@Table(name = "BANK_ENTITY")
 @Data
 @NoArgsConstructor
+@Entity
+@Table(name = "BANK_ENTITY")
 public class BankEntity {
     @EmbeddedId
+    @Include
     private BankEntityPK pk;
+
     @Column(name = "NAME", length = 64, nullable = false)
     private String name;
 
