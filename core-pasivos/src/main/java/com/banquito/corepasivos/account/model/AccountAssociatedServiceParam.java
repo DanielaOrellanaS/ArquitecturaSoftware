@@ -47,7 +47,6 @@ public class AccountAssociatedServiceParam {
 
     @ManyToOne
     @JoinColumns({
-            @JoinColumn(name = "code_account", referencedColumnName = "code_account", insertable = false, updatable = false),
             @JoinColumn(name = "code_local_account", referencedColumnName = "code_local_account", insertable = false, updatable = false),
             @JoinColumn(name = "code_international_account", referencedColumnName = "code_international_account", insertable = false, updatable = false),
             @JoinColumn(name = "code_product", referencedColumnName = "code_product", insertable = false, updatable = false),
