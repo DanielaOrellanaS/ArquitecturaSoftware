@@ -15,11 +15,8 @@ public class AccountAssociatedServiceParamPK implements Serializable {
         @Column(name = "code_param", length = 16, nullable = false)
         private String codeParam;
 
-        @Column(name = "code_associate_service", length = 16, nullable = false)
+        @Column(name = "code_associated_service", length = 16, nullable = false)
         private String codeAssociatedService;
-
-        @Column(name = "code_account", nullable = false)
-        private Integer codeAccount;
 
         @Column(name = "code_local_account", length = 20, nullable = false)
         private String codeLocalAccount;
