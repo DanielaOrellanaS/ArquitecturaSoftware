@@ -14,7 +14,7 @@ public class AccountAssociatedServiceParamController {
     AccountAssociatedServiceParamService accountAssociatedServiceParamService;
 
     @RequestMapping("/all")
-    public Object getAllAccountAssociatedServiceParams() {
-        return this.accountAssociatedServiceParamService.getAllAccountAssociatedServiceParams();
+    public Object findAllAccountAssociatedServiceParams() {
+        return this.accountAssociatedServiceParamService.findAllAccountAssociatedServiceParams();
     }
 }

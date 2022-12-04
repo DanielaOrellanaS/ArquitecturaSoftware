@@ -15,8 +15,8 @@ public class ClientController {
     ClientService clientService;
 
     @GetMapping("/all")
-    public Object getClient() {
-        return this.clientService.getAllClient();
+    public Object findClient() {
+        return this.clientService.findAllClient();
     }
     
     

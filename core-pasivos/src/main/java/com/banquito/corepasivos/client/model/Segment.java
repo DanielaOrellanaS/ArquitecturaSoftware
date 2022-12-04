@@ -22,8 +22,10 @@ public class Segment {
     @Id
     @Column(name = "code_segment", length = 16, nullable = false)
     private String codeSegment;
+
     @Column(name = "name", length = 64, nullable = false)
     private String name;
+
     @Column(name = "status", length = 3, nullable = false)
     private String status;
 
@@ -36,4 +38,5 @@ public class Segment {
     public Segment(String codeSegment) {
         this.codeSegment = codeSegment;
     }
+
 }

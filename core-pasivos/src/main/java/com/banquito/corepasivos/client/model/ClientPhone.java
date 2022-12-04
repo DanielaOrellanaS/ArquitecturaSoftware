@@ -25,7 +25,6 @@ public class ClientPhone {
 
     @ManyToOne
     @JoinColumns({
-            @JoinColumn(name = "code_client", referencedColumnName = "code_client", insertable = false, updatable = false),
             @JoinColumn(name = "identification_type", referencedColumnName = "identification_type", insertable = false, updatable = false),
             @JoinColumn(name = "identification", referencedColumnName = "identification", insertable = false, updatable = false),
     })

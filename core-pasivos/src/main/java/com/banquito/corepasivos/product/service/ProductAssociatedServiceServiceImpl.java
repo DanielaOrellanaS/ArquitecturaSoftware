@@ -15,7 +15,7 @@ public class ProductAssociatedServiceServiceImpl implements ProductAssociatedSer
     ProductAssociatedServiceRepository productAssociatedServiceRepository;
 
     @Override
-    public List<ProductAssociatedService> getAllProductAssociatedServices() {
+    public List<ProductAssociatedService> findAllProductAssociatedServices() {
         return this.productAssociatedServiceRepository.findAll();
     }
 

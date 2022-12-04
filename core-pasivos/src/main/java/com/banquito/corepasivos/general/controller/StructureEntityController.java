@@ -14,7 +14,7 @@ public class StructureEntityController {
     StructureEntityService structureEntityService;
 
     @GetMapping("/all")
-    public Object getStructureEntity() {
-        return this.structureEntityService.getAllStructureEntities();
+    public Object findStructureEntity() {
+        return this.structureEntityService.findAllStructureEntities();
     }
 }

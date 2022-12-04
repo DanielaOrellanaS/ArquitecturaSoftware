@@ -14,7 +14,7 @@ public class AccountClientController {
     AccountClientService accountClientService;
 
     @RequestMapping("/all")
-	public Object getAllAccountClient() {
-		return this.accountClientService.getAllAccountClient();
+	public Object findAllAccountClient() {
+		return this.accountClientService.findAllAccountClient();
 	}
 }
