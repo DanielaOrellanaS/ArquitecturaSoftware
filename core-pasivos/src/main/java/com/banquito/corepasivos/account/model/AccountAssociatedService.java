@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -29,7 +30,6 @@ public class AccountAssociatedService {
 
     @ManyToOne
     @JoinColumns({
-            @JoinColumn(name = "code_account", referencedColumnName = "code_account", insertable = false, updatable = false),
             @JoinColumn(name = "code_local_account", referencedColumnName = "code_local_account", insertable = false, updatable = false),
             @JoinColumn(name = "code_international_account", referencedColumnName = "code_international_account", insertable = false, updatable = false),
     })
@@ -42,6 +42,9 @@ public class AccountAssociatedService {
             @JoinColumn(name = "code_associated_service", referencedColumnName = "code_associated_service", insertable = false, updatable = false),
     })
     private ProductAssociatedService productAssociatedService;
+
+    @OneToMany(mappedBy = "account_associated_service")
+    private List<AccountAssociatedServiceParam> accountAssociatedServiceParams;
 
     public AccountAssociatedService(AccountAssociatedServicePK pk) {
         this.pk = pk;
