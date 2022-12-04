@@ -5,5 +5,5 @@ import java.util.List;
 import com.banquito.corepasivos.account.model.AccountClient;
 
 public interface AccountClientService {
-    List<AccountClient> getAllAccountClient();
+    List<AccountClient> findAllAccountClient();
 }

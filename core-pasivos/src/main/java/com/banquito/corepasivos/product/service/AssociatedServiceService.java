@@ -5,5 +5,5 @@ import java.util.List;
 import com.banquito.corepasivos.product.model.AssociatedService;
 
 public interface AssociatedServiceService {
-    List<AssociatedService> getAllAssociatedServices();
+    List<AssociatedService> findAllAssociatedServices();
 }

@@ -5,5 +5,5 @@ import com.banquito.corepasivos.account.model.AccountTransaction;
 import java.util.List;
 
 public interface AccountTransactionService {
-    List<AccountTransaction> getAllAccountTransactions();
+    List<AccountTransaction> findAllAccountTransactions();
 }

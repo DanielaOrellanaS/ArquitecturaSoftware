@@ -14,7 +14,7 @@ public class AccountTransactionServiceImpl implements AccountTransactionService 
     AccountTransactionRepository accountTransactionRepository;
 
     @Override
-    public List<AccountTransaction> getAllAccountTransactions(){
+    public List<AccountTransaction> findAllAccountTransactions(){
         return accountTransactionRepository.findAll();
     }
 }

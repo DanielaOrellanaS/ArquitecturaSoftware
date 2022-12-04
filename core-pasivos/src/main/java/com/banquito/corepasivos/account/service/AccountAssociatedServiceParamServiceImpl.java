@@ -15,7 +15,7 @@ public class AccountAssociatedServiceParamServiceImpl implements AccountAssociat
     AccountAssociatedServiceParamRepository accountAssociatedServiceParamRepository;
 
     @Override
-    public List<AccountAssociatedServiceParam> getAllAccountAssociatedServiceParams() {
+    public List<AccountAssociatedServiceParam> findAllAccountAssociatedServiceParams() {
         return accountAssociatedServiceParamRepository.findAll();
     }
 }

@@ -15,7 +15,7 @@ public class AccountClientServiceImpl implements AccountClientService {
     AccountClientRepository accountClientRepository;
 
     @Override
-    public List<AccountClient> getAllAccountClient() {
+    public List<AccountClient> findAllAccountClient() {
         return accountClientRepository.findAll();
     }
 }

@@ -14,7 +14,7 @@ public class ClientAddressServiceImpl implements ClientAddressService {
     ClientAddressRepository clientAddressRepository;
 
     @Override
-    public List<ClientAddress> getAllClientAddress(){
+    public List<ClientAddress> findAllClientAddress(){
         return clientAddressRepository.findAll();
     }
 }
