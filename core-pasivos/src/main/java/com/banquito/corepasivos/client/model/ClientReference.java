@@ -2,6 +2,7 @@ package com.banquito.corepasivos.client.model;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.EqualsAndHashCode.Include;
 
 import javax.persistence.*;
 
@@ -11,8 +12,17 @@ import javax.persistence.*;
 @Table(name = "client_reference")
 public class ClientReference {
 
-    @EmbeddedId
-    private ClientReferencePK pk;
+    @Id
+    @Include
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "code_reference", nullable = false)
+    private Integer codeReference;
+
+    @Column(name = "identification_type", length = 3, nullable = false)
+    private String identificationtype;
+
+    @Column(name = "identification", length = 20, nullable = false)
+    private String identification;
 
     @Column(name = "name", length = 64, nullable = false)
     private String name;
@@ -27,11 +37,10 @@ public class ClientReference {
     @JoinColumns({
             @JoinColumn(name = "identification_type", referencedColumnName = "identification_type", insertable = false, updatable = false),
             @JoinColumn(name = "identification", referencedColumnName = "identification", insertable = false, updatable = false),
-            @JoinColumn(name = "code_client", referencedColumnName = "code_client", insertable = false, updatable = false)
     })
     private Client client;
 
-    public ClientReference(ClientReferencePK pk) {
-        this.pk = pk;
+    public ClientReference(Integer codeReference) {
+        this.codeReference = codeReference;
     }
 }
