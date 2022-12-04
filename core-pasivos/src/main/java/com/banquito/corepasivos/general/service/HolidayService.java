@@ -5,5 +5,5 @@ import java.util.List;
 import com.banquito.corepasivos.general.model.Holiday;
 
 public interface HolidayService {
-    List<Holiday> getAllHolidays();
+    List<Holiday> findAllHolidays();
 }

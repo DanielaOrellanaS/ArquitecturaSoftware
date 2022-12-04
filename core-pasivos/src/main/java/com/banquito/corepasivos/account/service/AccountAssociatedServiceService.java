@@ -5,5 +5,5 @@ import java.util.List;
 import com.banquito.corepasivos.account.model.AccountAssociatedService;
 
 public interface AccountAssociatedServiceService {
-    List<AccountAssociatedService> getAllAccountAssociatedServices();
+    List<AccountAssociatedService> findAllAccountAssociatedServices();
 }

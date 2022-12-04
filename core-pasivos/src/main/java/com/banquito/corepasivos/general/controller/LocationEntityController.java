@@ -14,7 +14,7 @@ public class LocationEntityController {
     LocationEntityService locationEntityService;
 
     @GetMapping("/all")
-    public Object getLocationEntity() {
-        return this.locationEntityService.getAllLocationEntities();
+    public Object findLocationEntity() {
+        return this.locationEntityService.findAllLocationEntities();
     }
 }

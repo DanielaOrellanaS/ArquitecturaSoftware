@@ -15,7 +15,7 @@ public class AssociatedServiceController {
     AssociatedServiceService associatedServiceService;
 
     @GetMapping("/all")
-    public Object getAllAssociatedServices() {
-        return this.associatedServiceService.getAllAssociatedServices();
+    public Object findAllAssociatedServices() {
+        return this.associatedServiceService.findAllAssociatedServices();
     }
 }

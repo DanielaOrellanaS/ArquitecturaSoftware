@@ -14,7 +14,7 @@ public class InterestRateServiceImpl implements InterestRateService{
     InterestRateRepository interestRateRepository;
 
     @Override
-    public List<InterestRate> getAllInterestRates(){
+    public List<InterestRate> findAllInterestRates(){
         return interestRateRepository.findAll();
     }
 }

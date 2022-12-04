@@ -14,7 +14,7 @@ public class AccountTransactionController {
     AccountTransactionService accountTransactionService;
 
     @GetMapping("/all")
-    public Object getInterest() {
-        return this.accountTransactionService.getAllAccountTransactions();
+    public Object findInterest() {
+        return this.accountTransactionService.findAllAccountTransactions();
     }
 }

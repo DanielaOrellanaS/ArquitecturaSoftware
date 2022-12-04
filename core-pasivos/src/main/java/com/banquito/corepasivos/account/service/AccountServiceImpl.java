@@ -12,7 +12,7 @@ public class AccountServiceImpl implements AccountService {
 	AccountRepository accountRepository;
 
 	@Override
-	public java.util.List<Account> getAllAccounts() {
+	public java.util.List<Account> findAllAccounts() {
 		return accountRepository.findAll();
 	}
 }

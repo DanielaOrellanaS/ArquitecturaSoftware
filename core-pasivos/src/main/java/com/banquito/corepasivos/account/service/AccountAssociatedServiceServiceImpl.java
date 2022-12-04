@@ -15,7 +15,7 @@ public class AccountAssociatedServiceServiceImpl implements AccountAssociatedSer
     AccountAssociatedServiceRepository accountAssociatedServiceRepository;
 
     @Override
-    public List<AccountAssociatedService> getAllAccountAssociatedServices() {
+    public List<AccountAssociatedService> findAllAccountAssociatedServices() {
         return accountAssociatedServiceRepository.findAll();
     }
 }

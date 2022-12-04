@@ -14,7 +14,7 @@ public class ClientAddressController {
     ClientAddressService clientAddressService;
 
     @GetMapping("/all")
-    public Object getClientAddress() {
-        return this.clientAddressService.getAllClientAddress();
+    public Object findClientAddress() {
+        return this.clientAddressService.findAllClientAddress();
     }
 }

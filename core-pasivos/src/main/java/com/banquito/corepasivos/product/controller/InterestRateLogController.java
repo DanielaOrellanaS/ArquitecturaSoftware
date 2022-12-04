@@ -15,8 +15,8 @@ public class InterestRateLogController {
     InterestRateLogService interestRateLogService;
 
     @GetMapping("/all")
-    public Object getInterestRateLog(){
-        return this.interestRateLogService.getAllInterestRateLog();
+    public Object findInterestRateLog(){
+        return this.interestRateLogService.findAllInterestRateLog();
     }
     
 }

@@ -14,8 +14,8 @@ public class AccountController {
 	AccountService accountService;
 
 	@RequestMapping("/all")
-	public Object getAllAccounts() {
-		return this.accountService.getAllAccounts();
+	public Object findAllAccounts() {
+		return this.accountService.findAllAccounts();
 	}
 
 }

@@ -1,8 +1,11 @@
 package com.banquito.corepasivos.product.model;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import lombok.Data;
@@ -26,6 +29,12 @@ public class InterestRate {
 
     @Column(name = "calc_base", nullable = false, length = 8)
     private String calcBase;
+
+    @OneToMany(mappedBy = "interest_rate")
+    private List<InterestRateLog> interestRateLog;
+
+    @OneToMany(mappedBy = "interest_rate")
+    private List<Product> products;
 
     public InterestRate(String codeInterestRate) {
         this.codeInterestRate = codeInterestRate;
