@@ -15,7 +15,7 @@ import com.banquito.corepasivos.product.model.AssociatedServiceParam;
 @Table(name = "account_asso_service_param")
 public class AccountAssociatedServiceParam {
     @EmbeddedId
-    private AccountAssociatedServicePK pk;
+    private AccountAssociatedServiceParamPK pk;
 
     @Column(name = "status", length = 3, nullable = false)
     private String status;
@@ -55,7 +55,7 @@ public class AccountAssociatedServiceParam {
     })
     private AccountAssociatedService associatedService;
 
-    public AccountAssociatedServiceParam(AccountAssociatedServicePK pk) {
+    public AccountAssociatedServiceParam(AccountAssociatedServiceParamPK pk) {
         this.pk = pk;
     }
 }
