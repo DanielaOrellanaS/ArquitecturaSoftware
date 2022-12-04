@@ -3,6 +3,9 @@ package com.banquito.corepasivos.general.model;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinColumns;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -26,6 +29,17 @@ public class LocationEntity {
 
     @Column(name = "zip_code", length = 16, nullable = true)
     private String zipCode;
+
+    @ManyToOne
+    @JoinColumns({
+            @JoinColumn(name = "CODE_COUNTRY", nullable = false, insertable = false, updatable = false),
+            @JoinColumn(name = "level", nullable = false, insertable = false, updatable = false)
+    })
+    private StructureEntity structureEntity;
+
+    @ManyToOne
+    @JoinColumn(name = "CODE_COUNTRY", nullable = false, insertable = false, updatable = false)
+    private CountryEntity countryEntity;
 
     public LocationEntity(LocationEntityPK pk) {
         this.pk = pk;

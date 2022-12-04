@@ -1,5 +1,7 @@
 package com.banquito.corepasivos.general.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
@@ -13,7 +15,7 @@ import lombok.EqualsAndHashCode.Include;
 @NoArgsConstructor
 @Entity
 @Table(name = "BANK_ENTITY")
-public class BankEntity {
+public class BankEntity implements Serializable {
     @EmbeddedId
     @Include
     private BankEntityPK pk;

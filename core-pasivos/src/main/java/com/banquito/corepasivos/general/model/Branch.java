@@ -34,6 +34,10 @@ public class Branch {
     })
     private BankEntity bankEntity;
 
+    @ManyToOne
+    @JoinColumn(name = "CODE_LOCATION", nullable = false, insertable = false, updatable = false)
+    private LocationEntity locationEntity;
+
     public Branch(BranchPK pk) {
         this.pk = pk;
     }
