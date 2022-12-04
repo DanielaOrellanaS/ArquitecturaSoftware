@@ -1,8 +1,12 @@
 package com.banquito.corepasivos.general.model;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import lombok.Data;
@@ -25,6 +29,9 @@ public class CountryEntity {
 
     @Column(name = "NAME", length = 64, nullable = false)
     private String name;
+
+    @OneToMany(mappedBy = "COUNTRY_ENTITY")
+    private List<LocationEntity> locationEntities; 
 
     public CountryEntity(String codeCountry) {
         this.codeCountry = codeCountry;
