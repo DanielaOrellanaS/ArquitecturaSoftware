@@ -6,13 +6,12 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import com.banquito.corepasivos.client.model.ClientReference;
-import com.banquito.corepasivos.client.model.ClientReferencePK;
+// import com.banquito.corepasivos.client.model.ClientReferencePK;
 
 @Repository
-public interface ClientReferenceRepository extends JpaRepository<ClientReference, ClientReferencePK> {
-    List<ClientReference> findByPkCode(Integer codeReference);
+public interface ClientReferenceRepository extends JpaRepository<ClientReference, Integer> {
 
-    List<ClientReference> findByPkIdentificationtype(String identificationType);
+    List<ClientReference> findByIdentificationtype(String identificationType);
 
-    List<ClientReference> findByPkIdentification(String identification);
+    List<ClientReference> findByIdentification(String identification);
 }

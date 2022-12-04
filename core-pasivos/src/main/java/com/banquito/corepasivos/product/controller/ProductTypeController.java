@@ -14,7 +14,7 @@ public class ProductTypeController {
     ProductTypeService productTypeService;
 
     @GetMapping("/all")
-    public Object getProductType() {
+    public Object findProductType() {
         return this.productTypeService.readAllProductTypes();
     }
 

@@ -1,9 +1,21 @@
 package com.banquito.corepasivos.account.service;
 
+import com.banquito.corepasivos.account.model.AccountClient;
+import com.banquito.corepasivos.account.repository.AccountClientRepository;
+import org.springframework.stereotype.Service;
+
 import java.util.List;
 
-import com.banquito.corepasivos.account.model.AccountClient;
+@Service
+public class AccountClientService {
 
-public interface AccountClientService {
-    List<AccountClient> getAllAccountClient();
+    private final AccountClientRepository accountClientRepository;
+
+    public AccountClientService(AccountClientRepository accountClientRepository) {
+        this.accountClientRepository = accountClientRepository;
+    }
+
+    public List<AccountClient> findAllAccountClient() {
+        return accountClientRepository.findAll();
+    }
 }

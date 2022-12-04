@@ -1,8 +1,11 @@
 package com.banquito.corepasivos.client.model;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.*;
+
+import com.banquito.corepasivos.account.model.AccountClient;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -97,6 +100,9 @@ public class Client {
     @ManyToOne
     @JoinColumn(name = "code_segment", referencedColumnName = "code_segment", insertable = false, updatable = false)
     private Segment codeSegment;
+
+    @OneToMany(mappedBy = "client")
+    private List <AccountClient> accountsClient;
 
     public Client(ClientPK pk) {
         this.pk = pk;

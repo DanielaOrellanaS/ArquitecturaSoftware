@@ -14,7 +14,7 @@ public class BankEntityController {
     BankEntityService bankEntityService;
 
     @GetMapping("/all")
-    public Object getBankEntity() {
-        return this.bankEntityService.getAllBankEntities();
+    public Object findBankEntity() {
+        return this.bankEntityService.findAllBankEntities();
     }
 }

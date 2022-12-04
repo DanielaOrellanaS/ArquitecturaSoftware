@@ -1,7 +1,6 @@
 package com.banquito.corepasivos.account.controller;
 
 import com.banquito.corepasivos.account.service.AccountSignatureService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -11,13 +10,16 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/accountsignature")
 public class AccountSignatureController {
 
-    
-    @Autowired
-    AccountSignatureService accountSignatureService;
+    private final AccountSignatureService accountSignatureService;
+
+    public AccountSignatureController(AccountSignatureService accountSignatureService){
+        this.accountSignatureService = accountSignatureService;
+    }
+
 
     @GetMapping("/all")
-    public Object getAccountSignature() {
-        return this.accountSignatureService.getAllAccountSignatures();
+    public Object findAccountSignature() {
+        return this.accountSignatureService.findAllAccountSignatures();
     }
     
 }

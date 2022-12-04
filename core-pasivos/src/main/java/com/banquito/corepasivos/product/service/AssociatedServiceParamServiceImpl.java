@@ -15,7 +15,7 @@ public class AssociatedServiceParamServiceImpl implements AssociatedServiceParam
     AssociatedServiceParamRepository associatedServiceParamRepository;
 
     @Override
-    public List<AssociatedServiceParam> getAllAssociatedServiceParam() {
+    public List<AssociatedServiceParam> findAllAssociatedServiceParam() {
         return this.associatedServiceParamRepository.findAll();
     }
 

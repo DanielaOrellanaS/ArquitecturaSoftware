@@ -32,12 +32,12 @@ public class ProductTypeServiceImpl implements ProductTypeService {
     @Override
     public ProductType updateProductType(ProductType productType, String codeProductType) {
         ProductType productTypeToUpdate = productTypeRepository.findByCodeProductType(codeProductType).get(0);
-        productTypeToUpdate.setCodeProductType(productType.getCodeProductType());
-        productTypeToUpdate.setName(productType.getName());
-        productTypeToUpdate.setType(productType.getType());
-        productTypeToUpdate.setAllowEarnInterest(productType.getAllowEarnInterest());
-        productTypeToUpdate.setAllowGeneralAccountState(productType.getAllowGeneralAccountState());
-        productTypeToUpdate.setTemporalityInterest(productType.getTemporalityInterest());
+        productTypeToUpdate.setCodeProductType(productType.findCodeProductType());
+        productTypeToUpdate.setName(productType.findName());
+        productTypeToUpdate.setType(productType.findType());
+        productTypeToUpdate.setAllowEarnInterest(productType.findAllowEarnInterest());
+        productTypeToUpdate.setAllowGeneralAccountState(productType.findAllowGeneralAccountState());
+        productTypeToUpdate.setTemporalityInterest(productType.findTemporalityInterest());
 
         return productTypeRepository.save(productTypeToUpdate);
     }

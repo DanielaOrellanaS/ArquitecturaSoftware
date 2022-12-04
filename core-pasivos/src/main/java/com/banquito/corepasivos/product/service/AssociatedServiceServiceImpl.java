@@ -15,7 +15,7 @@ public class AssociatedServiceServiceImpl implements AssociatedServiceService {
     AssociatedServiceRepository associatedServiceRepository;
 
     @Override
-    public List<AssociatedService> getAllAssociatedServices() {
+    public List<AssociatedService> findAllAssociatedServices() {
         return this.associatedServiceRepository.findAll();
     }
 }

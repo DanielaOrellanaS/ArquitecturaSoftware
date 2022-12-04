@@ -15,7 +15,7 @@ public class ClientPhonesServiceImpl implements ClientPhoneService{
     private ClientPhoneRepository clientPhoneRepository;
 
     @Override
-    public List<ClientPhone> getAllClientPhones() {
+    public List<ClientPhone> findAllClientPhones() {
         return this.clientPhoneRepository.findAll();
     }
 

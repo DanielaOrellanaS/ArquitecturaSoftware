@@ -1,7 +1,6 @@
 package com.banquito.corepasivos.account.controller;
 
 import com.banquito.corepasivos.account.service.AccountTransactionService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -10,11 +9,14 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/accounttransaction")
 public class AccountTransactionController {
 
-    @Autowired
-    AccountTransactionService accountTransactionService;
+    private final AccountTransactionService accountTransactionService;
+
+    public AccountTransactionController(AccountTransactionService accountTransactionService) {
+        this.accountTransactionService = accountTransactionService;
+    }
 
     @GetMapping("/all")
-    public Object getInterest() {
-        return this.accountTransactionService.getAllAccountTransactions();
+    public Object findInterest() {
+        return this.accountTransactionService.findAllAccountTransactions();
     }
 }

@@ -14,9 +14,6 @@ public class ClientPhonePK implements Serializable {
     @Column(name = "phone_number", length = 16, nullable = false)
     private String phoneNumber;
 
-    @Column(name = "code_client", nullable = false)
-    private Integer codeClient;
-
     @Column(name = "identification_type", length = 3, nullable = false)
     private String identificationType;
 

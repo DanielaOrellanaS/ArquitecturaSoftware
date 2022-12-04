@@ -14,7 +14,7 @@ public class CountryEntityController {
     CountryEntityService countryEntityService;
 
     @GetMapping("/all")
-    public Object getCountryEntity() {
-        return this.countryEntityService.getAllCountryEntities();
+    public Object findCountryEntity() {
+        return this.countryEntityService.findAllCountryEntities();
     }
 }

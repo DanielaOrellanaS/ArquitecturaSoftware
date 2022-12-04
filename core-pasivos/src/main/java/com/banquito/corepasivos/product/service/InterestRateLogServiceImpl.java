@@ -15,7 +15,7 @@ public class InterestRateLogServiceImpl implements InterestRateLogService{
     InterestRateLogRepository interestRateLogRepository;
 
     @Override
-    public List<InterestRateLog> getAllInterestRateLog(){
+    public List<InterestRateLog> findAllInterestRateLog(){
         return interestRateLogRepository.findAll();
     }
     
