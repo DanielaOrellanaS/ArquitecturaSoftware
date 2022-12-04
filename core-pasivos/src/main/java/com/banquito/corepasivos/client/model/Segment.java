@@ -2,6 +2,7 @@ package com.banquito.corepasivos.client.model;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.EqualsAndHashCode.Include;
 
 import java.util.List;
 
@@ -20,6 +21,7 @@ import com.banquito.corepasivos.product.model.Product;
 public class Segment {
 
     @Id
+    @Include
     @Column(name = "code_segment", length = 16, nullable = false)
     private String codeSegment;
 
