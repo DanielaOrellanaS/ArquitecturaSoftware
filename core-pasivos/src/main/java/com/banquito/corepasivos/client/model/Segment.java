@@ -13,7 +13,6 @@ import javax.persistence.Table;
 
 import com.banquito.corepasivos.product.model.Product;
 
-
 @Data
 @NoArgsConstructor
 @Entity
@@ -30,8 +29,11 @@ public class Segment {
     @Column(name = "status", length = 3, nullable = false)
     private String status;
 
-    @OneToMany(mappedBy = "segment")
+    @OneToMany(mappedBy = "segment", targetEntity = Product.class)
     private List<Product> products;
+
+    @OneToMany(mappedBy = "segment", targetEntity = Client.class)
+    private List<Client> clients;
 
     public Segment(String codeSegment) {
         this.codeSegment = codeSegment;
