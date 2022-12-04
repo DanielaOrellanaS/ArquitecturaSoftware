@@ -29,7 +29,6 @@ public class ClientRelationship {
 
 	@ManyToOne
 	@JoinColumns({
-			@JoinColumn(name = "code_client", referencedColumnName = "code_client", insertable = false, updatable = false),
 			@JoinColumn(name = "identification_type", referencedColumnName = "identification_type", insertable = false, updatable = false),
 			@JoinColumn(name = "identification", referencedColumnName = "identification", insertable = false, updatable = false),
 	})
@@ -37,7 +36,6 @@ public class ClientRelationship {
 
 	@ManyToOne
 	@JoinColumns({
-			@JoinColumn(name = "code_client_relationship", referencedColumnName = "code_client", insertable = false, updatable = false),
 			@JoinColumn(name = "cli_identification_type", referencedColumnName = "identification_type", insertable = false, updatable = false),
 			@JoinColumn(name = "cli_identification", referencedColumnName = "identification", insertable = false, updatable = false),
 	})
