@@ -2,16 +2,19 @@ package com.banquito.corepasivos.product.model;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.banquito.corepasivos.account.model.Account;
 import com.banquito.corepasivos.client.model.Segment;
 
 import lombok.Data;
@@ -66,6 +69,12 @@ public class Product {
     @ManyToOne
     @JoinColumn(name = "code_interest_rate", referencedColumnName = "code_interest_rate", insertable = false, updatable = false)
     private InterestRate interestRate;
+
+    @OneToMany(mappedBy = "product")
+    private List<Account> accounts;
+
+    @OneToMany(mappedBy = "product")
+    private List<ProductAssociatedService> productAssociatedServices;
 
     public Product(ProductPK pk) {
         this.pk = pk;
