@@ -3,10 +3,15 @@ package com.banquito.corepasivos.client.model;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.banquito.corepasivos.product.model.Product;
 
 
 @Data
@@ -18,12 +23,18 @@ public class Segment {
     @Id
     @Column(name = "code_segment", length = 16, nullable = false)
     private String codeSegment;
+
     @Column(name = "name", length = 64, nullable = false)
     private String name;
+
     @Column(name = "status", length = 3, nullable = false)
     private String status;
+
+    @OneToMany(mappedBy = "segment")
+    private List<Product> products;
 
     public Segment(String codeSegment) {
         this.codeSegment = codeSegment;
     }
+
 }

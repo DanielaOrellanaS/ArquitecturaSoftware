@@ -33,6 +33,9 @@ public class InterestRate {
     @OneToMany(mappedBy = "interest_rate")
     private List<InterestRateLog> interestRateLog;
 
+    @OneToMany(mappedBy = "interest_rate")
+    private List<Product> products;
+
     public InterestRate(String codeInterestRate) {
         this.codeInterestRate = codeInterestRate;
     }
