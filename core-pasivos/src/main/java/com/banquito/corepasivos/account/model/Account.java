@@ -71,9 +71,6 @@ public class Account {
 	private Branch branch;
 
 	@OneToMany(mappedBy = "account")
-	private List<AccountClient> accountClients;
-
-	@OneToMany(mappedBy = "account")
 	private List<AccountSignature> accountSignatures;
 
 	@OneToMany(mappedBy = "account")
@@ -81,6 +78,9 @@ public class Account {
 
 	@OneToMany(mappedBy = "account")
 	private List<AccountAssociatedService> accountAssociatedServices;
+
+	@OneToMany(mappedBy = "account")
+	private List<AccountClient>  accountsClient;
 
 	public Account(AccountPK accountPK) {
 		this.pk = accountPK;

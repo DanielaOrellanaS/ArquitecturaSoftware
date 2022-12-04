@@ -11,17 +11,11 @@ import lombok.Data;
 @Embeddable
 public class AccountClientPK implements Serializable {
 
-        @Column(name = "code_account", nullable = false)
-        private Integer codeAccount;
-
         @Column(name = "code_local_account", length = 20, nullable = false)
         private String codeLocalAccount;
 
         @Column(name = "code_international_account", length = 34, nullable = false)
         private String codeInternationalAccount;
-
-        @Column(name = "code_client", nullable = false)
-        private Integer codeClient;
 
         @Column(name = "identification_type", length = 3, nullable = false)
         private String identificationType;
