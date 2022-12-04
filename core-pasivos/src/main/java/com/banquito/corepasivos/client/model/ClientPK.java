@@ -9,12 +9,12 @@ import java.io.Serializable;
 @Embeddable
 public class ClientPK implements Serializable {
 
-    @Column(name = "CODE_CLIENT", nullable = false)
+    @Column(name = "code_client", nullable = false)
     private Integer codeClient;
 
-    @Column(name = "IDENTIFICATION_TYPE", length = 3, nullable = false)
+    @Column(name = "identification_type", length = 3, nullable = false)
     private String identificationType;
 
-    @Column(name = "IDENTIFICATION", length = 20, nullable = false)
+    @Column(name = "identification", length = 20, nullable = false)
     private String identification;
 }

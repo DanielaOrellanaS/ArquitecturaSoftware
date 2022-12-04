@@ -24,14 +24,14 @@ public class AccountClient {
     @Column(name = "status", length = 3, nullable = false)
     private String status;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumns({
             @JoinColumn(name = "code_local_account", insertable = false, updatable = false),
             @JoinColumn(name = "code_international_account", insertable = false, updatable = false),
     })
     private Account account;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumns({
             @JoinColumn(name = "identification_type", insertable = false, updatable = false),
             @JoinColumn(name = "identification", insertable = false, updatable = false),

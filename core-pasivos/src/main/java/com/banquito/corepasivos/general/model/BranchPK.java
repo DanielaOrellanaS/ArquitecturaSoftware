@@ -19,7 +19,4 @@ public class BranchPK implements Serializable {
 
     @Column(name = "international_bank_code", length = 16, nullable = false)
     private String internationalBankCode;
-
-    @Column(name = "code_location", nullable = false)
-    private Integer codeLocation;
 }
