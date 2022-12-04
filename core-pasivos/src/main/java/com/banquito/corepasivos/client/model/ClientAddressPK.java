@@ -11,12 +11,6 @@ import lombok.Data;
 @Embeddable
 public class ClientAddressPK implements Serializable {
 
-    @Column(name = "code_address", nullable = false)
-    private Integer codeAddress;
-
-    @Column(name = "code_client", nullable = false)
-    private Integer codeClient;
-
     @Column(name = "identification_type", length = 3, nullable = false)
     private String identificationType;
 
