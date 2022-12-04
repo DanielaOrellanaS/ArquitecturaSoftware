@@ -7,6 +7,7 @@ import javax.persistence.*;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.EqualsAndHashCode.Include;
 
 @Data
 @NoArgsConstructor
@@ -15,8 +16,16 @@ import lombok.NoArgsConstructor;
 public class AccountTransaction {
 
     @Id
+    @Include
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "code_transaction", nullable = false)
     private Integer codeTransaction;
+
+    @Column(name = "code_local_account", length = 20, nullable = false)
+    private String codeLocalAccount;
+
+    @Column(name = "code_international_account", length = 34, nullable = false)
+    private String codeInternationalAccount;
 
     @Column(name = "code_unique_transaction", length = 64, nullable = false)
     private String codeUniqueTransaction;
@@ -55,7 +64,6 @@ public class AccountTransaction {
 
     @ManyToOne
     @JoinColumns({
-            @JoinColumn(name = "code_account", referencedColumnName = "code_account", insertable = false, updatable = false),
             @JoinColumn(name = "code_local_account", referencedColumnName = "code_local_account", insertable = false, updatable = false),
             @JoinColumn(name = "code_international_account", referencedColumnName = "code_international_account", insertable = false, updatable = false)
     })
@@ -65,5 +73,4 @@ public class AccountTransaction {
         this.codeTransaction = codeTransaction;
     }
 
-    
 }

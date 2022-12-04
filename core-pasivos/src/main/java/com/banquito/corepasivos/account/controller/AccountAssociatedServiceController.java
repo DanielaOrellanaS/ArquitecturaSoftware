@@ -1,17 +1,18 @@
 package com.banquito.corepasivos.account.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import com.banquito.corepasivos.account.service.AccountAssociatedServiceService;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.banquito.corepasivos.account.service.AccountAssociatedServiceService;
 
 @RestController
 @RequestMapping("/accountassociatedservice")
 public class AccountAssociatedServiceController {
 
-    @Autowired
-    AccountAssociatedServiceService accountAssociatedServiceService;
+    private final AccountAssociatedServiceService accountAssociatedServiceService;
+
+    public AccountAssociatedServiceController(AccountAssociatedServiceService accountAssociatedServiceService){
+        this.accountAssociatedServiceService= accountAssociatedServiceService;
+    }
 
     @RequestMapping("/all")
     public Object findAllAccountAssociatedServices() {

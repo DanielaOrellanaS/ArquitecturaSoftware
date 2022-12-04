@@ -19,6 +19,21 @@ public class Account {
 	@EmbeddedId
 	private AccountPK pk;
 
+	@Column(name = "code_product", length = 32, nullable = false)
+	private String codeProduct;
+
+	@Column(name = "code_product_type", length = 32, nullable = false)
+	private String codeProductType;
+
+	@Column(name = "code_branch", length = 3, nullable = false)
+	private String codeBranch;
+
+	@Column(name = "entity_bank_code", length = 16, nullable = false)
+	private String entityBankCode;
+
+	@Column(name = "international_bank_code", length = 16, nullable = false)
+	private String internationalBankCode;
+
 	@Column(name = "status", length = 3, nullable = false)
 	private String status;
 
