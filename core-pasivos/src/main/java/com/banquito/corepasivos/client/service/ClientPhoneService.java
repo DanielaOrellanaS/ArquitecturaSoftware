@@ -5,5 +5,5 @@ import java.util.List;
 import com.banquito.corepasivos.client.model.ClientPhone;
 
 public interface ClientPhoneService {
-    List<ClientPhone>getAllClientPhones();
+    List<ClientPhone>findAllClientPhones();
 }

@@ -5,5 +5,5 @@ import java.util.List;
 import com.banquito.corepasivos.client.model.Client;
 
 public interface ClientService {
-    List<Client> getAllClient();
+    List<Client> findAllClient();
 }

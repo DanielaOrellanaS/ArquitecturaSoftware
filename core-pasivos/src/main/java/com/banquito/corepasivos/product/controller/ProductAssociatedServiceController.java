@@ -18,7 +18,7 @@ public class ProductAssociatedServiceController {
 
     @GetMapping("/all")
     public List<ProductAssociatedService> readProductAssociatedServices() {
-        return this.productAssociatedServiceService.getAllProductAssociatedServices();
+        return this.productAssociatedServiceService.findAllProductAssociatedServices();
     }
 
 }

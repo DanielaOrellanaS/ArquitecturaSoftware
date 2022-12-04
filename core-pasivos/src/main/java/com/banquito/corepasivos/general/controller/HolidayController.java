@@ -14,7 +14,7 @@ public class HolidayController {
     HolidayService holidayService;
 
     @GetMapping("/all")
-    public Object getHoliday() {
-        return this.holidayService.getAllHolidays();
+    public Object findHoliday() {
+        return this.holidayService.findAllHolidays();
     }
 }

@@ -14,7 +14,7 @@ public class ClientPhoneController {
     ClientPhoneService clientPhoneService;
 
     @RequestMapping("/all")
-    public Object getAllClientPhones(){
-        return this.clientPhoneService.getAllClientPhones();
+    public Object findAllClientPhones(){
+        return this.clientPhoneService.findAllClientPhones();
     }
 }

@@ -15,7 +15,7 @@ public class InterestRateControllet {
     InterestRateService interestRateService;
 
     @GetMapping("/all")
-    public Object getInterest() {
-        return this.interestRateService.getAllInterestRates();
+    public Object findInterest() {
+        return this.interestRateService.findAllInterestRates();
     }
 }

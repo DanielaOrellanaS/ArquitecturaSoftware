@@ -19,7 +19,7 @@ public class BankEntityService {
 
     @Transactional
     public void register(BankEntity bankEntity) {
-        List<BankEntity> bankEntities = this.bankEntityRepository.findByEntityBankCode(bankEntity.getPk());
+        List<BankEntity> bankEntities = this.bankEntityRepository.findByEntityBankCode(bankEntity.findPk());
         if (bankEntities.isEmpty()) {
             this.bankEntityRepository.save(bankEntity);
         } else {

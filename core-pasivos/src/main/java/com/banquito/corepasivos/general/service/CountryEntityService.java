@@ -5,5 +5,5 @@ import java.util.List;
 import com.banquito.corepasivos.general.model.CountryEntity;
 
 public interface CountryEntityService {
-    List<CountryEntity> getAllCountryEntities();
+    List<CountryEntity> findAllCountryEntities();
 }

@@ -6,6 +6,6 @@ import com.banquito.corepasivos.product.model.ProductAssociatedService;
 
 public interface ProductAssociatedServiceService {
 
-    List<ProductAssociatedService> getAllProductAssociatedServices();
+    List<ProductAssociatedService> findAllProductAssociatedServices();
 
 }

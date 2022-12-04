@@ -14,7 +14,7 @@ public class AccountSignatureServiceImpl implements AccountSignatureService {
     AccountSignatureRepository accountSignatureRepository;
 
     @Override
-    public List<AccountSignature> getAllAccountSignatures(){
+    public List<AccountSignature> findAllAccountSignatures(){
         return accountSignatureRepository.findAll();
     }
     
