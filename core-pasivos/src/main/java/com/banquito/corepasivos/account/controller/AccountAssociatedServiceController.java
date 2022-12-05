@@ -125,6 +125,17 @@ public class AccountAssociatedServiceController {
 		}
 	}
 
+	@RequestMapping(value = "", method = RequestMethod.PUT)
+	public ResponseEntity<String> updateAccountAssociatedService(
+			@RequestBody AccountAssociatedService accountAssociatedService) {
+		try {
+			this.service.update(accountAssociatedService);
+			return ResponseEntity.ok("OK");
+		} catch (Exception e) {
+			return ResponseEntity.internalServerError().body(e.getMessage());
+		}
+	}
+
 	@RequestMapping("/all")
 	public Object findAll() {
 		return this.service.findAll();

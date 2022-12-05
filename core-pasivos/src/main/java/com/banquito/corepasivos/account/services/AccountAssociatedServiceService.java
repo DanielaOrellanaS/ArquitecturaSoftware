@@ -113,6 +113,15 @@ public class AccountAssociatedServiceService {
 		}
 	}
 
+	@Transactional
+	public void update(AccountAssociatedService accountAssociatedService) {
+		try {
+			this.accountAssociatedServiceRepository.save(accountAssociatedService);
+		} catch (Exception e) {
+			throw new RuntimeException("Error updating Account Associated Service");
+		}
+	}
+
 	public List<AccountAssociatedService> findAll() {
 		return this.accountAssociatedServiceRepository.findAll();
 	}
