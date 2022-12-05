@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/account")
+@RequestMapping("/api/account")
 public class AccountController {
 
     private final AccountService accountService;
@@ -126,27 +126,39 @@ public class AccountController {
         return ResponseEntity.ok(accountsBystatus);
     }
 
+    @RequestMapping(value = "consolidated-position/{identification}", method = RequestMethod.GET)
+    public ResponseEntity<List<Account>> findConsolidatedPosition(
+            @PathVariable("identification") String identification) {
+        List<Account> consolidatedPositions = this.accountService.findConsolidatedPosition(identification);
+
+        if (consolidatedPositions.isEmpty())
+            return ResponseEntity.notFound().build();
+
+        return ResponseEntity.ok(consolidatedPositions);
+    }
+
     @RequestMapping(value = "/local/{codeLocalAccount}", method = RequestMethod.PUT)
-    public Account updateByCodeLocalAccount(@RequestBody Account account,
+    public ResponseEntity<Account> updateByCodeLocalAccount(@RequestBody Account account,
             @PathVariable("codeLocalAccount") String codeLocalAccount) {
-        return this.accountService.updateByCodeLocalAccount(codeLocalAccount, account);
+        return ResponseEntity.ok(this.accountService.updateByCodeLocalAccount(codeLocalAccount, account));
     }
 
     @RequestMapping(value = "/international/{codeInternationalAccount}", method = RequestMethod.PUT)
-    public Account updateByCodeInternationalAccount(@RequestBody Account account,
+    public ResponseEntity<Account> updateByCodeInternationalAccount(@RequestBody Account account,
             @PathVariable("codeInternationalAccount") String codeInternationalAccount) {
-        return this.accountService.updateByCodeInternationalAccount(codeInternationalAccount, account);
+        return ResponseEntity
+                .ok(this.accountService.updateByCodeInternationalAccount(codeInternationalAccount, account));
     }
 
     @RequestMapping(value = "/local/{codeLocalAccount}", method = RequestMethod.DELETE)
-    public Account deleteByCodeLocalAccount(
+    public ResponseEntity<Account> deleteByCodeLocalAccount(
             @PathVariable("codeLocalAccount") String codeLocalAccount) {
-        return this.accountService.deleteByCodeLocalAccount(codeLocalAccount);
+        return ResponseEntity.ok(this.accountService.deleteByCodeLocalAccount(codeLocalAccount));
     }
 
     @RequestMapping(value = "/international/{codeInternationalAccount}", method = RequestMethod.DELETE)
-    public Account deleteByCodeInternationalAccount(
+    public ResponseEntity<Account> deleteByCodeInternationalAccount(
             @PathVariable("codeInternationalAccount") String codeInternationalAccount) {
-        return this.accountService.deleteByCodeInternationalAccount(codeInternationalAccount);
+        return ResponseEntity.ok(this.accountService.deleteByCodeInternationalAccount(codeInternationalAccount));
     }
 }
