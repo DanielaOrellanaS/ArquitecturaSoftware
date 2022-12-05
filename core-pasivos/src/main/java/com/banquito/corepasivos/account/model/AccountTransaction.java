@@ -1,16 +1,14 @@
 package com.banquito.corepasivos.account.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import lombok.Data;
+import lombok.EqualsAndHashCode.Include;
+import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
-
-import javax.persistence.*;
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
-
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.EqualsAndHashCode.Include;
 
 @Data
 @NoArgsConstructor

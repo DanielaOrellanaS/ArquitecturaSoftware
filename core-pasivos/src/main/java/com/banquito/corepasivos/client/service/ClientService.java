@@ -10,13 +10,13 @@ import java.util.List;
 @Service
 public class ClientService {
 
-    private final ClientRepository clientRepository;
-
-    public ClientService(ClientRepository clientRepository) {
-        this.clientRepository = clientRepository;
-    }
-
-    public List<Client> findAllClients() {
-        return this.clientRepository.findAll();
-    }
+//    private final ClientRepository clientRepository;
+//
+//    public ClientService(ClientRepository clientRepository) {
+//        this.clientRepository = clientRepository;
+//    }
+//
+//    public List<Client> findAllClients() {
+//        return this.clientRepository.findAll();
+//    }
 }

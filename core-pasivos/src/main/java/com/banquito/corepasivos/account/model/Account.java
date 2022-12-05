@@ -1,16 +1,14 @@
 package com.banquito.corepasivos.account.model;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.EqualsAndHashCode.Include;
-
-import javax.persistence.*;
-
 import com.banquito.corepasivos.general.model.Branch;
 import com.banquito.corepasivos.product.model.Product;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import lombok.Data;
+import lombok.EqualsAndHashCode.Include;
+import lombok.NoArgsConstructor;
 
+import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
@@ -22,7 +20,6 @@ import java.util.List;
 @Table(name = "account")
 public class Account implements Serializable {
 
-	//hello
 	@EmbeddedId
 	@Include
 	private AccountPK pk;
@@ -82,19 +79,19 @@ public class Account implements Serializable {
 
 	@JsonManagedReference
 	@OneToMany(mappedBy = "account")
-	private List<AccountSignature> accountSignatures;
+	private List<AccountSignature> accountSignatureList;
 
 	@JsonManagedReference
 	@OneToMany(mappedBy = "account")
-	private List<AccountTransaction> accountTransactions;
+	private List<AccountTransaction> accountTransactionList;
 
 	@JsonManagedReference
 	@OneToMany(mappedBy = "account")
-	private List<AccountAssociatedService> accountAssociatedServices;
+	private List<AccountAssociatedService> accountAssociatedServiceList;
 
 	@JsonManagedReference
 	@OneToMany(mappedBy = "account")
-	private List<AccountClient> accountsClient;
+	private List<AccountClient> accountClientList;
 
 	public Account(AccountPK accountPK) {
 		this.pk = accountPK;

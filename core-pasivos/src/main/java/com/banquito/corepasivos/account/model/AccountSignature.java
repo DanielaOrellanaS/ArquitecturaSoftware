@@ -10,6 +10,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.EqualsAndHashCode.Include;
 
 @Data
 @NoArgsConstructor
@@ -17,6 +18,7 @@ import lombok.NoArgsConstructor;
 @Table(name = "account_signature")
 public class AccountSignature implements Serializable {
     @EmbeddedId
+    @Include
     private AccountSignaturePK pk;
 
     @Column(name = "signature_reference", length = 2048, nullable = false)

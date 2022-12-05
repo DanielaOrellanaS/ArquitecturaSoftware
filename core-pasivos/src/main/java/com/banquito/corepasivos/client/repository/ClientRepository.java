@@ -10,7 +10,7 @@ import com.banquito.corepasivos.client.model.ClientPK;
 
 @Repository
 public interface ClientRepository extends JpaRepository<Client, ClientPK> {
-    List<Client> findByPkIdentificationType(String identificationType);
-
-    List<Client> findByPkIdentification(String identification);
+//    List<Client> findByPkIdentificationType(String identificationType);
+//
+//    List<Client> findByPkIdentification(String identification);
 }
