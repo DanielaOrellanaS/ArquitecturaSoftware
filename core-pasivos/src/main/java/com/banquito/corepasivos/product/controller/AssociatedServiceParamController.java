@@ -18,7 +18,7 @@ import com.banquito.corepasivos.product.model.AssociatedServiceParam;
 import com.banquito.corepasivos.product.model.AssociatedServiceParamPK;
 
 @RestController
-@RequestMapping("/associatedserviceparam")
+@RequestMapping("api/associatedserviceparams")
 public class AssociatedServiceParamController {
     private final AssociatedServiceParamService associatedServiceParamService;
 
@@ -28,41 +28,42 @@ public class AssociatedServiceParamController {
 
     @GetMapping("/all")
     public ResponseEntity<List<AssociatedServiceParam>> findAllAssociatedServiceParam() {
-        List<AssociatedServiceParam> clientAddresses = this.associatedServiceParamService
+        List<AssociatedServiceParam> associatedServiceParam = this.associatedServiceParamService
                 .findAllAssociatedServiceParams();
-        return ResponseEntity.ok(clientAddresses);
+        return ResponseEntity.ok(associatedServiceParam);
     }
 
     @GetMapping("/param/{codeParam}")
     public ResponseEntity<List<AssociatedServiceParam>> findByCodeParam(@PathVariable("codeParam") String codeParam) {
-        List<AssociatedServiceParam> clientAddresses = this.associatedServiceParamService
+        List<AssociatedServiceParam> associatedServiceParam = this.associatedServiceParamService
                 .findAllAssociatedServiceParamsByCodeParam(codeParam);
-        return ResponseEntity.ok(clientAddresses);
+        return ResponseEntity.ok(associatedServiceParam);
     }
 
     @PostMapping(consumes = { MediaType.APPLICATION_JSON_VALUE })
-    public ResponseEntity<String> createClientAddress(@RequestBody AssociatedServiceParam associatedServiceParam) {
+    public ResponseEntity<String> createAssociatedServiceParam(
+            @RequestBody AssociatedServiceParam associatedServiceParam) {
         try {
             this.associatedServiceParamService.createAssociatedServiceParam(associatedServiceParam);
-            return ResponseEntity.ok("Parametros del servicio asociado creado con exito");
+            return ResponseEntity.ok("Parameters of the associated service created successfully");
         } catch (Exception e) {
             return ResponseEntity.internalServerError().body(e.getMessage());
         }
     }
 
     @PutMapping(consumes = { "application/json" })
-    public ResponseEntity<String> updateClientAddress(
+    public ResponseEntity<String> updateAssociatedServiceParam(
             @RequestBody AssociatedServiceParam associatedServiceParam) {
         try {
             this.associatedServiceParamService.updateAssociatedServiceParam(associatedServiceParam);
-            return ResponseEntity.ok("Parametros de servicio asociado atualizado con exito");
+            return ResponseEntity.ok("Parameters of associated service updated successfully");
         } catch (Exception e) {
             return ResponseEntity.internalServerError().body(e.getMessage());
         }
     }
 
     @DeleteMapping("/{codeParam}/{codeAssociatedService}")
-    public ResponseEntity<String> deleteClientEntity(
+    public ResponseEntity<String> deleteAssociatedServiceParamEntity(
             @PathVariable("codeParam") String codeParam,
             @PathVariable("codeAssociatedService") String codeAssociatedService) {
         try {
@@ -71,20 +72,10 @@ public class AssociatedServiceParamController {
             pk.setCodeAssociatedService(codeAssociatedService);
 
             this.associatedServiceParamService.deleteAssociatedServiceParam(pk);
-            return ResponseEntity.ok("Direccion eliminada con exito");
+            return ResponseEntity.ok("Associated Service Parameters Removed Successfully");
         } catch (Exception e) {
             return ResponseEntity.internalServerError().body(e.getMessage());
         }
     }
 
-    @DeleteMapping
-    public ResponseEntity<String> deleteClientEntity(
-            @RequestBody AssociatedServiceParam associatedServiceParam) {
-        try {
-            this.associatedServiceParamService.deleteAssociatedServiceParam(associatedServiceParam);
-            return ResponseEntity.ok("Parámetros de servicio asociado eliminados con exito");
-        } catch (Exception e) {
-            return ResponseEntity.internalServerError().body(e.getMessage());
-        }
-    }
 }

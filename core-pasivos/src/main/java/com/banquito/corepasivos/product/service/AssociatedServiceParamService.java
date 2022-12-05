@@ -37,50 +37,50 @@ public class AssociatedServiceParamService {
         try {
             this.associatedServiceParamRepository.save(associatedServiceParam);
         } catch (Exception e) {
-            throw new RuntimeException("Ya existe un servicio asociado con estos parámetros");
+            throw new RuntimeException("There is already a service associated with these parameters");
         }
     }
 
     @Transactional
     public void updateAssociatedServiceParam(AssociatedServiceParam associatedServiceParam) {
-        Optional<AssociatedServiceParam> auxAddress = this.associatedServiceParamRepository
+        Optional<AssociatedServiceParam> auxParam = this.associatedServiceParamRepository
                 .findById(associatedServiceParam.getPk());
-        if (!auxAddress.isPresent())
-            throw new RuntimeException("No se ha encontrado la direcciona asociada al usuario");
+        if (!auxParam.isPresent())
+            throw new RuntimeException("The parameter associated with the service has not been found");
         else
             try {
                 this.associatedServiceParamRepository.save(associatedServiceParam);
             } catch (Exception e) {
-                throw new RuntimeException("Ha ocurrido un error en la actualizacion de datos");
+                throw new RuntimeException("An error has occurred in the data update");
             }
     }
 
     @Transactional
     public void deleteAssociatedServiceParam(AssociatedServiceParam associatedServiceParam) {
-        Optional<AssociatedServiceParam> auxAddress = this.associatedServiceParamRepository
+        Optional<AssociatedServiceParam> auxParam = this.associatedServiceParamRepository
                 .findById(associatedServiceParam.getPk());
-        if (!auxAddress.isPresent())
-            throw new RuntimeException("No se han encontrado los parámetros del servicio asociado");
+        if (!auxParam.isPresent())
+            throw new RuntimeException("Associated service parameters not found");
         else
             try {
                 this.associatedServiceParamRepository.delete(associatedServiceParam);
             } catch (Exception e) {
                 throw new RuntimeException(
-                        "Ha ocurrido un error en la eliminacion de los parametros del servicio asociado");
+                        "An error occurred while removing the associated service parameters");
             }
     }
 
     @Transactional
     public void deleteAssociatedServiceParam(AssociatedServiceParamPK pk) {
-        Optional<AssociatedServiceParam> auxAddress = this.associatedServiceParamRepository.findById(pk);
-        if (!auxAddress.isPresent())
-            throw new RuntimeException("No se han encontrado los parametros del servicio asociado");
+        Optional<AssociatedServiceParam> auxParam = this.associatedServiceParamRepository.findById(pk);
+        if (!auxParam.isPresent())
+            throw new RuntimeException("The parameters of the associated service have not been found");
         else
             try {
                 this.associatedServiceParamRepository.deleteById(pk);
             } catch (Exception e) {
                 throw new RuntimeException(
-                        "Ha ocurrido un error en la eliminacion de los parámetros del servicio asociado");
+                        "An error has occurred in the deletion of the associated service parameters");
             }
     }
 
