@@ -1,10 +1,7 @@
 package com.banquito.corepasivos.general.model;
 
 import java.io.Serializable;
-<<<<<<< HEAD
 import java.util.List;
-=======
->>>>>>> 24d9e645cd043f2fa3b75fda16c5e459ff708104
 
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
