@@ -1,0 +1,10 @@
+Nombre-tablas = minuscula
+Las relaciones van debajo de las propiedades
+La cabecera de las clases va de la siguiente manera:
+    @Data
+    @NoArgsConstructor
+    @Entity
+    @Table(name = "table_name")
+Cabezara de las clases de las primarias compuestas va de la siguiente manera:
+    @Data
+    @Embeddable

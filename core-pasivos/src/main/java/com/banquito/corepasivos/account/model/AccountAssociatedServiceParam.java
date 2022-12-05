@@ -2,18 +2,21 @@ package com.banquito.corepasivos.account.model;
 
 import lombok.*;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
 import javax.persistence.*;
 
 import com.banquito.corepasivos.product.model.AssociatedServiceParam;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Data
 @NoArgsConstructor
 @Entity
 @Table(name = "account_asso_service_param")
-public class AccountAssociatedServiceParam {
+public class AccountAssociatedServiceParam implements Serializable {
     @EmbeddedId
     private AccountAssociatedServiceParamPK pk;
 
@@ -38,6 +41,7 @@ public class AccountAssociatedServiceParam {
     @Column(name = "end_date", nullable = true)
     private Date endDate;
 
+    @JsonBackReference
     @ManyToOne
     @JoinColumns({
             @JoinColumn(name = "code_param", referencedColumnName = "code_param", insertable = false, updatable = false),
@@ -45,6 +49,7 @@ public class AccountAssociatedServiceParam {
     })
     private AssociatedServiceParam associatedServiceParam;
 
+    @JsonManagedReference
     @ManyToOne
     @JoinColumns({
             @JoinColumn(name = "code_local_account", referencedColumnName = "code_local_account", insertable = false, updatable = false),
@@ -52,7 +57,7 @@ public class AccountAssociatedServiceParam {
             @JoinColumn(name = "code_product", referencedColumnName = "code_product", insertable = false, updatable = false),
             @JoinColumn(name = "code_product_type", referencedColumnName = "code_product_type", insertable = false, updatable = false),
     })
-    private AccountAssociatedService associatedService;
+    private AccountAssociatedService accountAssociatedService;
 
     public AccountAssociatedServiceParam(AccountAssociatedServiceParamPK pk) {
         this.pk = pk;

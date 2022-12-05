@@ -9,7 +9,6 @@ import lombok.Data;
 
 @Data
 @Embeddable
-
 public class AccountAssociatedServiceParamPK implements Serializable {
 
         @Column(name = "code_param", length = 16, nullable = false)

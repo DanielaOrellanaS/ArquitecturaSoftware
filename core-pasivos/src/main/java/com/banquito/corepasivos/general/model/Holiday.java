@@ -1,5 +1,6 @@
 package com.banquito.corepasivos.general.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -11,6 +12,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -18,7 +21,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Entity
 @Table(name = "holiday")
-public class Holiday {
+public class Holiday implements Serializable {
 
     @Id
     @Temporal(TemporalType.DATE)
@@ -34,8 +37,9 @@ public class Holiday {
     @Column(name = "type", length = 3, nullable = false)
     private String type;
 
+    @JsonBackReference
     @ManyToOne
-    @JoinColumn(name = "CODE_LOCATION", nullable = false, insertable = false, updatable = false)
+    @JoinColumn(name = "code_location", nullable = false, insertable = false, updatable = false)
     private LocationEntity locationEntity;
 
     public Holiday(Date date) {

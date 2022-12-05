@@ -1,11 +1,15 @@
 package com.banquito.corepasivos.general.model;
 
+import java.io.Serializable;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,7 +19,7 @@ import lombok.EqualsAndHashCode.Include;
 @NoArgsConstructor
 @Entity
 @Table(name = "structure_entity")
-public class StructureEntity {
+public class StructureEntity implements Serializable {
 
     @EmbeddedId
     @Include
@@ -24,9 +28,17 @@ public class StructureEntity {
     @Column(name = "name", length = 64, nullable = false)
     private String name;
 
-    @ManyToOne
-    @JoinColumn(name = "CODE_COUNTRY", nullable = false, insertable = false, updatable = false)
-    private CountryEntity countryEntity;
+    // @ManyToOne
+    // @JoinColumn(name = "code_country", nullable = false, insertable = false,
+    // updatable = false)
+    // private CountryEntity countryEntity;
+
+    /*
+     * @JsonManagedReference
+     * 
+     * @OneToMany(mappedBy = "structure_entity")
+     * private List<LocationEntity> locationEntities;
+     */
 
     public StructureEntity(StructureEntityPK pk) {
         this.pk = pk;
