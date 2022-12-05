@@ -33,7 +33,7 @@ public class ProductController {
         return products.isEmpty() ? ResponseEntity.noContent().build() : ResponseEntity.ok(products);
     }
 
-    @GetMapping("/code/type/{codeProductType}")
+    @GetMapping("/codetype/{codeProductType}")
     public ResponseEntity<List<Product>> findByCodeProductType(@PathVariable("codeProductType") String codeProductType) {
         List<Product> products = this.productService.findByCodeProductType(codeProductType);
         return products.isEmpty() ? ResponseEntity.noContent().build() : ResponseEntity.ok(products);
@@ -78,7 +78,7 @@ public class ProductController {
         }
     }
 
-    @DeleteMapping("/code/{codeProduct}/code/type/{codeProductType}")
+    @DeleteMapping("/code/{codeProduct}/codetype/{codeProductType}")
     public ResponseEntity<String> deleteProduct(
         @PathVariable("codeProduct") String codeProduct, 
         @PathVariable("codeProductType") String codeProductType

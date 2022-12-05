@@ -30,14 +30,16 @@ public class AssociatedServiceParamController {
     public ResponseEntity<List<AssociatedServiceParam>> findAllAssociatedServiceParam() {
         List<AssociatedServiceParam> associatedServiceParam = this.associatedServiceParamService
                 .findAllAssociatedServiceParams();
-        return ResponseEntity.ok(associatedServiceParam);
+        return associatedServiceParam.isEmpty() ? ResponseEntity.noContent().build()
+                : ResponseEntity.ok(associatedServiceParam);
     }
 
     @GetMapping("/param/{codeParam}")
     public ResponseEntity<List<AssociatedServiceParam>> findByCodeParam(@PathVariable("codeParam") String codeParam) {
         List<AssociatedServiceParam> associatedServiceParam = this.associatedServiceParamService
                 .findAllAssociatedServiceParamsByCodeParam(codeParam);
-        return ResponseEntity.ok(associatedServiceParam);
+        return associatedServiceParam.isEmpty() ? ResponseEntity.noContent().build()
+                : ResponseEntity.ok(associatedServiceParam);
     }
 
     @GetMapping("/associatedservice/{codeAssociatedService}")
@@ -45,14 +47,16 @@ public class AssociatedServiceParamController {
             @PathVariable("codeAssociatedService") String codeAssociatedService) {
         List<AssociatedServiceParam> associatedServiceParam = this.associatedServiceParamService
                 .findAllAssociatedServiceParamsByCodeAssociatedService(codeAssociatedService);
-        return ResponseEntity.ok(associatedServiceParam);
+        return associatedServiceParam.isEmpty() ? ResponseEntity.noContent().build()
+                : ResponseEntity.ok(associatedServiceParam);
     }
 
     @GetMapping("/nameparam/{name}")
     public ResponseEntity<List<AssociatedServiceParam>> findByNameParam(@PathVariable("name") String name) {
         List<AssociatedServiceParam> associatedServiceParam = this.associatedServiceParamService
                 .findByNameContaining(name);
-        return ResponseEntity.ok(associatedServiceParam);
+        return associatedServiceParam.isEmpty() ? ResponseEntity.noContent().build()
+                : ResponseEntity.ok(associatedServiceParam);
     }
 
     @PostMapping(consumes = { MediaType.APPLICATION_JSON_VALUE })

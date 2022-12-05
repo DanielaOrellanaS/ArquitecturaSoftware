@@ -59,27 +59,27 @@ public class ProductService {
     @Transactional
     public void updateProduct(Product product) {
         Optional<Product> productPk = this.productRepository.findById(product.getPk());
-        if (productPk.isPresent())
+        if (productPk.isEmpty())
+            throw new RuntimeException("The code associated with the product was not found");
+        else
             try {
                 this.productRepository.save(product);
             } catch (Exception e) {
                 throw new RuntimeException("An error has occurred in the product update");
             }
-        else
-            throw new RuntimeException("The code associated with the product was not found");
     }
 
     @Transactional
     public void deleteProduct(ProductPK pk) {
         Optional<Product> product = this.productRepository.findById(pk);
-        if (product.isPresent())
+        if (product.isEmpty())
+            throw new RuntimeException("The code associated with the product was not found");
+        else
             try {
                 this.productRepository.deleteById(pk);
             } catch (Exception e) {
                 throw new RuntimeException("An error has occurred in the product delete");
             }
-        else
-            throw new RuntimeException("The code associated with the product was not found");
     }
     
 }
