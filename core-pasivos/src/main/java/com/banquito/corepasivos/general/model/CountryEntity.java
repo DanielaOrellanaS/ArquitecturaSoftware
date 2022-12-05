@@ -1,26 +1,19 @@
 package com.banquito.corepasivos.general.model;
 
-import java.io.Serializable;
-import java.util.List;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 import lombok.Data;
-
-import lombok.NoArgsConstructor;
 import lombok.EqualsAndHashCode.Include;
+import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
 @Entity
 @Table(name = "country_entity")
-public class CountryEntity implements Serializable {
+public class CountryEntity {
+
     @Id
     @Include
     @Column(name = "code_country", length = 2, nullable = false)
@@ -36,7 +29,12 @@ public class CountryEntity implements Serializable {
     @OneToMany(mappedBy = "countryEntity")
     private List<LocationEntity> locationEntities;
 
+    @JsonManagedReference
+    @OneToMany(mappedBy = "countryEntity")
+    private List<StructureEntity> structureEntities;
+
     public CountryEntity(String codeCountry) {
         this.codeCountry = codeCountry;
     }
+
 }
