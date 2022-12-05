@@ -36,16 +36,19 @@ public class ProductTypeService {
 
 
     @Transactional
-    public void createProductType(ProductType productType) {
+    public String createProductType(ProductType productType) {
+
+        Console console = System.console();
+        console.printf("productType: " + productType);
         List<ProductType> productTypes = this.productTypeRepository.findByName(productType.getName());
         // print(productTypes);
-        Console console = System.console();
-        console.printf("productTypes: " + productTypes);
+        
 
         if (productTypes.isEmpty()) {
             this.productTypeRepository.save(productType);
+            return "The product type was created successfully";
         } else {
-            throw new RuntimeException("The product type already exists");
+            return "The product type already exists";
         }
     }
 
