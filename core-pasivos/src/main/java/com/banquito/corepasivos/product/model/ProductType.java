@@ -8,6 +8,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -36,7 +38,8 @@ public class ProductType {
     @Column(name = "temporality_interest", length = 3, nullable = true)
     private String temporalityInterest;
 
-    @OneToMany(mappedBy = "product_type")
+    @JsonManagedReference
+    @OneToMany(mappedBy = "productType")
     private List<Product> products;
 
     public ProductType(String codeProductType) {

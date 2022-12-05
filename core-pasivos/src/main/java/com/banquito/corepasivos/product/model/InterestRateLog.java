@@ -12,6 +12,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -42,6 +44,7 @@ public class InterestRateLog {
     @Column(name = "status", length = 3, nullable = false)
     private String status;
 
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "code_interest_rate", referencedColumnName = "code_interest_rate", insertable = false, updatable = false, nullable = true)
     private InterestRate interestRate;

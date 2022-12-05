@@ -1,11 +1,15 @@
 package com.banquito.corepasivos.client.model;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
 import javax.persistence.*;
 
 import com.banquito.corepasivos.account.model.AccountClient;
+import com.banquito.corepasivos.account.model.AccountSignature;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,7 +19,7 @@ import lombok.EqualsAndHashCode.Include;
 @NoArgsConstructor
 @Entity
 @Table(name = "client")
-public class Client {
+public class Client implements Serializable {
 
     @EmbeddedId
     @Include
@@ -102,12 +106,34 @@ public class Client {
     @Column(name = "career", nullable = false, length = 64)
     private String career;
 
-    @ManyToOne
-    @JoinColumn(name = "code_segment", referencedColumnName = "code_segment", insertable = false, updatable = false)
+    @JsonBackReference
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "code_segment", insertable = false, updatable = false)
     private Segment segment;
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "client")
-    private List <AccountClient> accountsClient;
+    private List<AccountClient> accountsClient;
+
+    @JsonManagedReference
+    @OneToMany(mappedBy = "client")
+    private List<AccountSignature> accountSignatures;
+
+    @JsonManagedReference
+    @OneToMany(mappedBy = "client")
+    private List<ClientAddress> clientAddresses;
+
+    @JsonManagedReference
+    @OneToMany(mappedBy = "client")
+    private List<ClientReference> clientReferences;
+
+    @JsonManagedReference
+    @OneToMany(mappedBy = "client")
+    private List<ClientPhone> clientPhones;
+
+    @JsonManagedReference
+    @OneToMany(mappedBy = "client")
+    private List<ClientRelationship> clientRelationships;
 
     public Client(ClientPK pk) {
         this.pk = pk;

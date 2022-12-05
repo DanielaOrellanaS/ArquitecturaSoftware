@@ -1,24 +1,14 @@
 package com.banquito.corepasivos.general.model;
 
-import java.util.List;
-
-import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinColumns;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-
 import com.banquito.corepasivos.client.model.ClientAddress;
-
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import lombok.EqualsAndHashCode.Include;
+import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -32,40 +22,53 @@ public class LocationEntity {
     @Column(name = "code_location", nullable = false)
     private Integer codeLocation;
 
-    @Column(name = "code_location_parent", nullable = true)
+    @Column(name = "code_location_parent", nullable = false)
     private Integer codeLocationParent;
 
-    @Column(name = "level", nullable = false)
+    @Column(name = "level", length = 2, nullable = false)
     private Integer level;
 
-    @Column(name = "code_country", length = 2, nullable = false)
-    private String codeCountry;
+    @Column(name = "code_country_structure", length = 2, nullable = false)
+    private String codeCountryStructure;
 
-    @Column(name = "name", length = 64, nullable = true)
+    @Column(name = "code_country_entity", length = 2, nullable = false)
+    private String codeCountryEntity;
+
+    @Column(name = "name", length = 64, nullable = false)
     private String name;
 
-    @Column(name = "phone_code_area", length = 2, nullable = true)
+    @Column(name = "phone_code_area", length = 2, nullable = false)
     private String phoneCodeArea;
 
-    @Column(name = "zip_code", length = 16, nullable = true)
+    @Column(name = "zip_code", length = 16, nullable = false)
     private String zipCode;
 
+    @JsonBackReference
     @ManyToOne
     @JoinColumns({
-            @JoinColumn(name = "code_country", nullable = false, insertable = false, updatable = false),
-            @JoinColumn(name = "level", nullable = false, insertable = false, updatable = false)
+            @JoinColumn(name = "level", referencedColumnName = "level", insertable = false, updatable = false),
+            @JoinColumn(name = "code_country_structure", referencedColumnName = "code_country", insertable = false, updatable = false)
     })
     private StructureEntity structureEntity;
 
+    @JsonBackReference
     @ManyToOne
-    @JoinColumn(name = "code_country", nullable = false, insertable = false, updatable = false)
+    @JoinColumns({
+            @JoinColumn(name = "code_country_entity", referencedColumnName = "code_country", insertable = false, updatable = false)
+    })
     private CountryEntity countryEntity;
 
-    @OneToMany(mappedBy = "location_entity")
+    @JsonManagedReference
+    @OneToMany(mappedBy = "locationEntity")
     private List<Holiday> holidays;
 
-    @OneToMany(mappedBy = "location_entity")
+    @JsonManagedReference
+    @OneToMany(mappedBy = "locationEntity")
     private List<ClientAddress> clientAddresses;
+
+    @JsonManagedReference
+    @OneToMany(mappedBy = "locationEntity")
+    private List<Branch> branches;
 
     public LocationEntity(Integer codeLocation) {
         this.codeLocation = codeLocation;

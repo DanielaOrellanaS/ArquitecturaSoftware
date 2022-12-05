@@ -6,6 +6,8 @@ import java.math.BigDecimal;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 @Table(name = "product_associated_service")
 @Data
@@ -18,14 +20,16 @@ public class ProductAssociatedService {
     @Column(name = "fee", scale = 17, precision = 2, nullable = false)
     private BigDecimal fee;
 
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "code_associated_service", referencedColumnName = "code_associated_service", insertable = false, updatable = false, nullable = true)
     private AssociatedService associatedService;
 
+    @JsonBackReference
     @ManyToOne
     @JoinColumns({
-        @JoinColumn(name = "code_product", referencedColumnName = "code_product", insertable = false, updatable = false, nullable = true),
-        @JoinColumn(name = "code_product_type", referencedColumnName = "code_product_type", insertable = false, updatable = false, nullable = true)
+            @JoinColumn(name = "code_product", referencedColumnName = "code_product", insertable = false, updatable = false, nullable = true),
+            @JoinColumn(name = "code_product_type", referencedColumnName = "code_product_type", insertable = false, updatable = false, nullable = true)
     })
     private Product product;
 
