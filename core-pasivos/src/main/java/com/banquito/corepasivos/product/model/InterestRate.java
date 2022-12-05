@@ -33,11 +33,11 @@ public class InterestRate implements Serializable {
     @Column(name = "calc_base", nullable = false, length = 8)
     private String calcBase;
 
-    @JsonBackReference
+    @JsonBackReference(value = "interestRate-interestRateLog")
     @OneToMany(mappedBy = "interestRate")
     private List<InterestRateLog> interestRateLog;
 
-    @JsonBackReference
+    @JsonBackReference(value = "interestRate-products")
     @OneToMany(mappedBy = "interestRate")
     private List<Product> products;
 

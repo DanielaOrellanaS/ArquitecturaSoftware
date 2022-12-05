@@ -43,7 +43,7 @@ public class LocationEntity {
     @Column(name = "zip_code", length = 16, nullable = false)
     private String zipCode;
 
-    @JsonBackReference
+    @JsonBackReference(value = "structureEntity-locationEntity")
     @ManyToOne
     @JoinColumns({
             @JoinColumn(name = "level", referencedColumnName = "level", insertable = false, updatable = false),
@@ -51,22 +51,22 @@ public class LocationEntity {
     })
     private StructureEntity structureEntity;
 
-    @JsonBackReference
+    @JsonBackReference(value = "country-locationEntity")
     @ManyToOne
     @JoinColumns({
             @JoinColumn(name = "code_country_entity", referencedColumnName = "code_country", insertable = false, updatable = false)
     })
     private CountryEntity countryEntity;
 
-    @JsonManagedReference
+    @JsonManagedReference(value = "locationEntity-holiday")
     @OneToMany(mappedBy = "locationEntity")
     private List<Holiday> holidays;
 
-    @JsonManagedReference
+    @JsonManagedReference(value = "locationEntity-clientAddress")
     @OneToMany(mappedBy = "locationEntity")
     private List<ClientAddress> clientAddresses;
 
-    @JsonManagedReference
+    @JsonManagedReference(value = "locationEntity-branch")
     @OneToMany(mappedBy = "locationEntity")
     private List<Branch> branches;
 

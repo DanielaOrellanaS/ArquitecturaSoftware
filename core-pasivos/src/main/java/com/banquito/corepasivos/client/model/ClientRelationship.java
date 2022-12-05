@@ -33,7 +33,7 @@ public class ClientRelationship implements Serializable {
 	@Column(name = "end_date", nullable = false)
 	private Date endDate;
 
-	@JsonBackReference
+	@JsonBackReference(value = "client-clientRelationship")
 	@ManyToOne
 	@JoinColumns({
 			@JoinColumn(name = "identification_type", referencedColumnName = "identification_type", insertable = false, updatable = false),

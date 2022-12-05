@@ -20,12 +20,12 @@ public class ProductAssociatedService {
     @Column(name = "fee", scale = 17, precision = 2, nullable = false)
     private BigDecimal fee;
 
-    @JsonBackReference
+    @JsonBackReference(value = "associatedService-productAssociatedServices")
     @ManyToOne
     @JoinColumn(name = "code_associated_service", referencedColumnName = "code_associated_service", insertable = false, updatable = false, nullable = true)
     private AssociatedService associatedService;
 
-    @JsonBackReference
+    @JsonBackReference(value = "product-productAssociatedService")
     @ManyToOne
     @JoinColumns({
             @JoinColumn(name = "code_product", referencedColumnName = "code_product", insertable = false, updatable = false, nullable = true),
