@@ -10,5 +10,7 @@ import com.banquito.corepasivos.product.model.AssociatedService;
 @Repository
 public interface AssociatedServiceRepository extends JpaRepository<AssociatedService, String>{
     List<AssociatedService> findByCodeAssociatedService(String codeAssociatedService);
+    List<AssociatedService> findByNameContaining(String name);
+    List<AssociatedService> findByName(String name);
     
 }
