@@ -83,7 +83,7 @@ public class ClientReferenceController {
     ) {
         try {
             this.clientReferenceService.deleteClientReference(codeReference);
-            return ResponseEntity.ok("Direccion eliminada con exito");
+            return ResponseEntity.ok("Client reference delete succesfully");
         } catch (Exception e) {
             return ResponseEntity.internalServerError().body(e.getMessage());
         }
