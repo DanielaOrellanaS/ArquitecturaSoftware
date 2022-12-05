@@ -4,6 +4,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.EqualsAndHashCode.Include;
 
+import java.io.Serializable;
+
 import javax.persistence.*;
 
 import com.banquito.corepasivos.general.model.LocationEntity;
@@ -12,7 +14,7 @@ import com.banquito.corepasivos.general.model.LocationEntity;
 @NoArgsConstructor
 @Entity
 @Table(name = "client_address")
-public class ClientAddress {
+public class ClientAddress implements Serializable{
 
     @EmbeddedId
     @Include
