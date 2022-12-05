@@ -6,15 +6,28 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 @Service
 public class AccountAssociatedServiceService {
-    private final AccountAssociatedServiceRepository accountAssociatedServiceRepository;
+	private final AccountAssociatedServiceRepository accountAssociatedServiceRepository;
 
-    public AccountAssociatedServiceService(AccountAssociatedServiceRepository accountAssociatedServiceRepository) {
-        this.accountAssociatedServiceRepository = accountAssociatedServiceRepository;
-    }
+	public AccountAssociatedServiceService(AccountAssociatedServiceRepository accountAssociatedServiceRepository) {
+		this.accountAssociatedServiceRepository = accountAssociatedServiceRepository;
+	}
 
-    public List<AccountAssociatedService> findAll(){
-        return this.accountAssociatedServiceRepository.findAll();
-    }
+	@Transactional
+	public List<AccountAssociatedService> findByCodeLocalAccount(String codeLocalAccount) {
+		List<AccountAssociatedService> accountAssociatedServiceList = this.accountAssociatedServiceRepository
+				.findByCodeLocalAccount(codeLocalAccount);
+		if (accountAssociatedServiceList.isEmpty()) {
+			throw new RuntimeException("Account Associated Service not found");
+		} else {
+			return accountAssociatedServiceList;
+		}
+	}
+
+	public List<AccountAssociatedService> findAll() {
+		return this.accountAssociatedServiceRepository.findAll();
+	}
 }

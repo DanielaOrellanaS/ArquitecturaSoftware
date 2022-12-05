@@ -8,13 +8,13 @@ import java.util.List;
 
 @Service
 public class AccountSignatureService {
-    private final AccountSignatureRepository accountSignatureRepository;
+	private final AccountSignatureRepository accountSignatureRepository;
 
-    public AccountSignatureService(AccountSignatureRepository accountSignatureRepository) {
-        this.accountSignatureRepository = accountSignatureRepository;
-    }
+	public AccountSignatureService(AccountSignatureRepository accountSignatureRepository) {
+		this.accountSignatureRepository = accountSignatureRepository;
+	}
 
-    public List<AccountSignature> findAll(){
-        return this.accountSignatureRepository.findAll();
-    }
+	public List<AccountSignature> findAll() {
+		return this.accountSignatureRepository.findAll();
+	}
 }
