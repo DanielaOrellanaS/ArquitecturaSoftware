@@ -12,4 +12,6 @@ public interface AssociatedServiceParamRepository
     List<AssociatedServiceParam> findByPkCodeParam(String codeParam);
 
     List<AssociatedServiceParam> findByPkCodeAssociatedService(String codeAssociatedService);
+
+    List<AssociatedServiceParam> findByNameContaining(String name);
 }

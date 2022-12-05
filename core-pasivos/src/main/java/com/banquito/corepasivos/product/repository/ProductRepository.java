@@ -15,6 +15,8 @@ public interface ProductRepository extends JpaRepository<Product, ProductPK>{
     
     List<Product> findByPkCodeProductType(String codeProductType);
 
+    List<Product> findByNameContaining(String name);
+
     List<Product> findByName(String name);
 
 }
