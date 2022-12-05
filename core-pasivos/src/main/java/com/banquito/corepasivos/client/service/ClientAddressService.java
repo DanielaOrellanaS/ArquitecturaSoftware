@@ -38,8 +38,7 @@ public class ClientAddressService {
 
     @Transactional
     public void updateClientAddress(ClientAddress clientAddress) {
-        Optional<ClientAddress> auxAddress = this.clientAddressRepository.findById(clientAddress.getPk());
-        if (!auxAddress.isPresent())
+        if (!this.clientAddressRepository.existsById(clientAddress.getPk()))
             throw new RuntimeException("Address not found");
         else
             try {
@@ -51,8 +50,7 @@ public class ClientAddressService {
 
     @Transactional
     public void deleteClientAdress(ClientAddress clientAddress) {
-        Optional<ClientAddress> auxAddress = this.clientAddressRepository.findById(clientAddress.getPk());
-        if (!auxAddress.isPresent())
+        if (!this.clientAddressRepository.existsById(clientAddress.getPk()))
             throw new RuntimeException("Address not found");
         else
             try {
@@ -64,8 +62,7 @@ public class ClientAddressService {
 
     @Transactional
     public void deleteClientAdress(ClientAddressPK pk) {
-        Optional<ClientAddress> auxAddress = this.clientAddressRepository.findById(pk);
-        if (!auxAddress.isPresent())
+        if (!this.clientAddressRepository.existsById(pk))
             throw new RuntimeException("Address not found");
         else
             try {
