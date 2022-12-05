@@ -10,6 +10,6 @@ import com.banquito.corepasivos.product.model.InterestRateLog;
 @Repository
 public interface InterestRateLogRepository extends JpaRepository<InterestRateLog, String>{
 
-    List<InterestRateLog> findByCodeInterestRateLog(String codeInterestRateLog);
+    List<InterestRateLog> findByCodeInterestLog(String codeInterestLog);
         
 }
