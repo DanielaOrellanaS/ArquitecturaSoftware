@@ -4,13 +4,17 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.EqualsAndHashCode.Include;
 
+import java.io.Serializable;
+
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Data
 @NoArgsConstructor
 @Entity
 @Table(name = "client_reference")
-public class ClientReference {
+public class ClientReference implements Serializable {
 
     @Id
     @Include
@@ -33,6 +37,7 @@ public class ClientReference {
     @Column(name = "related", length = 64, nullable = true)
     private String related;
 
+    @JsonBackReference(value = "client-clientReference")
     @ManyToOne
     @JoinColumns({
             @JoinColumn(name = "identification_type", referencedColumnName = "identification_type", insertable = false, updatable = false),

@@ -1,10 +1,13 @@
 package com.banquito.corepasivos.account.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.*;
 
 import com.banquito.corepasivos.client.model.Client;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -12,7 +15,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Entity
 @Table(name = "account_client")
-public class AccountClient {
+public class AccountClient implements Serializable {
 
     @EmbeddedId
     private AccountClientPK pk;
@@ -24,6 +27,7 @@ public class AccountClient {
     @Column(name = "status", length = 3, nullable = false)
     private String status;
 
+    @JsonBackReference(value = "account-accountClient")
     @ManyToOne
     @JoinColumns({
             @JoinColumn(name = "code_local_account", insertable = false, updatable = false),
@@ -31,6 +35,7 @@ public class AccountClient {
     })
     private Account account;
 
+    @JsonBackReference(value = "client-accountClients")
     @ManyToOne
     @JoinColumns({
             @JoinColumn(name = "identification_type", insertable = false, updatable = false),

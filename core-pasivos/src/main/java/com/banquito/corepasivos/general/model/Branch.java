@@ -1,12 +1,21 @@
 package com.banquito.corepasivos.general.model;
 
+import java.io.Serializable;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.banquito.corepasivos.account.model.Account;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.EqualsAndHashCode.Include;
@@ -15,7 +24,7 @@ import lombok.EqualsAndHashCode.Include;
 @NoArgsConstructor
 @Entity
 @Table(name = "branch")
-public class Branch {
+public class Branch implements Serializable {
 
     @EmbeddedId
     @Include
@@ -24,12 +33,13 @@ public class Branch {
     @Column(name = "code_location", nullable = false)
     private Integer codeLocation;
 
-    @Column(name = "INTERNATIONAL_BRANCH_CODE", length = 8, nullable = false)
+    @Column(name = "international_branch_code", length = 8, nullable = false)
     private String internationalBranchCode;
 
-    @Column(name = "NAME", length = 64, nullable = false)
+    @Column(name = "name", length = 64, nullable = false)
     private String name;
 
+    @JsonBackReference(value = "bank-branch")
     @ManyToOne
     @JoinColumns({
             @JoinColumn(name = "entity_bank_code", referencedColumnName = "entity_bank_code", insertable = false, updatable = false, nullable = true),
@@ -37,9 +47,14 @@ public class Branch {
     })
     private BankEntity bankEntity;
 
+    @JsonBackReference(value = "locationEntity-branch")
     @ManyToOne
-    @JoinColumn(name = "CODE_LOCATION", nullable = false, insertable = false, updatable = false)
+    @JoinColumn(name = "code_location", nullable = false, insertable = false, updatable = false)
     private LocationEntity locationEntity;
+
+    @JsonManagedReference(value = "branch-account")
+    @OneToMany(mappedBy = "branch")
+    private List<Account> accounts;
 
     public Branch(BranchPK pk) {
         this.pk = pk;

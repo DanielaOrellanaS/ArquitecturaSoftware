@@ -1,11 +1,17 @@
 package com.banquito.corepasivos.account.model;
 
-import com.banquito.corepasivos.general.model.Branch;
-import com.banquito.corepasivos.product.model.Product;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.EqualsAndHashCode.Include;
 
 import javax.persistence.*;
+
+import com.banquito.corepasivos.general.model.Branch;
+import com.banquito.corepasivos.product.model.Product;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
@@ -14,9 +20,10 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 @Table(name = "account")
-public class Account {
+public class Account implements Serializable {
 
 	@EmbeddedId
+	@Include
 	private AccountPK pk;
 
 	@Column(name = "code_product", length = 32, nullable = false)
@@ -55,6 +62,7 @@ public class Account {
 	@Column(name = "available_balance", scale = 17, precision = 2, nullable = false)
 	private BigDecimal availableBalance;
 
+	@JsonBackReference(value = "product-account")
 	@ManyToOne
 	@JoinColumns({
 			@JoinColumn(name = "code_product", referencedColumnName = "code_product", insertable = false, updatable = false),
@@ -62,6 +70,7 @@ public class Account {
 	})
 	private Product product;
 
+	@JsonBackReference(value = "branch-account")
 	@ManyToOne
 	@JoinColumns({
 			@JoinColumn(name = "code_branch", referencedColumnName = "code_branch", insertable = false, updatable = false),
@@ -70,17 +79,21 @@ public class Account {
 	})
 	private Branch branch;
 
+	@JsonManagedReference(value = "account-accountSignature")
 	@OneToMany(mappedBy = "account")
 	private List<AccountSignature> accountSignatures;
 
+	@JsonManagedReference(value = "account-accountTransaction")
 	@OneToMany(mappedBy = "account")
 	private List<AccountTransaction> accountTransactions;
 
+	@JsonManagedReference(value = "account-accountAssociatedService")
 	@OneToMany(mappedBy = "account")
 	private List<AccountAssociatedService> accountAssociatedServices;
 
+	@JsonManagedReference(value = "account-accountClient")
 	@OneToMany(mappedBy = "account")
-	private List<AccountClient>  accountsClient;
+	private List<AccountClient> accountsClient;
 
 	public Account(AccountPK accountPK) {
 		this.pk = accountPK;

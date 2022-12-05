@@ -1,15 +1,13 @@
 package com.banquito.corepasivos.general.model;
 
-import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import lombok.EqualsAndHashCode.Include;
+import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -24,11 +22,17 @@ public class StructureEntity {
     @Column(name = "name", length = 64, nullable = false)
     private String name;
 
+    @JsonBackReference(value = "country-structureEntity")
     @ManyToOne
-    @JoinColumn(name = "CODE_COUNTRY", nullable = false, insertable = false, updatable = false)
+    @JoinColumn(name = "code_country", referencedColumnName = "code_country", insertable = false, updatable = false)
     private CountryEntity countryEntity;
+
+    @JsonManagedReference(value = "structureEntity-locationEntity")
+    @OneToMany(mappedBy = "structureEntity")
+    private List<LocationEntity> locationEntities;
 
     public StructureEntity(StructureEntityPK pk) {
         this.pk = pk;
     }
+
 }
