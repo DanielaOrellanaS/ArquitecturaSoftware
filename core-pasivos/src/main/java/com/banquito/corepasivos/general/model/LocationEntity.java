@@ -5,6 +5,9 @@ import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
@@ -23,9 +26,20 @@ import lombok.EqualsAndHashCode.Include;
 @Table(name = "location_entity")
 public class LocationEntity {
 
-    @EmbeddedId
+    @Id
     @Include
-    private LocationEntityPK pk;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "code_location", nullable = false)
+    private Integer codeLocation;
+
+    @Column(name = "code_location_parent", nullable = true)
+    private Integer codeLocationParent;
+
+    @Column(name = "level", nullable = false)
+    private Integer level;
+
+    @Column(name = "code_country", length = 2, nullable = false)
+    private String codeCountry;
 
     @Column(name = "name", length = 64, nullable = true)
     private String name;
@@ -53,8 +67,7 @@ public class LocationEntity {
     @OneToMany(mappedBy = "location_entity")
     private List<ClientAddress> clientAddresses;
 
-    public LocationEntity(LocationEntityPK pk) {
-        this.pk = pk;
+    public LocationEntity(Integer codeLocation) {
+        this.codeLocation = codeLocation;
     }
-
 }

@@ -11,9 +11,6 @@ import lombok.Data;
 @Embeddable
 public class AccountSignaturePK implements Serializable {
 
-        @Column(name = "code_account", nullable = false)
-        private Integer codeAccount;
-
         @Column(name = "code_local_account", length = 20, nullable = false)
         private String codeLocalAccount;
 
