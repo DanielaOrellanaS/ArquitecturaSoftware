@@ -26,6 +26,13 @@ public class AssociatedServiceController {
         this.associatedServiceService = associatedServiceService;
     }
 
+    @GetMapping("/all")
+    public ResponseEntity<List<AssociatedService>> findAllAssociatedService() {
+        List<AssociatedService> associatedService = this.associatedServiceService
+                .findAllAssociatedService();
+        return ResponseEntity.ok(associatedService);
+    }
+
     @GetMapping("/{codeAssociatedService}")
     public ResponseEntity<AssociatedService> CodeAssociatedService(
             @PathVariable("codeAssociatedService") String codeAssociatedService) {
