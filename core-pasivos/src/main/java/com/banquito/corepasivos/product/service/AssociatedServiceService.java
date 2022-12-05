@@ -27,7 +27,11 @@ public class AssociatedServiceService {
 
     @Transactional
     public void saveAssociatedService(AssociatedService associatedService) {
-        this.associatedServiceRepository.save(associatedService);
+        try {
+            this.associatedServiceRepository.save(associatedService);
+        } catch (Exception e) {
+            throw new RuntimeException("The associated service already exists");
+        }
 
     }
 

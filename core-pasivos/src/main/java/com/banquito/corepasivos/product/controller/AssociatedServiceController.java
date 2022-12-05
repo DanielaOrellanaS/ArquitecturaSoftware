@@ -15,7 +15,7 @@ import com.banquito.corepasivos.product.model.AssociatedService;
 import com.banquito.corepasivos.product.service.AssociatedServiceService;
 
 @RestController
-@RequestMapping("/associatedService")
+@RequestMapping("/api/associatedservices")
 public class AssociatedServiceController {
 
     private final AssociatedServiceService associatedServiceService;
@@ -36,7 +36,7 @@ public class AssociatedServiceController {
     public ResponseEntity<String> createAssociatedService(@RequestBody AssociatedService associatedService) {
         try {
             this.associatedServiceService.saveAssociatedService(associatedService);
-            return ResponseEntity.ok("Cliente creado con exito");
+            return ResponseEntity.ok("Servicio creado con exito");
 
         } catch (Exception e) {
             return ResponseEntity.internalServerError().body(e.getMessage());
