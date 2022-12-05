@@ -10,6 +10,9 @@ import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.banquito.corepasivos.client.model.ClientAddress;
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.EqualsAndHashCode.Include;
@@ -46,6 +49,9 @@ public class LocationEntity {
 
     @OneToMany(mappedBy = "location_entity")
     private List<Holiday> holidays;
+
+    @OneToMany(mappedBy = "location_entity")
+    private List<ClientAddress> clientAddresses;
 
     public LocationEntity(LocationEntityPK pk) {
         this.pk = pk;
