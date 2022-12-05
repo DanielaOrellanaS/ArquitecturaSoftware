@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/account-transaction")
+@RequestMapping("api/account-transaction")
 public class AccountTransactionController {
 
     private final AccountTransactionService accountTransactionService;
