@@ -26,7 +26,11 @@ public class ClientRelationshipService {
     }
 
     public ClientRelationship searchById(String identification) {
-        List<ClientRelationship> clientRelationships = this.clientRelationshipRepository.findByIdentification(identification);
+        List<ClientRelationship> clientRelationships = this.clientRelationshipRepository
+                .findByIdentification(identification);
+        if (clientRelationships.get(0) == null) {
+            throw new RuntimeException("Data not found");
+        }
         return (clientRelationships.isEmpty()) ? null : clientRelationships.get(0);
     }
 
