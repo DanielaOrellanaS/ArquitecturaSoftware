@@ -22,7 +22,7 @@ public class ClientRelationshipService {
     }
 
     public List<ClientRelationship> searchTypeRelationship(String relationshipType) {
-        return clientRelationshipRepository.findByRelationshipType(relationshipType);
+        return clientRelationshipRepository.findByRelationshiptype(relationshipType);
     }
 
     public ClientRelationship searchById(String identification) {
