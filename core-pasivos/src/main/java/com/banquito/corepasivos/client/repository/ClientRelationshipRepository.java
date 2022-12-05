@@ -14,4 +14,8 @@ public interface ClientRelationshipRepository extends JpaRepository<ClientRelati
 
     List<ClientRelationship> findByIdentification(String identification);
 
+    List<ClientRelationship> findByRelationshiptype(String relationshipType);
+
+    List<ClientRelationship> findAll();
+
 }

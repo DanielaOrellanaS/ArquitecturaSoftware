@@ -1,0 +1,61 @@
+{
+    "ClientAddress": {
+        "pk": {
+            "identificationType": "RUC",
+            "identification": "1720744944001",
+            "codeLocation": 3
+        },
+        "addressLineOne": "Convento",
+        "addressLineTwo": "S13-29",
+        "latitude": "-0.27830499739595055",
+        "longitude": "-80.03493444056862"
+    },
+    "ClientRelationship": {
+        "codeRelationship": null,
+        "identificationType": "DNI",
+        "identification": "1720744946",
+        "relationshiptype": "LEGAL REPRESENTATIVE",
+        "startDate": "2021-09-28",
+        "endDate": "2022-09-28"
+    },
+    "Client": {
+        "pk": {
+            "identificationType": "RUC",
+            "identification": "1720744943001"
+        },
+        "codeSegment": "14a72509d460fb0a",
+        "clientType": "NAT",
+        "lastname": "cade",
+        "name": "pepe",
+        "fullname": "pepe cad",
+        "email": "pepe@gmail.com",
+        "birthDate": "2022-12-25",
+        "gender": "M",
+        "companyName": "pepCompani",
+        "companyType": "ventas",
+        "status": "ACT",
+        "createDate": "2022-12-25T15:23:54.000+00:00",
+        "lastStatusDate": "2022-12-25T15:23:55.000+00:00",
+        "signature": "la firma test",
+        "workStatus": "DEP",
+        "taxPaymentPlace": "EC",
+        "fingerprint": "EC2021",
+        "nationality": "Ecuarotiano",
+        "maritalStatus": "MAR",
+        "monthlyAvgIncome": "1000-2999",
+        "basicServicesDocument": "account",
+        "incomeTaxDocument": "12",
+        "articlesAssociationDoc": "none",
+        "tinDocument": "valido",
+        "appLegalRepresentDoc": "ESPE",
+        "career": "arquitecto"
+    },
+    "ClientReferences": {
+        "codeReference": 1,
+        "identificationtype": "RUC",
+        "identification": "1720744943001",
+        "name": "Dayana Mena",
+        "phone": "0979246781",
+        "related": "Socio"
+    }
+}

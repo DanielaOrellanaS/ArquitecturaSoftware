@@ -18,15 +18,19 @@ public class ClientReferenceService {
         this.clientReferenceRepo = clientReferenceRepo;
     }
 
-    public List<ClientReference> findAllClientReference (String id){
+    public List<ClientReference> findAllClientReferences() {
+        return this.clientReferenceRepo.findAll();
+    }
+
+    public List<ClientReference> findAllClientReference(String id) {
         return this.clientReferenceRepo.findByIdentification(id);
     }
 
     @Transactional // 1
-    public void saveClientReference(ClientReference client){
-        if (client.getCodeReference() != null){
+    public void saveClientReference(ClientReference client) {
+        if (client.getCodeReference() != null) {
             Optional<ClientReference> clientOpt = this.clientReferenceRepo.findById(client.getCodeReference());
-            if (clientOpt.isPresent()){
+            if (clientOpt.isPresent()) {
                 throw new RuntimeException("Cant insert that referece, client already registered");
             }
         }
@@ -35,7 +39,7 @@ public class ClientReferenceService {
 
     @Transactional
     public void updateClientReference(ClientReference client) {
-        if (client.getCodeReference() != null){
+        if (client.getCodeReference() != null) {
             Optional<ClientReference> clientOpt = this.clientReferenceRepo.findById(client.getCodeReference());
             if (!clientOpt.isPresent())
                 throw new RuntimeException("Client reference not found");
@@ -46,14 +50,15 @@ public class ClientReferenceService {
                     throw new RuntimeException("Data update error");
                 }
             }
-        }else throw new RuntimeException("Code reference can't be null");
+        } else
+            throw new RuntimeException("Code reference can't be null");
     }
 
     @Transactional
-    public void deleteClientReference(Integer codeReference){
-        if (codeReference == null){
+    public void deleteClientReference(Integer codeReference) {
+        if (codeReference == null) {
             throw new RuntimeException("Code reference can't be null");
-        }else {
+        } else {
             Optional<ClientReference> clientOpt = this.clientReferenceRepo.findById(codeReference);
             if (!clientOpt.isPresent())
                 throw new RuntimeException("Client reference not found");
