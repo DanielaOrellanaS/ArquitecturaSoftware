@@ -99,7 +99,7 @@ public class Client {
 
     @ManyToOne
     @JoinColumn(name = "code_segment", referencedColumnName = "code_segment", insertable = false, updatable = false)
-    private Segment codeSegment;
+    private Segment segment;
 
     @OneToMany(mappedBy = "client")
     private List <AccountClient> accountsClient;
