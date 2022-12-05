@@ -3,7 +3,6 @@ package com.banquito.corepasivos.general.controller;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,22 +15,21 @@ import org.springframework.web.bind.annotation.RestController;
 import com.banquito.corepasivos.general.model.CountryEntity;
 import com.banquito.corepasivos.general.service.CountryEntityService;
 
-
-
 @RestController
 @RequestMapping("/countryentity")
 public class CountryEntityController {
-    
+
     private final CountryEntityService countryEntityService;
 
-    public CountryEntityController(CountryEntityService countryEntityService){
+    public CountryEntityController(CountryEntityService countryEntityService) {
         this.countryEntityService = countryEntityService;
     }
 
     @PostMapping
     public ResponseEntity<String> newEmployee(@RequestBody CountryEntity countryEntity) {
         try {
-            this.countryEntityService.create(countryEntity);;
+            this.countryEntityService.create(countryEntity);
+            ;
             return ResponseEntity.ok("Country Entity created successfully");
         } catch (Exception e) {
             return ResponseEntity.internalServerError().body(e.getMessage());

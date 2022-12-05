@@ -3,12 +3,10 @@ package com.banquito.corepasivos.general.controller;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,17 +18,18 @@ import com.banquito.corepasivos.general.service.BankEntityService;
 @RestController
 @RequestMapping("/api/bank")
 public class BankEntityController {
-    
+
     private final BankEntityService bankEntityService;
 
-    public BankEntityController(BankEntityService bankEntityService){
+    public BankEntityController(BankEntityService bankEntityService) {
         this.bankEntityService = bankEntityService;
     }
 
     @PostMapping
     public ResponseEntity<String> newEmployee(@RequestBody BankEntity bankEntity) {
         try {
-            this.bankEntityService.create(bankEntity);;
+            this.bankEntityService.create(bankEntity);
+            ;
             return ResponseEntity.ok("Bank Entity created successfully");
         } catch (Exception e) {
             return ResponseEntity.internalServerError().body(e.getMessage());
