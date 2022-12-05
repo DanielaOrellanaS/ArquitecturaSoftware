@@ -1,20 +1,15 @@
 package com.banquito.corepasivos.account.controller;
 
 import com.banquito.corepasivos.account.model.AccountAssociatedService;
-import com.banquito.corepasivos.account.model.AccountAssociatedServicePK;
 import com.banquito.corepasivos.account.services.AccountAssociatedServiceService;
 
-import java.util.Date;
 import java.util.List;
 
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -26,7 +21,7 @@ public class AccountAssociatedServiceController {
 		this.service = service;
 	}
 
-	@GetMapping("/findByCodeLocalAccount/{codeLocalAccount}")
+	@RequestMapping(value = "/findByCodeLocalAccount/{codeLocalAccount}", method = RequestMethod.GET)
 	public ResponseEntity<List<AccountAssociatedService>> findByCodeLocalAccount(
 			@PathVariable("codeLocalAccount") String codeLocalAccount) {
 
@@ -40,7 +35,7 @@ public class AccountAssociatedServiceController {
 
 	}
 
-	@GetMapping("/findByCodeInternationalAccount/{codeInternationalAccount}")
+	@RequestMapping(value = "/findByCodeInternationalAccount/{codeInternationalAccount}", method = RequestMethod.GET)
 	public ResponseEntity<List<AccountAssociatedService>> findByCodeInternationalAccount(
 			@PathVariable("codeInternationalAccount") String codeInternationalAccount) {
 
@@ -54,7 +49,7 @@ public class AccountAssociatedServiceController {
 
 	}
 
-	@GetMapping("/findByCodeProduct/{codeProduct}")
+	@RequestMapping(value = "/findByCodeProduct/{codeProduct}", method = RequestMethod.GET)
 	public ResponseEntity<List<AccountAssociatedService>> findByCodeProduct(
 			@PathVariable("codeProduct") String codeProduct) {
 
@@ -67,7 +62,7 @@ public class AccountAssociatedServiceController {
 
 	}
 
-	@GetMapping("/findByCodeProductType/{codeProductType}")
+	@RequestMapping(value = "/findByCodeProductType/{codeProductType}", method = RequestMethod.GET)
 	public ResponseEntity<List<AccountAssociatedService>> findByCodeProductType(
 			@PathVariable("codeProductType") String codeProductType) {
 
@@ -80,7 +75,7 @@ public class AccountAssociatedServiceController {
 
 	}
 
-	@GetMapping("/findByCodeAssociatedService/{codeAssociatedService}")
+	@RequestMapping(value = "/findByCodeAssociatedService/{codeAssociatedService}", method = RequestMethod.GET)
 	public ResponseEntity<List<AccountAssociatedService>> findByCodeAssociatedService(
 			@PathVariable("codeAssociatedService") String codeAssociatedService) {
 
@@ -94,7 +89,7 @@ public class AccountAssociatedServiceController {
 
 	}
 
-	@DeleteMapping("/deleteByCodeLocalAccount/{codeLocalAccount}")
+	@RequestMapping(value = "/deleteByCodeLocalAccount/{codeLocalAccount}", method = RequestMethod.DELETE)
 	public ResponseEntity<Void> deleteByCodeLocalAccount(
 			@PathVariable("codeLocalAccount") String codeLocalAccount) {
 
@@ -103,7 +98,7 @@ public class AccountAssociatedServiceController {
 
 	}
 
-	@DeleteMapping("/deleteByCodeInternationalAccount/{codeInternationalAccount}")
+	@RequestMapping(value = "/deleteByCodeInternationalAccount/{codeInternationalAccount}", method = RequestMethod.DELETE)
 	public ResponseEntity<Void> deleteByCodeInternationalAccount(
 			@PathVariable("codeInternationalAccount") String codeInternationalAccount) {
 
@@ -111,7 +106,7 @@ public class AccountAssociatedServiceController {
 		return ResponseEntity.noContent().build();
 	}
 
-	@DeleteMapping("/deleteByCodeAssociatedService/{codeAssociatedService}")
+	@RequestMapping(value = "/deleteByCodeAssociatedService/{codeAssociatedService}", method = RequestMethod.DELETE)
 	public ResponseEntity<Void> deleteByCodeAssociatedService(
 			@PathVariable("codeAssociatedService") String codeAssociatedService) {
 
@@ -119,7 +114,7 @@ public class AccountAssociatedServiceController {
 		return ResponseEntity.noContent().build();
 	}
 
-	@PostMapping(consumes = { MediaType.APPLICATION_JSON_VALUE })
+	@RequestMapping(value = "", method = RequestMethod.POST)
 	public ResponseEntity<String> createAccountAssociatedService(
 			@RequestBody AccountAssociatedService accountAssociatedService) {
 		try {
