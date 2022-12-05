@@ -1,6 +1,6 @@
 package com.banquito.corepasivos.product.service;
 
-import java.util.List;
+import java.util.Optional;
 
 import javax.transaction.Transactional;
 
@@ -17,19 +17,19 @@ public class AssociatedServiceService {
         this.associatedServiceRepository = associatedServiceRepository;
     }
 
-    public AssociatedService getAssociatedService(String codeAssociatedService) {
-        return associatedServiceRepository.findById(codeAssociatedService).orElse(null);
-    }
+    /* public AssociatedService findByCodeAssociatedService(String codeAssociatedService) {
+        List<AssociatedService> services = this.associatedServiceRepository.findById(codeAssociatedService);
+        return services.isEmpty() ? null : services.get(0);
+    } */
 
     @Transactional
-    public AssociatedService saveAssociatedService(AssociatedService associatedService) {
-        List<AssociatedService> service = this.associatedServiceRepository.findByCodeAssociatedService(associatedService.getCodeAssociatedService());
-        if(service.isEmpty()){
-            return associatedServiceRepository.save(associatedService);
-        }else{
+    public void saveAssociatedService(AssociatedService associatedService) {
+        Optional<AssociatedService> service = this.associatedServiceRepository.findById(associatedService.getCodeAssociatedService());    
+        if (service.isPresent()) {
             throw new RuntimeException("El servicio asociado ya existe");
+        } else {
+            associatedServiceRepository.save(associatedService);
         }
-        
     }
-    
+
 }

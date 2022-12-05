@@ -2,6 +2,8 @@ package com.banquito.corepasivos.product.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -22,6 +24,7 @@ import java.util.List;
 public class AssociatedService implements Serializable {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "code_associated_service", length = 16, nullable = false)
     private String codeAssociatedService;
 
@@ -32,17 +35,17 @@ public class AssociatedService implements Serializable {
     private String allowPayment;
 
     @Column(name = "payment_method", length = 3)
-    private String pymentMethod;
+    private String paymentMethod;
 
     @Column(name = "charge_vat", length = 1, nullable = false)
-    private String ChargeVat;
+    private String chargeVat;
 
     @Column(name = "fee", scale = 17, precision = 2, nullable = false)
     private BigDecimal fee;
 
-    @JsonManagedReference
+    /* @JsonManagedReference
     @OneToMany(mappedBy = "associatedService")
-    private List<AssociatedServiceParam> associatedServiceParams;
+    private List<AssociatedServiceParam> associatedServiceParams; */
 
     @JsonManagedReference
     @OneToMany(mappedBy = "associatedService")
