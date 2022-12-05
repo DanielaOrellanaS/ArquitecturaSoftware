@@ -43,7 +43,7 @@ public class ClientAddressController {
     public ResponseEntity<String> createClientAddress(@RequestBody ClientAddress clientAddress) {
         try {
             this.clientAddressService.createClientAddress(clientAddress);
-            return ResponseEntity.ok("Cliente creado con exito");
+            return ResponseEntity.ok("Address successfully created");
         } catch (Exception e) {
             return ResponseEntity.internalServerError().body(e.getMessage());
         }
@@ -54,7 +54,7 @@ public class ClientAddressController {
             @RequestBody ClientAddress clientAddress) {
         try {
             this.clientAddressService.updateClientAddress(clientAddress);
-            return ResponseEntity.ok("Direccion atualizada con exito");
+            return ResponseEntity.ok("Address successfully updated");
         } catch (Exception e) {
             return ResponseEntity.internalServerError().body(e.getMessage());
         }
@@ -71,7 +71,7 @@ public class ClientAddressController {
             pk.setIdentification(client);
             pk.setIdentificationType(type.toUpperCase());
             this.clientAddressService.deleteClientAdress(pk);
-            return ResponseEntity.ok("Direccion eliminada con exito");
+            return ResponseEntity.ok("Address successfully deleted");
         } catch (Exception e) {
             return ResponseEntity.internalServerError().body(e.getMessage());
         }
@@ -82,7 +82,7 @@ public class ClientAddressController {
             @RequestBody ClientAddress clientAddress) {
         try {
             this.clientAddressService.deleteClientAdress(clientAddress);
-            return ResponseEntity.ok("Direccion eliminada con exito");
+            return ResponseEntity.ok("Address successfully deleted");
         } catch (Exception e) {
             return ResponseEntity.internalServerError().body(e.getMessage());
         }

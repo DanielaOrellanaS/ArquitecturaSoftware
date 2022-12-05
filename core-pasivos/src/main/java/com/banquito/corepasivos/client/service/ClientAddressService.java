@@ -32,7 +32,7 @@ public class ClientAddressService {
         try {
             this.clientAddressRepository.save(clientAddress);
         } catch (Exception e) {
-            throw new RuntimeException("Ya existe una direccion creada con dichos parametros");
+            throw new RuntimeException("The address is already linked to the user");
         }
     }
 
@@ -40,12 +40,12 @@ public class ClientAddressService {
     public void updateClientAddress(ClientAddress clientAddress) {
         Optional<ClientAddress> auxAddress = this.clientAddressRepository.findById(clientAddress.getPk());
         if (!auxAddress.isPresent())
-            throw new RuntimeException("No se ha encontrado la direcciona asociada al usuario");
+            throw new RuntimeException("Address not found");
         else
             try {
                 this.clientAddressRepository.save(clientAddress);
             } catch (Exception e) {
-                throw new RuntimeException("Ha ocurrido un error en la actualizacion de datos");
+                throw new RuntimeException("Something went wrong");
             }
     }
 
@@ -53,12 +53,12 @@ public class ClientAddressService {
     public void deleteClientAdress(ClientAddress clientAddress) {
         Optional<ClientAddress> auxAddress = this.clientAddressRepository.findById(clientAddress.getPk());
         if (!auxAddress.isPresent())
-            throw new RuntimeException("No se ha encontrado la direcciona asociada al usuario");
+            throw new RuntimeException("Address not found");
         else
             try {
                 this.clientAddressRepository.delete(clientAddress);
             } catch (Exception e) {
-                throw new RuntimeException("Ha ocurrido un error en la eliminacion de la direccion");
+                throw new RuntimeException("Something went wrong");
             }
     }
 
@@ -66,12 +66,12 @@ public class ClientAddressService {
     public void deleteClientAdress(ClientAddressPK pk) {
         Optional<ClientAddress> auxAddress = this.clientAddressRepository.findById(pk);
         if (!auxAddress.isPresent())
-            throw new RuntimeException("No se ha encontrado la direcciona asociada al usuario");
+            throw new RuntimeException("Address not found");
         else
             try {
                 this.clientAddressRepository.deleteById(pk);
             } catch (Exception e) {
-                throw new RuntimeException("Ha ocurrido un error en la eliminacion de la direccion");
+                throw new RuntimeException("Something went wrong");
             }
     }
 }
