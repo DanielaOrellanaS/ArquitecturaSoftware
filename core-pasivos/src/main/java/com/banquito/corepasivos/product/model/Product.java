@@ -61,26 +61,26 @@ public class Product implements Serializable {
     @Column(name = "min_opening_balance", scale = 17, precision = 2, nullable = false)
     private BigDecimal minOpeningBalance;
 
-    @JsonBackReference
+    @JsonBackReference(value = "productType-products")
     @ManyToOne
     @JoinColumn(name = "code_product_type", referencedColumnName = "code_product_type", insertable = false, updatable = false, nullable = false)
     private ProductType productType;
 
-    @JsonBackReference
+    @JsonBackReference(value = "segment-products")
     @ManyToOne
     @JoinColumn(name = "code_segment", referencedColumnName = "code_segment", insertable = false, updatable = false)
     private Segment segment;
 
-    @JsonBackReference
+    @JsonBackReference(value = "interestRate-products")
     @ManyToOne
     @JoinColumn(name = "code_interest_rate", referencedColumnName = "code_interest_rate", insertable = false, updatable = false)
     private InterestRate interestRate;
 
-    @JsonManagedReference
+    @JsonManagedReference(value = "product-account")
     @OneToMany(mappedBy = "product")
     private List<Account> accounts;
 
-    @JsonManagedReference
+    @JsonManagedReference(value = "product-productAssociatedService")
     @OneToMany(mappedBy = "product")
     private List<ProductAssociatedService> productAssociatedServices;
 

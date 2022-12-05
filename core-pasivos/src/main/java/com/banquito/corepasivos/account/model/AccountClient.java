@@ -27,7 +27,7 @@ public class AccountClient implements Serializable {
     @Column(name = "status", length = 3, nullable = false)
     private String status;
 
-    @JsonBackReference
+    @JsonBackReference(value = "account-accountClient")
     @ManyToOne
     @JoinColumns({
             @JoinColumn(name = "code_local_account", insertable = false, updatable = false),
@@ -35,7 +35,7 @@ public class AccountClient implements Serializable {
     })
     private Account account;
 
-    @JsonBackReference
+    @JsonBackReference(value = "client-accountClients")
     @ManyToOne
     @JoinColumns({
             @JoinColumn(name = "identification_type", insertable = false, updatable = false),

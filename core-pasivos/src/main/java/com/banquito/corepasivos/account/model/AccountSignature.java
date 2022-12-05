@@ -40,7 +40,7 @@ public class AccountSignature implements Serializable {
     @Column(name = "end_date", nullable = true)
     private Date endDate;
 
-    @JsonBackReference
+    @JsonBackReference(value = "account-accountSignature")
     @ManyToOne
     @JoinColumns({
             @JoinColumn(name = "code_local_account", referencedColumnName = "code_local_account", insertable = false, updatable = false),
@@ -48,7 +48,7 @@ public class AccountSignature implements Serializable {
     })
     private Account account;
 
-    @JsonBackReference
+    @JsonBackReference(value = "client-accountSignature")
     @ManyToOne
     @JoinColumns({
             @JoinColumn(name = "identification_type", referencedColumnName = "identification_type", insertable = false, updatable = false),

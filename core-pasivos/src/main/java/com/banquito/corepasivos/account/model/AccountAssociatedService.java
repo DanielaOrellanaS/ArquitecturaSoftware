@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
+import com.banquito.corepasivos.product.model.ProductAssociatedService;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
@@ -35,7 +36,7 @@ public class AccountAssociatedService implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date endDate;
 
-    @JsonBackReference
+    @JsonBackReference(value = "account-accountAssociatedService")
     @ManyToOne
     @JoinColumns({
             @JoinColumn(name = "code_local_account", referencedColumnName = "code_local_account", insertable = false, updatable = false),
@@ -43,20 +44,18 @@ public class AccountAssociatedService implements Serializable {
     })
     private Account account;
 
-    // @ManyToOne
-    // @JoinColumns({
-    // @JoinColumn(name = "code_product", referencedColumnName = "code_product",
-    // insertable = false, updatable = false),
-    // @JoinColumn(name = "code_product_type", referencedColumnName =
-    // "code_product_type", insertable = false, updatable = false),
-    // @JoinColumn(name = "code_associated_service", referencedColumnName =
-    // "code_associated_service", insertable = false, updatable = false),
-    // })
-    // private ProductAssociatedService productAssociatedService;
-
-    @JsonManagedReference
+    @JsonManagedReference(value = "accountAssociatedService-associatedServiceParam")
     @OneToMany(mappedBy = "accountAssociatedService")
     private List<AccountAssociatedServiceParam> associatedServiceParams;
+
+    /* @JsonManagedReference(value = "productAssociatedService-accountAssociatedService")
+    @ManyToOne
+    @JoinColumns({
+            @JoinColumn(name = "code_product", referencedColumnName = "code_product", insertable = false, updatable = false),
+            @JoinColumn(name = "code_product_type", referencedColumnName = "code_product_type", insertable = false, updatable = false),
+            @JoinColumn(name = "code_associated_service", referencedColumnName = "code_associated_service", insertable = false, updatable = false),
+    })
+    private ProductAssociatedService productAssociatedService; */
 
     public AccountAssociatedService(AccountAssociatedServicePK pk) {
         this.pk = pk;

@@ -44,7 +44,7 @@ public class InterestRateLog {
     @Column(name = "status", length = 3, nullable = false)
     private String status;
 
-    @JsonBackReference
+    @JsonBackReference(value = "interestRate-interestRateLog")
     @ManyToOne
     @JoinColumn(name = "code_interest_rate", referencedColumnName = "code_interest_rate", insertable = false, updatable = false, nullable = true)
     private InterestRate interestRate;
