@@ -4,10 +4,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import com.banquito.corepasivos.product.model.ProductType;
 
-
 @Repository
 public interface ProductTypeRepository extends JpaRepository<ProductType, String> {
-    List<ProductType> findByCodeProductType(String codeProductType);
 
+    List<ProductType> findByCodeProductType(String codeProductType);
     
 }
