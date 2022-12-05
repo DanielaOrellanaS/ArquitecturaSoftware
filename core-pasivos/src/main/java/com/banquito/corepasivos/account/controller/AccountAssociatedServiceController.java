@@ -1,14 +1,19 @@
 package com.banquito.corepasivos.account.controller;
 
 import com.banquito.corepasivos.account.model.AccountAssociatedService;
+import com.banquito.corepasivos.account.model.AccountAssociatedServicePK;
 import com.banquito.corepasivos.account.services.AccountAssociatedServiceService;
 
+import java.util.Date;
 import java.util.List;
 
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -112,6 +117,17 @@ public class AccountAssociatedServiceController {
 
 		this.service.deleteByCodeAssociatedService(codeAssociatedService);
 		return ResponseEntity.noContent().build();
+	}
+
+	@PostMapping(consumes = { MediaType.APPLICATION_JSON_VALUE })
+	public ResponseEntity<String> createAccountAssociatedService(
+			@RequestBody AccountAssociatedService accountAssociatedService) {
+		try {
+			this.service.save(accountAssociatedService);
+			return ResponseEntity.ok("OK");
+		} catch (Exception e) {
+			return ResponseEntity.internalServerError().body(e.getMessage());
+		}
 	}
 
 	@RequestMapping("/all")
