@@ -13,16 +13,16 @@ import com.banquito.corepasivos.client.service.ClientService;
 @RestController
 @RequestMapping("/api/clients")
 public class ClientController {
-//
-//    private final ClientService clientService;
-//
-//    public ClientController(ClientService clientService) {
-//        this.clientService = clientService;
-//    }
-//
-//    @GetMapping
-//    public ResponseEntity<List<Client>> findAll() {
-//        return ResponseEntity.ok(this.clientService.findAllClients());
-//    }
+
+    private final ClientService clientService;
+
+    public ClientController(ClientService clientService) {
+        this.clientService = clientService;
+    }
+
+    @GetMapping
+    public ResponseEntity<List<Client>> findAll() {
+        return ResponseEntity.ok(this.clientService.findAllClients());
+    }
 
 }

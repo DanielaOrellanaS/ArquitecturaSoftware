@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/account/associated/service/param")
+@RequestMapping("api/account-associated-service-param")
 public class AccountAssociatedServiceParamController {
     private final AccountAssociatedServiceParamService accountAssociatedServiceParamService;
 
