@@ -3,11 +3,9 @@ package com.banquito.corepasivos.product.model;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import lombok.Data;
@@ -42,19 +40,13 @@ public class AssociatedService implements Serializable {
     @Column(name = "fee", scale = 17, precision = 2, nullable = false)
     private BigDecimal fee;
 
-    /*
-     * @JsonManagedReference
-     * 
-     * @OneToMany(mappedBy = "associated_service")
-     * private List<AssociatedServiceParam> associatedServiceParams;
-     */
+    @JsonManagedReference
+    @OneToMany(mappedBy = "associatedService")
+    private List<AssociatedServiceParam> associatedServiceParams;
 
-    /*
-     * @JsonManagedReference
-     * 
-     * @OneToMany(mappedBy = "associated_service")
-     * private List<ProductAssociatedService> productAssociatedServices;
-     */
+    @JsonManagedReference
+    @OneToMany(mappedBy = "associatedService")
+    private List<ProductAssociatedService> productAssociatedServices;
 
     public AssociatedService(String codeAssociatedService) {
         this.codeAssociatedService = codeAssociatedService;

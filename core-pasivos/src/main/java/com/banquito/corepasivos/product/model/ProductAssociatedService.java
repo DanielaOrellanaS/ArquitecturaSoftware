@@ -25,14 +25,13 @@ public class ProductAssociatedService {
     @JoinColumn(name = "code_associated_service", referencedColumnName = "code_associated_service", insertable = false, updatable = false, nullable = true)
     private AssociatedService associatedService;
 
-    // @ManyToOne
-    // @JoinColumns({
-    // @JoinColumn(name = "code_product", referencedColumnName = "code_product",
-    // insertable = false, updatable = false, nullable = true),
-    // @JoinColumn(name = "code_product_type", referencedColumnName =
-    // "code_product_type", insertable = false, updatable = false, nullable = true)
-    // })
-    // private Product product;
+    @JsonBackReference
+    @ManyToOne
+    @JoinColumns({
+            @JoinColumn(name = "code_product", referencedColumnName = "code_product", insertable = false, updatable = false, nullable = true),
+            @JoinColumn(name = "code_product_type", referencedColumnName = "code_product_type", insertable = false, updatable = false, nullable = true)
+    })
+    private Product product;
 
     public ProductAssociatedService(ProductAssociatedServicePK pk) {
         this.pk = pk;

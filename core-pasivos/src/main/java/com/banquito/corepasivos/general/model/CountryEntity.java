@@ -32,12 +32,9 @@ public class CountryEntity implements Serializable {
     @Column(name = "name", length = 64, nullable = false)
     private String name;
 
-    /*
-     * @JsonManagedReference
-     * 
-     * @OneToMany(mappedBy = "country_entity")
-     * private List<LocationEntity> locationEntities;
-     */
+    @JsonManagedReference
+    @OneToMany(mappedBy = "countryEntity")
+    private List<LocationEntity> locationEntities;
 
     public CountryEntity(String codeCountry) {
         this.codeCountry = codeCountry;

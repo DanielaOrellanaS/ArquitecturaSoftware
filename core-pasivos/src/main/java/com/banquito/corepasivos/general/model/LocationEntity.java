@@ -17,7 +17,6 @@ import javax.persistence.Table;
 import com.banquito.corepasivos.client.model.ClientAddress;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -69,19 +68,17 @@ public class LocationEntity implements Serializable {
     })
     private StructureEntity structureEntity;
 
-    /*
-     * @JsonManagedReference
-     * 
-     * @OneToMany(mappedBy = "location_entity")
-     * private List<Holiday> holidays;
-     */
+    @JsonManagedReference
+    @OneToMany(mappedBy = "locationEntity")
+    private List<Holiday> holidays;
 
-    /*
-     * @JsonManagedReference
-     * 
-     * @OneToMany(mappedBy = "location_entity")
-     * private List<ClientAddress> clientAddresses;
-     */
+    @JsonManagedReference
+    @OneToMany(mappedBy = "locationEntity")
+    private List<ClientAddress> clientAddresses;
+
+    @JsonManagedReference
+    @OneToMany(mappedBy = "locationEntity")
+    private List<Branch> branchs;
 
     public LocationEntity(Integer codeLocation) {
         this.codeLocation = codeLocation;

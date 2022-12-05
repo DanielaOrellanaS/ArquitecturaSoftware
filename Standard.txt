@@ -8,3 +8,7 @@ La cabecera de las clases va de la siguiente manera:
 Cabezara de las clases de las primarias compuestas va de la siguiente manera:
     @Data
     @Embeddable
+
+Mappear todas las columnas asi esten en los joincolumns
+
+ManyToOne colocar con FetchLazy

@@ -10,6 +10,7 @@ import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import lombok.Data;
@@ -43,10 +44,10 @@ public class Branch implements Serializable {
     })
     private BankEntity bankEntity;
 
-    // @ManyToOne
-    // @JoinColumn(name = "CODE_LOCATION", nullable = false, insertable = false,
-    // updatable = false)
-    // private LocationEntity locationEntity;
+    @JsonBackReference
+    @ManyToOne
+    @JoinColumn(name = "code_location", nullable = false, insertable = false, updatable = false)
+    private LocationEntity locationEntity;
 
     public Branch(BranchPK pk) {
         this.pk = pk;

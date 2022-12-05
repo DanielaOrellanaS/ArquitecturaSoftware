@@ -5,6 +5,9 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
+import com.banquito.corepasivos.general.model.Branch;
+import com.banquito.corepasivos.product.model.Product;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import java.io.Serializable;
@@ -57,34 +60,22 @@ public class Account implements Serializable {
 	@Column(name = "available_balance", scale = 17, precision = 2, nullable = false)
 	private BigDecimal availableBalance;
 
-	/*
-	 * @ManyToOne
-	 * 
-	 * @JoinColumns({
-	 * 
-	 * @JoinColumn(name = "code_product", referencedColumnName = "code_product",
-	 * insertable = false, updatable = false),
-	 * 
-	 * @JoinColumn(name = "code_product_type", referencedColumnName =
-	 * "code_product_type", insertable = false, updatable = false),
-	 * })
-	 * private Product product;
-	 * 
-	 * @ManyToOne
-	 * 
-	 * @JoinColumns({
-	 * 
-	 * @JoinColumn(name = "code_branch", referencedColumnName = "code_branch",
-	 * insertable = false, updatable = false),
-	 * 
-	 * @JoinColumn(name = "entity_bank_code", referencedColumnName =
-	 * "entity_bank_code", insertable = false, updatable = false),
-	 * 
-	 * @JoinColumn(name = "international_bank_code", referencedColumnName =
-	 * "international_bank_code", insertable = false, updatable = false)
-	 * })
-	 * private Branch branch;
-	 */
+	@JsonBackReference
+	@ManyToOne
+	@JoinColumns({
+			@JoinColumn(name = "code_product", referencedColumnName = "code_product", insertable = false, updatable = false),
+			@JoinColumn(name = "code_product_type", referencedColumnName = "code_product_type", insertable = false, updatable = false),
+	})
+	private Product product;
+
+	@JsonBackReference
+	@ManyToOne
+	@JoinColumns({
+			@JoinColumn(name = "code_branch", referencedColumnName = "code_branch", insertable = false, updatable = false),
+			@JoinColumn(name = "entity_bank_code", referencedColumnName = "entity_bank_code", insertable = false, updatable = false),
+			@JoinColumn(name = "international_bank_code", referencedColumnName = "international_bank_code", insertable = false, updatable = false)
+	})
+	private Branch branch;
 
 	@JsonManagedReference
 	@OneToMany(mappedBy = "account")

@@ -1,9 +1,15 @@
 package com.banquito.corepasivos.product.model;
 
+import java.io.Serializable;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,7 +18,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Entity
 @Table(name = "interest_rate")
-public class InterestRate {
+public class InterestRate implements Serializable {
 
     @Id
     @Column(name = "code_interest_rate", length = 8, nullable = false)
@@ -27,11 +33,13 @@ public class InterestRate {
     @Column(name = "calc_base", nullable = false, length = 8)
     private String calcBase;
 
-    // @OneToMany(mappedBy = "interest_rate")
-    // private List<InterestRateLog> interestRateLog;
+    @JsonBackReference
+    @OneToMany(mappedBy = "interestRate")
+    private List<InterestRateLog> interestRateLog;
 
-    // @OneToMany(mappedBy = "interest_rate")
-    // private List<Product> products;
+    @JsonBackReference
+    @OneToMany(mappedBy = "interestRate")
+    private List<Product> products;
 
     public InterestRate(String codeInterestRate) {
         this.codeInterestRate = codeInterestRate;

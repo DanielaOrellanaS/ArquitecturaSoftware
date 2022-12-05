@@ -33,9 +33,9 @@ public class AssociatedServiceParam implements Serializable {
     @JoinColumn(name = "code_associated_service", insertable = false, updatable = false)
     private AssociatedService associatedService;
 
-/*     @JsonManagedReference
-    @OneToMany(mappedBy = "associated_service_param")
-    private List<AccountAssociatedServiceParam> accountAssociatedServiceParams; */
+    @JsonManagedReference
+    @OneToMany(mappedBy = "associatedServiceParam")
+    private List<AccountAssociatedServiceParam> accountAssociatedServiceParams;
 
     public AssociatedServiceParam(AssociatedServiceParamPK pk) {
         this.pk = pk;

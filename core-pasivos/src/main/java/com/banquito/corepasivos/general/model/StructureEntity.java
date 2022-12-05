@@ -33,12 +33,9 @@ public class StructureEntity implements Serializable {
     // updatable = false)
     // private CountryEntity countryEntity;
 
-    /*
-     * @JsonManagedReference
-     * 
-     * @OneToMany(mappedBy = "structure_entity")
-     * private List<LocationEntity> locationEntities;
-     */
+    @JsonManagedReference
+    @OneToMany(mappedBy = "structureEntity")
+    private List<LocationEntity> locationEntities;
 
     public StructureEntity(StructureEntityPK pk) {
         this.pk = pk;

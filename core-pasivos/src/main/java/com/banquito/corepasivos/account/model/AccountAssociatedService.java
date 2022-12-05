@@ -54,9 +54,9 @@ public class AccountAssociatedService implements Serializable {
     // })
     // private ProductAssociatedService productAssociatedService;
 
-    /* @JsonManagedReference
-    @OneToMany(mappedBy = "account_associated_service")
-    private List<AccountAssociatedServiceParam> associatedServiceParams; */
+    @JsonManagedReference
+    @OneToMany(mappedBy = "accountAssociatedService")
+    private List<AccountAssociatedServiceParam> associatedServiceParams;
 
     public AccountAssociatedService(AccountAssociatedServicePK pk) {
         this.pk = pk;
