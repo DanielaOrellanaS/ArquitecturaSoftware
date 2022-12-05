@@ -23,7 +23,7 @@ public class ClientRelationshipService {
     }
 
     public ClientRelationship searchTypeRelationship(String relationshipType) {
-        List<ClientRelationship> clientRelationships = this.clientRelationshipRepository.findByRelationShipType(relationshipType);
+        List<ClientRelationship> clientRelationships = this.clientRelationshipRepository.findByRelationshipType(relationshipType);
         return (clientRelationships.isEmpty()) ? null : clientRelationships.get(0);
     }
 
