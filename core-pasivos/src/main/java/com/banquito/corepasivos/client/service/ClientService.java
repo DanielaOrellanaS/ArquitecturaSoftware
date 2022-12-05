@@ -1,9 +1,22 @@
 package com.banquito.corepasivos.client.service;
 
-import java.util.List;
+import org.springframework.stereotype.Service;
 
+import com.banquito.corepasivos.client.repository.ClientRepository;
 import com.banquito.corepasivos.client.model.Client;
 
-public interface ClientService {
-    List<Client> findAllClient();
+import java.util.List;
+
+@Service
+public class ClientService {
+
+    private final ClientRepository clientRepository;
+
+    public ClientService(ClientRepository clientRepository) {
+        this.clientRepository = clientRepository;
+    }
+
+    public List<Client> findAllClients() {
+        return this.clientRepository.findAll();
+    }
 }

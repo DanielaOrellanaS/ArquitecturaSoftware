@@ -1,23 +1,28 @@
 package com.banquito.corepasivos.client.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import java.util.List;
+
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.banquito.corepasivos.client.model.Client;
 import com.banquito.corepasivos.client.service.ClientService;
-import org.springframework.web.bind.annotation.GetMapping;
-
 
 @RestController
-@RequestMapping("/client")
+@RequestMapping("/api/clients")
 public class ClientController {
-    @Autowired
-    ClientService clientService;
 
-    @GetMapping("/all")
-    public Object findClient() {
-        return this.clientService.findAllClient();
+    private final ClientService clientService;
+
+    public ClientController(ClientService clientService) {
+        this.clientService = clientService;
     }
-    
-    
+
+    @GetMapping
+    public ResponseEntity<List<Client>> findAll() {
+        return ResponseEntity.ok(this.clientService.findAllClients());
+    }
+
 }

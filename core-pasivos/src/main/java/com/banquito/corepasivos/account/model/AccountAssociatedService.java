@@ -42,9 +42,9 @@ public class AccountAssociatedService {
             @JoinColumn(name = "code_associated_service", referencedColumnName = "code_associated_service", insertable = false, updatable = false),
     })
     private ProductAssociatedService productAssociatedService;
-
+/* 
     @OneToMany(mappedBy = "account_associated_service")
-    private List<AccountAssociatedServiceParam> accountAssociatedServiceParams;
+    private List<AccountAssociatedServiceParam> accountAssociatedServiceParams; */
 
     public AccountAssociatedService(AccountAssociatedServicePK pk) {
         this.pk = pk;

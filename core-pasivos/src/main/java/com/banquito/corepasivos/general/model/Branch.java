@@ -23,6 +23,9 @@ public class Branch implements Serializable{
     @Include
     private BranchPK pk;
 
+    @Column(name = "code_location", nullable = false)
+    private Integer codeLocation;
+
     @Column(name = "INTERNATIONAL_BRANCH_CODE", length = 8, nullable = false)
     private String internationalBranchCode;
 

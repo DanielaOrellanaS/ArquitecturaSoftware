@@ -31,10 +31,10 @@ public class Segment {
     @Column(name = "status", length = 3, nullable = false)
     private String status;
 
-    @OneToMany(mappedBy = "segment", targetEntity = Product.class)
+    @OneToMany(mappedBy = "segment")
     private List<Product> products;
 
-    @OneToMany(mappedBy = "segment", targetEntity = Client.class)
+    @OneToMany(mappedBy = "segment")
     private List<Client> clients;
 
     public Segment(String codeSegment) {
