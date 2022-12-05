@@ -32,6 +32,12 @@ public class Product implements Serializable {
     @EmbeddedId
     private ProductPK pk;
 
+    @Column(name = "code_segment", length = 16)
+    private String codeSegment;
+
+    @Column(name = "code_interest_rate", length = 8)
+    private String codeInterestRate;
+
     @Column(name = "name", length = 64, nullable = false)
     private String name;
 
@@ -78,7 +84,7 @@ public class Product implements Serializable {
 
     @JsonManagedReference(value = "product-account")
     @OneToMany(mappedBy = "product")
-    private List<Account> accounts;
+    private List<Account> accounts; 
 
     @JsonManagedReference(value = "product-productAssociatedService")
     @OneToMany(mappedBy = "product")
