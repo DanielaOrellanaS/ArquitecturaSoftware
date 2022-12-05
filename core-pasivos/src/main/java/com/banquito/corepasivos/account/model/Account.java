@@ -22,6 +22,7 @@ import java.util.List;
 @Table(name = "account")
 public class Account implements Serializable {
 
+	//hello
 	@EmbeddedId
 	@Include
 	private AccountPK pk;
