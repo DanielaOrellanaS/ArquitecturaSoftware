@@ -27,6 +27,50 @@ public class AccountAssociatedServiceService {
 		}
 	}
 
+	@Transactional
+	public List<AccountAssociatedService> findByCodeInternationalAccount(String codeInternationalAccount) {
+		List<AccountAssociatedService> accountAssociatedServiceList = this.accountAssociatedServiceRepository
+				.findByCodeInternationalAccount(codeInternationalAccount);
+		if (accountAssociatedServiceList.isEmpty()) {
+			throw new RuntimeException("Account Associated Service not found");
+		} else {
+			return accountAssociatedServiceList;
+		}
+	}
+
+	@Transactional
+	public List<AccountAssociatedService> findByCodeProduct(String codeProduct) {
+		List<AccountAssociatedService> accountAssociatedServiceList = this.accountAssociatedServiceRepository
+				.findByCodeProduct(codeProduct);
+		if (accountAssociatedServiceList.isEmpty()) {
+			throw new RuntimeException("Account Associated Service not found");
+		} else {
+			return accountAssociatedServiceList;
+		}
+	}
+
+	@Transactional
+	public List<AccountAssociatedService> findByCodeProductType(String codeProductType) {
+		List<AccountAssociatedService> accountAssociatedServiceList = this.accountAssociatedServiceRepository
+				.findByCodeProductType(codeProductType);
+		if (accountAssociatedServiceList.isEmpty()) {
+			throw new RuntimeException("Account Associated Service not found");
+		} else {
+			return accountAssociatedServiceList;
+		}
+	}
+
+	@Transactional
+	public List<AccountAssociatedService> findByCodeAssociatedService(String codeAssociatedService) {
+		List<AccountAssociatedService> accountAssociatedServiceList = this.accountAssociatedServiceRepository
+				.findByCodeAssociatedService(codeAssociatedService);
+		if (accountAssociatedServiceList.isEmpty()) {
+			throw new RuntimeException("Account Associated Service not found");
+		} else {
+			return accountAssociatedServiceList;
+		}
+	}
+
 	public List<AccountAssociatedService> findAll() {
 		return this.accountAssociatedServiceRepository.findAll();
 	}

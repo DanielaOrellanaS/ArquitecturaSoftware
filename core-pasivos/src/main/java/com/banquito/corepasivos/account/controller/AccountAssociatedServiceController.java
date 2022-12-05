@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/account/associated/service")
+@RequestMapping("/accountAssociatedService")
 public class AccountAssociatedServiceController {
 	private final AccountAssociatedServiceService service;
 
@@ -20,12 +20,66 @@ public class AccountAssociatedServiceController {
 		this.service = service;
 	}
 
-	@GetMapping("/local/{codeLocalAccount}")
+	@GetMapping("/findByCodeLocalAccount/{codeLocalAccount}")
 	public ResponseEntity<List<AccountAssociatedService>> findByCodeLocalAccount(
 			@PathVariable("codeLocalAccount") String codeLocalAccount) {
 
 		List<AccountAssociatedService> accountAssociatedService = this.service
 				.findByCodeLocalAccount(codeLocalAccount);
+		if (accountAssociatedService.isEmpty()) {
+			return ResponseEntity.notFound().build();
+		} else {
+			return ResponseEntity.ok(accountAssociatedService);
+		}
+
+	}
+
+	@GetMapping("/findByCodeInternationalAccount/{codeInternationalAccount}")
+	public ResponseEntity<List<AccountAssociatedService>> findByCodeInternationalAccount(
+			@PathVariable("codeInternationalAccount") String codeInternationalAccount) {
+
+		List<AccountAssociatedService> accountAssociatedService = this.service
+				.findByCodeInternationalAccount(codeInternationalAccount);
+		if (accountAssociatedService.isEmpty()) {
+			return ResponseEntity.notFound().build();
+		} else {
+			return ResponseEntity.ok(accountAssociatedService);
+		}
+
+	}
+
+	@GetMapping("/findByCodeProduct/{codeProduct}")
+	public ResponseEntity<List<AccountAssociatedService>> findByCodeProduct(
+			@PathVariable("codeProduct") String codeProduct) {
+
+		List<AccountAssociatedService> accountAssociatedService = this.service.findByCodeProduct(codeProduct);
+		if (accountAssociatedService.isEmpty()) {
+			return ResponseEntity.notFound().build();
+		} else {
+			return ResponseEntity.ok(accountAssociatedService);
+		}
+
+	}
+
+	@GetMapping("/findByCodeProductType/{codeProductType}")
+	public ResponseEntity<List<AccountAssociatedService>> findByCodeProductType(
+			@PathVariable("codeProductType") String codeProductType) {
+
+		List<AccountAssociatedService> accountAssociatedService = this.service.findByCodeProductType(codeProductType);
+		if (accountAssociatedService.isEmpty()) {
+			return ResponseEntity.notFound().build();
+		} else {
+			return ResponseEntity.ok(accountAssociatedService);
+		}
+
+	}
+
+	@GetMapping("/findByCodeAssociatedService/{codeAssociatedService}")
+	public ResponseEntity<List<AccountAssociatedService>> findByCodeAssociatedService(
+			@PathVariable("codeAssociatedService") String codeAssociatedService) {
+
+		List<AccountAssociatedService> accountAssociatedService = this.service
+				.findByCodeAssociatedService(codeAssociatedService);
 		if (accountAssociatedService.isEmpty()) {
 			return ResponseEntity.notFound().build();
 		} else {
