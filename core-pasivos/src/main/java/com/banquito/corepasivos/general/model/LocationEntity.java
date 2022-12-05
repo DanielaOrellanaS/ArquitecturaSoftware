@@ -1,5 +1,6 @@
 package com.banquito.corepasivos.general.model;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -21,7 +22,7 @@ import lombok.EqualsAndHashCode.Include;
 @NoArgsConstructor
 @Entity
 @Table(name = "location_entity")
-public class LocationEntity {
+public class LocationEntity implements Serializable{
 
     @EmbeddedId
     @Include

@@ -1,5 +1,6 @@
 package com.banquito.corepasivos.general.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -18,7 +19,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Entity
 @Table(name = "holiday")
-public class Holiday {
+public class Holiday implements Serializable{
 
     @Id
     @Temporal(TemporalType.DATE)

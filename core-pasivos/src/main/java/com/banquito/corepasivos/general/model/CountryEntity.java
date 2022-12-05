@@ -1,5 +1,6 @@
 package com.banquito.corepasivos.general.model;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -18,7 +19,7 @@ import lombok.EqualsAndHashCode.Include;
 @NoArgsConstructor
 @Entity
 @Table(name = "COUNTRY_ENTITY")
-public class CountryEntity {
+public class CountryEntity implements Serializable{
     @Id
     @Include
     @Column(name = "CODE_COUNTRY", length = 2, nullable = false)
