@@ -47,15 +47,6 @@ public class ClientRelationship implements Serializable {
 	})
 	private Client client;
 
-/* 	 @ManyToOne
-	 @JoinColumns({
-	 @JoinColumn(name = "cli_identification_type", referencedColumnName =
-	 "identification_type", insertable = false, updatable = false),
-	 @JoinColumn(name = "cli_identification", referencedColumnName =
-	 "identification", insertable = false, updatable = false),
-	 })
-	private Client clientRelationship; */
-
 	public ClientRelationship(Integer codeRelationship) {
 		this.codeRelationship = codeRelationship;
 	}

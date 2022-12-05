@@ -10,8 +10,10 @@ import com.banquito.corepasivos.client.model.ClientRelationship;
 @Repository
 public interface ClientRelationshipRepository extends JpaRepository<ClientRelationship, Integer> {
 
-    List<ClientRelationship> findByCodeRelationship(Integer codeRelationship);
-
     List<ClientRelationship> findByIdentification(String identification);
+
+    List<ClientRelationship> findByRelationShipType(String relationshipType);
+
+    List<ClientRelationship> findAll();
 
 }

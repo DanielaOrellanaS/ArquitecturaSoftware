@@ -17,8 +17,23 @@ public class ClientRelationshipService {
         this.clientRelationshipRepository = clientRelationshipRepository;
     }
 
+    public ClientRelationship searchAll() {
+        List<ClientRelationship> clientRelationship = this.clientRelationshipRepository.findAll();
+        return (clientRelationship.isEmpty()) ? null : clientRelationship.get(0);
+    }
+
+    public ClientRelationship searchTypeRelationship(String relationshipType) {
+        List<ClientRelationship> clientRelationships = this.clientRelationshipRepository.findByRelationShipType(relationshipType);
+        return (clientRelationships.isEmpty()) ? null : clientRelationships.get(0);
+    }
+
+    public ClientRelationship searchById(String identification) {
+        List<ClientRelationship> clientRelationships = this.clientRelationshipRepository.findByIdentification(identification);
+        return (clientRelationships.isEmpty()) ? null : clientRelationships.get(0);
+    }
+
     @Transactional
-    public void registrar(ClientRelationship clientRelationship) {
+    public void register(ClientRelationship clientRelationship) {
 
         List<ClientRelationship> clientRelationships = clientRelationshipRepository.findByIdentification(clientRelationship.getIdentification());
         if (clientRelationships.isEmpty()) {
@@ -28,18 +43,8 @@ public class ClientRelationshipService {
         }
     }
 
-    public ClientRelationship buscarPorRelacion(Integer codeRelationship) {
-        List<ClientRelationship> clientRelationships = this.clientRelationshipRepository.findByCodeRelationship(codeRelationship);
-        return (clientRelationships.isEmpty()) ? null : clientRelationships.get(0);
-    }
-
-    public ClientRelationship buscarPorIdentificacion(String identification) {
-        List<ClientRelationship> clientRelationships = this.clientRelationshipRepository.findByIdentification(identification);
-        return (clientRelationships.isEmpty()) ? null : clientRelationships.get(0);
-    }
-
     @Transactional
-    public void modificar(ClientRelationship clientRelationship) {
+    public void update(ClientRelationship clientRelationship) {
         List<ClientRelationship> clientRelationships = this.clientRelationshipRepository.findByIdentification(clientRelationship.getIdentification());
         if(clientRelationships.isEmpty()) {
             throw new RuntimeException("El cliente no existe");
@@ -49,7 +54,7 @@ public class ClientRelationshipService {
     }
 
     @Transactional
-    public void eliminar(String identification) {
+    public void delete(String identification) {
         List<ClientRelationship> clientRelationships = this.clientRelationshipRepository.findByIdentification(identification);
         if(clientRelationships.isEmpty()) {
             throw new RuntimeException("El cliente no existe");
