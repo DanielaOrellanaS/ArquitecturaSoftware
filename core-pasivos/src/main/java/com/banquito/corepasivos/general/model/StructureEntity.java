@@ -1,25 +1,19 @@
 package com.banquito.corepasivos.general.model;
 
-import java.io.Serializable;
-import java.util.List;
-
-import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import lombok.EqualsAndHashCode.Include;
+import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
 @Entity
 @Table(name = "structure_entity")
-public class StructureEntity implements Serializable {
+public class StructureEntity {
 
     @EmbeddedId
     @Include
@@ -28,19 +22,17 @@ public class StructureEntity implements Serializable {
     @Column(name = "name", length = 64, nullable = false)
     private String name;
 
-    // @ManyToOne
-    // @JoinColumn(name = "code_country", nullable = false, insertable = false,
-    // updatable = false)
-    // private CountryEntity countryEntity;
+    @JsonBackReference
+    @ManyToOne
+    @JoinColumn(name = "code_country", referencedColumnName = "code_country", insertable = false, updatable = false)
+    private CountryEntity countryEntity;
 
-    /*
-     * @JsonManagedReference
-     * 
-     * @OneToMany(mappedBy = "structure_entity")
-     * private List<LocationEntity> locationEntities;
-     */
+    @JsonManagedReference
+    @OneToMany(mappedBy = "structureEntity")
+    private List<LocationEntity> locationEntityList;
 
     public StructureEntity(StructureEntityPK pk) {
         this.pk = pk;
     }
+
 }

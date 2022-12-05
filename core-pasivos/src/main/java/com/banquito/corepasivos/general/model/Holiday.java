@@ -1,34 +1,26 @@
 package com.banquito.corepasivos.general.model;
 
-import java.io.Serializable;
-import java.util.Date;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-
 import com.fasterxml.jackson.annotation.JsonBackReference;
-
 import lombok.Data;
+import lombok.EqualsAndHashCode.Include;
 import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
+import java.util.Date;
 
 @Data
 @NoArgsConstructor
 @Entity
 @Table(name = "holiday")
-public class Holiday implements Serializable {
+public class Holiday {
 
     @Id
+    @Include
     @Temporal(TemporalType.DATE)
     @Column(name = "holiday_date", nullable = false)
     private Date date;
 
-    @Column(name = "code_location", nullable = true)
+    @Column(name = "code_location", nullable = false)
     private Integer codeLocation;
 
     @Column(name = "name", length = 64, nullable = false)
@@ -39,7 +31,7 @@ public class Holiday implements Serializable {
 
     @JsonBackReference
     @ManyToOne
-    @JoinColumn(name = "code_location", nullable = false, insertable = false, updatable = false)
+    @JoinColumn(name = "code_location", referencedColumnName = "code_location", insertable = false, updatable = false)
     private LocationEntity locationEntity;
 
     public Holiday(Date date) {
