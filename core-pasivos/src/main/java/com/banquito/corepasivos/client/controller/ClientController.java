@@ -34,43 +34,43 @@ public class ClientController {
     }
 
     @GetMapping("/identification/{identification}")
-    public ResponseEntity<Client> findAllClientsByIdentification(@PathVariable("identification") String identification) {
+    public ResponseEntity<Client> findAllClientsByIdentification(
+            @PathVariable("identification") String identification) {
         if (!this.clientService.existsClientByIdentification(identification)) {
             return new ResponseEntity(("Client not found"), HttpStatus.NOT_FOUND);
-        }else {
+        } else {
             List<Client> clients = this.clientService.findAllClientsByIdentification(identification);
             return new ResponseEntity(clients, HttpStatus.OK);
         }
     }
 
     @PostMapping(consumes = { MediaType.APPLICATION_JSON_VALUE })
-        public ResponseEntity<String> createClient(@RequestBody Client client) {
-            if (this.clientService.existsClientByIdentification(client.getPk().getIdentification())) {
-                return ResponseEntity.badRequest().body("Client already exists");
-            }else {
-                this.clientService.createClient(client);
-                return ResponseEntity.ok("Client created");
-            }
+    public ResponseEntity<String> createClient(@RequestBody Client client) {
+        if (this.clientService.existsClientByIdentification(client.getPk().getIdentification())) {
+            return ResponseEntity.badRequest().body("Client already exists");
+        } else {
+            this.clientService.createClient(client);
+            return ResponseEntity.ok("Client created");
+        }
     }
 
     @DeleteMapping("/identification/{identification}")
-        public ResponseEntity<String> deleteClientEntity(@RequestBody Client client) {
-            if (!this.clientService.existsClientByIdentification(client.getPk().getIdentification())) {
-                return ResponseEntity.badRequest().body("Client not found");
-            } else {
-                this.clientService.deleteClient(client);
-                return ResponseEntity.ok("Client deleted");
-            }
+    public ResponseEntity<String> deleteClientEntity(@RequestBody Client client) {
+        if (!this.clientService.existsClientByIdentification(client.getPk().getIdentification())) {
+            return ResponseEntity.badRequest().body("Client not found");
+        } else {
+            this.clientService.deleteClient(client);
+            return ResponseEntity.ok("Client deleted");
+        }
     }
-    @PutMapping(consumes = {"application/json"})
-        public ResponseEntity<String> updateClient(@RequestBody Client client) {
-            if (!this.clientService.existsClientByIdentification(client.getPk().getIdentification())) {
-                return ResponseEntity.badRequest().body("Client not found");
-            } else {
-                this.clientService.updateClient(client);
-                return ResponseEntity.ok("Client updated successfully");
-            }
+
+    @PutMapping(consumes = { "application/json" })
+    public ResponseEntity<String> updateClient(@RequestBody Client client) {
+        if (!this.clientService.existsClientByIdentification(client.getPk().getIdentification())) {
+            return ResponseEntity.badRequest().body("Client not found");
+        } else {
+            this.clientService.updateClient(client);
+            return ResponseEntity.ok("Client updated successfully");
+        }
     }
 }
-
-
