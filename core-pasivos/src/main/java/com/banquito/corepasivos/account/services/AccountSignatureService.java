@@ -8,28 +8,22 @@ import java.util.List;
 
 @Service
 public class AccountSignatureService {
-	private final AccountSignatureRepository accountSignatureRepository;
+    private final AccountSignatureRepository accountSignatureRepository;
 
-	public AccountSignatureService(AccountSignatureRepository accountSignatureRepository) {
-		this.accountSignatureRepository = accountSignatureRepository;
-	}
+    public AccountSignatureService(AccountSignatureRepository accountSignatureRepository) {
+        this.accountSignatureRepository = accountSignatureRepository;
+    }
 
-<<<<<<< HEAD
-    public List<AccountSignature> findAll(){
+    public List<AccountSignature> findAll() {
         return this.accountSignatureRepository.findAll();
     }
 
-    public List<AccountSignature> findByCodeAccount(String code){
-        List <AccountSignature> accountSignatures = this.accountSignatureRepository.findByPkCodelocalaccount(code);
-        if(!accountSignatures.isEmpty()){
+    public List<AccountSignature> findByCodeAccount(String code) {
+        List<AccountSignature> accountSignatures = this.accountSignatureRepository.findByPkCodelocalaccount(code);
+        if (!accountSignatures.isEmpty()) {
             return accountSignatures;
-        } else{
+        } else {
             return null;
         }
     }
-=======
-	public List<AccountSignature> findAll() {
-		return this.accountSignatureRepository.findAll();
-	}
->>>>>>> da3e308be92d8834afc67f084ebd22a91731e203
 }
