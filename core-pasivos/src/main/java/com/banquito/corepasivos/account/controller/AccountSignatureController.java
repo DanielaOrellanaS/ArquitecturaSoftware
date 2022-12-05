@@ -1,6 +1,14 @@
 package com.banquito.corepasivos.account.controller;
 
+import com.banquito.corepasivos.account.model.AccountSignature;
 import com.banquito.corepasivos.account.services.AccountSignatureService;
+
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -17,5 +25,16 @@ public class AccountSignatureController {
     @RequestMapping("/all")
     public Object findAll() {
         return this.accountSignatureService.findAll();
+    }
+
+    @GetMapping(path = "/{codigo}")
+    public ResponseEntity<List<AccountSignature>> findByCodeAccount(@PathVariable("code_local_account") String code){
+       List <AccountSignature> accountSignatures = this.accountSignatureService.findByCodeAccount(code);
+        if(accountSignatures.isEmpty()){
+            return ResponseEntity.notFound().build();
+        } else{
+            return ResponseEntity.ok(accountSignatures);
+        }
+
     }
 }

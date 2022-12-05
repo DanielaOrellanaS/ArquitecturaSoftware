@@ -17,4 +17,13 @@ public class AccountSignatureService {
     public List<AccountSignature> findAll(){
         return this.accountSignatureRepository.findAll();
     }
+
+    public List<AccountSignature> findByCodeAccount(String code){
+        List <AccountSignature> accountSignatures = this.accountSignatureRepository.findByPkCodelocalaccount(code);
+        if(!accountSignatures.isEmpty()){
+            return accountSignatures;
+        } else{
+            return null;
+        }
+    }
 }
