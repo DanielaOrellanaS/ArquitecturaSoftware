@@ -39,7 +39,7 @@ public class ClientAddressService {
     @Transactional
     public void updateClientAddress(ClientAddress clientAddress) {
         Optional<ClientAddress> auxAddress = this.clientAddressRepository.findById(clientAddress.getPk());
-        if (auxAddress.isPresent())
+        if (!auxAddress.isPresent())
             throw new RuntimeException("No se ha encontrado la direcciona asociada al usuario");
         else
             try {
@@ -52,7 +52,7 @@ public class ClientAddressService {
     @Transactional
     public void deleteClientAdress(ClientAddress clientAddress) {
         Optional<ClientAddress> auxAddress = this.clientAddressRepository.findById(clientAddress.getPk());
-        if (auxAddress.isPresent())
+        if (!auxAddress.isPresent())
             throw new RuntimeException("No se ha encontrado la direcciona asociada al usuario");
         else
             try {
@@ -65,7 +65,7 @@ public class ClientAddressService {
     @Transactional
     public void deleteClientAdress(ClientAddressPK pk) {
         Optional<ClientAddress> auxAddress = this.clientAddressRepository.findById(pk);
-        if (auxAddress.isPresent())
+        if (!auxAddress.isPresent())
             throw new RuntimeException("No se ha encontrado la direcciona asociada al usuario");
         else
             try {
