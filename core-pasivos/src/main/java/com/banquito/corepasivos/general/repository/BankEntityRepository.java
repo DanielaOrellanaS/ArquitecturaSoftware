@@ -11,10 +11,8 @@ import com.banquito.corepasivos.general.model.BankEntityPK;
 @Repository
 public interface BankEntityRepository extends JpaRepository<BankEntity, BankEntityPK> {
 
-    List<BankEntity> findByInternationalBranchCode(BankEntityPK internationalBranchCode);
-
-    List<BankEntity> findByEntityBankCode(BankEntityPK entityBankCode);
-
+    List<BankEntity> findByPkInternationalBankCode(String internationalBankCode);
+    List<BankEntity> findByPkEntityBankCode(String entityBankCode);
     List<BankEntity> findByName(String name);
 
 }

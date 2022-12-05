@@ -18,7 +18,7 @@ public class BranchService {
         this.branchRepository = branchRepository;
     }
 
-    @Transactional
+   /*  @Transactional
     public void register(Branch branch){
         List<Branch> branches = this.branchRepository.findByCode(branch.getPk());
         if(branches.isEmpty()){
@@ -26,11 +26,11 @@ public class BranchService {
         } else {
             throw new RuntimeException("The branch already exists");
         }
-    }
+    }*/
 
-    public Branch findByCode(String name){
+    /*public Branch findByCode(String name){
         List<Branch> branches = this.branchRepository.findByName(name);
         return (branches.isEmpty()) ? null : branches.get(0);
-    }
+    }*/
 
 }

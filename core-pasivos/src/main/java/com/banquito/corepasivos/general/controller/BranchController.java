@@ -13,8 +13,8 @@ public class BranchController {
     @Autowired
     BranchService branchService;
 
-    @GetMapping("/all")
+    /*@GetMapping("/all")
     public Object getBranch() {
         return this.branchService.getAllBranches();
-    }
+    }*/
 }
