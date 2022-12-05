@@ -19,11 +19,18 @@ public class ClientRelationship implements Serializable {
 
 	@Id
 	@Include
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "code_relationship", nullable = false)
 	private Integer codeRelationship;
 
+	@Column(name = "identification_type", nullable = false, length = 3)
+	private String identificationType;
+
+	@Column(name = "identification", nullable = false, length = 20)
+	private String identification;
+
 	@Column(name = "relationship_type", length = 32, nullable = false)
-	private String relationshipType;
+	private String relationshiptype;
 
 	@Column(name = "start_date", nullable = false)
 	@Temporal(TemporalType.DATE)
@@ -40,15 +47,6 @@ public class ClientRelationship implements Serializable {
 			@JoinColumn(name = "identification", referencedColumnName = "identification", insertable = false, updatable = false),
 	})
 	private Client client;
-
-/* 	 @ManyToOne
-	 @JoinColumns({
-	 @JoinColumn(name = "cli_identification_type", referencedColumnName =
-	 "identification_type", insertable = false, updatable = false),
-	 @JoinColumn(name = "cli_identification", referencedColumnName =
-	 "identification", insertable = false, updatable = false),
-	 })
-	private Client clientRelationship; */
 
 	public ClientRelationship(Integer codeRelationship) {
 		this.codeRelationship = codeRelationship;
