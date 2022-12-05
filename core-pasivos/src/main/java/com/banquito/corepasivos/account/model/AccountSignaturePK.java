@@ -17,9 +17,6 @@ public class AccountSignaturePK implements Serializable {
         @Column(name = "code_international_account", length = 34, nullable = false)
         private String codeInternationalAccount;
 
-        @Column(name = "code_client", nullable = false)
-        private Integer codeClient;
-
         @Column(name = "identification_type", length = 3, nullable = false)
         private String identificationType;
 
