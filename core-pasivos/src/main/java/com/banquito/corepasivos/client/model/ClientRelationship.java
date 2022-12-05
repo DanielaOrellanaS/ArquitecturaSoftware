@@ -2,6 +2,7 @@ package com.banquito.corepasivos.client.model;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.EqualsAndHashCode.Include;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -13,6 +14,7 @@ import java.util.Date;
 public class ClientRelationship {
 
 	@Id
+	@Include
 	@Column(name = "code_relationship", nullable = false)
 	private Integer codeRelationship;
 

@@ -9,6 +9,7 @@ import com.banquito.corepasivos.account.model.AccountClient;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.EqualsAndHashCode.Include;
 
 @Data
 @NoArgsConstructor
@@ -17,7 +18,11 @@ import lombok.NoArgsConstructor;
 public class Client {
 
     @EmbeddedId
+    @Include
     private ClientPK pk;
+
+    @Column(name = "code_segment", nullable = false, length = 16)
+    private String codeSegment;
 
     @Column(name = "client_type", nullable = false, length = 3)
     private String clientType;
