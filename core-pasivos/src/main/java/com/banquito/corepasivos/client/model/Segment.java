@@ -4,16 +4,24 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.EqualsAndHashCode.Include;
 
+import java.io.Serializable;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.banquito.corepasivos.product.model.Product;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Data
 @NoArgsConstructor
 @Entity
 @Table(name = "segment")
-public class Segment {
+public class Segment implements Serializable {
 
     @Id
     @Include
@@ -26,11 +34,13 @@ public class Segment {
     @Column(name = "status", length = 3, nullable = false)
     private String status;
 
-    // @OneToMany(mappedBy = "segment")
-    // private List<Product> products;
+    @JsonManagedReference
+    @OneToMany(mappedBy = "segment")
+    private List<Product> products;
 
-    // @OneToMany(mappedBy = "segment")
-    // private List<Client> clients;
+    @JsonManagedReference
+    @OneToMany(mappedBy = "segment", fetch = FetchType.LAZY)
+    private List<Client> clients;
 
     public Segment(String codeSegment) {
         this.codeSegment = codeSegment;

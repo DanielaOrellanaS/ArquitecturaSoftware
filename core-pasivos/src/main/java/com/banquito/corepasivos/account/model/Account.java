@@ -4,14 +4,19 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
 @Entity
 @Table(name = "account")
-public class Account {
+public class Account implements Serializable {
 
 	@EmbeddedId
 	private AccountPK pk;
@@ -52,32 +57,50 @@ public class Account {
 	@Column(name = "available_balance", scale = 17, precision = 2, nullable = false)
 	private BigDecimal availableBalance;
 
-	// @ManyToOne
-	// @JoinColumns({
-	// 		@JoinColumn(name = "code_product", referencedColumnName = "code_product", insertable = false, updatable = false),
-	// 		@JoinColumn(name = "code_product_type", referencedColumnName = "code_product_type", insertable = false, updatable = false),
-	// })
-	// private Product product;
+	/*
+	 * @ManyToOne
+	 * 
+	 * @JoinColumns({
+	 * 
+	 * @JoinColumn(name = "code_product", referencedColumnName = "code_product",
+	 * insertable = false, updatable = false),
+	 * 
+	 * @JoinColumn(name = "code_product_type", referencedColumnName =
+	 * "code_product_type", insertable = false, updatable = false),
+	 * })
+	 * private Product product;
+	 * 
+	 * @ManyToOne
+	 * 
+	 * @JoinColumns({
+	 * 
+	 * @JoinColumn(name = "code_branch", referencedColumnName = "code_branch",
+	 * insertable = false, updatable = false),
+	 * 
+	 * @JoinColumn(name = "entity_bank_code", referencedColumnName =
+	 * "entity_bank_code", insertable = false, updatable = false),
+	 * 
+	 * @JoinColumn(name = "international_bank_code", referencedColumnName =
+	 * "international_bank_code", insertable = false, updatable = false)
+	 * })
+	 * private Branch branch;
+	 */
 
-	// @ManyToOne
-	// @JoinColumns({
-	// 		@JoinColumn(name = "code_branch", referencedColumnName = "code_branch", insertable = false, updatable = false),
-	// 		@JoinColumn(name = "entity_bank_code", referencedColumnName = "entity_bank_code", insertable = false, updatable = false),
-	// 		@JoinColumn(name = "international_bank_code", referencedColumnName = "international_bank_code", insertable = false, updatable = false)
-	// })
-	// private Branch branch;
+	@JsonManagedReference
+	@OneToMany(mappedBy = "account")
+	private List<AccountSignature> accountSignatures;
 
-	// @OneToMany(mappedBy = "account")
-	// private List<AccountSignature> accountSignatures;
+	@JsonManagedReference
+	@OneToMany(mappedBy = "account")
+	private List<AccountTransaction> accountTransactions;
 
-	// @OneToMany(mappedBy = "account")
-	// private List<AccountTransaction> accountTransactions;
+	@JsonManagedReference
+	@OneToMany(mappedBy = "account")
+	private List<AccountAssociatedService> accountAssociatedServices;
 
-	// @OneToMany(mappedBy = "account")
-	// private List<AccountAssociatedService> accountAssociatedServices;
-
-	// @OneToMany(mappedBy = "account")
-	// private List<AccountClient>  accountsClient;
+	@JsonManagedReference
+	@OneToMany(mappedBy = "account")
+	private List<AccountClient> accountsClient;
 
 	public Account(AccountPK accountPK) {
 		this.pk = accountPK;

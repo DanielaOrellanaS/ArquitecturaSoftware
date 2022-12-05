@@ -6,9 +6,14 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
+import com.banquito.corepasivos.client.model.Segment;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -52,15 +57,18 @@ public class Product {
     private BigDecimal minOpeningBalance;
 
     // @ManyToOne
-    // @JoinColumn(name = "code_product_type", referencedColumnName = "code_product_type", insertable = false, updatable = false, nullable = false)
+    // @JoinColumn(name = "code_product_type", referencedColumnName =
+    // "code_product_type", insertable = false, updatable = false, nullable = false)
     // private ProductType productType;
 
-    // @ManyToOne
-    // @JoinColumn(name = "code_segment", referencedColumnName = "code_segment", insertable = false, updatable = false)
-    // private Segment segment;
+    @JsonBackReference
+    @ManyToOne
+    @JoinColumn(name = "code_segment", referencedColumnName = "code_segment", insertable = false, updatable = false)
+    private Segment segment;
 
     // @ManyToOne
-    // @JoinColumn(name = "code_interest_rate", referencedColumnName = "code_interest_rate", insertable = false, updatable = false)
+    // @JoinColumn(name = "code_interest_rate", referencedColumnName =
+    // "code_interest_rate", insertable = false, updatable = false)
     // private InterestRate interestRate;
 
     // @OneToMany(mappedBy = "product")

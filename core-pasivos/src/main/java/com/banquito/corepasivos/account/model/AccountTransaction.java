@@ -1,9 +1,12 @@
 package com.banquito.corepasivos.account.model;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,7 +16,7 @@ import lombok.EqualsAndHashCode.Include;
 @NoArgsConstructor
 @Entity
 @Table(name = "account_transaction")
-public class AccountTransaction {
+public class AccountTransaction implements Serializable {
 
     @Id
     @Include
@@ -62,12 +65,13 @@ public class AccountTransaction {
     @Column(name = "status", length = 3, nullable = false)
     private String status;
 
-    // @ManyToOne
-    // @JoinColumns({
-    //         @JoinColumn(name = "code_local_account", referencedColumnName = "code_local_account", insertable = false, updatable = false),
-    //         @JoinColumn(name = "code_international_account", referencedColumnName = "code_international_account", insertable = false, updatable = false)
-    // })
-    // private Account account;
+    @JsonBackReference
+    @ManyToOne
+    @JoinColumns({
+            @JoinColumn(name = "code_local_account", referencedColumnName = "code_local_account", insertable = false, updatable = false),
+            @JoinColumn(name = "code_international_account", referencedColumnName = "code_international_account", insertable = false, updatable = false)
+    })
+    private Account account;
 
     public AccountTransaction(Integer codeTransaction) {
         this.codeTransaction = codeTransaction;

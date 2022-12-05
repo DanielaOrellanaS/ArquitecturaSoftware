@@ -4,13 +4,17 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
+import java.io.Serializable;
 import java.util.Date;
 
 @Data
 @NoArgsConstructor
 @Entity
 @Table(name = "client_relationship")
-public class ClientRelationship {
+public class ClientRelationship implements Serializable {
 
 	@Id
 	@Column(name = "code_relationship", nullable = false)
@@ -27,17 +31,20 @@ public class ClientRelationship {
 	@Column(name = "end_date", nullable = false)
 	private Date endDate;
 
-	// @ManyToOne
-	// @JoinColumns({
-	// 		@JoinColumn(name = "identification_type", referencedColumnName = "identification_type", insertable = false, updatable = false),
-	// 		@JoinColumn(name = "identification", referencedColumnName = "identification", insertable = false, updatable = false),
-	// })
-	// private Client client;
+	@JsonBackReference
+	@ManyToOne
+	@JoinColumns({
+			@JoinColumn(name = "identification_type", referencedColumnName = "identification_type", insertable = false, updatable = false),
+			@JoinColumn(name = "identification", referencedColumnName = "identification", insertable = false, updatable = false),
+	})
+	private Client client;
 
 	// @ManyToOne
 	// @JoinColumns({
-	// 		@JoinColumn(name = "cli_identification_type", referencedColumnName = "identification_type", insertable = false, updatable = false),
-	// 		@JoinColumn(name = "cli_identification", referencedColumnName = "identification", insertable = false, updatable = false),
+	// @JoinColumn(name = "cli_identification_type", referencedColumnName =
+	// "identification_type", insertable = false, updatable = false),
+	// @JoinColumn(name = "cli_identification", referencedColumnName =
+	// "identification", insertable = false, updatable = false),
 	// })
 	// private Client clientRelationship;
 
