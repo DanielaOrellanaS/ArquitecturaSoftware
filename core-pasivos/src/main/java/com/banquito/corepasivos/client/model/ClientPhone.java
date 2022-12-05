@@ -27,7 +27,7 @@ public class ClientPhone implements Serializable {
     @Column(name = "type", length = 3, nullable = false)
     private String type;
 
-    @JsonBackReference
+    @JsonBackReference(value = "client-clientPhone")
     @ManyToOne
     @JoinColumns({
             @JoinColumn(name = "identification_type", referencedColumnName = "identification_type", insertable = false, updatable = false),

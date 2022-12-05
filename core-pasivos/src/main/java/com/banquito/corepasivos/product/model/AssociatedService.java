@@ -40,11 +40,11 @@ public class AssociatedService implements Serializable {
     @Column(name = "fee", scale = 17, precision = 2, nullable = false)
     private BigDecimal fee;
 
-    @JsonManagedReference
+    @JsonManagedReference(value = "associatedService-associatedServiceParam")
     @OneToMany(mappedBy = "associatedService")
     private List<AssociatedServiceParam> associatedServiceParams;
 
-    @JsonManagedReference
+    @JsonManagedReference(value = "associatedService-productAssociatedServices")
     @OneToMany(mappedBy = "associatedService")
     private List<ProductAssociatedService> productAssociatedServices;
 
