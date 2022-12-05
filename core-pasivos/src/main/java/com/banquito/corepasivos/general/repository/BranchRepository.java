@@ -19,5 +19,8 @@ public interface BranchRepository extends JpaRepository<Branch, BranchPK> {
 
     List<Branch> findByCodeLocation(BranchPK codeLocation);
 
+    List<Branch> findByName(String name);
+    
+
     // Tipo dato parametro PK o primirtivo?
 }

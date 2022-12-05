@@ -17,6 +17,10 @@ public class BankEntityService {
         this.bankEntityRepository = bankEntityRepository;
     }
 
+    public List<BankEntity> findAll(){
+        return BankEntityService.findAll();
+    }
+
     @Transactional
     public void register(BankEntity bankEntity) {
         List<BankEntity> bankEntities = this.bankEntityRepository.findByEntityBankCode(bankEntity.getPk());
