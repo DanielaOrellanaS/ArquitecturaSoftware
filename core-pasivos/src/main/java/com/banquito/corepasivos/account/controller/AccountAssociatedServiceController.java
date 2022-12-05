@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/accountAssociatedService")
+@RequestMapping("/account-associated-service")
 public class AccountAssociatedServiceController {
 	private final AccountAssociatedServiceService service;
 
@@ -21,7 +21,7 @@ public class AccountAssociatedServiceController {
 		this.service = service;
 	}
 
-	@RequestMapping(value = "/findByCodeLocalAccount/{codeLocalAccount}", method = RequestMethod.GET)
+	@RequestMapping(value = "/local/{codeLocalAccount}", method = RequestMethod.GET)
 	public ResponseEntity<List<AccountAssociatedService>> findByCodeLocalAccount(
 			@PathVariable("codeLocalAccount") String codeLocalAccount) {
 
@@ -35,7 +35,7 @@ public class AccountAssociatedServiceController {
 
 	}
 
-	@RequestMapping(value = "/findByCodeInternationalAccount/{codeInternationalAccount}", method = RequestMethod.GET)
+	@RequestMapping(value = "/international/{codeInternationalAccount}", method = RequestMethod.GET)
 	public ResponseEntity<List<AccountAssociatedService>> findByCodeInternationalAccount(
 			@PathVariable("codeInternationalAccount") String codeInternationalAccount) {
 
@@ -49,7 +49,7 @@ public class AccountAssociatedServiceController {
 
 	}
 
-	@RequestMapping(value = "/findByCodeProduct/{codeProduct}", method = RequestMethod.GET)
+	@RequestMapping(value = "/code-product/{codeProduct}", method = RequestMethod.GET)
 	public ResponseEntity<List<AccountAssociatedService>> findByCodeProduct(
 			@PathVariable("codeProduct") String codeProduct) {
 
@@ -62,7 +62,7 @@ public class AccountAssociatedServiceController {
 
 	}
 
-	@RequestMapping(value = "/findByCodeProductType/{codeProductType}", method = RequestMethod.GET)
+	@RequestMapping(value = "/code-product-type/{codeProductType}", method = RequestMethod.GET)
 	public ResponseEntity<List<AccountAssociatedService>> findByCodeProductType(
 			@PathVariable("codeProductType") String codeProductType) {
 
@@ -75,7 +75,7 @@ public class AccountAssociatedServiceController {
 
 	}
 
-	@RequestMapping(value = "/findByCodeAssociatedService/{codeAssociatedService}", method = RequestMethod.GET)
+	@RequestMapping(value = "/code-associated-service/{codeAssociatedService}", method = RequestMethod.GET)
 	public ResponseEntity<List<AccountAssociatedService>> findByCodeAssociatedService(
 			@PathVariable("codeAssociatedService") String codeAssociatedService) {
 
@@ -89,7 +89,7 @@ public class AccountAssociatedServiceController {
 
 	}
 
-	@RequestMapping(value = "/deleteByCodeLocalAccount/{codeLocalAccount}", method = RequestMethod.DELETE)
+	@RequestMapping(value = "/local/{codeLocalAccount}", method = RequestMethod.DELETE)
 	public ResponseEntity<String> deleteByCodeLocalAccount(
 			@PathVariable("codeLocalAccount") String codeLocalAccount) {
 
@@ -101,7 +101,7 @@ public class AccountAssociatedServiceController {
 		}
 	}
 
-	@RequestMapping(value = "/deleteByCodeInternationalAccount/{codeInternationalAccount}", method = RequestMethod.DELETE)
+	@RequestMapping(value = "/international/{codeInternationalAccount}", method = RequestMethod.DELETE)
 	public ResponseEntity<String> deleteByCodeInternationalAccount(
 			@PathVariable("codeInternationalAccount") String codeInternationalAccount) {
 
@@ -113,7 +113,7 @@ public class AccountAssociatedServiceController {
 		}
 	}
 
-	@RequestMapping(value = "/deleteByCodeAssociatedService/{codeAssociatedService}", method = RequestMethod.DELETE)
+	@RequestMapping(value = "/code-associated-service/{codeAssociatedService}", method = RequestMethod.DELETE)
 	public ResponseEntity<String> deleteByCodeAssociatedService(
 			@PathVariable("codeAssociatedService") String codeAssociatedService) {
 
