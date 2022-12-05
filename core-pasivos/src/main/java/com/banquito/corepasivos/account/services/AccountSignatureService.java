@@ -39,9 +39,6 @@ public class AccountSignatureService {
     }
 
     public void register(AccountSignature accountSignature) {
-        // aqui se debe validar que los atributos de identificacion y numero de cuenta
-        // existan en la clase cliente y cuenta, por lo que se necesita una funcion find
-        // en el repositorio de cada una de estas clases
         boolean existClient = this.clientRepository.existsById(accountSignature.getClient().getPk());
         boolean existeAccount = this.accountRepository.existsById(accountSignature.getAccount().getPk());
         List<AccountSignature> accountSignatures = this.accountSignatureRepository
@@ -49,7 +46,7 @@ public class AccountSignatureService {
         if (existClient && existeAccount && accountSignatures.isEmpty()) {
             this.accountSignatureRepository.save(accountSignature);
         } else{
-            throw new RuntimeException("Los datos ingresados son incorrectos");
+            throw new RuntimeException("The entry data is incorrect");
         }
     }
 
@@ -60,7 +57,7 @@ public class AccountSignatureService {
             accountSignatures.get(0).setStatus("INA");
             this.accountSignatureRepository.save(accountSignatures.get(0));
         } else {
-            throw new RuntimeException("El codigo ingresado no pertenece a ninguna cuenta");
+            throw new RuntimeException("The entry code does not belong to an account");
         }
     }
 }
