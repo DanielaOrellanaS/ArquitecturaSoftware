@@ -2,6 +2,7 @@ package com.banquito.corepasivos.account.model;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.EqualsAndHashCode.Include;
 
 import javax.persistence.*;
 
@@ -22,6 +23,7 @@ import java.util.List;
 public class Account implements Serializable {
 
 	@EmbeddedId
+	@Include
 	private AccountPK pk;
 
 	@Column(name = "code_product", length = 32, nullable = false)
