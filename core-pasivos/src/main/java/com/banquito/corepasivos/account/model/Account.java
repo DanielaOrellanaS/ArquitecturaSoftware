@@ -60,7 +60,7 @@ public class Account implements Serializable {
 	@Column(name = "available_balance", scale = 17, precision = 2, nullable = false)
 	private BigDecimal availableBalance;
 
-	@JsonBackReference
+	@JsonBackReference(value = "product-account")
 	@ManyToOne
 	@JoinColumns({
 			@JoinColumn(name = "code_product", referencedColumnName = "code_product", insertable = false, updatable = false),
@@ -68,7 +68,7 @@ public class Account implements Serializable {
 	})
 	private Product product;
 
-	@JsonBackReference
+	@JsonBackReference(value = "branch-account")
 	@ManyToOne
 	@JoinColumns({
 			@JoinColumn(name = "code_branch", referencedColumnName = "code_branch", insertable = false, updatable = false),
@@ -77,19 +77,19 @@ public class Account implements Serializable {
 	})
 	private Branch branch;
 
-	@JsonManagedReference
+	@JsonManagedReference(value = "account-accountSignature")
 	@OneToMany(mappedBy = "account")
 	private List<AccountSignature> accountSignatureList;
 
-	@JsonManagedReference
+	@JsonManagedReference(value = "account-accountTransaction")
 	@OneToMany(mappedBy = "account")
 	private List<AccountTransaction> accountTransactionList;
 
-	@JsonManagedReference
+	@JsonManagedReference(value = "account-accountAssociatedService")
 	@OneToMany(mappedBy = "account")
 	private List<AccountAssociatedService> accountAssociatedServiceList;
 
-	@JsonManagedReference
+	@JsonManagedReference(value = "account-accountClient")
 	@OneToMany(mappedBy = "account")
 	private List<AccountClient> accountClientList;
 

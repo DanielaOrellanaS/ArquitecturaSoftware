@@ -36,7 +36,7 @@ public class AccountAssociatedService implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date endDate;
 
-    @JsonBackReference
+    @JsonBackReference(value = "account-accountAssociatedService")
     @ManyToOne
     @JoinColumns({
             @JoinColumn(name = "code_local_account", referencedColumnName = "code_local_account", insertable = false, updatable = false),
@@ -45,7 +45,7 @@ public class AccountAssociatedService implements Serializable {
     private Account account;
 
 
-    @JsonBackReference
+    @JsonBackReference(value = "accountAssociatedService-associatedServiceParam")
     @ManyToOne
     @JoinColumns({
             @JoinColumn(name = "code_product", referencedColumnName = "code_product", insertable = false, updatable = false),
@@ -54,7 +54,7 @@ public class AccountAssociatedService implements Serializable {
     })
     private ProductAssociatedService productAssociatedService;
 
-    @JsonManagedReference
+    @JsonManagedReference(value = "accountAssociatedService-associatedServiceParamList")
     @OneToMany(mappedBy = "accountAssociatedService")
     private List<AccountAssociatedServiceParam> accountAssociatedServiceParamsList;
 

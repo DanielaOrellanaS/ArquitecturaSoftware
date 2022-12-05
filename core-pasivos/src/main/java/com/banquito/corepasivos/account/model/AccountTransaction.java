@@ -63,7 +63,7 @@ public class AccountTransaction implements Serializable {
     @Column(name = "status", length = 3, nullable = false)
     private String status;
 
-    @JsonBackReference
+    @JsonBackReference(value = "account-accountTransaction")
     @ManyToOne
     @JoinColumns({
             @JoinColumn(name = "code_local_account", referencedColumnName = "code_local_account", insertable = false, updatable = false),
