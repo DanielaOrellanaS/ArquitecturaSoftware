@@ -6,14 +6,14 @@ import com.banquito.corepasivos.account.services.AccountAssociatedServiceService
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/accountAssociatedService")
+@RequestMapping("/account-associated-service")
 public class AccountAssociatedServiceController {
 	private final AccountAssociatedServiceService service;
 
@@ -21,7 +21,7 @@ public class AccountAssociatedServiceController {
 		this.service = service;
 	}
 
-	@GetMapping("/findByCodeLocalAccount/{codeLocalAccount}")
+	@RequestMapping(value = "/local/{codeLocalAccount}", method = RequestMethod.GET)
 	public ResponseEntity<List<AccountAssociatedService>> findByCodeLocalAccount(
 			@PathVariable("codeLocalAccount") String codeLocalAccount) {
 
@@ -35,7 +35,7 @@ public class AccountAssociatedServiceController {
 
 	}
 
-	@GetMapping("/findByCodeInternationalAccount/{codeInternationalAccount}")
+	@RequestMapping(value = "/international/{codeInternationalAccount}", method = RequestMethod.GET)
 	public ResponseEntity<List<AccountAssociatedService>> findByCodeInternationalAccount(
 			@PathVariable("codeInternationalAccount") String codeInternationalAccount) {
 
@@ -49,7 +49,7 @@ public class AccountAssociatedServiceController {
 
 	}
 
-	@GetMapping("/findByCodeProduct/{codeProduct}")
+	@RequestMapping(value = "/code-product/{codeProduct}", method = RequestMethod.GET)
 	public ResponseEntity<List<AccountAssociatedService>> findByCodeProduct(
 			@PathVariable("codeProduct") String codeProduct) {
 
@@ -62,7 +62,7 @@ public class AccountAssociatedServiceController {
 
 	}
 
-	@GetMapping("/findByCodeProductType/{codeProductType}")
+	@RequestMapping(value = "/code-product-type/{codeProductType}", method = RequestMethod.GET)
 	public ResponseEntity<List<AccountAssociatedService>> findByCodeProductType(
 			@PathVariable("codeProductType") String codeProductType) {
 
@@ -75,7 +75,7 @@ public class AccountAssociatedServiceController {
 
 	}
 
-	@GetMapping("/findByCodeAssociatedService/{codeAssociatedService}")
+	@RequestMapping(value = "/code-associated-service/{codeAssociatedService}", method = RequestMethod.GET)
 	public ResponseEntity<List<AccountAssociatedService>> findByCodeAssociatedService(
 			@PathVariable("codeAssociatedService") String codeAssociatedService) {
 
@@ -89,29 +89,62 @@ public class AccountAssociatedServiceController {
 
 	}
 
-	@DeleteMapping("/deleteByCodeLocalAccount/{codeLocalAccount}")
-	public ResponseEntity<Void> deleteByCodeLocalAccount(
+	@RequestMapping(value = "/local/{codeLocalAccount}", method = RequestMethod.DELETE)
+	public ResponseEntity<String> deleteByCodeLocalAccount(
 			@PathVariable("codeLocalAccount") String codeLocalAccount) {
 
-		this.service.deleteByCodeLocalAccount(codeLocalAccount);
-		return ResponseEntity.noContent().build();
-
+		try {
+			this.service.deleteAllByCodeLocalAccount(codeLocalAccount);
+			return ResponseEntity.ok("OK");
+		} catch (Exception e) {
+			return ResponseEntity.internalServerError().body(e.getMessage());
+		}
 	}
 
-	@DeleteMapping("/deleteByCodeInternationalAccount/{codeInternationalAccount}")
-	public ResponseEntity<Void> deleteByCodeInternationalAccount(
+	@RequestMapping(value = "/international/{codeInternationalAccount}", method = RequestMethod.DELETE)
+	public ResponseEntity<String> deleteByCodeInternationalAccount(
 			@PathVariable("codeInternationalAccount") String codeInternationalAccount) {
 
-		this.service.deleteByCodeInternationalAccount(codeInternationalAccount);
-		return ResponseEntity.noContent().build();
+		try {
+			this.service.deleteAllByCodeInternationalAccount(codeInternationalAccount);
+			return ResponseEntity.ok("OK");
+		} catch (Exception e) {
+			return ResponseEntity.internalServerError().body(e.getMessage());
+		}
 	}
 
-	@DeleteMapping("/deleteByCodeAssociatedService/{codeAssociatedService}")
-	public ResponseEntity<Void> deleteByCodeAssociatedService(
+	@RequestMapping(value = "/code-associated-service/{codeAssociatedService}", method = RequestMethod.DELETE)
+	public ResponseEntity<String> deleteByCodeAssociatedService(
 			@PathVariable("codeAssociatedService") String codeAssociatedService) {
 
-		this.service.deleteByCodeAssociatedService(codeAssociatedService);
-		return ResponseEntity.noContent().build();
+		try {
+			this.service.deleteAllByCodeAssociatedService(codeAssociatedService);
+			return ResponseEntity.ok("OK");
+		} catch (Exception e) {
+			return ResponseEntity.internalServerError().body(e.getMessage());
+		}
+	}
+
+	@RequestMapping(value = "", method = RequestMethod.POST)
+	public ResponseEntity<String> createAccountAssociatedService(
+			@RequestBody AccountAssociatedService accountAssociatedService) {
+		try {
+			this.service.save(accountAssociatedService);
+			return ResponseEntity.ok("OK");
+		} catch (Exception e) {
+			return ResponseEntity.internalServerError().body(e.getMessage());
+		}
+	}
+
+	@RequestMapping(value = "", method = RequestMethod.PUT)
+	public ResponseEntity<String> updateAccountAssociatedService(
+			@RequestBody AccountAssociatedService accountAssociatedService) {
+		try {
+			this.service.update(accountAssociatedService);
+			return ResponseEntity.ok("OK");
+		} catch (Exception e) {
+			return ResponseEntity.internalServerError().body(e.getMessage());
+		}
 	}
 
 	@RequestMapping("/all")

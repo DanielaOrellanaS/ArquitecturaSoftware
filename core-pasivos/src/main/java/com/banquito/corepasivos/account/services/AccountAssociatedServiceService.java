@@ -72,35 +72,63 @@ public class AccountAssociatedServiceService {
 	}
 
 	@Transactional
-	public void deleteByCodeLocalAccount(String codeLocalAccount) {
+	public void deleteAllByCodeLocalAccount(String codeLocalAccount) {
 		List<AccountAssociatedService> accountAssociatedServiceList = this.accountAssociatedServiceRepository
 				.findByCodeLocalAccount(codeLocalAccount);
+
 		if (accountAssociatedServiceList.isEmpty()) {
 			throw new RuntimeException("Account Associated Service not found");
 		} else {
-			this.accountAssociatedServiceRepository.deleteByCodeLocalAccount(codeLocalAccount);
+			for (AccountAssociatedService accountToUpdate : accountAssociatedServiceList) {
+				accountToUpdate.setStatus("INA");
+				this.accountAssociatedServiceRepository.save(accountToUpdate);
+			}
 		}
 	}
 
 	@Transactional
-	public void deleteByCodeInternationalAccount(String codeInternationalAccount) {
+	public void deleteAllByCodeInternationalAccount(String codeInternationalAccount) {
 		List<AccountAssociatedService> accountAssociatedServiceList = this.accountAssociatedServiceRepository
 				.findByCodeInternationalAccount(codeInternationalAccount);
 		if (accountAssociatedServiceList.isEmpty()) {
 			throw new RuntimeException("Account Associated Service not found");
 		} else {
-			this.accountAssociatedServiceRepository.deleteByCodeInternationalAccount(codeInternationalAccount);
+			for (AccountAssociatedService accountToUpdate : accountAssociatedServiceList) {
+				accountToUpdate.setStatus("INA");
+				this.accountAssociatedServiceRepository.save(accountToUpdate);
+			}
 		}
 	}
 
 	@Transactional
-	public void deleteByCodeAssociatedService(String codeAssociatedService) {
+	public void deleteAllByCodeAssociatedService(String codeAssociatedService) {
 		List<AccountAssociatedService> accountAssociatedServiceList = this.accountAssociatedServiceRepository
 				.findByCodeAssociatedService(codeAssociatedService);
 		if (accountAssociatedServiceList.isEmpty()) {
 			throw new RuntimeException("Account Associated Service not found");
 		} else {
-			this.accountAssociatedServiceRepository.deleteByCodeAssociatedService(codeAssociatedService);
+			for (AccountAssociatedService accountToUpdate : accountAssociatedServiceList) {
+				accountToUpdate.setStatus("INA");
+				this.accountAssociatedServiceRepository.save(accountToUpdate);
+			}
+		}
+	}
+
+	@Transactional
+	public void save(AccountAssociatedService accountAssociatedService) {
+		try {
+			this.accountAssociatedServiceRepository.save(accountAssociatedService);
+		} catch (Exception e) {
+			throw new RuntimeException("Error saving Account Associated Service");
+		}
+	}
+
+	@Transactional
+	public void update(AccountAssociatedService accountAssociatedService) {
+		try {
+			this.accountAssociatedServiceRepository.save(accountAssociatedService);
+		} catch (Exception e) {
+			throw new RuntimeException("Error updating Account Associated Service");
 		}
 	}
 

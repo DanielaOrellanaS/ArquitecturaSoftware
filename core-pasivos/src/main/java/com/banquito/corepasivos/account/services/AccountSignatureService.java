@@ -14,6 +14,7 @@ import javax.transaction.Transactional;
 @Service
 public class AccountSignatureService {
     private final AccountSignatureRepository accountSignatureRepository;
+<<<<<<< HEAD
     private final AccountRepository accountRepository;
     private final ClientRepository clientRepository;
 
@@ -23,6 +24,11 @@ public class AccountSignatureService {
         this.accountSignatureRepository = accountSignatureRepository;
         this.accountRepository = accountRepository;
         this.clientRepository = clientRepository;
+=======
+
+    public AccountSignatureService(AccountSignatureRepository accountSignatureRepository) {
+        this.accountSignatureRepository = accountSignatureRepository;
+>>>>>>> 650967939f0ed2292caaaba6748129d2078e5047
     }
 
     public List<AccountSignature> findAll() {
@@ -37,6 +43,7 @@ public class AccountSignatureService {
             return null;
         }
     }
+<<<<<<< HEAD
 
     public void register(AccountSignature accountSignature) {
         // aqui se debe validar que los atributos de identificacion y numero de cuenta
@@ -63,4 +70,6 @@ public class AccountSignatureService {
             throw new RuntimeException("El codigo ingresado no pertenece a ninguna cuenta");
         }
     }
+=======
+>>>>>>> 650967939f0ed2292caaaba6748129d2078e5047
 }
