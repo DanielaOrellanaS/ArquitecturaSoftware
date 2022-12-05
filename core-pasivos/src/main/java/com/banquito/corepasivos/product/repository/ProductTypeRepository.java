@@ -7,6 +7,7 @@ import com.banquito.corepasivos.product.model.ProductType;
 @Repository
 public interface ProductTypeRepository extends JpaRepository<ProductType, String> {
 
+    
     List<ProductType> findByCodeProductType(String codeProductType);
     
 }
