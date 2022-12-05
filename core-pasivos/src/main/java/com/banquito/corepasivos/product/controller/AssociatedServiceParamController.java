@@ -40,6 +40,21 @@ public class AssociatedServiceParamController {
         return ResponseEntity.ok(associatedServiceParam);
     }
 
+    @GetMapping("/associatedservice/{codeAssociatedService}")
+    public ResponseEntity<List<AssociatedServiceParam>> findByCodeAssociatedService(
+            @PathVariable("codeAssociatedService") String codeAssociatedService) {
+        List<AssociatedServiceParam> associatedServiceParam = this.associatedServiceParamService
+                .findAllAssociatedServiceParamsByCodeAssociatedService(codeAssociatedService);
+        return ResponseEntity.ok(associatedServiceParam);
+    }
+
+    @GetMapping("/nameparam/{name}")
+    public ResponseEntity<List<AssociatedServiceParam>> findByNameParam(@PathVariable("name") String name) {
+        List<AssociatedServiceParam> associatedServiceParam = this.associatedServiceParamService
+                .findByNameContaining(name);
+        return ResponseEntity.ok(associatedServiceParam);
+    }
+
     @PostMapping(consumes = { MediaType.APPLICATION_JSON_VALUE })
     public ResponseEntity<String> createAssociatedServiceParam(
             @RequestBody AssociatedServiceParam associatedServiceParam) {

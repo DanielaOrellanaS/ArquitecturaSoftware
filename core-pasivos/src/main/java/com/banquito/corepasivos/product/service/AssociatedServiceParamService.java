@@ -32,6 +32,10 @@ public class AssociatedServiceParamService {
         return associatedServiceParamRepository.findByPkCodeAssociatedService(codeAssociatedService);
     }
 
+    public List<AssociatedServiceParam> findByNameContaining(String name) {
+        return this.associatedServiceParamRepository.findByNameContaining(name);
+    }
+
     @Transactional
     public void createAssociatedServiceParam(AssociatedServiceParam associatedServiceParam) {
         try {
