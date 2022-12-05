@@ -29,7 +29,7 @@ public class Holiday {
     @Column(name = "type", length = 3, nullable = false)
     private String type;
 
-    @JsonBackReference
+    @JsonBackReference(value = "locationEntity-holiday")
     @ManyToOne
     @JoinColumn(name = "code_location", referencedColumnName = "code_location", insertable = false, updatable = false)
     private LocationEntity locationEntity;
