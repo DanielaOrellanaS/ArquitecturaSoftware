@@ -11,8 +11,8 @@ import java.io.Serializable;
 public class AccountPK implements Serializable {
 
     @Column(name = "code_local_account", length = 20, nullable = false)
-    private String codeLocalAccount;
+    private String codelocalaccount;
 
     @Column(name = "code_international_account", length = 34, nullable = false)
-    private String codeInternationalAccount;
+    private String codeinternationalaccount;
 }
