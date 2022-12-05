@@ -19,11 +19,11 @@ public class ClientRelationshipController {
         this.service = service;
     }
 
-    /*GET */
-    @GetMapping(path= "/all")
+    /* GET */
+    @GetMapping(path = "/all")
     public ResponseEntity<ClientRelationship> getAll() {
         ClientRelationship clientRelationship = this.service.searchAll();
-        if(clientRelationship != null) {
+        if (clientRelationship != null) {
             return ResponseEntity.ok(clientRelationship);
         } else {
             return ResponseEntity.notFound().build();
@@ -32,20 +32,23 @@ public class ClientRelationshipController {
 
     @GetMapping(path = "/identification/{identification}")
     public ResponseEntity<ClientRelationship> searchById(@PathVariable("identification") String identification) {
-        ClientRelationship clientRelationship = this.service.searchById(identification);
-        if (clientRelationship != null)
-        {
-            return ResponseEntity.ok(clientRelationship);
-        } else {
+        try {
+            ClientRelationship clientRelationship = this.service.searchById(identification);
+            if (clientRelationship != null) {
+                return ResponseEntity.ok(clientRelationship);
+            } else {
+                return ResponseEntity.notFound().build();
+            }
+        } catch (Exception e) {
             return ResponseEntity.notFound().build();
         }
     }
 
     @GetMapping(path = "/relationshiptype/{relationshipType}")
-    public ResponseEntity<ClientRelationship> searchTypeRelationship(@PathVariable("relationshipType") String relationshipType) {
+    public ResponseEntity<ClientRelationship> searchTypeRelationship(
+            @PathVariable("relationshipType") String relationshipType) {
         ClientRelationship clientRelationship = this.service.searchTypeRelationship(relationshipType);
-        if (clientRelationship != null)
-        {
+        if (clientRelationship != null) {
             return ResponseEntity.ok(clientRelationship);
         } else {
             return ResponseEntity.notFound().build();

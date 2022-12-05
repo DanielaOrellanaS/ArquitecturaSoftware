@@ -29,7 +29,7 @@ public class ClientRelationship implements Serializable {
 	private String identification;
 
 	@Column(name = "relationship_type", length = 32, nullable = false)
-	private String relationshipType;
+	private String relationshiptype;
 
 	@Column(name = "start_date", nullable = false)
 	@Temporal(TemporalType.DATE)

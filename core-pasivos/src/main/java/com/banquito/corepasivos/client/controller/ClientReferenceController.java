@@ -17,7 +17,7 @@ import com.banquito.corepasivos.client.model.ClientReference;
 import com.banquito.corepasivos.client.service.ClientReferenceService;
 
 @RestController
-@RequestMapping("/clients")
+@RequestMapping("/api/clientsreferences")
 public class ClientReferenceController {
     private final ClientReferenceService clientReferenceService;
 
@@ -25,14 +25,23 @@ public class ClientReferenceController {
         this.clientReferenceService = clientReferenceService;
     }
 
+    @GetMapping("/all")
+    public ResponseEntity<List<ClientReference>> findReferences() {
+        List<ClientReference> clientReference = this.clientReferenceService.findAllClientReferences();
+        if (clientReference == null) {
+            return ResponseEntity.notFound().build();
+        } else
+            return ResponseEntity.ok(clientReference);
+    }
+
     @GetMapping(path = "/{id}")
     public ResponseEntity<List<ClientReference>> findReferences(
-        @PathVariable("id") String id
-    ){
+            @PathVariable("id") String id) {
         List<ClientReference> clientReference = this.clientReferenceService.findAllClientReference(id);
-        if(clientReference == null){
+        if (clientReference == null) {
             return ResponseEntity.notFound().build();
-        }else return ResponseEntity.ok(clientReference);
+        } else
+            return ResponseEntity.ok(clientReference);
     }
 
     @PostMapping(consumes = { MediaType.APPLICATION_JSON_VALUE })
@@ -45,42 +54,19 @@ public class ClientReferenceController {
         }
     }
 
-    /*JSON for post
-    {
-    "codeReference": null,
-    "identificationtype": "RUC",
-    "identification": "1720744944001",
-    "name": "test4",
-    "phone": "0995118125",
-    "related": "tio"
-    }   
-     */
-
-    @PutMapping(consumes = {MediaType.APPLICATION_JSON_VALUE})
-    public ResponseEntity<String> updateClientReference(@RequestBody ClientReference clientRef){
-        try{
+    @PutMapping(consumes = { MediaType.APPLICATION_JSON_VALUE })
+    public ResponseEntity<String> updateClientReference(@RequestBody ClientReference clientRef) {
+        try {
             this.clientReferenceService.updateClientReference(clientRef);
             return ResponseEntity.ok("Client reference updated succesfully");
-        }catch (Exception e) {
+        } catch (Exception e) {
             return ResponseEntity.internalServerError().body(e.getMessage());
         }
     }
 
-    /*JSON for put
-    {
-    "codeReference": ExistingId(1,2,3),
-    "identificationtype": "RUC",
-    "identification": "1720744944001",
-    "name": "a change",
-    "phone": "0995118125",
-    "related": "tio"
-    }
-     */
-
     @DeleteMapping("/{codeReference}")
     public ResponseEntity<String> deleteClientReference(
-        @PathVariable("codeReference") Integer codeReference
-    ) {
+            @PathVariable("codeReference") Integer codeReference) {
         try {
             this.clientReferenceService.deleteClientReference(codeReference);
             return ResponseEntity.ok("Direccion eliminada con exito");
