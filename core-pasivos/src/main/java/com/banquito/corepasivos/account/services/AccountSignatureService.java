@@ -45,7 +45,7 @@ public class AccountSignatureService {
         boolean existClient = this.clientRepository.existsById(accountSignature.getClient().getPk());
         boolean existeAccount = this.accountRepository.existsById(accountSignature.getAccount().getPk());
         List<AccountSignature> accountSignatures = this.accountSignatureRepository
-                .findBySignaturereference(accountSignature.getSignatureReference());
+                .findBySignatureReference(accountSignature.getSignatureReference());
         if (existClient && existeAccount && accountSignatures.isEmpty()) {
             this.accountSignatureRepository.save(accountSignature);
         } else{
