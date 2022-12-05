@@ -11,4 +11,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface AccountSignatureRepository extends JpaRepository<AccountSignature, AccountSignaturePK> {
     List <AccountSignature> findByPkCodelocalaccount(String code);
+    List <AccountSignature> findBySignaturereference(String reference);
 }

@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -27,14 +28,13 @@ public class AccountSignatureController {
         return this.accountSignatureService.findAll();
     }
 
-    @GetMapping(path = "/{codigo}")
-    public ResponseEntity<List<AccountSignature>> findByCodeAccount(@PathVariable("code_local_account") String code){
+    @RequestMapping(value="/{codigo}", method = RequestMethod.GET)
+    public ResponseEntity<List<AccountSignature>> findByCodeAccount(@PathVariable("codigo") String code){
        List <AccountSignature> accountSignatures = this.accountSignatureService.findByCodeAccount(code);
         if(accountSignatures.isEmpty()){
             return ResponseEntity.notFound().build();
         } else{
             return ResponseEntity.ok(accountSignatures);
         }
-
     }
 }
