@@ -27,7 +27,7 @@ public class ProductController {
         this.productService = productService;
     }
 
-    @GetMapping
+    @GetMapping("/all")
     public ResponseEntity<List<Product>> findAll() {
         List<Product> products = this.productService.findAllProducts();
         return products.isEmpty() ? ResponseEntity.noContent().build() : ResponseEntity.ok(products);
@@ -43,6 +43,12 @@ public class ProductController {
     public ResponseEntity<Product> findByCodeProduct(@PathVariable("codeProduct") String codeProduct) {
         Product product = this.productService.findByCodeProduct(codeProduct);
         return product == null ? ResponseEntity.noContent().build() : ResponseEntity.ok(product);
+    }
+
+    @GetMapping("/name/contains/{name}")
+    public ResponseEntity<List<Product>> findByNameContains(@PathVariable("name") String name) {
+        List<Product> products = this.productService.findByNameContaining(name);
+        return products.isEmpty() ? ResponseEntity.noContent().build() : ResponseEntity.ok(products);
     }
 
     @GetMapping("/name/{name}")
@@ -74,8 +80,9 @@ public class ProductController {
 
     @DeleteMapping("/code/{codeProduct}/code/type/{codeProductType}")
     public ResponseEntity<String> deleteProduct(
-            @PathVariable("codeProduct") String codeProduct,
-            @PathVariable("codeProductType") String codeProductType) {
+        @PathVariable("codeProduct") String codeProduct, 
+        @PathVariable("codeProductType") String codeProductType
+    ) {
         try {
             ProductPK pk = new ProductPK();
             pk.setCodeProduct(codeProduct);

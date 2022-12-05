@@ -29,8 +29,12 @@ public class ProductService {
     }
 
     public Product findByCodeProduct(String codeProduct) {
-        List<Product> product = this.productRepository.findByPkCodeProduct(codeProduct);
-        return product.isEmpty() ? null : product.get(0);
+        List<Product> products = this.productRepository.findByPkCodeProduct(codeProduct);
+        return products.isEmpty() ? null : products.get(0);
+    }
+
+    public List<Product> findByNameContaining(String name) {
+        return this.productRepository.findByNameContaining(name);
     }
 
     public Product findByName(String name) {
@@ -40,11 +44,16 @@ public class ProductService {
 
     @Transactional
     public void createProduct(Product product) {
-        try {
-            this.productRepository.save(product);
-        } catch (Exception e) {
-            throw new RuntimeException("There is already a product created with these parameters");
-        }
+        List<Product> products = this.productRepository.findByName(product.getName());
+        Optional<Product> productsPk = this.productRepository.findById(product.getPk());
+        if (products.isEmpty() && productsPk.isEmpty())
+            try {
+                this.productRepository.save(product);
+            } catch (Exception e) {
+                throw new RuntimeException("There is already a product created with these parameters");
+            }
+        else
+            throw new RuntimeException("There is already a product with this name or these codes");
     }
 
     @Transactional
