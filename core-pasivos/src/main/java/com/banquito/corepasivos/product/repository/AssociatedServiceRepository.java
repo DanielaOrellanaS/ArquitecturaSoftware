@@ -7,6 +7,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import com.banquito.corepasivos.product.model.AssociatedService;
 
 public interface AssociatedServiceRepository extends JpaRepository<AssociatedService, String>{
-    List<AssociatedService> findByCodeProduct(String codeAssociatedService);
+    List<AssociatedService> findByCodeAssociatedService(String codeAssociatedService);
     
 }
