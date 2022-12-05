@@ -65,7 +65,7 @@ public class AccountAssociatedService implements Serializable {
 	})
 	private ProductAssociatedService productAssociatedService;
 
-	@JsonManagedReference(value = "accountAssociatedService-associatedServiceParamList")
+	@JsonManagedReference(value = "accountAssociatedService-associatedServiceParam")
 	@OneToMany(mappedBy = "accountAssociatedService")
 	private List<AccountAssociatedServiceParam> accountAssociatedServiceParamsList;
 
