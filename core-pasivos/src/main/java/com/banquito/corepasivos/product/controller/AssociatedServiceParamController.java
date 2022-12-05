@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.banquito.corepasivos.product.service.AssociatedServiceParamService;
@@ -26,7 +27,7 @@ public class AssociatedServiceParamController {
         this.associatedServiceParamService = associatedServiceParamService;
     }
 
-    @GetMapping("/all")
+    @RequestMapping(headers = "/all", method = RequestMethod.GET)
     public ResponseEntity<List<AssociatedServiceParam>> findAllAssociatedServiceParam() {
         List<AssociatedServiceParam> associatedServiceParam = this.associatedServiceParamService
                 .findAllAssociatedServiceParams();
