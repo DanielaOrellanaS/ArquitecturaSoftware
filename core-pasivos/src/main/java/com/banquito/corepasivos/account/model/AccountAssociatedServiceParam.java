@@ -7,8 +7,6 @@ import java.util.Date;
 
 import javax.persistence.*;
 
-import com.banquito.corepasivos.product.model.AssociatedServiceParam;
-
 @Data
 @NoArgsConstructor
 @Entity
@@ -38,21 +36,21 @@ public class AccountAssociatedServiceParam {
     @Column(name = "end_date", nullable = true)
     private Date endDate;
 
-    @ManyToOne
-    @JoinColumns({
-            @JoinColumn(name = "code_param", referencedColumnName = "code_param", insertable = false, updatable = false),
-            @JoinColumn(name = "code_associated_service", referencedColumnName = "code_associated_service", insertable = false, updatable = false),
-    })
-    private AssociatedServiceParam associatedServiceParam;
+    // @ManyToOne
+    // @JoinColumns({
+    //         @JoinColumn(name = "code_param", referencedColumnName = "code_param", insertable = false, updatable = false),
+    //         @JoinColumn(name = "code_associated_service", referencedColumnName = "code_associated_service", insertable = false, updatable = false),
+    // })
+    // private AssociatedServiceParam associatedServiceParam;
 
-    @ManyToOne
-    @JoinColumns({
-            @JoinColumn(name = "code_local_account", referencedColumnName = "code_local_account", insertable = false, updatable = false),
-            @JoinColumn(name = "code_international_account", referencedColumnName = "code_international_account", insertable = false, updatable = false),
-            @JoinColumn(name = "code_product", referencedColumnName = "code_product", insertable = false, updatable = false),
-            @JoinColumn(name = "code_product_type", referencedColumnName = "code_product_type", insertable = false, updatable = false),
-    })
-    private AccountAssociatedService associatedService;
+    // @ManyToOne
+    // @JoinColumns({
+    //         @JoinColumn(name = "code_local_account", referencedColumnName = "code_local_account", insertable = false, updatable = false),
+    //         @JoinColumn(name = "code_international_account", referencedColumnName = "code_international_account", insertable = false, updatable = false),
+    //         @JoinColumn(name = "code_product", referencedColumnName = "code_product", insertable = false, updatable = false),
+    //         @JoinColumn(name = "code_product_type", referencedColumnName = "code_product_type", insertable = false, updatable = false),
+    // })
+    // private AccountAssociatedService associatedService;
 
     public AccountAssociatedServiceParam(AccountAssociatedServiceParamPK pk) {
         this.pk = pk;

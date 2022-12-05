@@ -1,11 +1,8 @@
 package com.banquito.corepasivos.general.model;
 
-import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import lombok.Data;
@@ -18,6 +15,7 @@ import lombok.EqualsAndHashCode.Include;
 @Entity
 @Table(name = "country_entity")
 public class CountryEntity {
+
     @Id
     @Include
     @Column(name = "code_country", length = 2, nullable = false)
@@ -29,8 +27,8 @@ public class CountryEntity {
     @Column(name = "name", length = 64, nullable = false)
     private String name;
 
-    @OneToMany(mappedBy = "country_entity")
-    private List<LocationEntity> locationEntities;
+    // @OneToMany(mappedBy = "country_entity")
+    // private List<LocationEntity> locationEntities;
 
     public CountryEntity(String codeCountry) {
         this.codeCountry = codeCountry;

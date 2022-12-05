@@ -1,11 +1,8 @@
 package com.banquito.corepasivos.client.model;
 
 import java.util.Date;
-import java.util.List;
 
 import javax.persistence.*;
-
-import com.banquito.corepasivos.account.model.AccountClient;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -97,12 +94,12 @@ public class Client {
     @Column(name = "career", nullable = false, length = 64)
     private String career;
 
-    @ManyToOne
-    @JoinColumn(name = "code_segment", referencedColumnName = "code_segment", insertable = false, updatable = false)
-    private Segment segment;
+    // @ManyToOne
+    // @JoinColumn(name = "code_segment", referencedColumnName = "code_segment", insertable = false, updatable = false)
+    // private Segment segment;
 
-    @OneToMany(mappedBy = "client")
-    private List <AccountClient> accountsClient;
+    // @OneToMany(mappedBy = "client")
+    // private List <AccountClient> accountsClient;
 
     public Client(ClientPK pk) {
         this.pk = pk;

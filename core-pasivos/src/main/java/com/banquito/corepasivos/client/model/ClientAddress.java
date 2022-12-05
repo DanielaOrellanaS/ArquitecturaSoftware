@@ -6,8 +6,6 @@ import lombok.EqualsAndHashCode.Include;
 
 import javax.persistence.*;
 
-import com.banquito.corepasivos.general.model.LocationEntity;
-
 @Data
 @NoArgsConstructor
 @Entity
@@ -30,16 +28,16 @@ public class ClientAddress {
     @Column(name = "longitude", length = 32, nullable = false)
     private String longitude;
 
-    @ManyToOne
-    @JoinColumns({
-            @JoinColumn(name = "identification_type", referencedColumnName = "identification_type", insertable = false, updatable = false, nullable = false),
-            @JoinColumn(name = "identification", referencedColumnName = "identification", insertable = false, updatable = false, nullable = false)
-    })
-    private Client client;
+    // @ManyToOne
+    // @JoinColumns({
+    //         @JoinColumn(name = "identification_type", referencedColumnName = "identification_type", insertable = false, updatable = false, nullable = false),
+    //         @JoinColumn(name = "identification", referencedColumnName = "identification", insertable = false, updatable = false, nullable = false)
+    // })
+    // private Client client;
 
-    @ManyToOne
-    @JoinColumn(name = "code_location", referencedColumnName = "code_location", insertable = false, updatable = false, nullable = false)
-    private LocationEntity locationEntity;
+    // @ManyToOne
+    // @JoinColumn(name = "code_location", referencedColumnName = "code_location", insertable = false, updatable = false, nullable = false)
+    // private LocationEntity locationEntity;
 
     public ClientAddress(ClientAddressPK pk) {
         this.pk = pk;

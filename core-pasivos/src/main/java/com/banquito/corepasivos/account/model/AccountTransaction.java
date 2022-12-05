@@ -62,12 +62,12 @@ public class AccountTransaction {
     @Column(name = "status", length = 3, nullable = false)
     private String status;
 
-    @ManyToOne
-    @JoinColumns({
-            @JoinColumn(name = "code_local_account", referencedColumnName = "code_local_account", insertable = false, updatable = false),
-            @JoinColumn(name = "code_international_account", referencedColumnName = "code_international_account", insertable = false, updatable = false)
-    })
-    private Account account;
+    // @ManyToOne
+    // @JoinColumns({
+    //         @JoinColumn(name = "code_local_account", referencedColumnName = "code_local_account", insertable = false, updatable = false),
+    //         @JoinColumn(name = "code_international_account", referencedColumnName = "code_international_account", insertable = false, updatable = false)
+    // })
+    // private Account account;
 
     public AccountTransaction(Integer codeTransaction) {
         this.codeTransaction = codeTransaction;

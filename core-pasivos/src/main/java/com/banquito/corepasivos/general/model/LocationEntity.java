@@ -1,20 +1,11 @@
 package com.banquito.corepasivos.general.model;
 
-import java.util.List;
-
 import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinColumns;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
-
-import com.banquito.corepasivos.client.model.ClientAddress;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -38,8 +29,11 @@ public class LocationEntity {
     @Column(name = "level", nullable = false)
     private Integer level;
 
-    @Column(name = "code_country", length = 2, nullable = false)
-    private String codeCountry;
+    @Column(name = "code_country_entity", length = 2, nullable = false)
+    private String codeCountryEntity;
+
+    @Column(name = "code_country_structure", length = 2, nullable = false)
+    private String codeCountryStructure;
 
     @Column(name = "name", length = 64, nullable = true)
     private String name;
@@ -50,22 +44,22 @@ public class LocationEntity {
     @Column(name = "zip_code", length = 16, nullable = true)
     private String zipCode;
 
-    @ManyToOne
-    @JoinColumns({
-            @JoinColumn(name = "code_country", nullable = false, insertable = false, updatable = false),
-            @JoinColumn(name = "level", nullable = false, insertable = false, updatable = false)
-    })
-    private StructureEntity structureEntity;
+    // @ManyToOne
+    // @JoinColumn(name = "code_country_entity", nullable = false, insertable = false, updatable = false)
+    // private CountryEntity countryEntity;
 
-    @ManyToOne
-    @JoinColumn(name = "code_country", nullable = false, insertable = false, updatable = false)
-    private CountryEntity countryEntity;
+    // @ManyToOne
+    // @JoinColumns({
+    //         @JoinColumn(name = "code_country_structure", nullable = false, insertable = false, updatable = false),
+    //         @JoinColumn(name = "level", nullable = false, insertable = false, updatable = false)
+    // })
+    // private StructureEntity structureEntity;
 
-    @OneToMany(mappedBy = "location_entity")
-    private List<Holiday> holidays;
+    // @OneToMany(mappedBy = "location_entity")
+    // private List<Holiday> holidays;
 
-    @OneToMany(mappedBy = "location_entity")
-    private List<ClientAddress> clientAddresses;
+    // @OneToMany(mappedBy = "location_entity")
+    // private List<ClientAddress> clientAddresses;
 
     public LocationEntity(Integer codeLocation) {
         this.codeLocation = codeLocation;

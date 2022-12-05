@@ -33,12 +33,12 @@ public class ClientReference {
     @Column(name = "related", length = 64, nullable = true)
     private String related;
 
-    @ManyToOne
-    @JoinColumns({
-            @JoinColumn(name = "identification_type", referencedColumnName = "identification_type", insertable = false, updatable = false),
-            @JoinColumn(name = "identification", referencedColumnName = "identification", insertable = false, updatable = false),
-    })
-    private Client client;
+    // @ManyToOne
+    // @JoinColumns({
+    //         @JoinColumn(name = "identification_type", referencedColumnName = "identification_type", insertable = false, updatable = false),
+    //         @JoinColumn(name = "identification", referencedColumnName = "identification", insertable = false, updatable = false),
+    // })
+    // private Client client;
 
     public ClientReference(Integer codeReference) {
         this.codeReference = codeReference;

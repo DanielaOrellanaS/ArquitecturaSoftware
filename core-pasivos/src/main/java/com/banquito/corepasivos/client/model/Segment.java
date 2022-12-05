@@ -4,15 +4,10 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.EqualsAndHashCode.Include;
 
-import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
-
-import com.banquito.corepasivos.product.model.Product;
 
 @Data
 @NoArgsConstructor
@@ -31,11 +26,11 @@ public class Segment {
     @Column(name = "status", length = 3, nullable = false)
     private String status;
 
-    @OneToMany(mappedBy = "segment")
-    private List<Product> products;
+    // @OneToMany(mappedBy = "segment")
+    // private List<Product> products;
 
-    @OneToMany(mappedBy = "segment")
-    private List<Client> clients;
+    // @OneToMany(mappedBy = "segment")
+    // private List<Client> clients;
 
     public Segment(String codeSegment) {
         this.codeSegment = codeSegment;

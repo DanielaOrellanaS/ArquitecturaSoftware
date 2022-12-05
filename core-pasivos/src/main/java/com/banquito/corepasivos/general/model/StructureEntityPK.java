@@ -1,7 +1,6 @@
 package com.banquito.corepasivos.general.model;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
@@ -16,5 +15,5 @@ public class StructureEntityPK implements Serializable {
     private String codeCountry;
 
     @Column(name = "level", nullable = false)
-    private BigDecimal level;
+    private Integer level;
 }

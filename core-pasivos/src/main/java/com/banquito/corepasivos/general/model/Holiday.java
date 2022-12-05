@@ -5,8 +5,6 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -34,9 +32,9 @@ public class Holiday {
     @Column(name = "type", length = 3, nullable = false)
     private String type;
 
-    @ManyToOne
-    @JoinColumn(name = "CODE_LOCATION", nullable = false, insertable = false, updatable = false)
-    private LocationEntity locationEntity;
+    // @ManyToOne
+    // @JoinColumn(name = "CODE_LOCATION", nullable = false, insertable = false, updatable = false)
+    // private LocationEntity locationEntity;
 
     public Holiday(Date date) {
         this.date = date;
