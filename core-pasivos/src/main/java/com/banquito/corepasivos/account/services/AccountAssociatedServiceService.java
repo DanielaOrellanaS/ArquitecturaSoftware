@@ -71,6 +71,39 @@ public class AccountAssociatedServiceService {
 		}
 	}
 
+	@Transactional
+	public void deleteByCodeLocalAccount(String codeLocalAccount) {
+		List<AccountAssociatedService> accountAssociatedServiceList = this.accountAssociatedServiceRepository
+				.findByCodeLocalAccount(codeLocalAccount);
+		if (accountAssociatedServiceList.isEmpty()) {
+			throw new RuntimeException("Account Associated Service not found");
+		} else {
+			this.accountAssociatedServiceRepository.deleteByCodeLocalAccount(codeLocalAccount);
+		}
+	}
+
+	@Transactional
+	public void deleteByCodeInternationalAccount(String codeInternationalAccount) {
+		List<AccountAssociatedService> accountAssociatedServiceList = this.accountAssociatedServiceRepository
+				.findByCodeInternationalAccount(codeInternationalAccount);
+		if (accountAssociatedServiceList.isEmpty()) {
+			throw new RuntimeException("Account Associated Service not found");
+		} else {
+			this.accountAssociatedServiceRepository.deleteByCodeInternationalAccount(codeInternationalAccount);
+		}
+	}
+
+	@Transactional
+	public void deleteByCodeAssociatedService(String codeAssociatedService) {
+		List<AccountAssociatedService> accountAssociatedServiceList = this.accountAssociatedServiceRepository
+				.findByCodeAssociatedService(codeAssociatedService);
+		if (accountAssociatedServiceList.isEmpty()) {
+			throw new RuntimeException("Account Associated Service not found");
+		} else {
+			this.accountAssociatedServiceRepository.deleteByCodeAssociatedService(codeAssociatedService);
+		}
+	}
+
 	public List<AccountAssociatedService> findAll() {
 		return this.accountAssociatedServiceRepository.findAll();
 	}

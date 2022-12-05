@@ -36,19 +36,15 @@ public class AccountAssociatedService implements Serializable {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date endDate;
 
-	// code local account column
 	@Column(name = "code_local_account", length = 20, nullable = false, insertable = false, updatable = false)
 	private String codeLocalAccount;
 
-	// code international account column
 	@Column(name = "code_international_account", length = 34, nullable = false, insertable = false, updatable = false)
 	private String codeInternationalAccount;
 
-	// code product column
 	@Column(name = "code_product", length = 32, nullable = false, insertable = false, updatable = false)
 	private String codeProduct;
 
-	// code product type column
 	@Column(name = "code_product_type", length = 32, nullable = false, insertable = false, updatable = false)
 	private String codeProductType;
 

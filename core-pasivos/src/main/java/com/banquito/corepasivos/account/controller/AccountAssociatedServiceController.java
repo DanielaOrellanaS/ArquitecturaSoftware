@@ -6,6 +6,7 @@ import com.banquito.corepasivos.account.services.AccountAssociatedServiceService
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -86,6 +87,31 @@ public class AccountAssociatedServiceController {
 			return ResponseEntity.ok(accountAssociatedService);
 		}
 
+	}
+
+	@DeleteMapping("/deleteByCodeLocalAccount/{codeLocalAccount}")
+	public ResponseEntity<Void> deleteByCodeLocalAccount(
+			@PathVariable("codeLocalAccount") String codeLocalAccount) {
+
+		this.service.deleteByCodeLocalAccount(codeLocalAccount);
+		return ResponseEntity.noContent().build();
+
+	}
+
+	@DeleteMapping("/deleteByCodeInternationalAccount/{codeInternationalAccount}")
+	public ResponseEntity<Void> deleteByCodeInternationalAccount(
+			@PathVariable("codeInternationalAccount") String codeInternationalAccount) {
+
+		this.service.deleteByCodeInternationalAccount(codeInternationalAccount);
+		return ResponseEntity.noContent().build();
+	}
+
+	@DeleteMapping("/deleteByCodeAssociatedService/{codeAssociatedService}")
+	public ResponseEntity<Void> deleteByCodeAssociatedService(
+			@PathVariable("codeAssociatedService") String codeAssociatedService) {
+
+		this.service.deleteByCodeAssociatedService(codeAssociatedService);
+		return ResponseEntity.noContent().build();
 	}
 
 	@RequestMapping("/all")
