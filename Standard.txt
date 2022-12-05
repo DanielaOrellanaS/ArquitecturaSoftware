@@ -1,14 +1,40 @@
 Nombre-tablas = minuscula
+
 Las relaciones van debajo de las propiedades
+
 La cabecera de las clases va de la siguiente manera:
     @Data
     @NoArgsConstructor
     @Entity
     @Table(name = "table_name")
-Cabezara de las clases de las primarias compuestas va de la siguiente manera:
+
+Cabezara de las clases de las claves primarias compuestas va de la siguiente manera:
     @Data
     @Embeddable
 
 Mappear todas las columnas asi esten en los joincolumns
 
-ManyToOne colocar con FetchLazy
+Eliminar Fetch.Lazy en las relaciones ManyToOne
+
+En las relaciones OneToMany Fetch.Lazy se coloca por defecto, no agregar
+
+En las relaciones bidireccionales
+    Utilizar @JsonManagedReference -> Sobre OneToMany
+    Utilizar @JsonBackReference -> Sobre ManyToOne
+
+Abajo de EmbbedId o Id colocar @Include
+
+Todas las clases del modelo con implents Serialized
+
+No usar interfaces para los servicios, declarar directamente la clases
+
+En mappedBy se coloca el nombre de la propiedad de la clase referencia
+
+Las clases de las claves primarias compuestas, todos los atributos van con minuscula
+
+Las claves primarias en clases normales van con camelCase
+
+Claves con autogenerados
+    @Id
+    @Include
+    @GeneratedValue(strategy = GenerationType.AUTO)
