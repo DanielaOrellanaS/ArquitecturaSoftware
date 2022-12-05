@@ -18,8 +18,9 @@ public class ClientReference implements Serializable {
 
     @Id
     @Include
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "code_reference", nullable = false)
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "BOOK_SEQ")
+    @SequenceGenerator(sequenceName = "client_reference_code_reference_seq",allocationSize = 1, name = "BOOK_SEQ")
+    @Column(name = "code_reference", nullable = true)
     private Integer codeReference;
 
     @Column(name = "identification_type", length = 3, nullable = false)
