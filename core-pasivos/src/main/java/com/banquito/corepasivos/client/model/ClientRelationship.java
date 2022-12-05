@@ -19,6 +19,7 @@ public class ClientRelationship implements Serializable {
 
 	@Id
 	@Include
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "code_relationship", nullable = false)
 	private Integer codeRelationship;
 

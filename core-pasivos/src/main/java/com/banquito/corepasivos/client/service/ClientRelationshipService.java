@@ -17,14 +17,12 @@ public class ClientRelationshipService {
         this.clientRelationshipRepository = clientRelationshipRepository;
     }
 
-    public ClientRelationship searchAll() {
-        List<ClientRelationship> clientRelationship = this.clientRelationshipRepository.findAll();
-        return (clientRelationship.isEmpty()) ? null : clientRelationship.get(0);
+    public List<ClientRelationship> searchAll() {
+        return clientRelationshipRepository.findAll();
     }
 
-    public ClientRelationship searchTypeRelationship(String relationshipType) {
-        List<ClientRelationship> clientRelationships = this.clientRelationshipRepository.findByRelationshipType(relationshipType);
-        return (clientRelationships.isEmpty()) ? null : clientRelationships.get(0);
+    public List<ClientRelationship> searchTypeRelationship(String relationshipType) {
+        return clientRelationshipRepository.findByRelationshipType(relationshipType);
     }
 
     public ClientRelationship searchById(String identification) {
@@ -33,31 +31,39 @@ public class ClientRelationshipService {
     }
 
     @Transactional
-    public void register(ClientRelationship clientRelationship) {
-
-        List<ClientRelationship> clientRelationships = clientRelationshipRepository.findByIdentification(clientRelationship.getIdentification());
-        if (clientRelationships.isEmpty()) {
+    public void createClientRelationship(ClientRelationship clientRelationship) {
+        try {
             this.clientRelationshipRepository.save(clientRelationship);
-        } else {
-            throw new RuntimeException("El cliente ya existe");
+        } catch (Exception e) {
+            throw new RuntimeException("There is already a relationship created with these parameters.");
         }
     }
 
     @Transactional
-    public void update(ClientRelationship clientRelationship) {
+    public void updateClientRelationship(ClientRelationship clientRelationship) {
         List<ClientRelationship> clientRelationships = this.clientRelationshipRepository.findByIdentification(clientRelationship.getIdentification());
         if(clientRelationships.isEmpty()) {
-            throw new RuntimeException("El cliente no existe");
+            throw new RuntimeException("The client does not exist.");
         } else {
             this.clientRelationshipRepository.save(clientRelationship);
         }
     }
 
     @Transactional
-    public void delete(String identification) {
+    public void deleteClientRelationshipIdentification(String identification) {
         List<ClientRelationship> clientRelationships = this.clientRelationshipRepository.findByIdentification(identification);
         if(clientRelationships.isEmpty()) {
-            throw new RuntimeException("El cliente no existe");
+            throw new RuntimeException("The client with this ID does not exist.");
+        } else {
+            this.clientRelationshipRepository.delete(clientRelationships.get(0));
+        }
+    }
+
+    @Transactional
+    public void deleteClientRelationshipCode(Integer codeRelationship) {
+        List<ClientRelationship> clientRelationships = this.clientRelationshipRepository.findByCodeRelationship(codeRelationship);
+        if(clientRelationships.isEmpty()) {
+            throw new RuntimeException("The client with this code does not exist.");
         } else {
             this.clientRelationshipRepository.delete(clientRelationships.get(0));
         }
