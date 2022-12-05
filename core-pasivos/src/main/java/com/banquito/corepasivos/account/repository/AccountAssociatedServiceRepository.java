@@ -22,10 +22,4 @@ public interface AccountAssociatedServiceRepository
 
 	List<AccountAssociatedService> findByCodeAssociatedService(String codeAssociatedService);
 
-	void deleteByCodeLocalAccount(String codeLocalAccount);
-
-	void deleteByCodeInternationalAccount(String codeInternationalAccount);
-
-	void deleteByCodeAssociatedService(String codeAssociatedService);
-
 }

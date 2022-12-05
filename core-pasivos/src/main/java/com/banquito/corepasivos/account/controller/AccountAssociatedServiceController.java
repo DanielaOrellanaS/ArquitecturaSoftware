@@ -90,28 +90,39 @@ public class AccountAssociatedServiceController {
 	}
 
 	@RequestMapping(value = "/deleteByCodeLocalAccount/{codeLocalAccount}", method = RequestMethod.DELETE)
-	public ResponseEntity<Void> deleteByCodeLocalAccount(
+	public ResponseEntity<String> deleteByCodeLocalAccount(
 			@PathVariable("codeLocalAccount") String codeLocalAccount) {
 
-		this.service.deleteByCodeLocalAccount(codeLocalAccount);
-		return ResponseEntity.noContent().build();
-
+		try {
+			this.service.deleteAllByCodeLocalAccount(codeLocalAccount);
+			return ResponseEntity.ok("OK");
+		} catch (Exception e) {
+			return ResponseEntity.internalServerError().body(e.getMessage());
+		}
 	}
 
 	@RequestMapping(value = "/deleteByCodeInternationalAccount/{codeInternationalAccount}", method = RequestMethod.DELETE)
-	public ResponseEntity<Void> deleteByCodeInternationalAccount(
+	public ResponseEntity<String> deleteByCodeInternationalAccount(
 			@PathVariable("codeInternationalAccount") String codeInternationalAccount) {
 
-		this.service.deleteByCodeInternationalAccount(codeInternationalAccount);
-		return ResponseEntity.noContent().build();
+		try {
+			this.service.deleteAllByCodeInternationalAccount(codeInternationalAccount);
+			return ResponseEntity.ok("OK");
+		} catch (Exception e) {
+			return ResponseEntity.internalServerError().body(e.getMessage());
+		}
 	}
 
 	@RequestMapping(value = "/deleteByCodeAssociatedService/{codeAssociatedService}", method = RequestMethod.DELETE)
-	public ResponseEntity<Void> deleteByCodeAssociatedService(
+	public ResponseEntity<String> deleteByCodeAssociatedService(
 			@PathVariable("codeAssociatedService") String codeAssociatedService) {
 
-		this.service.deleteByCodeAssociatedService(codeAssociatedService);
-		return ResponseEntity.noContent().build();
+		try {
+			this.service.deleteAllByCodeAssociatedService(codeAssociatedService);
+			return ResponseEntity.ok("OK");
+		} catch (Exception e) {
+			return ResponseEntity.internalServerError().body(e.getMessage());
+		}
 	}
 
 	@RequestMapping(value = "", method = RequestMethod.POST)
