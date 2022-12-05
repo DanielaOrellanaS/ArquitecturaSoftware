@@ -2,8 +2,7 @@ package com.banquito.corepasivos.product.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
+
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -24,7 +23,6 @@ import java.util.List;
 public class AssociatedService implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "code_associated_service", length = 16, nullable = false)
     private String codeAssociatedService;
 
