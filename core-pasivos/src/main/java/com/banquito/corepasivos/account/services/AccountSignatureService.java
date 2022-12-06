@@ -29,35 +29,50 @@ public class AccountSignatureService {
         return this.accountSignatureRepository.findAll();
     }
 
-    public List<AccountSignature> findByCodeAccount(String code) {
-        List<AccountSignature> accountSignatures = this.accountSignatureRepository.findByPkCodelocalaccount(code);
+    public List<AccountSignature> findByCodeLocalAccount(String code) {
+        List<AccountSignature> accountSignatures = this.accountSignatureRepository.
+        findByPkCodelocalaccount(code);
         if (!accountSignatures.isEmpty()) {
             return accountSignatures;
         } else {
-            return null;
+            throw new RuntimeException("The entry code does not belong to an account");
         }
     }
 
-    public void register(AccountSignature accountSignature) {
-        boolean existClient = this.clientRepository.existsById(accountSignature.getClient().getPk());
-        boolean existeAccount = this.accountRepository.existsById(accountSignature.getAccount().getPk());
+    public List<AccountSignature> findByCodeInternationalAccount(String code) {
         List<AccountSignature> accountSignatures = this.accountSignatureRepository
-                .findBySignatureReference(accountSignature.getSignatureReference());
-        if (existClient && existeAccount && accountSignatures.isEmpty()) {
+                .findByPkCodeinternationalaccount(code);
+        if (!accountSignatures.isEmpty()) {
+            return accountSignatures;
+        } else {
+            throw new RuntimeException("The entry code does not belong to an account");
+        }
+    }
+
+    @Transactional
+    public void register(AccountSignature accountSignature) {
+        //boolean existClient = this.clientRepository.existsById(accountSignature.getClient().getPk());
+        boolean existeAccount = this.accountRepository.existsByPkCodelocalaccount(accountSignature.getPk().getCodelocalaccount());
+       List<AccountSignature> accountSignatures = this.accountSignatureRepository
+             .findBySignatureReference(accountSignature.getSignatureReference());
+       // if (existClient && existeAccount && accountSignatures.isEmpty()) {
+        if (existeAccount && accountSignatures.isEmpty()) {
             this.accountSignatureRepository.save(accountSignature);
-        } else{
+        } else {
             throw new RuntimeException("The entry data is incorrect");
         }
     }
 
     @Transactional
-    public void delete (String code){
-        List<AccountSignature> accountSignatures = this.accountSignatureRepository.findByPkCodelocalaccount(code);
-        if (!accountSignatures.isEmpty()) {
-            accountSignatures.get(0).setStatus("INA");
-            this.accountSignatureRepository.save(accountSignatures.get(0));
-        } else {
-            throw new RuntimeException("The entry code does not belong to an account");
+    public void delete(String codeAccount, String identification) {
+        List<AccountSignature> accountSignatures = this.accountSignatureRepository.findByPkCodelocalaccount(codeAccount);
+        for (AccountSignature accountSignature : accountSignatures) {
+            if(accountSignature.getPk().getIdentification().equals(identification)){
+                accountSignature.setStatus("INA");
+                this.accountSignatureRepository.save(accountSignature);
+            }
         }
+        if (accountSignatures.isEmpty()) 
+            throw new RuntimeException("The entry code does not belong to an account");
     }
 }
