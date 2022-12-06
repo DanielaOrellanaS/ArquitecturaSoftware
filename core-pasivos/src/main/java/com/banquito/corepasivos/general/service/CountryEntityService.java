@@ -15,50 +15,47 @@ public class CountryEntityService {
         this.countryEntityRepository = countryEntityRepository;
     }
 
+    // CRUD Literal 3
     @Transactional
-    public void create(CountryEntity countryEntity){
+    public void create(CountryEntity countryEntity) {
         List<CountryEntity> countryEntities = this.countryEntityRepository.findByCode(countryEntity.getCodeCountry());
-        if(countryEntities.isEmpty()){
+        if (countryEntities.isEmpty()) {
             this.countryEntityRepository.save(countryEntity);
-        }
-        else{
+        } else {
             throw new RuntimeException("The Country Entity already exists");
         }
     }
 
     @Transactional
-    public void update(CountryEntity countryEntity){
+    public void update(CountryEntity countryEntity) {
         List<CountryEntity> countryEntities = this.countryEntityRepository.findByCode(countryEntity.getCodeCountry());
-        if(!countryEntities.isEmpty() && countryEntities.size()==1){
+        if (!countryEntities.isEmpty() && countryEntities.size() == 1) {
             this.countryEntityRepository.save(countryEntity);
-        }
-        else{
+        } else {
             throw new RuntimeException("An error has occurred in the product update");
         }
-    } 
-    
+    }
+
     @Transactional
-    public void delete(CountryEntity countryEntity){
+    public void delete(CountryEntity countryEntity) {
         List<CountryEntity> countryEntities = this.countryEntityRepository.findByCode(countryEntity.getCodeCountry());
-        if (!countryEntities.isEmpty()){
+        if (!countryEntities.isEmpty()) {
             this.countryEntityRepository.delete(countryEntity);
-        }   
-        else{
+        } else {
             throw new RuntimeException("The Country Entity does not exist");
         }
     }
-    
 
-    public List<CountryEntity> findAll(){
+    public List<CountryEntity> findAll() {
         return this.countryEntityRepository.findAll();
     }
 
-    public Optional<CountryEntity> findById(String countryEntity){
+    public Optional<CountryEntity> findById(String countryEntity) {
         try {
             return this.countryEntityRepository.findById(countryEntity);
         } catch (Exception e) {
             throw new RuntimeException("The Country Entity does not exist");
         }
-        
+
     }
 }
