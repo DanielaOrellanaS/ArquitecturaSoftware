@@ -23,7 +23,7 @@ public class ClientPhoneService {
         if(newclientPhone.getPk().getPhonenumber().length() > 16 || newclientPhone.getPk().getPhonenumber().length() <= 0 )
             throw new RuntimeException("The phone: " + newclientPhone.getPk().getPhonenumber() + " is too long.");
 
-        if(!Validations.validateIdentificationByType(newclientPhone.getPk().getIdentification(), newclientPhone.getPk().getIdentificationType()))
+        if(Validations.validateIdentificationByType(newclientPhone.getPk().getIdentification(), newclientPhone.getPk().getIdentificationType()))
             throw new RuntimeException("The identification:" + newclientPhone.getPk().getIdentification() + " is incorrect");
         return this.clientPhoneRepository.save(newclientPhone);
     }
@@ -56,7 +56,7 @@ public class ClientPhoneService {
         if(newclientPhone.getPk().getPhonenumber().length() > 16 || newclientPhone.getPk().getPhonenumber().length() <= 0 )
             throw new RuntimeException("The phone: " + newclientPhone.getPk().getPhonenumber() + " is too long.");
 
-        if(!Validations.validateIdentificationByType(identification, newclientPhone.getPk().getIdentificationType()))
+        if(Validations.validateIdentificationByType(identification, newclientPhone.getPk().getIdentificationType()))
             throw new RuntimeException("The identification:" + newclientPhone.getPk().getIdentification() + " is incorrect");
 
         return this.clientPhoneRepository.save(newclientPhone);

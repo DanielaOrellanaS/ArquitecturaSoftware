@@ -16,14 +16,6 @@ public class Validations {
 
         if(identificationType.equals("PAS"))
             return this.validatePassport(identification);
-
-        return false;
-    }
-
-    protected Boolean validatePassport(String passport) throws Exception{
-        if(passport.length() > 16 || passport.length() <= 0 )
-            throw new RuntimeException("The passport: " + passport + " is too long.");
-        return true;
     }
 
     protected Boolean validateRUC(String ruc) throws Exception{
