@@ -19,4 +19,6 @@ public interface ProductRepository extends JpaRepository<Product, ProductPK>{
 
     List<Product> findByName(String name);
 
+    Boolean existsByPkCodeProduct(String codeProduct);
+
 }
