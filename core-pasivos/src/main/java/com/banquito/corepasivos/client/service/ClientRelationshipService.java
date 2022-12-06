@@ -46,7 +46,7 @@ public class ClientRelationshipService {
     @Transactional
     public void updateClientRelationship(ClientRelationship clientRelationship) {
         List<ClientRelationship> clientRelationships = this.clientRelationshipRepository
-                .findByIdentification(clientRelationship.getCodeRelationship());
+                .findByIdentification(clientRelationship.getIdentification());
         if (clientRelationships.isEmpty()) {
             throw new RuntimeException("The client does not exist.");
         } else {
