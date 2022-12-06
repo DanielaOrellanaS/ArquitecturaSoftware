@@ -32,13 +32,13 @@ public class BankEntityService {
     }
 
     @Transactional
-    public void update(BankEntity bankEntity) {
-        List<BankEntity> bankEntities = this.bankEntityRepository
-                .findByPkEntityBankCode(bankEntity.getPk().getEntityBankCode());
-        if (!bankEntities.isEmpty() && bankEntities.size() == 1) {
+    public void update(BankEntity bankEntity){
+        List<BankEntity> bankEntities = this.bankEntityRepository.findByPkEntityBankCode(bankEntity.getPk().getEntityBankCode());
+        if(!bankEntities.isEmpty()){
             this.bankEntityRepository.save(bankEntity);
-        } else {
-            throw new RuntimeException("An error has occurred in the product update");
+        }
+        else{
+            throw new RuntimeException("An error has occurred in the BankEntity update");
         }
     }
 

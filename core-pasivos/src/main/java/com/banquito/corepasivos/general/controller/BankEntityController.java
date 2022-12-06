@@ -16,7 +16,7 @@ import com.banquito.corepasivos.general.model.BankEntityPK;
 import com.banquito.corepasivos.general.service.BankEntityService;
 
 @RestController
-@RequestMapping("/api/bank")
+@RequestMapping("/BankEntity")
 public class BankEntityController {
 
     private final BankEntityService bankEntityService;
@@ -26,7 +26,7 @@ public class BankEntityController {
     }
 
     @PostMapping
-    public ResponseEntity<String> newEmployee(@RequestBody BankEntity bankEntity) {
+    public ResponseEntity<String> createdBankEntity(@RequestBody BankEntity bankEntity) {
         try {
             this.bankEntityService.create(bankEntity);
             ;
