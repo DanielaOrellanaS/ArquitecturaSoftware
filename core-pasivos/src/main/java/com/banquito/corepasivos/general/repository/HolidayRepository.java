@@ -10,6 +10,7 @@ import com.banquito.corepasivos.general.model.Holiday;
 
 @Repository
 public interface HolidayRepository extends JpaRepository<Holiday, Date> {
+    List<Holiday> findByDate(Date date);
 
     List<Holiday> findByCodeLocation(Integer codeLocation);
 
