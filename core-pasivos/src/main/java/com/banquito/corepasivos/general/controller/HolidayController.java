@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -27,7 +28,6 @@ public class HolidayController {
     public ResponseEntity<String> createHoliday(@RequestBody Holiday holiday) {
         try {
             this.holidayService.create(holiday);
-            ;
             return ResponseEntity.ok("Holiday created successfully");
         } catch (Exception e) {
             return ResponseEntity.internalServerError().body(e.getMessage());
@@ -58,11 +58,9 @@ public class HolidayController {
     public ResponseEntity<List<Holiday>> getHolidays() {
         return ResponseEntity.ok(this.holidayService.findAll());
     }
-    /*
-     * @GetMapping(consumes = { "application/json" })
-     * public ResponseEntity<Optional<Holiday>> getcountryEntityById(@RequestBody
-     * String codeCountry) {
-     * return ResponseEntity.ok(this.holidayService.findById(codeCountry));
-     * }
-     */
+
+    @GetMapping("/{date}")
+    public ResponseEntity<Optional<Holiday>> getHolidayById(@PathVariable String date) {
+        return ResponseEntity.ok(this.holidayService.findById(date));
+    }
 }
