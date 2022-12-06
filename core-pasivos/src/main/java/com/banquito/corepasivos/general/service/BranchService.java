@@ -14,46 +14,43 @@ import com.banquito.corepasivos.general.repository.BranchRepository;
 @Service
 public class BranchService {
 
-    private final BranchRepository branchRepository; 
+    private final BranchRepository branchRepository;
 
     public BranchService(BranchRepository branchRepository) {
         this.branchRepository = branchRepository;
     }
 
     @Transactional
-    public void create(Branch branch){
+    public void create(Branch branch) {
         List<Branch> bankEntities = this.branchRepository.findByPkCodeBranch(branch.getPk().getCodeBranch());
-        if(bankEntities.isEmpty()){
+        if (bankEntities.isEmpty()) {
             this.branchRepository.save(branch);
-        }
-        else{
+        } else {
             throw new RuntimeException("The Branch already exists");
         }
     }
-    
+
     @Transactional
-    public void update(Branch branch){
+    public void update(Branch branch) {
         List<Branch> bankEntities = this.branchRepository.findByPkCodeBranch(branch.getPk().getCodeBranch());
-        if(!bankEntities.isEmpty()){
+        if (!bankEntities.isEmpty()) {
             this.branchRepository.save(branch);
-        }
-        else{
+        } else {
             throw new RuntimeException("An error has occurred in the Branch update");
         }
-    } 
-    
+    }
+
     @Transactional
-    public void delete(Branch branch){
+    public void delete(Branch branch) {
         List<Branch> bankEntities = this.branchRepository.findByPkCodeBranch(branch.getPk().getCodeBranch());
-        if (!bankEntities.isEmpty()){
+        if (!bankEntities.isEmpty()) {
             this.branchRepository.delete(branch);
-        }   
-        else{
+        } else {
             throw new RuntimeException("The Bank Entity does not exist");
         }
     }
 
-    public Optional<Branch> findById(BranchPK branchPK){
+    public Optional<Branch> findById(BranchPK branchPK) {
         try {
             return this.branchRepository.findById(branchPK);
         } catch (Exception e) {
@@ -61,7 +58,7 @@ public class BranchService {
         }
     }
 
-    public List<Branch> findAll(){
+    public List<Branch> findAll() {
         return this.branchRepository.findAll();
     }
 }

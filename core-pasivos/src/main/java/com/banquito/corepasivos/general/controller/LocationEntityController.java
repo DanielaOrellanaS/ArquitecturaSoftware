@@ -35,7 +35,7 @@ public class LocationEntityController {
     }
 
     @PutMapping(consumes = { "application/json" })
-    public ResponseEntity<String> updatecountryEntity(@RequestBody LocationEntity locationEntity) {
+    public ResponseEntity<String> updateLocationEntity(@RequestBody LocationEntity locationEntity) {
         try {
             this.locationEntityService.update(locationEntity);
             return ResponseEntity.ok("Location Entity updated successfully");
@@ -45,7 +45,7 @@ public class LocationEntityController {
     }
 
     @DeleteMapping(consumes = { "application/json" })
-    public ResponseEntity<String> deletecountryEntity(@RequestBody LocationEntity locationEntity) {
+    public ResponseEntity<String> deleteLocationEntity(@RequestBody LocationEntity locationEntity) {
         try {
             this.locationEntityService.delete(locationEntity);
             return ResponseEntity.ok("Location Entity delete successfully");
@@ -55,7 +55,7 @@ public class LocationEntityController {
     }
 
     @GetMapping
-    public ResponseEntity<List<LocationEntity>> getBankEntity() {
+    public ResponseEntity<List<LocationEntity>> getLocationEntities() {
         return ResponseEntity.ok(this.locationEntityService.findAll());
     }
     /*

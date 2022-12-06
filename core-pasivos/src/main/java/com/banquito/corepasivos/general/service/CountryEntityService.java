@@ -12,7 +12,7 @@ import com.banquito.corepasivos.general.repository.CountryEntityRepository;
 
 @Service
 public class CountryEntityService {
-    
+
     private final CountryEntityRepository countryEntityRepository;
 
     public CountryEntityService(CountryEntityRepository countryEntityRepository) {
@@ -21,7 +21,8 @@ public class CountryEntityService {
 
     @Transactional
     public void create(CountryEntity countryEntity) {
-        List<CountryEntity> countryEntities = this.countryEntityRepository.findByCodeCountry(countryEntity.getCodeCountry());
+        List<CountryEntity> countryEntities = this.countryEntityRepository
+                .findByCodeCountry(countryEntity.getCodeCountry());
         if (countryEntities.isEmpty()) {
             this.countryEntityRepository.save(countryEntity);
         } else {
@@ -31,7 +32,8 @@ public class CountryEntityService {
 
     @Transactional
     public void update(CountryEntity countryEntity) {
-        List<CountryEntity> countryEntities = this.countryEntityRepository.findByCodeCountry(countryEntity.getCodeCountry());
+        List<CountryEntity> countryEntities = this.countryEntityRepository
+                .findByCodeCountry(countryEntity.getCodeCountry());
         if (!countryEntities.isEmpty() && countryEntities.size() == 1) {
             this.countryEntityRepository.save(countryEntity);
         } else {
@@ -41,7 +43,8 @@ public class CountryEntityService {
 
     @Transactional
     public void delete(CountryEntity countryEntity) {
-        List<CountryEntity> countryEntities = this.countryEntityRepository.findByCodeCountry(countryEntity.getCodeCountry());
+        List<CountryEntity> countryEntities = this.countryEntityRepository
+                .findByCodeCountry(countryEntity.getCodeCountry());
         if (!countryEntities.isEmpty()) {
             this.countryEntityRepository.delete(countryEntity);
         } else {
@@ -59,6 +62,6 @@ public class CountryEntityService {
         } catch (Exception e) {
             throw new RuntimeException("The Country Entity does not exist");
         }
-        
+
     }
 }

@@ -3,7 +3,6 @@ package com.banquito.corepasivos.general.controller;
 import java.util.List;
 import java.util.Optional;
 
-
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -59,7 +58,7 @@ public class CountryEntityController {
     }
 
     @GetMapping
-    public ResponseEntity<List<CountryEntity>> getBankEntity() {
+    public ResponseEntity<List<CountryEntity>> getCountryEntity() {
         return ResponseEntity.ok(this.countryEntityService.findAll());
     }
 

@@ -1,7 +1,6 @@
 package com.banquito.corepasivos.general.controller;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -36,7 +35,7 @@ public class HolidayController {
     }
 
     @PutMapping(consumes = { "application/json" })
-    public ResponseEntity<String> updatecountryEntity(@RequestBody Holiday holiday) {
+    public ResponseEntity<String> updateHoliday(@RequestBody Holiday holiday) {
         try {
             this.holidayService.update(holiday);
             return ResponseEntity.ok("Holiday updated successfully");
@@ -46,7 +45,7 @@ public class HolidayController {
     }
 
     @DeleteMapping(consumes = { "application/json" })
-    public ResponseEntity<String> deletecountryEntity(@RequestBody Holiday holiday) {
+    public ResponseEntity<String> deleteHoliday(@RequestBody Holiday holiday) {
         try {
             this.holidayService.delete(holiday);
             return ResponseEntity.ok("Holiday delete successfully");
@@ -56,7 +55,7 @@ public class HolidayController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Holiday>> getBankEntity() {
+    public ResponseEntity<List<Holiday>> getHolidays() {
         return ResponseEntity.ok(this.holidayService.findAll());
     }
     /*
