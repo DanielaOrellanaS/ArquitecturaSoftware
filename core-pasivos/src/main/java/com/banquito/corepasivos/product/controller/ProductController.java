@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.banquito.corepasivos.product.model.Product;
@@ -27,37 +28,37 @@ public class ProductController {
         this.productService = productService;
     }
 
-    @GetMapping("/all")
+    @RequestMapping(value = "/all", method = RequestMethod.GET)
     public ResponseEntity<List<Product>> findAll() {
         List<Product> products = this.productService.findAllProducts();
         return products.isEmpty() ? ResponseEntity.noContent().build() : ResponseEntity.ok(products);
     }
 
-    @GetMapping("/codetype/{codeProductType}")
+    @RequestMapping(value = "/code-type/{codeProductType}", method = RequestMethod.GET)
     public ResponseEntity<List<Product>> findByCodeProductType(@PathVariable("codeProductType") String codeProductType) {
         List<Product> products = this.productService.findByCodeProductType(codeProductType);
         return products.isEmpty() ? ResponseEntity.noContent().build() : ResponseEntity.ok(products);
     }
 
-    @GetMapping("/code/{codeProduct}")
+    @RequestMapping(value = "/code/{codeProduct}", method = RequestMethod.GET)
     public ResponseEntity<Product> findByCodeProduct(@PathVariable("codeProduct") String codeProduct) {
         Product product = this.productService.findByCodeProduct(codeProduct);
         return product == null ? ResponseEntity.noContent().build() : ResponseEntity.ok(product);
     }
 
-    @GetMapping("/name/contains/{name}")
+    @RequestMapping(value = "/name-contain/{name}", method = RequestMethod.GET)
     public ResponseEntity<List<Product>> findByNameContains(@PathVariable("name") String name) {
         List<Product> products = this.productService.findByNameContaining(name);
         return products.isEmpty() ? ResponseEntity.noContent().build() : ResponseEntity.ok(products);
     }
 
-    @GetMapping("/name/{name}")
+    @RequestMapping(value = "/name/{name}", method = RequestMethod.GET)
     public ResponseEntity<Product> findByName(@PathVariable("name") String name) {
         Product product = this.productService.findByName(name);
         return product == null ? ResponseEntity.noContent().build() : ResponseEntity.ok(product);
     }
 
-    @PostMapping(consumes = { MediaType.APPLICATION_JSON_VALUE })
+    @RequestMapping(value = "", method = RequestMethod.POST)
     public ResponseEntity<String> createProduct(@RequestBody Product product) {
         try {
             this.productService.createProduct(product);
@@ -67,7 +68,7 @@ public class ProductController {
         }
     }
 
-    @PutMapping(consumes = { "application/json" })
+    @RequestMapping(value = "", method = RequestMethod.PUT)
     public ResponseEntity<String> updateProduct(
             @RequestBody Product product) {
         try {
@@ -78,7 +79,7 @@ public class ProductController {
         }
     }
 
-    @DeleteMapping("/code/{codeProduct}/codetype/{codeProductType}")
+    @RequestMapping(value = "/{codeProduct}/{codeProductType}", method = RequestMethod.DELETE)
     public ResponseEntity<String> deleteProduct(
         @PathVariable("codeProduct") String codeProduct, 
         @PathVariable("codeProductType") String codeProductType
