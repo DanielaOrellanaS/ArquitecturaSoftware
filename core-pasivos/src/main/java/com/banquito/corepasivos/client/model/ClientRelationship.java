@@ -23,12 +23,6 @@ public class ClientRelationship implements Serializable {
 	@Column(name = "code_relationship", nullable = false)
 	private Integer codeRelationship;
 
-	@Column(name = "identification_type", nullable = false, length = 3)
-	private String identificationType;
-
-	@Column(name = "identification", nullable = false, length = 20)
-	private String identification;
-
 	@Column(name = "relationship_type", length = 32, nullable = false)
 	private String relationshiptype;
 

@@ -9,10 +9,11 @@ import org.springframework.http.ResponseEntity;
 
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/account/transaction")
+@RequestMapping("api/account-transaction")
 public class AccountTransactionController {
 
     private final AccountTransactionService accountTransactionService;
@@ -21,13 +22,19 @@ public class AccountTransactionController {
         this.accountTransactionService = accountTransactionService;
     }
 
-    @RequestMapping("/all")
-    public Object findAll() {
-        return this.accountTransactionService.findAll();
+	@RequestMapping(value = "", method = RequestMethod.GET)
+    public ResponseEntity <List<AccountTransaction>> findAll() {
+        List<AccountTransaction> accountTransactions = this.accountTransactionService.findAll();
+
+		if(accountTransactions.isEmpty()){
+			return ResponseEntity.notFound().build();
+		}else{
+			return ResponseEntity.ok(accountTransactions);
+		}
     }
 
     
-    @RequestMapping("/LocalAccount/{codeLocalAccount}")
+    @RequestMapping("/local-account/{codeLocalAccount}")
 	public ResponseEntity<List<AccountTransaction>> findByCodeLocalAccount(
 			@PathVariable("codeLocalAccount") String codeLocalAccount) {
 
@@ -41,7 +48,7 @@ public class AccountTransactionController {
 
 	}
 
-    @RequestMapping("/CodeUniqueTransaction/{codeUniqueTransaction}")
+    @RequestMapping("/code-transaction/{codeUniqueTransaction}")
 	public ResponseEntity<List<AccountTransaction>> findByCodeUniqueTransaction(
 			@PathVariable("codeUniqueTransaction") String codeUniqueTransaction) {
 
@@ -55,7 +62,7 @@ public class AccountTransactionController {
 
 	}
 
-    @RequestMapping("/Status/{status}")
+    @RequestMapping("/status/{status}")
 	public ResponseEntity<List<AccountTransaction>> findByStatus(
 			@PathVariable("status") String status) {
 
@@ -69,7 +76,7 @@ public class AccountTransactionController {
 
 	}
 
-    @RequestMapping("/RecipientBank/{recipientBank}")
+    @RequestMapping("/recipient-bank/{recipientBank}")
 	public ResponseEntity<List<AccountTransaction>> findByRecipientBank(
 			@PathVariable("recipientBank") String recipientBank) {
 
