@@ -5,9 +5,12 @@ import java.util.Optional;
 
 import javax.transaction.Transactional;
 
+import org.springframework.stereotype.Service;
+
 import com.banquito.corepasivos.general.model.CountryEntity;
 import com.banquito.corepasivos.general.repository.CountryEntityRepository;
 
+@Service
 public class CountryEntityService {
     private final CountryEntityRepository countryEntityRepository;
 

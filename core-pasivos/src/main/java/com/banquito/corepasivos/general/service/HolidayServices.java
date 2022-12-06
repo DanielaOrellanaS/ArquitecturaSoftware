@@ -4,9 +4,12 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
+import org.springframework.stereotype.Service;
+
 import com.banquito.corepasivos.general.model.Holiday;
 import com.banquito.corepasivos.general.repository.HolidayRepository;
 
+@Service
 public class HolidayServices {
     private final HolidayRepository holidayRepository;
 
