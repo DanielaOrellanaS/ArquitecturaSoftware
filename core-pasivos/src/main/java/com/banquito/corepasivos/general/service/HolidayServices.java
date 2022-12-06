@@ -11,7 +11,7 @@ import com.banquito.corepasivos.general.repository.HolidayRepository;
 
 @Service
 public class HolidayServices {
-    private final HolidayRepository holidayRepository;
+    /*private final HolidayRepository holidayRepository;
 
     public HolidayServices(HolidayRepository holidayRepository) {
         this.holidayRepository = holidayRepository;
@@ -49,6 +49,6 @@ public class HolidayServices {
 
     public List<Holiday> findAll() {
         return this.holidayRepository.findAll();
-    }
+    }*/
 
 }

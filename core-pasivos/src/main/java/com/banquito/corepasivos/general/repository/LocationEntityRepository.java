@@ -10,8 +10,8 @@ import com.banquito.corepasivos.general.model.LocationEntity;
 @Repository
 public interface LocationEntityRepository extends JpaRepository<LocationEntity, Integer> {
 
-    List<LocationEntity> findByCodeLocation(Integer codeLocation);
+    /*List<LocationEntity> findByCodeLocation(Integer codeLocation);
 
-    List<LocationEntity> findByName(String name);
+    List<LocationEntity> findByName(String name);*/
 
 }
