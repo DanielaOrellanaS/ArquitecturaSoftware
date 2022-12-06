@@ -1,6 +1,6 @@
 package com.banquito.corepasivos.general.repository;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -11,10 +11,10 @@ import com.banquito.corepasivos.general.model.Holiday;
 @Repository
 public interface HolidayRepository extends JpaRepository<Holiday, Date> {
 
-    /*List<Holiday> findByHolidayDateBetween(Date initDate, Date lastDate);
+    List<Holiday> findByDate(Date date);
 
-    List<Holiday> findByCodeLocation(Integer codeLocation);
+    //List<Holiday> findByCodeLocation(Integer codeLocation);
 
-    List<Holiday> findAll();*/
+    //List<Holiday> findAll();
 
 }
