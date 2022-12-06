@@ -47,7 +47,7 @@ public class ClientPhoneService {
         if (phonesByIdentificationClient.isEmpty())
             throw new RuntimeException("Phone of: " + identification + " not found.");
 
-        ClientPhone phoneClient = phonesByIdentificationClient.get(0);
+        // ClientPhone phoneClient = phonesByIdentificationClient.get(0);
         return this.clientPhoneRepository.save(phoneClientDetails);
     }
 

@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RestController;
 //import com.banquito.corepasivos.general.service.StructureEntityService;
 
 @RestController
-@RequestMapping("/structure")
+@RequestMapping("/api/structure")
 public class StructureEntityController {
 
 }

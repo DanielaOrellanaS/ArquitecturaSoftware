@@ -3,12 +3,9 @@ package com.banquito.corepasivos.general.controller;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.http.ResponseEntity;
 import com.banquito.corepasivos.general.model.BankEntity;
@@ -16,7 +13,7 @@ import com.banquito.corepasivos.general.model.BankEntityPK;
 import com.banquito.corepasivos.general.service.BankEntityService;
 
 @RestController
-@RequestMapping("/BankEntity")
+@RequestMapping("/api/bank-entity")
 public class BankEntityController {
 
     private final BankEntityService bankEntityService;
@@ -25,7 +22,7 @@ public class BankEntityController {
         this.bankEntityService = bankEntityService;
     }
 
-    @PostMapping
+    @RequestMapping(value = "", method = RequestMethod.POST)
     public ResponseEntity<String> createdBankEntity(@RequestBody BankEntity bankEntity) {
         try {
             this.bankEntityService.create(bankEntity);
@@ -36,7 +33,7 @@ public class BankEntityController {
         }
     }
 
-    @PutMapping(consumes = { "application/json" })
+    @RequestMapping(value = "", method = RequestMethod.PUT)
     public ResponseEntity<String> updateBankEntity(@RequestBody BankEntity bankEntity) {
         try {
             this.bankEntityService.update(bankEntity);
@@ -46,7 +43,7 @@ public class BankEntityController {
         }
     }
 
-    @DeleteMapping(consumes = { "application/json" })
+    @RequestMapping(value = "", method = RequestMethod.DELETE)
     public ResponseEntity<String> deleteBankEntity(@RequestBody BankEntity bankEntity) {
         try {
             this.bankEntityService.delete(bankEntity);
@@ -56,12 +53,12 @@ public class BankEntityController {
         }
     }
 
-    @GetMapping
+    @RequestMapping(value = "", method = RequestMethod.GET)
     public ResponseEntity<List<BankEntity>> getBankEntity() {
         return ResponseEntity.ok(this.bankEntityService.findAll());
     }
 
-    @GetMapping(consumes = { "application/json" })
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<Optional<BankEntity>> getBankEntityById(@RequestBody BankEntityPK bankEntityPK) {
         return ResponseEntity.ok(this.bankEntityService.findById(bankEntityPK));
     }

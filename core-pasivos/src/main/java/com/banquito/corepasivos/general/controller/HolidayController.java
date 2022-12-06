@@ -4,20 +4,17 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.banquito.corepasivos.general.model.Holiday;
 import com.banquito.corepasivos.general.service.HolidayServices;
 
 @RestController
-@RequestMapping("/holiday")
+@RequestMapping("/api/holiday")
 public class HolidayController {
     private final HolidayServices holidayService;
 
@@ -25,7 +22,7 @@ public class HolidayController {
         this.holidayService = holidayService;
     }
 
-    @PostMapping
+    @RequestMapping(value = "/", method = RequestMethod.POST)
     public ResponseEntity<String> createHoliday(@RequestBody Holiday holiday) {
         try {
             this.holidayService.create(holiday);
@@ -35,7 +32,7 @@ public class HolidayController {
         }
     }
 
-    @PutMapping(consumes = { "application/json" })
+    @RequestMapping(value = "/", method = RequestMethod.PUT)
     public ResponseEntity<String> updateHoliday(@RequestBody Holiday holiday) {
         try {
             this.holidayService.update(holiday);
@@ -45,7 +42,7 @@ public class HolidayController {
         }
     }
 
-    @DeleteMapping(consumes = { "application/json" })
+    @RequestMapping(value = "/", method = RequestMethod.DELETE)
     public ResponseEntity<String> deleteHoliday(@RequestBody Holiday holiday) {
         try {
             this.holidayService.delete(holiday);
@@ -55,13 +52,13 @@ public class HolidayController {
         }
     }
 
-    @GetMapping
+    @RequestMapping(value = "/", method = RequestMethod.GET)
     public ResponseEntity<List<Holiday>> getHolidays() {
         return ResponseEntity.ok(this.holidayService.findAll());
     }
 
-    @GetMapping("/{date}")
-    public ResponseEntity<Optional<Holiday>> getHolidayById(@PathVariable String date) {
+    @RequestMapping(value = "/{date}", method = RequestMethod.PUT)
+    public ResponseEntity<Optional<Holiday>> getHolidayById(@PathVariable("date") String date) {
         return ResponseEntity.ok(this.holidayService.findById(date));
     }
 }

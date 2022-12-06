@@ -4,12 +4,9 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.banquito.corepasivos.general.model.Branch;
@@ -17,7 +14,7 @@ import com.banquito.corepasivos.general.model.BranchPK;
 import com.banquito.corepasivos.general.service.BranchService;
 
 @RestController
-@RequestMapping("/branch")
+@RequestMapping("/api/branch")
 public class BranchController {
 
     private final BranchService branchService;
@@ -26,7 +23,7 @@ public class BranchController {
         this.branchService = branchService;
     }
 
-    @PostMapping
+    @RequestMapping(value = "", method = RequestMethod.POST)
     public ResponseEntity<String> createdBranch(@RequestBody Branch branch) {
         try {
             this.branchService.create(branch);
@@ -37,7 +34,7 @@ public class BranchController {
         }
     }
 
-    @PutMapping(consumes = { "application/json" })
+    @RequestMapping(value = "", method = RequestMethod.PUT)
     public ResponseEntity<String> updateBranch(@RequestBody Branch branch) {
         try {
             this.branchService.update(branch);
@@ -47,7 +44,7 @@ public class BranchController {
         }
     }
 
-    @DeleteMapping(consumes = { "application/json" })
+    @RequestMapping(value = "", method = RequestMethod.DELETE)
     public ResponseEntity<String> deleteBranch(@RequestBody Branch branch) {
         try {
             this.branchService.delete(branch);
@@ -57,12 +54,12 @@ public class BranchController {
         }
     }
 
-    @GetMapping
+    @RequestMapping(value = "", method = RequestMethod.GET)
     public ResponseEntity<List<Branch>> getBranch() {
         return ResponseEntity.ok(this.branchService.findAll());
     }
 
-    @GetMapping(consumes = { "application/json" })
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<Optional<Branch>> getBankEntityById(@RequestBody BranchPK branchPK) {
         return ResponseEntity.ok(this.branchService.findById(branchPK));
     }

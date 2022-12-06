@@ -3,13 +3,10 @@ package com.banquito.corepasivos.general.controller;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.http.ResponseEntity;
 
@@ -17,7 +14,7 @@ import com.banquito.corepasivos.general.model.CountryEntity;
 import com.banquito.corepasivos.general.service.CountryEntityService;
 
 @RestController
-@RequestMapping("countryentity")
+@RequestMapping("/api/country-entity")
 public class CountryEntityController {
 
     private final CountryEntityService countryEntityService;
@@ -26,7 +23,7 @@ public class CountryEntityController {
         this.countryEntityService = countryEntityService;
     }
 
-    @PostMapping
+    @RequestMapping(value = "/", method = RequestMethod.POST)
     public ResponseEntity<String> createCountryEntity(@RequestBody CountryEntity countryEntity) {
         try {
             this.countryEntityService.create(countryEntity);
@@ -37,7 +34,8 @@ public class CountryEntityController {
         }
     }
 
-    @PutMapping(consumes = { "application/json" })
+    @RequestMapping(value = "/", method = RequestMethod.PUT)
+
     public ResponseEntity<String> updateCountryEntity(@RequestBody CountryEntity countryEntity) {
         try {
             this.countryEntityService.update(countryEntity);
@@ -47,7 +45,7 @@ public class CountryEntityController {
         }
     }
 
-    @DeleteMapping(consumes = { "application/json" })
+    @RequestMapping(value = "/", method = RequestMethod.DELETE)
     public ResponseEntity<String> deleteCountryEntity(@RequestBody CountryEntity countryEntity) {
         try {
             this.countryEntityService.delete(countryEntity);
@@ -57,12 +55,12 @@ public class CountryEntityController {
         }
     }
 
-    @GetMapping
+    @RequestMapping(value = "/", method = RequestMethod.GET)
     public ResponseEntity<List<CountryEntity>> getCountryEntity() {
         return ResponseEntity.ok(this.countryEntityService.findAll());
     }
 
-    @GetMapping("/{codeCountry}")
+    @RequestMapping(value = "/{codeCountry}", method = RequestMethod.GET)
     public ResponseEntity<Optional<CountryEntity>> getCountryEntityById(@PathVariable String codeCountry) {
         return ResponseEntity.ok(this.countryEntityService.findById(codeCountry));
     }

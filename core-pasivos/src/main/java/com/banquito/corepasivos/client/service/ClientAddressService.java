@@ -1,7 +1,6 @@
 package com.banquito.corepasivos.client.service;
 
 import java.util.List;
-import java.util.Optional;
 
 import javax.transaction.Transactional;
 
