@@ -11,13 +11,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.banquito.corepasivos.client.model.ClientRelationship;
 import com.banquito.corepasivos.client.service.ClientRelationshipService;
 
 @RestController
-@RequestMapping("/api/clientrelationship")
+@RequestMapping("/api/client-relationships")
 public class ClientRelationshipController {
 
     private final ClientRelationshipService clientRelationshipService;
@@ -26,8 +27,7 @@ public class ClientRelationshipController {
         this.clientRelationshipService = clientRelationshipService;
     }
 
-    /*GET */
-    @GetMapping(path= "/all")
+    @RequestMapping(value = "/", method = RequestMethod.GET)
     public ResponseEntity<List<ClientRelationship>> getAll() {
         List<ClientRelationship> clientRelationship = this.clientRelationshipService.searchAll();
         if(clientRelationship != null) {
@@ -37,7 +37,7 @@ public class ClientRelationshipController {
         }
     }
 
-    @GetMapping(path = "/relationshiptype/{relationshipType}")
+    @RequestMapping(value = "/{relationshipType}", method = RequestMethod.GET)
     public ResponseEntity<List<ClientRelationship>> searchTypeRelationship(@PathVariable("relationshipType") String relationshipType) {
         List<ClientRelationship> clientRelationship = this.clientRelationshipService.searchTypeRelationship(relationshipType);
         if (clientRelationship != null)
@@ -48,7 +48,7 @@ public class ClientRelationshipController {
         }
     }
 
-    @GetMapping(path = "/identification/{identification}")
+    @RequestMapping(value = "/{identification}", method = RequestMethod.GET)
     public ResponseEntity<ClientRelationship> searchById(@PathVariable("identification") String identification) {
         ClientRelationship clientRelationship = this.clientRelationshipService.searchById(identification);
         if (clientRelationship != null)
@@ -60,7 +60,7 @@ public class ClientRelationshipController {
     }
 
     // Post
-    @PostMapping(consumes = { MediaType.APPLICATION_JSON_VALUE })
+    @RequestMapping(value = "/", method = RequestMethod.POST)
     public ResponseEntity<String> createClientRelationship(@RequestBody ClientRelationship clientRelationship) {
         try {
             this.clientRelationshipService.createClientRelationship(clientRelationship);
@@ -71,7 +71,7 @@ public class ClientRelationshipController {
     }
 
     // Put
-    @PutMapping(consumes = { "application/json" })
+    @RequestMapping(value = "/", method = RequestMethod.PUT)
     public ResponseEntity<String> updateClientRelationship(@RequestBody ClientRelationship clientRelationship) {
         try {
             this.clientRelationshipService.updateClientRelationship(clientRelationship);
@@ -82,7 +82,7 @@ public class ClientRelationshipController {
     }
 
     // Delete
-    @DeleteMapping(path = "/identification/{identification}")
+    @RequestMapping(value = "/{identification}", method = RequestMethod.DELETE)
     public ResponseEntity<String> deleteClientRelationshipIdentification(@PathVariable("identification") String identification) {
         try {
             this.clientRelationshipService.deleteClientRelationshipIdentification(identification);
@@ -92,7 +92,7 @@ public class ClientRelationshipController {
         }
     }
 
-    @DeleteMapping(path = "/code/{codeRelationship}")
+    @RequestMapping(value = "/code/{codeRelationship}", method = RequestMethod.DELETE)
     public ResponseEntity<String> deleteClientRelationshipCode(@PathVariable("codeRelationship") Integer codeRelationship) {
         try {
             this.clientRelationshipService.deleteClientRelationshipCode(codeRelationship);
