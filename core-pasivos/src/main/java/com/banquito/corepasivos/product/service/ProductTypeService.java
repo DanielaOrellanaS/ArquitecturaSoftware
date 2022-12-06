@@ -54,7 +54,16 @@ public class ProductTypeService {
 
     @Transactional
     public void deleteProductType(String codeProductType) {
-        this.productTypeRepository.deleteByCodeProductType(codeProductType);
+        Optional<ProductType> product = this.productTypeRepository.findById(codeProductType);
+        if (!product.isPresent())
+            throw new RuntimeException("No associated services found");
+        else
+            try {
+                this.productTypeRepository.deleteById(codeProductType);
+            } catch (Exception e) {
+                throw new RuntimeException(
+                        "An error occurred while removing one of the associated services");
+            }
     }
 
     public List<ProductType> findByNameContaining(String name) {
