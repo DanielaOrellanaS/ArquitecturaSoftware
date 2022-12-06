@@ -11,10 +11,8 @@ import com.banquito.corepasivos.general.model.Holiday;
 @Repository
 public interface HolidayRepository extends JpaRepository<Holiday, Date> {
 
-    /*List<Holiday> findByHolidayDateBetween(Date initDate, Date lastDate);
-
     List<Holiday> findByCodeLocation(Integer codeLocation);
 
-    List<Holiday> findAll();*/
+    List<Holiday> findAll();
 
 }

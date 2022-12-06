@@ -8,5 +8,5 @@ import com.banquito.corepasivos.general.model.StructureEntityPK;
 
 @Repository
 public interface StructureEntityReposiroty extends JpaRepository<StructureEntity, StructureEntityPK> {
-    // No necesario?
+
 }

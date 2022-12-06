@@ -24,7 +24,7 @@ public class LocationEntityController {
     }
 
     @PostMapping
-    public ResponseEntity<String> newHoliday(@RequestBody LocationEntity locationEntity) {
+    public ResponseEntity<String> createLocatioEntity(@RequestBody LocationEntity locationEntity) {
         try {
             this.locationEntityService.create(locationEntity);
             ;

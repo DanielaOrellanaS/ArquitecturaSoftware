@@ -25,7 +25,7 @@ public class HolidayController {
     }
 
     @PostMapping
-    public ResponseEntity<String> newHoliday(@RequestBody Holiday holiday) {
+    public ResponseEntity<String> createHoliday(@RequestBody Holiday holiday) {
         try {
             this.holidayService.create(holiday);
             ;
