@@ -36,7 +36,7 @@ public class ClientPhoneController {
         return ResponseEntity.ok(clientPhones);
     }
 
-    @RequestMapping(value = "/client-phone/{identification}", method = RequestMethod.GET)
+    @RequestMapping(value = "/{identification}", method = RequestMethod.GET)
     public ResponseEntity<List<ClientPhone>> findByIdentificationClient(
             @PathVariable("identification") String identification) {
         List<ClientPhone> phonesByIdentificationClient = this.clientPhoneService.findByIdentificationClient(identification);
@@ -47,7 +47,7 @@ public class ClientPhoneController {
         return ResponseEntity.ok(phonesByIdentificationClient);
     }
 
-    @RequestMapping(value = "/client-phone/{identification}", method = RequestMethod.PUT)
+    @RequestMapping(value = "/{identification}", method = RequestMethod.PUT)
     public ClientPhone updateByIdentificationClient(@RequestBody ClientPhone clientPhone,
             @PathVariable("identification") String identification) {
         return this.clientPhoneService.updateByIdentificationClient(identification, clientPhone);
