@@ -59,7 +59,7 @@ public class AccountSignatureController {
 			@RequestBody AccountSignature accountSignature) {
 		try {
             this.accountSignatureService.register(accountSignature);
-			return ResponseEntity.ok("OK");
+			return ResponseEntity.ok("Account Signature succesfully added");
 		} catch (Exception e) {
 			return ResponseEntity.internalServerError().body(e.getMessage());
 		}
@@ -70,7 +70,7 @@ public class AccountSignatureController {
         @PathVariable("codeLocalAccount") String codeLocalAccount, @PathVariable("identification") String identification) {
 		try {
             this.accountSignatureService.delete(codeLocalAccount, identification);
-			return ResponseEntity.ok("OK");
+			return ResponseEntity.ok("Account Signature succesfully deleted");
 		} catch (Exception e) {
 			return ResponseEntity.internalServerError().body(e.getMessage());
 		}

@@ -13,4 +13,6 @@ public interface AccountSignatureRepository extends JpaRepository<AccountSignatu
     List <AccountSignature> findByPkCodelocalaccount(String code);
     List <AccountSignature> findByPkCodeinternationalaccount(String code);
     List <AccountSignature> findBySignatureReference(String reference);
+    List <AccountSignaturePK> findByPkAccountsignature(AccountSignaturePK accountSignaturePK);
+   
 }
