@@ -11,7 +11,7 @@ import com.banquito.corepasivos.general.repository.LocationEntityRepository;
 
 @Service
 public class LocationEntityService {
-    /*private final LocationEntityRepository locationEntityRepository;
+    private final LocationEntityRepository locationEntityRepository;
 
     public LocationEntityService(LocationEntityRepository locationEntityRepository) {
         this.locationEntityRepository = locationEntityRepository;
@@ -52,5 +52,5 @@ public class LocationEntityService {
 
     public List<LocationEntity> findAll() {
         return this.locationEntityRepository.findAll();
-    }*/
+    }
 }

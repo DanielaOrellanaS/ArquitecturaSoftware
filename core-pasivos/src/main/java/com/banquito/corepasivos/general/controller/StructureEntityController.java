@@ -8,13 +8,5 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/structure")
 public class StructureEntityController {
-    /*
-     * @Autowired
-     * StructureEntityService structureEntityService;
-     * 
-     * @GetMapping("/all")
-     * public Object getStructureEntity() {
-     * return this.structureEntityService.getAllStructureEntities();
-     * }
-     */
+
 }

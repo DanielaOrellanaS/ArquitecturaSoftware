@@ -14,7 +14,6 @@ import com.banquito.corepasivos.general.repository.HolidayRepository;
 
 @Service
 public class HolidayServices {
-    
     private final HolidayRepository holidayRepository;
 
     public HolidayServices(HolidayRepository holidayRepository) {

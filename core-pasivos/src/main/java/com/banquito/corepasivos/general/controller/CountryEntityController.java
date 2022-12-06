@@ -67,4 +67,5 @@ public class CountryEntityController {
     public ResponseEntity<Optional<CountryEntity>> getCountryEntityById(@PathVariable String codeCountry) {
         return ResponseEntity.ok(this.countryEntityService.findById(codeCountry));
     }
+
 }
