@@ -22,7 +22,7 @@ public class ClientRelationshipService {
     }
 
     public List<ClientRelationship> searchTypeRelationship(String relationshipType) {
-        return clientRelationshipRepository.findByRelationshipType(relationshipType);
+        return clientRelationshipRepository.findByRelationshiptype(relationshipType);
     }
 
     public ClientRelationship searchById(String identification) {
@@ -45,8 +45,9 @@ public class ClientRelationshipService {
 
     @Transactional
     public void updateClientRelationship(ClientRelationship clientRelationship) {
-        List<ClientRelationship> clientRelationships = this.clientRelationshipRepository.findByIdentification(clientRelationship.getIdentification());
-        if(clientRelationships.isEmpty()) {
+        List<ClientRelationship> clientRelationships = this.clientRelationshipRepository
+                .findByIdentification(clientRelationship.getIdentification());
+        if (clientRelationships.isEmpty()) {
             throw new RuntimeException("The client does not exist.");
         } else {
             this.clientRelationshipRepository.save(clientRelationship);
@@ -55,8 +56,9 @@ public class ClientRelationshipService {
 
     @Transactional
     public void deleteClientRelationshipIdentification(String identification) {
-        List<ClientRelationship> clientRelationships = this.clientRelationshipRepository.findByIdentification(identification);
-        if(clientRelationships.isEmpty()) {
+        List<ClientRelationship> clientRelationships = this.clientRelationshipRepository
+                .findByIdentification(identification);
+        if (clientRelationships.isEmpty()) {
             throw new RuntimeException("The client with this ID does not exist.");
         } else {
             this.clientRelationshipRepository.delete(clientRelationships.get(0));
@@ -65,8 +67,9 @@ public class ClientRelationshipService {
 
     @Transactional
     public void deleteClientRelationshipCode(Integer codeRelationship) {
-        List<ClientRelationship> clientRelationships = this.clientRelationshipRepository.findByCodeRelationship(codeRelationship);
-        if(clientRelationships.isEmpty()) {
+        List<ClientRelationship> clientRelationships = this.clientRelationshipRepository
+                .findByCodeRelationship(codeRelationship);
+        if (clientRelationships.isEmpty()) {
             throw new RuntimeException("The client with this code does not exist.");
         } else {
             this.clientRelationshipRepository.delete(clientRelationships.get(0));
