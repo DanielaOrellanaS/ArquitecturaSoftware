@@ -26,7 +26,7 @@ public class BankEntityController {
     }
 
     @PostMapping
-    public ResponseEntity<String> newEmployee(@RequestBody BankEntity bankEntity) {
+    public ResponseEntity<String> newBankEntity(@RequestBody BankEntity bankEntity) {
         try {
             this.bankEntityService.create(bankEntity);
             ;

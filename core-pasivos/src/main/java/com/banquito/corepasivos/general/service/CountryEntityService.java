@@ -21,7 +21,8 @@ public class CountryEntityService {
     // CRUD Literal 3
     @Transactional
     public void create(CountryEntity countryEntity) {
-        List<CountryEntity> countryEntities = this.countryEntityRepository.findByCode(countryEntity.getCodeCountry());
+        List<CountryEntity> countryEntities = this.countryEntityRepository
+                .findByCodeCountry(countryEntity.getCodeCountry());
         if (countryEntities.isEmpty()) {
             this.countryEntityRepository.save(countryEntity);
         } else {
@@ -31,7 +32,8 @@ public class CountryEntityService {
 
     @Transactional
     public void update(CountryEntity countryEntity) {
-        List<CountryEntity> countryEntities = this.countryEntityRepository.findByCode(countryEntity.getCodeCountry());
+        List<CountryEntity> countryEntities = this.countryEntityRepository
+                .findByCodeCountry(countryEntity.getCodeCountry());
         if (!countryEntities.isEmpty() && countryEntities.size() == 1) {
             this.countryEntityRepository.save(countryEntity);
         } else {
@@ -41,7 +43,8 @@ public class CountryEntityService {
 
     @Transactional
     public void delete(CountryEntity countryEntity) {
-        List<CountryEntity> countryEntities = this.countryEntityRepository.findByCode(countryEntity.getCodeCountry());
+        List<CountryEntity> countryEntities = this.countryEntityRepository
+                .findByCodeCountry(countryEntity.getCodeCountry());
         if (!countryEntities.isEmpty()) {
             this.countryEntityRepository.delete(countryEntity);
         } else {
