@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.banquito.corepasivos.client.model.ClientPhone;
 import com.banquito.corepasivos.client.repository.ClientPhoneRepository;
+import com.banquito.corepasivos.client.utils.Validations;
 
 @Service
 public class ClientPhoneService {
@@ -18,8 +19,13 @@ public class ClientPhoneService {
     }
 
     @Transactional
-    public ClientPhone save(ClientPhone clientPhone) {
-        return this.clientPhoneRepository.save(clientPhone);
+    public ClientPhone save(ClientPhone newclientPhone) {
+        if(newclientPhone.getPk().getPhonenumber().length() > 16 || newclientPhone.getPk().getPhonenumber().length() <= 0 )
+            throw new RuntimeException("The phone: " + newclientPhone.getPk().getPhonenumber() + " is too long.");
+
+        if(Validations.validateIdentificationByType(newclientPhone.getPk().getIdentification(), newclientPhone.getPk().getIdentificationType()))
+            throw new RuntimeException("The identification:" + newclientPhone.getPk().getIdentification() + " is incorrect");
+        return this.clientPhoneRepository.save(newclientPhone);
     }
 
     public List<ClientPhone> findAll() {
@@ -41,17 +47,21 @@ public class ClientPhoneService {
     }
 
     @Transactional
-    public ClientPhone updateByIdentificationClient(String identification, ClientPhone phoneClientDetails) {
+    public ClientPhone updateByIdentificationClient(String identification, ClientPhone newclientPhone) {
         List<ClientPhone> phonesByIdentificationClient = this.clientPhoneRepository.findByPkIdentificationEquals(identification);
 
         if (phonesByIdentificationClient.isEmpty())
             throw new RuntimeException("Phone of: " + identification + " not found.");
 
-        ClientPhone phoneClient = phonesByIdentificationClient.get(0);
-        return this.clientPhoneRepository.save(phoneClientDetails);
+        if(newclientPhone.getPk().getPhonenumber().length() > 16 || newclientPhone.getPk().getPhonenumber().length() <= 0 )
+            throw new RuntimeException("The phone: " + newclientPhone.getPk().getPhonenumber() + " is too long.");
+
+        if(Validations.validateIdentificationByType(identification, newclientPhone.getPk().getIdentificationType()))
+            throw new RuntimeException("The identification:" + newclientPhone.getPk().getIdentification() + " is incorrect");
+
+        return this.clientPhoneRepository.save(newclientPhone);
     }
 
-   
     @Transactional
     public ClientPhone deleteByIdentificationClient(String identification) {
         List<ClientPhone> phonesByIdentificationClient = this.clientPhoneRepository.findByPkIdentificationEquals(identification);
