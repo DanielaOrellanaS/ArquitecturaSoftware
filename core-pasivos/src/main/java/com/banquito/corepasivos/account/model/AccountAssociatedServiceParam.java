@@ -41,6 +41,15 @@ public class AccountAssociatedServiceParam implements Serializable {
 	@Column(name = "end_date", nullable = true)
 	private Date endDate;
 
+	@Column(name = "code_local_account", length = 20, nullable = false, insertable = false, updatable = false)
+	private String codeLocalAccount;
+
+	@Column(name = "code_international_account", length = 34, nullable = false, insertable = false, updatable = false)
+	private String codeInternationalAccount;
+
+	@Column(name = "code_param", length = 16, nullable = false, insertable = false, updatable = false)
+	private String codeParam;
+
 	@JsonBackReference(value = "associatedServiceParam-accountAssociatedServiceParam")
 	@ManyToOne
 	@JoinColumns({
