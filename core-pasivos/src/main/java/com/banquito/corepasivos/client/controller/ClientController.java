@@ -2,7 +2,6 @@ package com.banquito.corepasivos.client.controller;
 
 import java.util.List;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -37,10 +36,10 @@ public class ClientController {
     public ResponseEntity<Client> findAllClientsByIdentification(
             @PathVariable("identification") String identification) {
         if (!this.clientService.existsClientByIdentification(identification)) {
-            return new ResponseEntity(("Client not found"), HttpStatus.NOT_FOUND);
+            return ResponseEntity.notFound().build();
         } else {
             List<Client> clients = this.clientService.findAllClientsByIdentification(identification);
-            return new ResponseEntity(clients, HttpStatus.OK);
+            return ResponseEntity.ok(clients.get(0));
         }
     }
 
