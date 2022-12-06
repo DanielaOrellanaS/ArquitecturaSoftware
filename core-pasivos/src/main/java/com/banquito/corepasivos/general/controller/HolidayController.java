@@ -3,18 +3,15 @@ package com.banquito.corepasivos.general.controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-//import com.banquito.corepasivos.general.service.HolidayService;
+import com.banquito.corepasivos.general.service.HolidayServices;
 
 @RestController
-@RequestMapping("/holiday")
+@RequestMapping("/api/holiday")
 public class HolidayController {
-    /*
-     * @Autowired
-     * HolidayService holidayService;
-     * 
-     * @GetMapping("/all")
-     * public Object getHoliday() {
-     * return this.holidayService.getAllHolidays();
-     * }
-     */
+    private final HolidayServices holidayService;
+
+    public HolidayController(HolidayServices holidayService) {
+        this.holidayService = holidayService;
+    }
+
 }
