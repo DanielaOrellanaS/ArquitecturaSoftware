@@ -25,14 +25,23 @@ public class ClientAddressController {
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public ResponseEntity<List<ClientAddress>> findAllClientAddresses() {
-        List<ClientAddress> clientAddresses = this.clientAddressService.findAllClientAddresses();
-        return ResponseEntity.ok(clientAddresses);
+        try {
+            List<ClientAddress> clientAddresses = this.clientAddressService.findAllClientAddresses();
+            return ResponseEntity.ok(clientAddresses);
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().body(null);
+        }
     }
 
     @RequestMapping(value = "/{client}", method = RequestMethod.GET)
     public ResponseEntity<List<ClientAddress>> findAllClientAddresses(@PathVariable("client") String client) {
-        List<ClientAddress> clientAddresses = this.clientAddressService.findAllClientAddressesByIdentification(client);
-        return ResponseEntity.ok(clientAddresses);
+        try {
+            List<ClientAddress> clientAddresses = this.clientAddressService
+                    .findAllClientAddressesByIdentification(client);
+            return ResponseEntity.ok(clientAddresses);
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().body(null);
+        }
     }
 
     @RequestMapping(value = "/", method = RequestMethod.POST)
@@ -46,8 +55,7 @@ public class ClientAddressController {
     }
 
     @RequestMapping(value = "/", method = RequestMethod.PUT)
-    public ResponseEntity<String> updateClientAddress(
-            @RequestBody ClientAddress clientAddress) {
+    public ResponseEntity<String> updateClientAddress(@RequestBody ClientAddress clientAddress) {
         try {
             this.clientAddressService.updateClientAddress(clientAddress);
             return ResponseEntity.ok("Address successfully updated");
