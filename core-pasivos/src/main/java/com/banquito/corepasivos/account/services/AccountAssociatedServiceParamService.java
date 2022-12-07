@@ -127,6 +127,12 @@ public class AccountAssociatedServiceParamService {
 	}
 
 	public List<AccountAssociatedServiceParam> findAll() {
-		return accountAssociatedServiceParamRepository.findAll();
+		List<AccountAssociatedServiceParam> accountAssociatedServiceParamList = this.accountAssociatedServiceParamRepository
+				.findAll();
+		if (accountAssociatedServiceParamList.isEmpty()) {
+			throw new RuntimeException("Account Associated Service Param not found");
+		} else {
+			return accountAssociatedServiceParamList;
+		}
 	}
 }

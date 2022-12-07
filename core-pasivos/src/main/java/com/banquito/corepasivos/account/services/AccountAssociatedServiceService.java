@@ -145,6 +145,10 @@ public class AccountAssociatedServiceService {
 	}
 
 	public List<AccountAssociatedService> findAll() {
-		return this.accountAssociatedServiceRepository.findAll();
+		List<AccountAssociatedService> accountAssociatedServiceList = this.accountAssociatedServiceRepository.findAll();
+		if (accountAssociatedServiceList.isEmpty()) {
+			throw new RuntimeException("Account Associated Service not found");
+		}
+		return accountAssociatedServiceList;
 	}
 }
