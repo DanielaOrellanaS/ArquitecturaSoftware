@@ -2,13 +2,8 @@ package com.banquito.corepasivos.client.controller;
 
 import java.util.List;
 
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -26,6 +21,7 @@ public class ClientController {
     public ClientController(ClientService clientService) {
         this.clientService = clientService;
     }
+
     // Get
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public ResponseEntity<List<Client>> findAll() {
@@ -44,10 +40,10 @@ public class ClientController {
         }
     }
 
-    @RequestMapping(value = "/status/{status}", produces = { MediaType.APPLICATION_JSON_VALUE })
+    @RequestMapping(value = "/status/{status}", method = RequestMethod.GET)
     public ResponseEntity<List<Client>> findAllClientsByStatus(@PathVariable("status") String status) {
         List<Client> clients = this.clientService.findAllClientsByStatus(status);
-        if(clients  != null){
+        if (clients != null) {
             return ResponseEntity.ok(clients);
         } else {
             return ResponseEntity.notFound().build();
@@ -68,17 +64,20 @@ public class ClientController {
     // // delete
 
     // @DeleteMapping("/identification/{identification}")
-    // public ResponseEntity<String> deleteClientEntity(@RequestBody Client client) {
-    //     if (!this.clientService.existsClientByIdentification(client.getPk().getIdentification())) {
-    //         return ResponseEntity.badRequest().body("Client not found");
-    //     } else {
-    //         this.clientService.deleteClient(client);
-    //         return ResponseEntity.ok("Client deleted");
-    //     }
+    // public ResponseEntity<String> deleteClientEntity(@RequestBody Client client)
+    // {
+    // if
+    // (!this.clientService.existsClientByIdentification(client.getPk().getIdentification()))
+    // {
+    // return ResponseEntity.badRequest().body("Client not found");
+    // } else {
+    // this.clientService.deleteClient(client);
+    // return ResponseEntity.ok("Client deleted");
+    // }
     // }
 
-    //put
-    @RequestMapping(value = "/", method = RequestMethod.PUT )
+    // put
+    @RequestMapping(value = "/", method = RequestMethod.PUT)
     public ResponseEntity<String> updateClient(@RequestBody Client client) {
         if (!this.clientService.existsClientByIdentification(client.getPk().getIdentification())) {
             return ResponseEntity.badRequest().body("Client not found");
@@ -89,12 +88,12 @@ public class ClientController {
     }
 
     // change status
-    @RequestMapping(value = "/status/" , method = RequestMethod.PUT)
-    public ResponseEntity<String> updateStatus(@RequestBody Client client) {
-        if (!this.clientService.existsClientByIdentification(client.getPk().getIdentification())) {
+    @RequestMapping(value = "/{identification}", method = RequestMethod.DELETE)
+    public ResponseEntity<String> updateStatus(@PathVariable("identification") String identification) {
+        if (!this.clientService.existsClientByIdentification(identification)) {
             return ResponseEntity.badRequest().body("Client not found");
         } else {
-            this.clientService.updateStatus(client);
+            this.clientService.updateStatus(identification);
             return ResponseEntity.ok("Client status changed successfully");
         }
     }

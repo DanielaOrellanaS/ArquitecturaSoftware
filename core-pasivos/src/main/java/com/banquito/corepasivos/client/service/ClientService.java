@@ -26,7 +26,7 @@ public class ClientService {
     public List<Client> findAllClientsByIdentification(String identification) {
         return this.clientRepository.findByPkIdentification(identification);
     }
-    
+
     public boolean existsClientByIdentification(String identification) {
         return this.clientRepository.existsByPkIdentification(identification);
     }
@@ -40,7 +40,7 @@ public class ClientService {
         this.clientRepository.save(client);
     }
 
-    @Transactional 
+    @Transactional
     public void deleteClient(Client client) {
         Optional<Client> auxClient = this.clientRepository.findById(client.getPk());
         if (!auxClient.isPresent())
@@ -52,7 +52,7 @@ public class ClientService {
                 throw new RuntimeException("Error deleting client");
             }
     }
-    
+
     @Transactional
     public void updateClient(Client client) {
         Optional<Client> auxClient = this.clientRepository.findById(client.getPk());
@@ -66,15 +66,15 @@ public class ClientService {
             }
     }
 
-    // change status
     @Transactional
-    public void updateStatus(Client client) {
-        Optional<Client> auxClient = this.clientRepository.findById(client.getPk());
-        if (!auxClient.isPresent()){
+    public void updateStatus(String identification) {
+        List<Client> auxClients = this.clientRepository.findByPkIdentification(identification);
+        if (auxClients.isEmpty()) {
             throw new RuntimeException("Client not found");
         } else {
             try {
-                if(client.getStatus().equals("ACT")) {
+                Client client = auxClients.get(0);
+                if (client.getStatus().equals("ACT")) {
                     client.setStatus("INA");
                 } else if (client.getStatus().equals("INA")) {
                     client.setStatus("ACT");
