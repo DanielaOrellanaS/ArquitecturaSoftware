@@ -64,8 +64,10 @@ public class AccountSignatureController {
         }
     }
 
-    @RequestMapping(value = "/role/{identification}/{role}", method = RequestMethod.GET)
-    public ResponseEntity<List<AccountSignature>> findByRole(@PathVariable("identification") String identification, @PathVariable("role") String role) {
+    @RequestMapping(value = "/role/{account}/{identification}/{role-code}", method = RequestMethod.GET)
+    public ResponseEntity<List<AccountSignature>> findByRole(@PathVariable("account") String account,
+                                                             @PathVariable("identification") String identification,
+                                                             @PathVariable("role-code") String role) {
         List<AccountSignature> accountSignatures = this.accountSignatureService.findByRole(identification, role);
         if (accountSignatures.isEmpty()) {
             return ResponseEntity.notFound().build();
@@ -74,8 +76,10 @@ public class AccountSignatureController {
         }
     }
 
-    @RequestMapping(value = "/status/{identification}/{status}", method = RequestMethod.GET)
-    public ResponseEntity<List<AccountSignature>> findByStatus(@PathVariable("identification") String identification, @PathVariable("status") String status) {
+    @RequestMapping(value = "/status/{account}/{identification}/{status-code}", method = RequestMethod.GET)
+    public ResponseEntity<List<AccountSignature>> findByStatus( @PathVariable("account") String account,
+                                                                @PathVariable("identification") String identification,
+                                                                @PathVariable("status-code") String status) {
         List<AccountSignature> accountSignatures = this.accountSignatureService.findByStatus(identification, status);
         if (accountSignatures.isEmpty()) {
             return ResponseEntity.notFound().build();

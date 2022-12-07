@@ -21,8 +21,8 @@ public class AccountSignatureService {
     private final ClientRepository clientRepository;
 
     public AccountSignatureService(AccountSignatureRepository accountSignatureRepository,
-            AccountRepository accountRepository,
-            ClientRepository clientRepository) {
+                                   AccountRepository accountRepository,
+                                   ClientRepository clientRepository) {
         this.accountSignatureRepository = accountSignatureRepository;
         this.accountRepository = accountRepository;
         this.clientRepository = clientRepository;
@@ -68,29 +68,31 @@ public class AccountSignatureService {
         }
     }
 
-    public List<AccountSignature> findByRole(String identification, String role){
-        List <AccountSignature> accountSignatures = findByIdentification(identification);
-        List <AccountSignature> accountSignaturesAux = new ArrayList<>();
+    public List<AccountSignature> findByRole(String identification, String role) {
+        List<AccountSignature> accountSignatures = findByIdentification(identification);
+        List<AccountSignature> accountSignaturesAux = new ArrayList<>();
         for (AccountSignature accountSignature : accountSignatures) {
-            if(accountSignature.getRole().equals(role)){
+            if (accountSignature.getRole().equals(role)) {
                 accountSignaturesAux.add(accountSignature);
             }
         }
-        if(accountSignaturesAux.isEmpty()) 
+        if (accountSignaturesAux.isEmpty()) {
             throw new RuntimeException("This account does not have the entry role");
+        }
         return accountSignaturesAux;
     }
 
-    public List<AccountSignature> findByStatus(String identification, String status){
-        List <AccountSignature> accountSignatures = findByIdentification(identification);
-        List <AccountSignature> accountSignaturesAux = new ArrayList<>();
+    public List<AccountSignature> findByStatus(String identification, String status) {
+        List<AccountSignature> accountSignatures = findByIdentification(identification);
+        List<AccountSignature> accountSignaturesAux = new ArrayList<>();
         for (AccountSignature accountSignature : accountSignatures) {
-            if(accountSignature.getStatus().equals(status)){
+            if (accountSignature.getStatus().equals(status)) {
                 accountSignaturesAux.add(accountSignature);
             }
         }
-        if(accountSignaturesAux.isEmpty()) 
+        if (accountSignaturesAux.isEmpty()) {
             throw new RuntimeException("This account does not have the entry status");
+        }
         return accountSignaturesAux;
     }
 
@@ -99,7 +101,7 @@ public class AccountSignatureService {
         boolean existClient = this.clientRepository
                 .existsByPkIdentification(accountSignature.getPk().getIdentification());
 
-        boolean existeAccount = this.accountRepository
+        boolean existAccount = this.accountRepository
                 .existsByPkCodelocalaccount(accountSignature.getPk().getCodelocalaccount());
 
         List<AccountSignature> accountSignaturePKs = this.accountSignatureRepository
@@ -108,7 +110,7 @@ public class AccountSignatureService {
         List<AccountSignature> accountSignaturesReferences = this.accountSignatureRepository
                 .findBySignatureReference(accountSignature.getSignatureReference());
 
-        if (existeAccount && accountSignaturesReferences.isEmpty() && existClient && accountSignaturePKs.isEmpty()) {
+        if (existAccount && accountSignaturesReferences.isEmpty() && existClient && accountSignaturePKs.isEmpty()) {
             this.accountSignatureRepository.save(accountSignature);
         } else {
             throw new RuntimeException("The entry data is incorrect");
@@ -129,7 +131,8 @@ public class AccountSignatureService {
                 }
             }
         }
-        if (accountSignatures.isEmpty())
+        if (accountSignatures.isEmpty()) {
             throw new RuntimeException("The entry code does not belong to an account");
+        }
     }
 }
