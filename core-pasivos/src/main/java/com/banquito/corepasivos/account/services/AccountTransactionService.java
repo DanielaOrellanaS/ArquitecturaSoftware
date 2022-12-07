@@ -34,48 +34,54 @@ public class AccountTransactionService {
 	
 	@Transactional
 	public void saveTransactionDeb(AccountTransaction transaction) {
-		List<Account> accountList = this.accountRepository
+		
+		if(transaction.getCodeLocalAccount() !=null){
+			List<Account> accountList = this.accountRepository
 				.findByPkCodelocalaccount(transaction.getCodeLocalAccount().toLowerCase());
-		if (accountList.size() > 0) {
-			Account accountOpt = accountList.get(0);
-
-			transaction.setCodeInternationalAccount(accountOpt.getPk().getCodeinternationalaccount());
-			transaction.setCodeUniqueTransaction(randomHex());
-			transaction.setCreateDate(new Date());
-			transaction.setStatus("ACT");
-
-			if (transaction.getType().toUpperCase().equals("DEB")
-					&& transaction.getRecipientType().toUpperCase().equals("BEN")) {
-				if (accountOpt.getAvailableBalance().compareTo(transaction.getValue()) == 1) {
+			if (accountList.size() > 0) {
+				Account accountOpt = accountList.get(0);
+	
+				transaction.setCodeInternationalAccount(accountOpt.getPk().getCodeinternationalaccount());
+				transaction.setCodeUniqueTransaction(randomHex());
+				transaction.setCreateDate(new Date());
+				transaction.setStatus("ACT");
+	
+				if (transaction.getType().toUpperCase().equals("DEB")
+						&& transaction.getRecipientType().toUpperCase().equals("BEN")) {
+					if (accountOpt.getAvailableBalance().compareTo(transaction.getValue()) == 1) {
+						accountOpt.setAvailableBalance(new BigDecimal(
+								accountOpt.getAvailableBalance().doubleValue() - transaction.getValue().doubleValue(),
+								MathContext.DECIMAL32));
+	
+						accountOpt.setPresentBalance(new BigDecimal(
+								accountOpt.getPresentBalance().doubleValue() - transaction.getValue().doubleValue(),
+								MathContext.DECIMAL32));
+						this.accountRepository.save(accountOpt);
+	
+					} else {
+						throw new RuntimeException("You dont have founds");
+					}
+				} else if (transaction.getType().toUpperCase().equals("CRE")
+						&& transaction.getRecipientType().toUpperCase().equals("PAY")) {
 					accountOpt.setAvailableBalance(new BigDecimal(
-							accountOpt.getAvailableBalance().doubleValue() - transaction.getValue().doubleValue(),
+							accountOpt.getAvailableBalance().doubleValue() + transaction.getValue().doubleValue(),
 							MathContext.DECIMAL32));
-
+	
 					accountOpt.setPresentBalance(new BigDecimal(
-							accountOpt.getPresentBalance().doubleValue() - transaction.getValue().doubleValue(),
+							accountOpt.getPresentBalance().doubleValue() + transaction.getValue().doubleValue(),
 							MathContext.DECIMAL32));
 					this.accountRepository.save(accountOpt);
-
-				} else {
-					throw new RuntimeException("You dont have founds");
+	
 				}
-			} else if (transaction.getType().toUpperCase().equals("CRE")
-					&& transaction.getRecipientType().toUpperCase().equals("PAY")) {
-				accountOpt.setAvailableBalance(new BigDecimal(
-						accountOpt.getAvailableBalance().doubleValue() + transaction.getValue().doubleValue(),
-						MathContext.DECIMAL32));
-
-				accountOpt.setPresentBalance(new BigDecimal(
-						accountOpt.getPresentBalance().doubleValue() + transaction.getValue().doubleValue(),
-						MathContext.DECIMAL32));
-				this.accountRepository.save(accountOpt);
-
+	
+				this.accountTransactionRepository.save(transaction);
+	
+			} else {
+				throw new RuntimeException("Account doesnt exits");
 			}
 
-			this.accountTransactionRepository.save(transaction);
-
-		} else {
-			throw new RuntimeException("Account doesnt exits");
+		}else{
+			throw new RuntimeException("Please set an account code");
 		}
 	}
 
