@@ -2,7 +2,7 @@ package com.banquito.corepasivos.account.repository;
 
 import com.banquito.corepasivos.account.model.AccountTransaction;
 
-
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -15,6 +15,6 @@ public interface AccountTransactionRepository extends JpaRepository<AccountTrans
     List<AccountTransaction> findByCodeUniqueTransaction(String codeUniqueTransaction);
     List<AccountTransaction> findByStatus(String status);
     List<AccountTransaction> findByRecipientBank(String recipientBank);
-    //List<AccountTransaction> findByCreateDate(Date start);
+    List<AccountTransaction> findByDate(Date start,Date end);
 }
 

@@ -31,33 +31,32 @@ public class AccountTransactionService {
 		return this.accountTransactionRepository.findAll();
 	}
 
-	
 	@Transactional
 	public void saveTransactionDeb(AccountTransaction transaction) {
-		
-		if(transaction.getCodeLocalAccount() !=null){
+
+		if (transaction.getCodeLocalAccount() != null) {
 			List<Account> accountList = this.accountRepository
-				.findByPkCodelocalaccount(transaction.getCodeLocalAccount().toLowerCase());
+					.findByPkCodelocalaccount(transaction.getCodeLocalAccount().toLowerCase());
 			if (accountList.size() > 0) {
 				Account accountOpt = accountList.get(0);
-	
+
 				transaction.setCodeInternationalAccount(accountOpt.getPk().getCodeinternationalaccount());
 				transaction.setCodeUniqueTransaction(randomHex());
 				transaction.setCreateDate(new Date());
 				transaction.setStatus("ACT");
-	
-				if (transaction.getType().toUpperCase().equals("DEB")
-						&& transaction.getRecipientType().toUpperCase().equals("BEN")) {
+
+				if (transaction.getType().contains("DEB")
+						&& transaction.getRecipientType().contains("BEN")) {
 					if (accountOpt.getAvailableBalance().compareTo(transaction.getValue()) == 1) {
 						accountOpt.setAvailableBalance(new BigDecimal(
 								accountOpt.getAvailableBalance().doubleValue() - transaction.getValue().doubleValue(),
 								MathContext.DECIMAL32));
-	
+
 						accountOpt.setPresentBalance(new BigDecimal(
 								accountOpt.getPresentBalance().doubleValue() - transaction.getValue().doubleValue(),
 								MathContext.DECIMAL32));
 						this.accountRepository.save(accountOpt);
-	
+
 					} else {
 						throw new RuntimeException("You dont have founds");
 					}
@@ -66,21 +65,21 @@ public class AccountTransactionService {
 					accountOpt.setAvailableBalance(new BigDecimal(
 							accountOpt.getAvailableBalance().doubleValue() + transaction.getValue().doubleValue(),
 							MathContext.DECIMAL32));
-	
+
 					accountOpt.setPresentBalance(new BigDecimal(
 							accountOpt.getPresentBalance().doubleValue() + transaction.getValue().doubleValue(),
 							MathContext.DECIMAL32));
 					this.accountRepository.save(accountOpt);
-	
+
 				}
-	
+
 				this.accountTransactionRepository.save(transaction);
-	
+
 			} else {
 				throw new RuntimeException("Account doesnt exits");
 			}
 
-		}else{
+		} else {
 			throw new RuntimeException("Please set an account code");
 		}
 	}
@@ -97,7 +96,6 @@ public class AccountTransactionService {
 		return result;
 	}
 
-	
 	public List<AccountTransaction> findByCodeLocalAccount(String codeLocalAccount) {
 		List<AccountTransaction> accountTransaction = this.accountTransactionRepository
 				.findByCodeLocalAccount(codeLocalAccount);
@@ -138,14 +136,13 @@ public class AccountTransactionService {
 		}
 	}
 
-	// public List<AccountTransaction> findByDate(Date start, Date end) {
-	// List<AccountTransaction> accountTransaction =
-	// this.accountTransactionRepository
-	// .findByDate(start, end);
-	// if (accountTransaction.isEmpty()) {
-	// throw new RuntimeException("Account Transaction by Date not found");
-	// } else {
-	// return accountTransaction;
-	// }
-	// }
+	public List<AccountTransaction> findByDate(Date start, Date end) {
+		List<AccountTransaction> transaction = this.accountTransactionRepository
+				.findByDate(start, end);
+		if (transaction.isEmpty()) {
+			throw new RuntimeException("Account Transaction by Date not found");
+		} else {
+			return transaction;
+		}
+	}
 }
