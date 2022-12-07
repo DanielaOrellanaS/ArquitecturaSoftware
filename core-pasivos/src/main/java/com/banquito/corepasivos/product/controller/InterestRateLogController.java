@@ -13,11 +13,10 @@ import org.springframework.web.bind.annotation.RestController;
 import com.banquito.corepasivos.product.model.InterestRateLog;
 import com.banquito.corepasivos.product.service.InterestRateLogService;
 
-
 @RestController
 @RequestMapping("api/interest-rate-log")
 public class InterestRateLogController {
-    
+
     private final InterestRateLogService interestRateLogService;
 
     public InterestRateLogController(InterestRateLogService interestRateLogService) {
@@ -33,7 +32,8 @@ public class InterestRateLogController {
     }
 
     @RequestMapping(value = "/codelog/{codeInterestRateLog}", method = RequestMethod.GET)
-    public ResponseEntity<List<InterestRateLog>> findByCodeInterestRateLog(@PathVariable("codeInterestRateLog") String codeInterestRateLog) {
+    public ResponseEntity<List<InterestRateLog>> findByCodeInterestRateLog(
+            @PathVariable("codeInterestRateLog") String codeInterestRateLog) {
         List<InterestRateLog> interestRateLog = this.interestRateLogService
                 .findAllInterestRateLogCode(codeInterestRateLog);
         return interestRateLog.isEmpty() ? ResponseEntity.noContent().build()
@@ -58,17 +58,6 @@ public class InterestRateLogController {
                 : ResponseEntity.ok(interestRateLog);
     }
 
-    @RequestMapping(value = "/date/{startdate}/{endDate}", method = RequestMethod.GET)
-    public ResponseEntity<List<InterestRateLog>> findByNameInterestRate(
-            @PathVariable("startdate") Date startdate,
-            @PathVariable("endDate") Date endDate) {
-        List<InterestRateLog> interestRateLog = this.interestRateLogService
-                .findByDateInterestRateLog(startdate,endDate);
-        return interestRateLog.isEmpty() ? ResponseEntity.noContent().build()
-                : ResponseEntity.ok(interestRateLog);
-    }
-
-
     @RequestMapping(value = "", method = RequestMethod.POST)
     public ResponseEntity<String> createInterestRate(
             @RequestBody InterestRateLog interestRateLog) {
@@ -91,14 +80,10 @@ public class InterestRateLogController {
         }
     }
 
-    @RequestMapping(value = "/test", method = RequestMethod.PUT)
-    public ResponseEntity<String> deleteInterestRate(
-            @PathVariable("codeInterestRate") String codeInterestRate){
-        try {
-            this.deleteInterestRate(codeInterestRate);
-            return ResponseEntity.ok("Associated Service Parameters Removed Successfully");
-        } catch (Exception e) {
-            return ResponseEntity.internalServerError().body(e.getMessage());
-        }
+    @RequestMapping(value = "/rate/{codeInterestRateLog}", method = RequestMethod.DELETE)
+    public InterestRateLog deleteInterestRateLog(
+            @PathVariable("codeInterestRateLog") String codeInterestRateLog) {
+        return this.interestRateLogService.deleteInterestRateLog(codeInterestRateLog);
     }
+
 }

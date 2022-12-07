@@ -8,6 +8,7 @@ import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Service;
 
+import com.banquito.corepasivos.product.model.InterestRate;
 import com.banquito.corepasivos.product.model.InterestRateLog;
 import com.banquito.corepasivos.product.repository.InterestRateLogRepository;
 import com.banquito.corepasivos.product.repository.InterestRateRepository;
@@ -40,10 +41,6 @@ public class InterestRateLogService {
         return interestRateLogRepository.findByStatus(status);
     }
 
-    public List<InterestRateLog> findByDateInterestRateLog(Date startDate, Date endDate) {
-        return this.interestRateLogRepository.findByStartDateBetween(startDate, endDate);
-    }
-
     @Transactional
     public void createInterestRateLog(InterestRateLog interestRateLog) {
         try {
@@ -57,22 +54,17 @@ public class InterestRateLogService {
     }
 
     @Transactional
-    public void deleteInterestRateLog(InterestRateLog interestRateLog) {
-        Optional<InterestRateLog> interest = this.interestRateLogRepository
-                .findById(interestRateLog.getCodeInterestLog());
+    public InterestRateLog deleteInterestRateLog(String codeInterestLog) {
+        List<InterestRateLog> inetrestRate = this.interestRateLogRepository.findByCodeInterestLog(codeInterestLog);
 
-        interestRateLog.setStatus("INA");
-        try {
-            if (interest.isEmpty()) {
-                throw new RuntimeException(
-                        "An error occurred while change status on inetereste rate log");
-            } else {
-                this.interestRateLogRepository.save(interestRateLog);
-            }
-        } catch (Exception e) {
+        if (inetrestRate.isEmpty())
             throw new RuntimeException(
-                    "An error occurred while removing one inetereste rate log");
-        }
+                    "Account with code-local-account: " + codeInterestLog + " not found.");
+
+        InterestRateLog interestRateLog = inetrestRate.get(0);
+        interestRateLog.setStatus("INA");
+
+        return this.interestRateLogRepository.save(interestRateLog);
     }
 
     @Transactional
