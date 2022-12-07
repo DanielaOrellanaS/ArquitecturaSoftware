@@ -2,6 +2,7 @@ package com.banquito.corepasivos.product.service;
 
 import java.io.Console;
 import java.util.List;
+import java.util.Optional;
 
 import javax.transaction.Transactional;
 
@@ -52,22 +53,35 @@ public class ProductTypeService {
     }
 
     @Transactional
-    public void updateProductType(ProductType productType) {
-        List<ProductType> productTypes = this.productTypeRepository.findByName(productType.getName());
-        if (productTypes.isEmpty()) {
-            this.productTypeRepository.save(productType);
-        } else {
-            throw new RuntimeException("The product type already exists");
-        }
-    }
-
-    @Transactional
     public void deleteProductType(String codeProductType) {
-        this.productTypeRepository.deleteByCodeProductType(codeProductType);
+        Optional<ProductType> product = this.productTypeRepository.findById(codeProductType);
+        if (!product.isPresent())
+            throw new RuntimeException("No associated services found");
+        else
+            try {
+                this.productTypeRepository.deleteById(codeProductType);
+            } catch (Exception e) {
+                throw new RuntimeException(
+                        "An error occurred while removing one of the associated services");
+            }
     }
 
     public List<ProductType> findByNameContaining(String name) {
         return this.productTypeRepository.findByNameContaining(name);
+    }
+
+    @Transactional
+    public void updateProductType(ProductType productType) {
+        Optional<ProductType> service = this.productTypeRepository
+                .findById(productType.getCodeProductType());
+        if (!service.isPresent())
+            throw new RuntimeException("No associated services found");
+        else
+            try {
+                this.productTypeRepository.save(productType);
+            } catch (Exception e) {
+                throw new RuntimeException("An error has occurred in the data update");
+            }
     }
     
 }
