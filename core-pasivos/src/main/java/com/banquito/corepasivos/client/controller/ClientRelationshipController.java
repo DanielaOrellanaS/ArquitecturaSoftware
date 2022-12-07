@@ -22,6 +22,8 @@ public class ClientRelationshipController {
         this.clientRelationshipService = clientRelationshipService;
     }
 
+    // get
+
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public ResponseEntity<List<ClientRelationship>> getAll() {
         List<ClientRelationship> clientRelationship = this.clientRelationshipService.searchAll();
@@ -65,7 +67,9 @@ public class ClientRelationshipController {
         }
     }
 
-    @RequestMapping(value = "/", method = RequestMethod.PUT)
+    // Put
+
+    @RequestMapping(value = "/", method = RequestMethod.PUT )
     public ResponseEntity<String> updateClientRelationship(@RequestBody ClientRelationship clientRelationship) {
         try {
             this.clientRelationshipService.updateClientRelationship(clientRelationship);
@@ -75,6 +79,7 @@ public class ClientRelationshipController {
         }
     }
 
+    // Delete
     @RequestMapping(value = "delete-identification/{identification}", method = RequestMethod.DELETE)
     public ResponseEntity<String> deleteClientRelationshipIdentification(
             @PathVariable("identification") String identification) {
