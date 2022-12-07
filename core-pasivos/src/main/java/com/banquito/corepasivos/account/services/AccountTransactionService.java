@@ -29,16 +29,16 @@ public class AccountTransactionService {
         return this.accountTransactionRepository.findAll();
     }
 
-	@Transactional 
-    public void saveTransactionDeb(AccountTransaction transaction) {
-        if (transaction.getCodeTransaction() != null) {
-            Optional<AccountTransaction> transactionIdOpt = this.accountTransactionRepository.findById(transaction.getCodeTransaction());
-			if (transactionIdOpt.isPresent()) {
-                throw new RuntimeException("Cant create transactiton, transaction already registered");
-            }
-        }
-        this.accountTransactionRepository.save(transaction);
-    }
+//	@Transactional
+//    public void saveTransactionDeb(AccountTransaction transaction) {
+//        if (transaction.getCodeTransaction() != null) {
+//            Optional<AccountTransaction> transactionIdOpt = this.accountTransactionRepository.findById(transaction.getCodeTransaction());
+//			if (transactionIdOpt.isPresent()) {
+//                throw new RuntimeException("Cant create transactiton, transaction already registered");
+//            }
+//        }
+//        this.accountTransactionRepository.save(transaction);
+//    }
 
 	// @Transactional 
     // public void saveTransactionDeb(AccountTransaction transaction) {
@@ -50,47 +50,51 @@ public class AccountTransactionService {
 	// 		this.accountTransactionRepository.save(transaction);
     //     }
 
-	// @Transactional
-	// public void saveTransactionDeb(AccountTransaction transaction) {
-	// 	Optional<Account> accountOpt = this.accountRepository.findByPkCodelocalaccount(transaction.getCodeLocalAccount());
-	// 	if(accountOpt.isPresent()){
-	// 		try{
-	// 			BigDecimal valor = BigDecimal.ZERO;
-	// 			transaction.setCodeLocalAccount("21d6e4168ac6e7529ca7");
-	// 			transaction.setType("DEB");
-	// 			transaction.setRecipientAccountNumber("18005343710");
-	// 			transaction.setRecipientType("PAY");
-	// 			transaction.setRecipientBank("BANCO PICHINCHA");
-	// 			transaction.setReference("85094730");
-	// 			transaction.setDescription(null);
-	// 			transaction.setValue(valor);
-	// 			if (accountOpt.get().getAvailableBalance().compareTo(valor) == -1) {
-	// 				accountOpt.get()
-	// 						.setAvailableBalance(new BigDecimal(
-	// 								accountOpt.get().getAvailableBalance().doubleValue() - valor.doubleValue(),
-	// 								MathContext.DECIMAL32));
-	// 				this.accountRepository.save(accountOpt.get());
+	 @Transactional
+	 public void saveTransactionDeb(AccountTransaction transaction) {
+	 	List<Account> accountList = this.accountRepository.findByPkCodelocalaccount("21d6e4168ac6e7529ca7");
+		 if(accountList.size() > 0){
+	 		Account accountOpt = accountList.get(0);
+			 try{
+	 			//BigDecimal valor = BigDecimal.ZERO;
+				 BigDecimal valor = BigDecimal.valueOf(20.00);
+				 transaction.setCodeLocalAccount("21d6e4168ac6e7529ca7");
+				 transaction.setCodeInternationalAccount("d4bf80fcff5933f3b4c82fb1bd09bd8648");
+				 transaction.setCodeUniqueTransaction("216eb62cb3046fff2f9434b2c1e672707fcab8d3848840a8ada9bec5221056d0");
+				 transaction.setType("DEB");
+				 transaction.setRecipientAccountNumber("18005343710");
+	 			 transaction.setRecipientType("BEN");
+	 			 transaction.setRecipientBank("BANCO PICHINCHA");
+	 			 transaction.setReference("85094730");
+	 			 transaction.setDescription(null);
+	 			 transaction.setValue(valor);
+				 transaction.setCreateDate(new Date());
+				 transaction.setExecuteDate(null);
+				 transaction.setStatus("ACT");
+				 //Controlar que cuando la transaccion sea de credito los valores se suman
+				 //Actualizar tambien el valor de present balance
+				 //update account balance
 
-	// 			} else {
-	// 				throw new RuntimeException("You dont have founds");
-	// 			}
-	// 			transaction.setCreateDate(new Date());
-	// 			transaction.setExecuteDate(null);
-	// 			transaction.setStatus("ACT");
-	// 			this.accountTransactionRepository.save(transaction);
+				 if (accountOpt.getAvailableBalance().compareTo(valor) == 1) {
+						accountOpt.setAvailableBalance(new BigDecimal(
+										accountOpt.getAvailableBalance().doubleValue() - valor.doubleValue(),
+										MathContext.DECIMAL32));
+						this.accountRepository.save(accountOpt);
 
+				 } else {
+						throw new RuntimeException("You dont have founds");
+				 }
 
+				 this.accountTransactionRepository.save(transaction);
 
-	// 		}catch(Exception e){
+	 		}catch(Exception e){
 
-	// 		}
+	 		}
 
-	// 	}else{
-	// 		throw new RuntimeException("Account doesnt exits");
-	// 	}
-
-
-	// }
+	 	}else{
+	 		throw new RuntimeException("Account doesnt exits");
+	 	}
+	 }
 
 	// @Transactional 
     // public void TransactionPayer(AccountTransaction accounttransaction){

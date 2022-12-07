@@ -26,8 +26,9 @@ public class AccountTransactionController {
 
 
 	@RequestMapping(value = "/", method = RequestMethod.POST)
-    public ResponseEntity<String> createTransaction(@RequestBody AccountTransaction transaction) {
-        try {
+    public ResponseEntity<String> createTransaction() {
+        AccountTransaction transaction = new AccountTransaction();
+		try {
             this.accountTransactionService.saveTransactionDeb(transaction);
             return ResponseEntity.ok("Transaction saved"+transaction.getCodeUniqueTransaction());
         } catch (Exception e) {
