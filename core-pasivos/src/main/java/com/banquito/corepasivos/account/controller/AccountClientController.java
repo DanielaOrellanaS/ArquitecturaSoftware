@@ -22,8 +22,13 @@ public class AccountClientController {
     }
 
     @RequestMapping(value = "", method = RequestMethod.POST)
-    public AccountClient save(@RequestBody AccountClient accountClient) {
-        return this.accountClientService.save(accountClient);
+    public ResponseEntity<String> save(@RequestBody AccountClient accountClient) {
+        try {
+            this.accountClientService.save(accountClient);
+            return ResponseEntity.ok("AccountClient saved successfully");
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().body(e.getMessage());
+        }
     }
 
     @RequestMapping(value = "", method = RequestMethod.GET)
@@ -95,40 +100,68 @@ public class AccountClientController {
     }
 
     @RequestMapping(value = "/local/{codeLocalAccount}", method = RequestMethod.PUT)
-    public ResponseEntity<AccountClient> updateByCodeLocalAccount(@RequestBody AccountClient accountClient,
+    public ResponseEntity<String> updateByCodeLocalAccount(@RequestBody AccountClient accountClient,
             @PathVariable("codeLocalAccount") String codeLocalAccount) {
-        return ResponseEntity.ok(this.accountClientService.updateByCodeLocalAccount(codeLocalAccount, accountClient));
+        try {
+            this.accountClientService.updateByCodeLocalAccount(codeLocalAccount, accountClient);
+            return ResponseEntity.ok("AccountClient updated successfully");
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().body(e.getMessage());
+        }
     }
 
     @RequestMapping(value = "/international/{codeInternationalAccount}", method = RequestMethod.PUT)
-    public ResponseEntity<AccountClient> updateByCodeInternationalAccount(@RequestBody AccountClient accountClient,
+    public ResponseEntity<String> updateByCodeInternationalAccount(@RequestBody AccountClient accountClient,
             @PathVariable("codeInternationalAccount") String codeInternationalAccount) {
-        return ResponseEntity
-                .ok(this.accountClientService.updateByCodeInternationalAccount(codeInternationalAccount,
-                        accountClient));
+        try {
+            this.accountClientService.updateByCodeInternationalAccount(codeInternationalAccount, accountClient);
+            return ResponseEntity.ok("AccountClient updated successfully");
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().body(e.getMessage());
+        }
     }
 
     @RequestMapping(value = "/identification/{identification}", method = RequestMethod.PUT)
-    public ResponseEntity<AccountClient> updateByIdentification(@RequestBody AccountClient accountClient,
+    public ResponseEntity<String> updateByIdentification(@RequestBody AccountClient accountClient,
             @PathVariable("identification") String identification) {
-        return ResponseEntity.ok(this.accountClientService.updateByIdentification(identification, accountClient));
+        try {
+            this.accountClientService.updateByIdentification(identification, accountClient);
+            return ResponseEntity.ok("AccountClient updated successfully");
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().body(e.getMessage());
+        }
     }
 
     @RequestMapping(value = "/local/{codeLocalAccount}", method = RequestMethod.DELETE)
-    public ResponseEntity<AccountClient> deleteByCodeLocalAccount(
+    public ResponseEntity<String> deleteByCodeLocalAccount(
             @PathVariable("codeLocalAccount") String codeLocalAccount) {
-        return ResponseEntity.ok(this.accountClientService.deleteByCodeLocalAccount(codeLocalAccount));
+        try {
+            this.accountClientService.deleteByCodeLocalAccount(codeLocalAccount);
+            return ResponseEntity.ok("AccountClient deleted successfully");
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().body(e.getMessage());
+        }
     }
 
     @RequestMapping(value = "/international/{codeInternationalAccount}", method = RequestMethod.DELETE)
-    public ResponseEntity<AccountClient> deleteByCodeInternationalAccount(
+    public ResponseEntity<String> deleteByCodeInternationalAccount(
             @PathVariable("codeInternationalAccount") String codeInternationalAccount) {
-        return ResponseEntity.ok(this.accountClientService.deleteByCodeInternationalAccount(codeInternationalAccount));
+        try {
+            this.accountClientService.deleteByCodeInternationalAccount(codeInternationalAccount);
+            return ResponseEntity.ok("AccountClient deleted successfully");
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().body(e.getMessage());
+        }
     }
 
     @RequestMapping(value = "/identification/{identification}", method = RequestMethod.DELETE)
-    public ResponseEntity<AccountClient> deleteByIdentification(
+    public ResponseEntity<String> deleteByIdentification(
             @PathVariable("identification") String identification) {
-        return ResponseEntity.ok(this.accountClientService.deleteByIdentification(identification));
+        try {
+            this.accountClientService.deleteByIdentification(identification);
+            return ResponseEntity.ok("AccountClient deleted successfully");
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().body(e.getMessage());
+        }
     }
 }

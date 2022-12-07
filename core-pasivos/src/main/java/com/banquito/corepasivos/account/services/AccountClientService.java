@@ -25,7 +25,7 @@ public class AccountClientService {
     }
 
     @Transactional
-    public AccountClient save(AccountClient accountClient) {
+    public void save(AccountClient accountClient) {
         if (!accountRepository.existsByPkCodelocalaccount(accountClient.getPk().getCodelocalaccount()))
             throw new RuntimeException("Local account entered does not exist.");
 
@@ -35,7 +35,7 @@ public class AccountClientService {
         if (!clientRepository.existsByPkIdentification(accountClient.getPk().getIdentification()))
             throw new RuntimeException("Client identification entered does not exist.");
 
-        return this.accountClientRepository.save(accountClient);
+        this.accountClientRepository.save(accountClient);
     }
 
     public List<AccountClient> findAll() {
@@ -100,7 +100,7 @@ public class AccountClientService {
     }
 
     @Transactional
-    public AccountClient updateByCodeLocalAccount(String codeLocalAccount, AccountClient accountClientDetails) {
+    public void updateByCodeLocalAccount(String codeLocalAccount, AccountClient accountClientDetails) {
         List<AccountClient> accountClients = this.accountClientRepository.findByPkCodelocalaccount(codeLocalAccount);
 
         if (accountClients.isEmpty())
@@ -110,11 +110,11 @@ public class AccountClientService {
         accountClient.setStatus(accountClientDetails.getStatus());
         accountClient.setCreateDate(accountClientDetails.getCreateDate());
 
-        return this.accountClientRepository.save(accountClient);
+        this.accountClientRepository.save(accountClient);
     }
 
     @Transactional
-    public AccountClient updateByCodeInternationalAccount(String codeInternationalAccount,
+    public void updateByCodeInternationalAccount(String codeInternationalAccount,
             AccountClient accountClientDetails) {
         List<AccountClient> accountClients = this.accountClientRepository
                 .findByPkCodeinternationalaccount(codeInternationalAccount);
@@ -127,11 +127,11 @@ public class AccountClientService {
         accountClient.setStatus(accountClientDetails.getStatus());
         accountClient.setCreateDate(accountClientDetails.getCreateDate());
 
-        return this.accountClientRepository.save(accountClient);
+        this.accountClientRepository.save(accountClient);
     }
 
     @Transactional
-    public AccountClient updateByIdentification(String identification, AccountClient accountClientDetails) {
+    public void updateByIdentification(String identification, AccountClient accountClientDetails) {
         List<AccountClient> accountClients = this.accountClientRepository
                 .findByPkIdentification(identification);
 
@@ -142,11 +142,11 @@ public class AccountClientService {
         accountClient.setStatus(accountClientDetails.getStatus());
         accountClient.setCreateDate(accountClientDetails.getCreateDate());
 
-        return this.accountClientRepository.save(accountClient);
+        this.accountClientRepository.save(accountClient);
     }
 
     @Transactional
-    public AccountClient deleteByCodeLocalAccount(String codeLocalAccount) {
+    public void deleteByCodeLocalAccount(String codeLocalAccount) {
         List<AccountClient> accountClients = this.accountClientRepository.findByPkCodelocalaccount(codeLocalAccount);
 
         if (accountClients.isEmpty())
@@ -156,11 +156,11 @@ public class AccountClientService {
         AccountClient accountClient = accountClients.get(0);
         accountClient.setStatus("INA");
 
-        return this.accountClientRepository.save(accountClient);
+        this.accountClientRepository.save(accountClient);
     }
 
     @Transactional
-    public AccountClient deleteByCodeInternationalAccount(String codeInternationalAccount) {
+    public void deleteByCodeInternationalAccount(String codeInternationalAccount) {
         List<AccountClient> accountClients = this.accountClientRepository
                 .findByPkCodeinternationalaccount(codeInternationalAccount);
 
@@ -171,11 +171,11 @@ public class AccountClientService {
         AccountClient accountClient = accountClients.get(0);
         accountClient.setStatus("INA");
 
-        return this.accountClientRepository.save(accountClient);
+        this.accountClientRepository.save(accountClient);
     }
 
     @Transactional
-    public AccountClient deleteByIdentification(String Identification) {
+    public void deleteByIdentification(String Identification) {
         List<AccountClient> accountClients = this.accountClientRepository
                 .findByPkIdentification(Identification);
 
@@ -186,6 +186,6 @@ public class AccountClientService {
         AccountClient accountClient = accountClients.get(0);
         accountClient.setStatus("INA");
 
-        return this.accountClientRepository.save(accountClient);
+        this.accountClientRepository.save(accountClient);
     }
 }
