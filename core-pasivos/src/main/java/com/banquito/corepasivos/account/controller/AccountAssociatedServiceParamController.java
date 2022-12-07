@@ -22,6 +22,11 @@ public class AccountAssociatedServiceParamController {
 		this.service = service;
 	}
 
+	@RequestMapping("/all")
+	public Object findAll() {
+		return this.service.findAll();
+	}
+
 	@RequestMapping(value = "/local/{codeLocalAccount}", method = RequestMethod.GET)
 	public ResponseEntity<List<AccountAssociatedServiceParam>> findByCodeLocalAccount(
 			@PathVariable("codeLocalAccount") String codeLocalAccount) {
@@ -112,11 +117,6 @@ public class AccountAssociatedServiceParamController {
 		} catch (Exception e) {
 			return ResponseEntity.internalServerError().body(e.getMessage());
 		}
-	}
-
-	@RequestMapping("/all")
-	public Object findAll() {
-		return this.service.findAll();
 	}
 
 }

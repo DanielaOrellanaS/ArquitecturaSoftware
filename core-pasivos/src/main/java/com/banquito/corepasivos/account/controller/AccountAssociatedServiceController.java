@@ -21,6 +21,11 @@ public class AccountAssociatedServiceController {
 		this.service = service;
 	}
 
+	@RequestMapping("/all")
+	public Object findAll() {
+		return this.service.findAll();
+	}
+
 	@RequestMapping(value = "/local/{codeLocalAccount}", method = RequestMethod.GET)
 	public ResponseEntity<List<AccountAssociatedService>> findByCodeLocalAccount(
 			@PathVariable("codeLocalAccount") String codeLocalAccount) {
@@ -89,6 +94,28 @@ public class AccountAssociatedServiceController {
 
 	}
 
+	@RequestMapping(value = "", method = RequestMethod.POST)
+	public ResponseEntity<String> createAccountAssociatedService(
+			@RequestBody AccountAssociatedService accountAssociatedService) {
+		try {
+			this.service.save(accountAssociatedService);
+			return ResponseEntity.ok("Account associated service created successfully");
+		} catch (Exception e) {
+			return ResponseEntity.internalServerError().body(e.getMessage());
+		}
+	}
+
+	@RequestMapping(value = "", method = RequestMethod.PUT)
+	public ResponseEntity<String> updateAccountAssociatedService(
+			@RequestBody AccountAssociatedService accountAssociatedService) {
+		try {
+			this.service.update(accountAssociatedService);
+			return ResponseEntity.ok("Account associated service updated successfully");
+		} catch (Exception e) {
+			return ResponseEntity.internalServerError().body(e.getMessage());
+		}
+	}
+
 	@RequestMapping(value = "/local/{codeLocalAccount}", method = RequestMethod.DELETE)
 	public ResponseEntity<String> deleteAllByCodeLocalAccount(
 			@PathVariable("codeLocalAccount") String codeLocalAccount) {
@@ -138,33 +165,6 @@ public class AccountAssociatedServiceController {
 		} catch (Exception e) {
 			return ResponseEntity.internalServerError().body(e.getMessage());
 		}
-	}
-
-	@RequestMapping(value = "", method = RequestMethod.POST)
-	public ResponseEntity<String> createAccountAssociatedService(
-			@RequestBody AccountAssociatedService accountAssociatedService) {
-		try {
-			this.service.save(accountAssociatedService);
-			return ResponseEntity.ok("Account associated service created successfully");
-		} catch (Exception e) {
-			return ResponseEntity.internalServerError().body(e.getMessage());
-		}
-	}
-
-	@RequestMapping(value = "", method = RequestMethod.PUT)
-	public ResponseEntity<String> updateAccountAssociatedService(
-			@RequestBody AccountAssociatedService accountAssociatedService) {
-		try {
-			this.service.update(accountAssociatedService);
-			return ResponseEntity.ok("Account associated service updated successfully");
-		} catch (Exception e) {
-			return ResponseEntity.internalServerError().body(e.getMessage());
-		}
-	}
-
-	@RequestMapping("/all")
-	public Object findAll() {
-		return this.service.findAll();
 	}
 
 }
