@@ -1,6 +1,5 @@
 package com.banquito.corepasivos.product.service;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -8,7 +7,6 @@ import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Service;
 
-import com.banquito.corepasivos.product.model.InterestRate;
 import com.banquito.corepasivos.product.model.InterestRateLog;
 import com.banquito.corepasivos.product.repository.InterestRateLogRepository;
 import com.banquito.corepasivos.product.repository.InterestRateRepository;

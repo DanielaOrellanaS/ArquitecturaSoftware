@@ -1,6 +1,5 @@
 package com.banquito.corepasivos.product.controller;
 
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
