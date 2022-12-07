@@ -57,11 +57,13 @@ public class AccountAssociatedServiceParamService {
 
 	@Transactional
 	public void save(AccountAssociatedServiceParam accountAssociatedServiceParam) {
-		if (!accountRepository.existsByPkCodelocalaccount(accountAssociatedServiceParam.getCodeLocalAccount())) {
+		if (!accountRepository
+				.existsByPkCodelocalaccount(accountAssociatedServiceParam.getPk().getCodelocalaccount())) {
 			throw new RuntimeException("Account not found");
 		}
 		if (!accountRepository
-				.existsByPkCodeinternationalaccount(accountAssociatedServiceParam.getCodeInternationalAccount())) {
+				.existsByPkCodeinternationalaccount(
+						accountAssociatedServiceParam.getPk().getCodeinternationalaccount())) {
 			throw new RuntimeException("Account not found");
 		}
 		this.accountAssociatedServiceParamRepository.save(accountAssociatedServiceParam);

@@ -123,13 +123,13 @@ public class AccountAssociatedServiceService {
 	@Transactional
 	public void save(AccountAssociatedService accountAssociatedService) {
 
-		if (!accountRepository.existsByPkCodelocalaccount(accountAssociatedService.getCodeLocalAccount())) {
-			throw new RuntimeException("Account not found");
+		if (!accountRepository.existsByPkCodelocalaccount(accountAssociatedService.getPk().getCodelocalaccount())) {
+			throw new RuntimeException("Local Account not found");
 		}
 
 		if (!accountRepository
-				.existsByPkCodeinternationalaccount(accountAssociatedService.getCodeInternationalAccount())) {
-			throw new RuntimeException("Account not found");
+				.existsByPkCodeinternationalaccount(accountAssociatedService.getPk().getCodeinternationalaccount())) {
+			throw new RuntimeException("International Account not found");
 		}
 
 		this.accountAssociatedServiceRepository.save(accountAssociatedService);
