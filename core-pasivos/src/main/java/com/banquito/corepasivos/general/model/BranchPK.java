@@ -12,7 +12,7 @@ import lombok.Data;
 public class BranchPK implements Serializable {
 
     @Column(name = "code_branch", length = 3, nullable = false)
-    private String codeBranch;
+    private String codebranch;
 
     @Column(name = "entity_bank_code", length = 16, nullable = false)
     private String entityBankCode;

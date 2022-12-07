@@ -10,8 +10,8 @@ import java.io.Serializable;
 public class BankEntityPK implements Serializable {
 
     @Column(name = "entity_bank_code", length = 16, nullable = false)
-    private String entityBankCode;
+    private String entitybankcode;
 
     @Column(name = "international_bank_code", length = 16, nullable = false)
-    private String internationalBankCode;
+    private String internationalbankcode;
 }
