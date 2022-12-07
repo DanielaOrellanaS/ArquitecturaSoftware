@@ -7,7 +7,9 @@ import java.util.List;
 
 import org.springframework.http.ResponseEntity;
 
+
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,14 +24,25 @@ public class AccountTransactionController {
         this.accountTransactionService = accountTransactionService;
     }
 
+
+	@RequestMapping(value = "/", method = RequestMethod.POST)
+    public ResponseEntity<String> createTransaction(@RequestBody AccountTransaction transaction) {
+        try {
+            this.accountTransactionService.saveTransactionDeb(transaction);
+            return ResponseEntity.ok("Transaction saved"+transaction.getCodeUniqueTransaction());
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().body(e.getMessage());
+        }
+    }
+
 	@RequestMapping(value = "", method = RequestMethod.GET)
     public ResponseEntity <List<AccountTransaction>> findAll() {
-        List<AccountTransaction> accountTransactions = this.accountTransactionService.findAll();
+        List<AccountTransaction> transaction = this.accountTransactionService.findAll();
 
-		if(accountTransactions.isEmpty()){
+		if(transaction.isEmpty()){
 			return ResponseEntity.notFound().build();
 		}else{
-			return ResponseEntity.ok(accountTransactions);
+			return ResponseEntity.ok(transaction);
 		}
     }
 
@@ -48,19 +61,19 @@ public class AccountTransactionController {
 
 	}
 
-    @RequestMapping("/code-transaction/{codeUniqueTransaction}")
-	public ResponseEntity<List<AccountTransaction>> findByCodeUniqueTransaction(
-			@PathVariable("codeUniqueTransaction") String codeUniqueTransaction) {
+    // @RequestMapping("/code-transaction/{codeUniqueTransaction}")
+	// public ResponseEntity<List<AccountTransaction>> findByCodeUniqueTransaction(
+	// 		@PathVariable("codeUniqueTransaction") String codeUniqueTransaction) {
 
-		List<AccountTransaction> accountTransactionService = this.accountTransactionService
-				.findByCodeUniqueTransaction(codeUniqueTransaction);
-		if (accountTransactionService.isEmpty()) {
-			return ResponseEntity.notFound().build();
-		} else {
-			return ResponseEntity.ok(accountTransactionService);
-		}
+	// 	List<AccountTransaction> accountTransactionService = this.accountTransactionService
+	// 			.findByCodeUniqueTransaction(codeUniqueTransaction);
+	// 	if (accountTransactionService.isEmpty()) {
+	// 		return ResponseEntity.notFound().build();
+	// 	} else {
+	// 		return ResponseEntity.ok(accountTransactionService);
+	// 	}
 
-	}
+	// }
 
     @RequestMapping("/status/{status}")
 	public ResponseEntity<List<AccountTransaction>> findByStatus(
