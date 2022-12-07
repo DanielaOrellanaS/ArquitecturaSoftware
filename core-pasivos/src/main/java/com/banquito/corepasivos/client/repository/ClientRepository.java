@@ -11,8 +11,11 @@ import com.banquito.corepasivos.client.model.ClientPK;
 
 @Repository
 public interface ClientRepository extends JpaRepository<Client, ClientPK> {
+
     List<Client> findByPkIdentification(String identification);
     
     boolean existsByPkIdentification(String identification);
+
+    List<Client> findByStatus(String status);
     
 }
