@@ -6,6 +6,8 @@ import lombok.EqualsAndHashCode.Include;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Data
@@ -37,4 +39,22 @@ public class Holiday {
     public Holiday(Date date) {
         this.date = date;
     }
+
+    public boolean validateWeekend(Date dateHoliday){
+        int saturday, sunday; 
+        String formattedDate; 
+        Date initDate = dateHoliday;
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("EEEE yyyy-MM-dd");
+        formattedDate = dateFormat.format(initDate);
+
+        saturday = formattedDate.indexOf("sabado");
+        sunday = formattedDate.indexOf("domingo");
+        if((saturday>=0) || (sunday>=0)){
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 }

@@ -1,5 +1,6 @@
 package com.banquito.corepasivos.general.controller;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,6 +23,17 @@ public class HolidayController {
         this.holidayService = holidayService;
     }
 
+    
+    @RequestMapping(value = "/", method = RequestMethod.GET)
+    public ResponseEntity<List<Holiday>> getHolidays() {
+        return ResponseEntity.ok(this.holidayService.findAll());
+    }
+
+    @RequestMapping(value = "/{date}", method = RequestMethod.PUT)
+    public ResponseEntity<Optional<Holiday>> getHolidayById(@PathVariable("date") String date) {
+        return ResponseEntity.ok(this.holidayService.findById(date));
+    }
+
     @RequestMapping(value = "/", method = RequestMethod.POST)
     public ResponseEntity<String> createHoliday(@RequestBody Holiday holiday) {
         try {
@@ -30,6 +42,20 @@ public class HolidayController {
         } catch (Exception e) {
             return ResponseEntity.internalServerError().body(e.getMessage());
         }
+    }
+
+    @RequestMapping(value = "/{date}", method = RequestMethod.POST)
+    public ResponseEntity<String> createHolidayWeekend(@PathVariable("date") Holiday dateHoliday) {
+        Holiday holiday = new Holiday(); 
+        if(holiday.validateWeekend(dateHoliday.getDate())){
+            try {
+                this.holidayService.create(dateHoliday);
+                return ResponseEntity.ok("Holiday created successfully");
+            } catch (Exception e) {
+                return ResponseEntity.internalServerError().body(e.getMessage());
+            }
+        }
+        return null;
     }
 
     @RequestMapping(value = "/", method = RequestMethod.PUT)
@@ -52,13 +78,6 @@ public class HolidayController {
         }
     }
 
-    @RequestMapping(value = "/", method = RequestMethod.GET)
-    public ResponseEntity<List<Holiday>> getHolidays() {
-        return ResponseEntity.ok(this.holidayService.findAll());
-    }
 
-    @RequestMapping(value = "/{date}", method = RequestMethod.PUT)
-    public ResponseEntity<Optional<Holiday>> getHolidayById(@PathVariable("date") String date) {
-        return ResponseEntity.ok(this.holidayService.findById(date));
-    }
+
 }

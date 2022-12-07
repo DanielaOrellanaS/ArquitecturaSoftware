@@ -20,6 +20,21 @@ public class HolidayServices {
         this.holidayRepository = holidayRepository;
     }
 
+    public List<Holiday> findAll() {
+        return this.holidayRepository.findAll();
+    }
+
+    public Optional<Holiday> findById(String date) {
+        try {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyy-MM-dd");
+            Date newDate = dateFormat.parse(date);
+            return this.holidayRepository.findById(newDate);
+        } catch (Exception e) {
+            throw new RuntimeException("The Holiday does not exist");
+        }
+
+    }
+
     @Transactional
     public void create(Holiday holiday) {
         List<Holiday> holidays = this.holidayRepository.findByDate(holiday.getDate());
@@ -50,21 +65,6 @@ public class HolidayServices {
         } else {
             throw new RuntimeException("The Holiday does not exist");
         }
-    }
-
-    public List<Holiday> findAll() {
-        return this.holidayRepository.findAll();
-    }
-
-    public Optional<Holiday> findById(String date) {
-        try {
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyy-MM-dd");
-            Date newDate = dateFormat.parse(date);
-            return this.holidayRepository.findById(newDate);
-        } catch (Exception e) {
-            throw new RuntimeException("The Holiday does not exist");
-        }
-
     }
 
 }
