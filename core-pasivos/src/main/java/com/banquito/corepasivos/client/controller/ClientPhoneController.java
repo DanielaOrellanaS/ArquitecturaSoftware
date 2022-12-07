@@ -26,7 +26,7 @@ public class ClientPhoneController {
         return this.clientPhoneService.save(clientPhone);
     }
 
-    @RequestMapping(value = "", method = RequestMethod.GET)
+    @RequestMapping(value = "/all", method = RequestMethod.GET)
     public ResponseEntity<List<ClientPhone>> findAll() {
         List<ClientPhone> clientPhones = this.clientPhoneService.findAll();
 
@@ -53,10 +53,9 @@ public class ClientPhoneController {
         return this.clientPhoneService.updateByIdentificationClient(identification, clientPhone);
     }
 
-    @RequestMapping(value = "/local/{identification}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/{identification}", method = RequestMethod.DELETE)
     public ClientPhone deleteByIdentificationClient(
             @PathVariable("identification") String identification) {
         return this.clientPhoneService.deleteByIdentificationClient(identification);
     }
 }
-    

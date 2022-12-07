@@ -1,10 +1,12 @@
 package com.banquito.corepasivos.general.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.http.ResponseEntity;
 import com.banquito.corepasivos.general.model.BankEntity;
@@ -20,17 +22,19 @@ public class BankEntityController {
     public BankEntityController(BankEntityService bankEntityService) {
         this.bankEntityService = bankEntityService;
     }
-    /*
-     * Repetido
-     * 
-     * @RequestMapping(value = "", method = RequestMethod.GET)
-     * public ResponseEntity<List<BankEntity>> getBankEntity() {
-     * return ResponseEntity.ok(this.bankEntityService.findAll());
-     * return ResponseEntity.ok("Bank Entity created successfully");
-     * } catch (Exception e) {
-     * return ResponseEntity.internalServerError().body(e.getMessage());
-     * }
-     */
+
+    @RequestMapping(value = "", method = RequestMethod.GET)
+    public ResponseEntity<List<BankEntity>> getBankEntity() {
+        return ResponseEntity.ok(this.bankEntityService.findAll());
+    }
+
+    @RequestMapping(value = "/{entitybankcode}", method = RequestMethod.GET)
+    public ResponseEntity<Optional<BankEntity>> getBankEntityById(
+            @PathVariable("entitybankcode") String entityBankCode) {
+        BankEntityPK pk = new BankEntityPK();
+        pk.setEntitybankcode(entityBankCode);
+        return ResponseEntity.ok(this.bankEntityService.findByComposePK(pk));
+    }
 
     @RequestMapping(value = "", method = RequestMethod.PUT)
     public ResponseEntity<String> updateBankEntity(@RequestBody BankEntity bankEntity) {
@@ -52,23 +56,4 @@ public class BankEntityController {
         }
     }
 
-    @RequestMapping(value = "", method = RequestMethod.GET)
-    public ResponseEntity<List<BankEntity>> getBankEntity() {
-        return ResponseEntity.ok(this.bankEntityService.findAll());
-    }
-
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public ResponseEntity<BankEntity> getBankEntityById(@RequestBody BankEntityPK bankEntityPK) {
-        return ResponseEntity.ok(this.bankEntityService.findById(bankEntityPK));
-    }
-
-    /*
-     * Antes
-     * 
-     * @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-     * public ResponseEntity<Optional<BankEntity>> getBankEntityById(@RequestBody
-     * BankEntityPK bankEntityPK) {
-     * return ResponseEntity.ok(this.bankEntityService.findById(bankEntityPK));
-     * }
-     */
 }

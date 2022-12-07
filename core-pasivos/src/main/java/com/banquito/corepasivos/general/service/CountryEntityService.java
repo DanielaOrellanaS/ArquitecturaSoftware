@@ -63,4 +63,14 @@ public class CountryEntityService {
         }
     }
 
+    @Transactional
+    public void deleteByCode(String codeCountry) {
+
+        try {
+            this.countryEntityRepository.deleteById(codeCountry);
+        } catch (Exception e) {
+            throw new RuntimeException("Country does not exist");
+        }
+    }
+
 }

@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -23,32 +22,34 @@ public class ClientRelationshipController {
         this.clientRelationshipService = clientRelationshipService;
     }
 
-    /*GET */
-    @RequestMapping(value = "/", method = RequestMethod.GET )
+    // get
+
+    @RequestMapping(value = "/", method = RequestMethod.GET)
     public ResponseEntity<List<ClientRelationship>> getAll() {
         List<ClientRelationship> clientRelationship = this.clientRelationshipService.searchAll();
-        if(clientRelationship != null) {
+        if (clientRelationship != null) {
             return ResponseEntity.ok(clientRelationship);
         } else {
             return ResponseEntity.notFound().build();
         }
     }
 
-    @RequestMapping(value = "/relation-type/{relationshipType}", method = RequestMethod.GET )
-    public ResponseEntity<List<ClientRelationship>> searchTypeRelationship(@PathVariable("relationshipType") String relationshipType) {
-        List<ClientRelationship> clientRelationship = this.clientRelationshipService.searchTypeRelationship(relationshipType);
-        if (clientRelationship != null)
-        {
+    @RequestMapping(value = "/relation-type/{relationshipType}", method = RequestMethod.GET)
+    public ResponseEntity<List<ClientRelationship>> searchTypeRelationship(
+            @PathVariable("relationshipType") String relationshipType) {
+        List<ClientRelationship> clientRelationship = this.clientRelationshipService
+                .searchTypeRelationship(relationshipType);
+        if (clientRelationship != null) {
             return ResponseEntity.ok(clientRelationship);
         } else {
             return ResponseEntity.notFound().build();
         }
     }
-    @RequestMapping(value = "/identification/{identification}", method = RequestMethod.GET )
+
+    @RequestMapping(value = "/identification/{identification}", method = RequestMethod.GET)
     public ResponseEntity<ClientRelationship> searchById(@PathVariable("identification") String identification) {
         ClientRelationship clientRelationship = this.clientRelationshipService.searchById(identification);
-        if (clientRelationship != null)
-        {
+        if (clientRelationship != null) {
             return ResponseEntity.ok(clientRelationship);
         } else {
             return ResponseEntity.notFound().build();
@@ -56,7 +57,7 @@ public class ClientRelationshipController {
     }
 
     // Post
-    @RequestMapping(value = "/", method = RequestMethod.POST )
+    @RequestMapping(value = "/", method = RequestMethod.POST)
     public ResponseEntity<String> createClientRelationship(@RequestBody ClientRelationship clientRelationship) {
         try {
             this.clientRelationshipService.createClientRelationship(clientRelationship);
@@ -67,8 +68,8 @@ public class ClientRelationshipController {
     }
 
     // Put
+
     @RequestMapping(value = "/", method = RequestMethod.PUT )
-    @PutMapping(consumes = { "application/json" })
     public ResponseEntity<String> updateClientRelationship(@RequestBody ClientRelationship clientRelationship) {
         try {
             this.clientRelationshipService.updateClientRelationship(clientRelationship);
@@ -79,8 +80,9 @@ public class ClientRelationshipController {
     }
 
     // Delete
-    @RequestMapping(value = "/delete-identification/{identification}", method = RequestMethod.DELETE )
-    public ResponseEntity<String> deleteClientRelationshipIdentification(@PathVariable("identification") String identification) {
+    @RequestMapping(value = "delete-identification/{identification}", method = RequestMethod.DELETE)
+    public ResponseEntity<String> deleteClientRelationshipIdentification(
+            @PathVariable("identification") String identification) {
         try {
             this.clientRelationshipService.deleteClientRelationshipIdentification(identification);
             return ResponseEntity.ok("Customer relationship successfully removed.");
@@ -89,8 +91,9 @@ public class ClientRelationshipController {
         }
     }
 
-    @RequestMapping(value = "/delete-code/{codeRelationship}", method = RequestMethod.DELETE )
-    public ResponseEntity<String> deleteClientRelationshipCode(@PathVariable("codeRelationship") Integer codeRelationship) {
+    @RequestMapping(value = "/delete-code/{codeRelationship}", method = RequestMethod.DELETE)
+    public ResponseEntity<String> deleteClientRelationshipCode(
+            @PathVariable("codeRelationship") Integer codeRelationship) {
         try {
             this.clientRelationshipService.deleteClientRelationshipCode(codeRelationship);
             return ResponseEntity.ok("Customer relationship successfully removed.");
