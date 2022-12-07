@@ -26,8 +26,13 @@ public class ClientService {
     public List<Client> findAllClientsByIdentification(String identification) {
         return this.clientRepository.findByPkIdentification(identification);
     }
+    
     public boolean existsClientByIdentification(String identification) {
         return this.clientRepository.existsByPkIdentification(identification);
+    }
+
+    public List<Client> findAllClientsByStatus(String status) {
+        return this.clientRepository.findByStatus(status);
     }
 
     @Transactional
@@ -59,5 +64,25 @@ public class ClientService {
             } catch (Exception e) {
                 throw new RuntimeException("Error updating client");
             }
+    }
+
+    // change status
+    @Transactional
+    public void updateStatus(Client client) {
+        Optional<Client> auxClient = this.clientRepository.findById(client.getPk());
+        if (!auxClient.isPresent()){
+            throw new RuntimeException("Client not found");
+        } else {
+            try {
+                if(client.getStatus().equals("ACT")) {
+                    client.setStatus("INA");
+                } else if (client.getStatus().equals("INA")) {
+                    client.setStatus("ACT");
+                }
+                this.clientRepository.save(client);
+            } catch (Exception e) {
+                throw new RuntimeException("Error changing status");
+            }
+        }
     }
 }

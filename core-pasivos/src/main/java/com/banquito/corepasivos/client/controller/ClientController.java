@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.banquito.corepasivos.client.model.Client;
@@ -25,14 +26,14 @@ public class ClientController {
     public ClientController(ClientService clientService) {
         this.clientService = clientService;
     }
-
-    @GetMapping("/all")
+    // Get
+    @RequestMapping(value = "/", method = RequestMethod.GET)
     public ResponseEntity<List<Client>> findAll() {
         List<Client> clients = this.clientService.findAllClients();
         return ResponseEntity.ok(clients);
     }
 
-    @GetMapping("/identification/{identification}")
+    @RequestMapping(value = "/identification/{identification}", method = RequestMethod.GET)
     public ResponseEntity<Client> findAllClientsByIdentification(
             @PathVariable("identification") String identification) {
         if (!this.clientService.existsClientByIdentification(identification)) {
@@ -43,7 +44,18 @@ public class ClientController {
         }
     }
 
-    @PostMapping(consumes = { MediaType.APPLICATION_JSON_VALUE })
+    @RequestMapping(value = "/status/{status}", produces = { MediaType.APPLICATION_JSON_VALUE })
+    public ResponseEntity<List<Client>> findAllClientsByStatus(@PathVariable("status") String status) {
+        List<Client> clients = this.clientService.findAllClientsByStatus(status);
+        if(clients  != null){
+            return ResponseEntity.ok(clients);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    // post
+    @RequestMapping(value = "/", method = RequestMethod.POST)
     public ResponseEntity<String> createClient(@RequestBody Client client) {
         if (this.clientService.existsClientByIdentification(client.getPk().getIdentification())) {
             return ResponseEntity.badRequest().body("Client already exists");
@@ -53,17 +65,20 @@ public class ClientController {
         }
     }
 
-    @DeleteMapping("/identification/{identification}")
-    public ResponseEntity<String> deleteClientEntity(@RequestBody Client client) {
-        if (!this.clientService.existsClientByIdentification(client.getPk().getIdentification())) {
-            return ResponseEntity.badRequest().body("Client not found");
-        } else {
-            this.clientService.deleteClient(client);
-            return ResponseEntity.ok("Client deleted");
-        }
-    }
+    // // delete
 
-    @PutMapping(consumes = { "application/json" })
+    // @DeleteMapping("/identification/{identification}")
+    // public ResponseEntity<String> deleteClientEntity(@RequestBody Client client) {
+    //     if (!this.clientService.existsClientByIdentification(client.getPk().getIdentification())) {
+    //         return ResponseEntity.badRequest().body("Client not found");
+    //     } else {
+    //         this.clientService.deleteClient(client);
+    //         return ResponseEntity.ok("Client deleted");
+    //     }
+    // }
+
+    //put
+    @RequestMapping(value = "/", method = RequestMethod.PUT )
     public ResponseEntity<String> updateClient(@RequestBody Client client) {
         if (!this.clientService.existsClientByIdentification(client.getPk().getIdentification())) {
             return ResponseEntity.badRequest().body("Client not found");
@@ -72,4 +87,16 @@ public class ClientController {
             return ResponseEntity.ok("Client updated successfully");
         }
     }
+
+    // change status
+    @RequestMapping(value = "/status/" , method = RequestMethod.PUT)
+    public ResponseEntity<String> updateStatus(@RequestBody Client client) {
+        if (!this.clientService.existsClientByIdentification(client.getPk().getIdentification())) {
+            return ResponseEntity.badRequest().body("Client not found");
+        } else {
+            this.clientService.updateStatus(client);
+            return ResponseEntity.ok("Client status changed successfully");
+        }
+    }
+
 }
