@@ -10,7 +10,7 @@ import java.io.Serializable;
 @Embeddable
 public class StructureEntityPK implements Serializable {
     @Column(name = "code_country", length = 2, nullable = false)
-    private String codeCountry;
+    private String codecountry;
 
     @Column(name = "level", length = 2, nullable = false)
     private Integer level;

@@ -21,8 +21,8 @@ public class AccountService {
     }
 
     @Transactional
-    public Account save(Account account) {
-        return this.accountRepository.save(account);
+    public void save(Account account) {
+        this.accountRepository.save(account);
     }
 
     public List<Account> findAll() {
@@ -127,7 +127,7 @@ public class AccountService {
     }
 
     @Transactional
-    public Account updateByCodeLocalAccount(String codeLocalAccount, Account accountDetails) {
+    public void updateByCodeLocalAccount(String codeLocalAccount, Account accountDetails) {
         List<Account> accounts = this.accountRepository.findByPkCodelocalaccount(codeLocalAccount);
 
         if (accounts.isEmpty())
@@ -141,11 +141,11 @@ public class AccountService {
         account.setPresentBalance(accountDetails.getPresentBalance());
         account.setAvailableBalance(accountDetails.getAvailableBalance());
 
-        return this.accountRepository.save(account);
+        this.accountRepository.save(account);
     }
 
     @Transactional
-    public Account updateByCodeInternationalAccount(String codeInternationalAccount, Account accountDetails) {
+    public void updateByCodeInternationalAccount(String codeInternationalAccount, Account accountDetails) {
         List<Account> accounts = this.accountRepository.findByPkCodeinternationalaccount(codeInternationalAccount);
 
         if (accounts.isEmpty())
@@ -160,11 +160,11 @@ public class AccountService {
         account.setPresentBalance(accountDetails.getPresentBalance());
         account.setAvailableBalance(accountDetails.getAvailableBalance());
 
-        return this.accountRepository.save(account);
+        this.accountRepository.save(account);
     }
 
     @Transactional
-    public Account deleteByCodeLocalAccount(String codeLocalAccount) {
+    public void deleteByCodeLocalAccount(String codeLocalAccount) {
         List<Account> accounts = this.accountRepository.findByPkCodelocalaccount(codeLocalAccount);
 
         if (accounts.isEmpty())
@@ -174,11 +174,11 @@ public class AccountService {
         Account account = accounts.get(0);
         account.setStatus("INA");
 
-        return this.accountRepository.save(account);
+        this.accountRepository.save(account);
     }
 
     @Transactional
-    public Account deleteByCodeInternationalAccount(String codeInternationalAccount) {
+    public void deleteByCodeInternationalAccount(String codeInternationalAccount) {
         List<Account> accounts = this.accountRepository.findByPkCodeinternationalaccount(codeInternationalAccount);
 
         if (accounts.isEmpty())
@@ -188,6 +188,6 @@ public class AccountService {
         Account account = accounts.get(0);
         account.setStatus("INA");
 
-        return this.accountRepository.save(account);
+        this.accountRepository.save(account);
     }
 }
