@@ -10,9 +10,10 @@ import com.banquito.corepasivos.product.model.InterestRate;
 @Repository
 public interface InterestRateRepository extends JpaRepository<InterestRate, String> {
 
-
     List<InterestRate> findByCodeInterestRate(String codeInterestRate);
 
     List<InterestRate> findByNameContaining(String name);
-    
+
+    Boolean existsByCodeInterestRate(String codeInterestRate);
+
 }
