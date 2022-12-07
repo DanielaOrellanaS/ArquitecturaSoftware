@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/account")
+@RequestMapping("/api/account")
 public class AccountController {
 
     private final AccountService accountService;
@@ -23,8 +23,14 @@ public class AccountController {
     }
 
     @RequestMapping(value = "", method = RequestMethod.POST)
-    public Account save(@RequestBody Account account) {
-        return this.accountService.save(account);
+    public ResponseEntity<String> save(@RequestBody Account account) {
+
+        try {
+            this.accountService.save(account);
+            return ResponseEntity.ok("Account saved successfully");
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().body(e.getMessage());
+        }
     }
 
     @RequestMapping(value = "", method = RequestMethod.GET)
@@ -126,27 +132,62 @@ public class AccountController {
         return ResponseEntity.ok(accountsBystatus);
     }
 
+    @RequestMapping(value = "consolidated-position/{identification}", method = RequestMethod.GET)
+    public ResponseEntity<List<Account>> findConsolidatedPosition(
+            @PathVariable("identification") String identification) {
+        List<Account> consolidatedPositions = this.accountService.findConsolidatedPosition(identification);
+
+        if (consolidatedPositions.isEmpty())
+            return ResponseEntity.notFound().build();
+
+        return ResponseEntity.ok(consolidatedPositions);
+    }
+
     @RequestMapping(value = "/local/{codeLocalAccount}", method = RequestMethod.PUT)
-    public Account updateByCodeLocalAccount(@RequestBody Account account,
+    public ResponseEntity<String> updateByCodeLocalAccount(@RequestBody Account account,
             @PathVariable("codeLocalAccount") String codeLocalAccount) {
-        return this.accountService.updateByCodeLocalAccount(codeLocalAccount, account);
+
+        try {
+            this.accountService.updateByCodeLocalAccount(codeLocalAccount, account);
+            return ResponseEntity.ok("Account updated successfully");
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().body(e.getMessage());
+        }
     }
 
     @RequestMapping(value = "/international/{codeInternationalAccount}", method = RequestMethod.PUT)
-    public Account updateByCodeInternationalAccount(@RequestBody Account account,
+    public ResponseEntity<String> updateByCodeInternationalAccount(@RequestBody Account account,
             @PathVariable("codeInternationalAccount") String codeInternationalAccount) {
-        return this.accountService.updateByCodeInternationalAccount(codeInternationalAccount, account);
+
+        try {
+            this.accountService.updateByCodeInternationalAccount(codeInternationalAccount, account);
+            return ResponseEntity.ok("Account updated successfully");
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().body(e.getMessage());
+        }
     }
 
     @RequestMapping(value = "/local/{codeLocalAccount}", method = RequestMethod.DELETE)
-    public Account deleteByCodeLocalAccount(
+    public ResponseEntity<String> deleteByCodeLocalAccount(
             @PathVariable("codeLocalAccount") String codeLocalAccount) {
-        return this.accountService.deleteByCodeLocalAccount(codeLocalAccount);
+
+        try {
+            this.accountService.deleteByCodeLocalAccount(codeLocalAccount);
+            return ResponseEntity.ok("Account deleted successfully");
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().body(e.getMessage());
+        }
     }
 
     @RequestMapping(value = "/international/{codeInternationalAccount}", method = RequestMethod.DELETE)
-    public Account deleteByCodeInternationalAccount(
+    public ResponseEntity<String> deleteByCodeInternationalAccount(
             @PathVariable("codeInternationalAccount") String codeInternationalAccount) {
-        return this.accountService.deleteByCodeInternationalAccount(codeInternationalAccount);
+
+        try {
+            this.accountService.deleteByCodeInternationalAccount(codeInternationalAccount);
+            return ResponseEntity.ok("Account deleted successfully");
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().body(e.getMessage());
+        }
     }
 }

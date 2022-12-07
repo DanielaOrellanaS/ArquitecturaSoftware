@@ -8,31 +8,49 @@ import java.util.List;
 import org.springframework.http.ResponseEntity;
 
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/account/transaction")
+@RequestMapping("api/account-transaction")
 public class AccountTransactionController {
 
-    private final AccountTransactionService accountTransactionService;
+	private final AccountTransactionService accountTransactionService;
 
-    public AccountTransactionController(AccountTransactionService accountTransactionService) {
-        this.accountTransactionService = accountTransactionService;
-    }
+	public AccountTransactionController(AccountTransactionService accountTransactionService) {
+		this.accountTransactionService = accountTransactionService;
+	}
 
-    @RequestMapping("/all")
-    public Object findAll() {
-        return this.accountTransactionService.findAll();
-    }
+	@RequestMapping(value = "/", method = RequestMethod.POST)
+	public ResponseEntity<String> createTransaction(@RequestBody AccountTransaction transaction) {
 
-    
-    @RequestMapping("/LocalAccount/{codeLocalAccount}")
+		try {
+			this.accountTransactionService.saveTransactionDeb(transaction);
+			return ResponseEntity.ok("Transaction saved");
+		} catch (Exception e) {
+			return ResponseEntity.internalServerError().body(e.getMessage());
+		}
+	}
+
+	@RequestMapping(value = "", method = RequestMethod.GET)
+	public ResponseEntity<List<AccountTransaction>> findAll() {
+		List<AccountTransaction> transaction = this.accountTransactionService.findAll();
+
+		if (transaction.isEmpty()) {
+			return ResponseEntity.notFound().build();
+		} else {
+			return ResponseEntity.ok(transaction);
+		}
+	}
+
+	@RequestMapping("/local-account/{codeLocalAccount}")
 	public ResponseEntity<List<AccountTransaction>> findByCodeLocalAccount(
 			@PathVariable("codeLocalAccount") String codeLocalAccount) {
 
 		List<AccountTransaction> accountTransactionService = this.accountTransactionService
-				.findByCodeLocalAccount(codeLocalAccount);
+				.findByCodeLocalAccount(codeLocalAccount.toLowerCase());
 		if (accountTransactionService.isEmpty()) {
 			return ResponseEntity.notFound().build();
 		} else {
@@ -41,12 +59,12 @@ public class AccountTransactionController {
 
 	}
 
-    @RequestMapping("/CodeUniqueTransaction/{codeUniqueTransaction}")
+	@RequestMapping("/code-transaction/{codeUniqueTransaction}")
 	public ResponseEntity<List<AccountTransaction>> findByCodeUniqueTransaction(
 			@PathVariable("codeUniqueTransaction") String codeUniqueTransaction) {
 
 		List<AccountTransaction> accountTransactionService = this.accountTransactionService
-				.findByCodeUniqueTransaction(codeUniqueTransaction);
+				.findByCodeUniqueTransaction(codeUniqueTransaction.toLowerCase());
 		if (accountTransactionService.isEmpty()) {
 			return ResponseEntity.notFound().build();
 		} else {
@@ -55,12 +73,12 @@ public class AccountTransactionController {
 
 	}
 
-    @RequestMapping("/Status/{status}")
+	@RequestMapping("/status/{status}")
 	public ResponseEntity<List<AccountTransaction>> findByStatus(
 			@PathVariable("status") String status) {
 
 		List<AccountTransaction> accountTransactionService = this.accountTransactionService
-				.findByStatus(status);
+				.findByStatus(status.toUpperCase());
 		if (accountTransactionService.isEmpty()) {
 			return ResponseEntity.notFound().build();
 		} else {
@@ -69,12 +87,12 @@ public class AccountTransactionController {
 
 	}
 
-    @RequestMapping("/RecipientBank/{recipientBank}")
+	@RequestMapping("/recipient-bank/{recipientBank}")
 	public ResponseEntity<List<AccountTransaction>> findByRecipientBank(
 			@PathVariable("recipientBank") String recipientBank) {
 
 		List<AccountTransaction> accountTransactionService = this.accountTransactionService
-				.findByRecipientBank(recipientBank);
+				.findByRecipientBank(recipientBank.toUpperCase());
 		if (accountTransactionService.isEmpty()) {
 			return ResponseEntity.notFound().build();
 		} else {
@@ -83,22 +101,19 @@ public class AccountTransactionController {
 
 	}
 
-    // @RequestMapping("/findByDate/{recipientBank}")
+	// @RequestMapping("/findByDate/{recipientBank}")
 	// public ResponseEntity<List<AccountTransaction>> findByRecipientBank(
-	// 		@PathVariable("recipientBank") String recipientBank) {
+	// @PathVariable("recipientBank") String recipientBank) {
 
-	// 	List<AccountTransaction> accountTransactionService = this.accountTransactionService
-	// 			.findByRecipientBank(recipientBank);
-	// 	if (accountTransactionService.isEmpty()) {
-	// 		return ResponseEntity.notFound().build();
-	// 	} else {
-	// 		return ResponseEntity.ok(accountTransactionService);
-	// 	}
-
+	// List<AccountTransaction> accountTransactionService =
+	// this.accountTransactionService
+	// .findByRecipientBank(recipientBank);
+	// if (accountTransactionService.isEmpty()) {
+	// return ResponseEntity.notFound().build();
+	// } else {
+	// return ResponseEntity.ok(accountTransactionService);
 	// }
 
-    
-
-
+	// }
 
 }

@@ -2,22 +2,18 @@ package com.banquito.corepasivos.client.controller;
 
 import java.util.List;
 
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.banquito.corepasivos.client.model.ClientReference;
 import com.banquito.corepasivos.client.service.ClientReferenceService;
 
 @RestController
-@RequestMapping("/api/clientsreferences")
+@RequestMapping("/api/client-reference")
 public class ClientReferenceController {
     private final ClientReferenceService clientReferenceService;
 
@@ -25,7 +21,7 @@ public class ClientReferenceController {
         this.clientReferenceService = clientReferenceService;
     }
 
-    @GetMapping("/all")
+    @RequestMapping(value = "/", method = RequestMethod.GET)
     public ResponseEntity<List<ClientReference>> findReferences() {
         List<ClientReference> clientReference = this.clientReferenceService.findAllClientReferences();
         if (clientReference == null) {
@@ -34,7 +30,7 @@ public class ClientReferenceController {
             return ResponseEntity.ok(clientReference);
     }
 
-    @GetMapping(path = "/{id}")
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<List<ClientReference>> findReferences(
             @PathVariable("id") String id) {
         List<ClientReference> clientReference = this.clientReferenceService.findAllClientReference(id);
@@ -44,7 +40,7 @@ public class ClientReferenceController {
             return ResponseEntity.ok(clientReference);
     }
 
-    @PostMapping(consumes = { MediaType.APPLICATION_JSON_VALUE })
+    @RequestMapping(value = "/", method = RequestMethod.POST)
     public ResponseEntity<String> createClientReference(@RequestBody ClientReference clientRef) {
         try {
             this.clientReferenceService.saveClientReference(clientRef);
@@ -54,7 +50,7 @@ public class ClientReferenceController {
         }
     }
 
-    @PutMapping(consumes = { MediaType.APPLICATION_JSON_VALUE })
+    @RequestMapping(value = "/", method = RequestMethod.PUT)
     public ResponseEntity<String> updateClientReference(@RequestBody ClientReference clientRef) {
         try {
             this.clientReferenceService.updateClientReference(clientRef);
@@ -64,12 +60,12 @@ public class ClientReferenceController {
         }
     }
 
-    @DeleteMapping("/{codeReference}")
+    @RequestMapping(value = "/{codeReference}", method = RequestMethod.DELETE)
     public ResponseEntity<String> deleteClientReference(
             @PathVariable("codeReference") Integer codeReference) {
         try {
             this.clientReferenceService.deleteClientReference(codeReference);
-            return ResponseEntity.ok("Direccion eliminada con exito");
+            return ResponseEntity.ok("Client reference delete succesfully");
         } catch (Exception e) {
             return ResponseEntity.internalServerError().body(e.getMessage());
         }

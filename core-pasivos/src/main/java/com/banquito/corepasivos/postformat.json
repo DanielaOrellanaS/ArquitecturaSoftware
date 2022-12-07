@@ -57,5 +57,13 @@
         "name": "Dayana Mena",
         "phone": "0979246781",
         "related": "Socio"
+    },
+    "ClientPhone": {
+        "pk": {
+            "phonenumber": "0960953023",
+            "identificationType": "DNI",
+            "identification": "1720744946"
+        },
+        "type": "MBL"
     }
 }

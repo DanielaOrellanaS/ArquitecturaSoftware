@@ -1,24 +1,28 @@
 package com.banquito.corepasivos.account.services;
 
 import com.banquito.corepasivos.account.model.Account;
+import com.banquito.corepasivos.account.model.AccountClient;
 import com.banquito.corepasivos.account.repository.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class AccountService {
 
     private final AccountRepository accountRepository;
+    private final AccountClientRepository accountClientRepository;
 
-    public AccountService(AccountRepository accountRepository) {
+    public AccountService(AccountRepository accountRepository, AccountClientRepository accountClientRepository) {
         this.accountRepository = accountRepository;
+        this.accountClientRepository = accountClientRepository;
     }
 
     @Transactional
-    public Account save(Account account) {
-        return this.accountRepository.save(account);
+    public void save(Account account) {
+        this.accountRepository.save(account);
     }
 
     public List<Account> findAll() {
@@ -106,8 +110,24 @@ public class AccountService {
         return accountsByStatus;
     }
 
+    public List<Account> findConsolidatedPosition(String identification) {
+        List<AccountClient> accountClients = this.accountClientRepository.findByPkIdentification(identification);
+        List<Account> accounts = new ArrayList<Account>();
+
+        if (accountClients.isEmpty())
+            throw new RuntimeException("Account with identification: " + identification + " not found.");
+
+        for (AccountClient accountClient : accountClients) {
+            List<Account> temporalAccountList = this.accountRepository
+                    .findByPkCodeinternationalaccount(accountClient.getPk().getCodeinternationalaccount());
+            accounts.add(temporalAccountList.get(0));
+        }
+
+        return accounts;
+    }
+
     @Transactional
-    public Account updateByCodeLocalAccount(String codeLocalAccount, Account accountDetails) {
+    public void updateByCodeLocalAccount(String codeLocalAccount, Account accountDetails) {
         List<Account> accounts = this.accountRepository.findByPkCodelocalaccount(codeLocalAccount);
 
         if (accounts.isEmpty())
@@ -121,11 +141,11 @@ public class AccountService {
         account.setPresentBalance(accountDetails.getPresentBalance());
         account.setAvailableBalance(accountDetails.getAvailableBalance());
 
-        return this.accountRepository.save(account);
+        this.accountRepository.save(account);
     }
 
     @Transactional
-    public Account updateByCodeInternationalAccount(String codeInternationalAccount, Account accountDetails) {
+    public void updateByCodeInternationalAccount(String codeInternationalAccount, Account accountDetails) {
         List<Account> accounts = this.accountRepository.findByPkCodeinternationalaccount(codeInternationalAccount);
 
         if (accounts.isEmpty())
@@ -140,11 +160,11 @@ public class AccountService {
         account.setPresentBalance(accountDetails.getPresentBalance());
         account.setAvailableBalance(accountDetails.getAvailableBalance());
 
-        return this.accountRepository.save(account);
+        this.accountRepository.save(account);
     }
 
     @Transactional
-    public Account deleteByCodeLocalAccount(String codeLocalAccount) {
+    public void deleteByCodeLocalAccount(String codeLocalAccount) {
         List<Account> accounts = this.accountRepository.findByPkCodelocalaccount(codeLocalAccount);
 
         if (accounts.isEmpty())
@@ -154,11 +174,11 @@ public class AccountService {
         Account account = accounts.get(0);
         account.setStatus("INA");
 
-        return this.accountRepository.save(account);
+        this.accountRepository.save(account);
     }
 
     @Transactional
-    public Account deleteByCodeInternationalAccount(String codeInternationalAccount) {
+    public void deleteByCodeInternationalAccount(String codeInternationalAccount) {
         List<Account> accounts = this.accountRepository.findByPkCodeinternationalaccount(codeInternationalAccount);
 
         if (accounts.isEmpty())
@@ -168,6 +188,6 @@ public class AccountService {
         Account account = accounts.get(0);
         account.setStatus("INA");
 
-        return this.accountRepository.save(account);
+        this.accountRepository.save(account);
     }
 }
