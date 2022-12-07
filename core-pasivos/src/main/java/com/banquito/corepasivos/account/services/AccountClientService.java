@@ -2,6 +2,9 @@ package com.banquito.corepasivos.account.services;
 
 import com.banquito.corepasivos.account.model.AccountClient;
 import com.banquito.corepasivos.account.repository.AccountClientRepository;
+import com.banquito.corepasivos.account.repository.AccountRepository;
+import com.banquito.corepasivos.client.repository.ClientRepository;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -9,14 +12,29 @@ import java.util.List;
 
 @Service
 public class AccountClientService {
-    private final AccountClientRepository accountClientRepository;
 
-    public AccountClientService(AccountClientRepository accountClientRepository) {
+    private final AccountClientRepository accountClientRepository;
+    private final AccountRepository accountRepository;
+    private final ClientRepository clientRepository;
+
+    public AccountClientService(AccountClientRepository accountClientRepository, AccountRepository accountRepository,
+            ClientRepository clientRepository) {
         this.accountClientRepository = accountClientRepository;
+        this.accountRepository = accountRepository;
+        this.clientRepository = clientRepository;
     }
 
     @Transactional
     public AccountClient save(AccountClient accountClient) {
+        if (!accountRepository.existsByPkCodelocalaccount(accountClient.getPk().getCodelocalaccount()))
+            throw new RuntimeException("Local account entered does not exist.");
+
+        if (!accountRepository.existsByPkCodeinternationalaccount(accountClient.getPk().getCodeinternationalaccount()))
+            throw new RuntimeException("International account entered does not exist.");
+
+        if (!clientRepository.existsByPkIdentification(accountClient.getPk().getIdentification()))
+            throw new RuntimeException("Client identification entered does not exist.");
+
         return this.accountClientRepository.save(accountClient);
     }
 
