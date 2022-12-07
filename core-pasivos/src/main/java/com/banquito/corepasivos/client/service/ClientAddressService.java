@@ -1,6 +1,7 @@
 package com.banquito.corepasivos.client.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.transaction.Transactional;
 
@@ -19,55 +20,80 @@ public class ClientAddressService {
     }
 
     public List<ClientAddress> findAllClientAddresses() {
-        return clientAddressRepository.findAll();
+        try {
+            return clientAddressRepository.findAll();
+        } catch (Exception e) {
+            throw new RuntimeException("Something went wrong");
+        }
     }
 
     public List<ClientAddress> findAllClientAddressesByIdentification(String identification) {
-        return clientAddressRepository.findByPkIdentification(identification);
+        try {
+            return clientAddressRepository.findByPkIdentification(identification);
+        } catch (Exception e) {
+            throw new RuntimeException("Something went wrong");
+        }
     }
 
     @Transactional
     public void createClientAddress(ClientAddress clientAddress) {
         try {
-            this.clientAddressRepository.save(clientAddress);
+            Optional<ClientAddress> optional = this.clientAddressRepository.findById(clientAddress.getPk());
+            if (optional.isPresent()) {
+                throw new RuntimeException("The address is already linked to the user");
+            } else {
+                this.clientAddressRepository.save(clientAddress);
+            }
         } catch (Exception e) {
-            throw new RuntimeException("The address is already linked to the user");
+            throw new RuntimeException("Something went wrong");
         }
     }
 
     @Transactional
     public void updateClientAddress(ClientAddress clientAddress) {
-        if (!this.clientAddressRepository.existsById(clientAddress.getPk()))
-            throw new RuntimeException("Address not found");
-        else
-            try {
-                this.clientAddressRepository.save(clientAddress);
-            } catch (Exception e) {
-                throw new RuntimeException("Something went wrong");
-            }
+        try {
+            if (!this.clientAddressRepository.existsById(clientAddress.getPk()))
+                throw new RuntimeException("Address not found");
+            else
+                try {
+                    this.clientAddressRepository.save(clientAddress);
+                } catch (Exception e) {
+                    throw new RuntimeException("Something went wrong");
+                }
+        } catch (Exception e) {
+            throw new RuntimeException("Something went wrong");
+        }
     }
 
     @Transactional
     public void deleteClientAdress(ClientAddress clientAddress) {
-        if (!this.clientAddressRepository.existsById(clientAddress.getPk()))
-            throw new RuntimeException("Address not found");
-        else
-            try {
-                this.clientAddressRepository.delete(clientAddress);
-            } catch (Exception e) {
-                throw new RuntimeException("Something went wrong");
-            }
+        try {
+            if (!this.clientAddressRepository.existsById(clientAddress.getPk()))
+                throw new RuntimeException("Address not found");
+            else
+                try {
+                    this.clientAddressRepository.delete(clientAddress);
+                } catch (Exception e) {
+                    throw new RuntimeException("Something went wrong");
+                }
+        } catch (Exception e) {
+            throw new RuntimeException("Something went wrong");
+        }
     }
 
     @Transactional
     public void deleteClientAdress(ClientAddressPK pk) {
-        if (!this.clientAddressRepository.existsById(pk))
-            throw new RuntimeException("Address not found");
-        else
-            try {
-                this.clientAddressRepository.deleteById(pk);
-            } catch (Exception e) {
-                throw new RuntimeException("Something went wrong");
-            }
+        try {
+            if (!this.clientAddressRepository.existsById(pk))
+                throw new RuntimeException("Address not found");
+            else
+                try {
+                    this.clientAddressRepository.deleteById(pk);
+                } catch (Exception e) {
+                    throw new RuntimeException("Something went wrong");
+                }
+        } catch (Exception e) {
+            throw new RuntimeException("Something went wrong");
+        }
     }
 }
