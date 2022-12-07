@@ -32,6 +32,14 @@ public class BankEntityService {
         }
     }
 
+    public Optional<BankEntity> findByComposePK(BankEntityPK bankEntityPK) {
+        try {
+            return this.bankEntityRepository.findById(bankEntityPK);
+        } catch (Exception e) {
+            throw new RuntimeException("The Bank Entity does not exist");
+        }
+    }
+
     // CRUD
     @Transactional
     public void create(BankEntity bankEntity) {

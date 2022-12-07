@@ -21,13 +21,13 @@ public class LocationEntityController {
         this.locationEntityService = locationEntityService;
     }
 
-    @RequestMapping(value = "/", method = RequestMethod.GET)
+    @RequestMapping(value = "", method = RequestMethod.GET)
     public ResponseEntity<List<LocationEntity>> getLocationEntities() {
         return ResponseEntity.ok(this.locationEntityService.findAll());
     }
 
     @RequestMapping(value = "/{codeLocation}", method = RequestMethod.GET)
-    public ResponseEntity<LocationEntity> getcountryEntityById(@PathVariable("codeLocation") Integer codeLocation) {
+    public ResponseEntity<LocationEntity> getLocationEntityById(@PathVariable("codeLocation") Integer codeLocation) {
         return ResponseEntity.ok(this.locationEntityService.findById(codeLocation));
     }
 
@@ -55,6 +55,16 @@ public class LocationEntityController {
     public ResponseEntity<String> deleteLocationEntity(@RequestBody LocationEntity locationEntity) {
         try {
             this.locationEntityService.delete(locationEntity);
+            return ResponseEntity.ok("Location Entity delete successfully");
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().body(e.getMessage());
+        }
+    }
+
+    @RequestMapping(value = "/{codeLocation}", method = RequestMethod.DELETE)
+    public ResponseEntity<String> deleteLocationEntityById(@PathVariable("codeLocation") Integer codeLocation) {
+        try {
+            this.locationEntityService.deleteByCode(codeLocation);
             return ResponseEntity.ok("Location Entity delete successfully");
         } catch (Exception e) {
             return ResponseEntity.internalServerError().body(e.getMessage());

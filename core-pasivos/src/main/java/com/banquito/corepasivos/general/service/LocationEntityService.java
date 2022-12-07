@@ -38,7 +38,7 @@ public class LocationEntityService {
         if (!locationEntities.isPresent()) {
             this.locationEntityRepository.save(locationEntity);
         } else {
-            throw new RuntimeException("The Country Entity already exists");
+            throw new RuntimeException("Location Entity already exists");
         }
     }
 
@@ -60,7 +60,17 @@ public class LocationEntityService {
         if (locationEntities.isPresent()) {
             this.locationEntityRepository.delete(locationEntity);
         } else {
-            throw new RuntimeException("The Country Entity does not exist");
+            throw new RuntimeException("The location does not exist");
+        }
+    }
+
+    @Transactional
+    public void deleteByCode(Integer codeLocation) {
+
+        try {
+            this.locationEntityRepository.deleteById(codeLocation);
+        } catch (Exception e) {
+            throw new RuntimeException("Location does not exist");
         }
     }
 
