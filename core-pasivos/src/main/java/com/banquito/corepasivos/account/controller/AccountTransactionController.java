@@ -6,6 +6,7 @@ import com.banquito.corepasivos.account.services.AccountTransactionService;
 import java.util.Date;
 import java.util.List;
 
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 
 import org.springframework.web.bind.annotation.PathVariable;
@@ -93,10 +94,11 @@ public class AccountTransactionController {
 
 	@RequestMapping(value = "/range-date/{start}/{end}",method = RequestMethod.GET)
 	public ResponseEntity<List<AccountTransaction>> findByRangeDate(
-			@PathVariable("start") Date start,@PathVariable("end") Date end) {
+			@PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd")Date start,
+			@PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd") Date end) {
 
 		List<AccountTransaction> accountTransactionService = this.accountTransactionService
-				.findByDate(start, end);
+				.findByExecuteDateBetween(start, end);
 		if (accountTransactionService.isEmpty()) {
 			return ResponseEntity.notFound().build();
 		} else {
