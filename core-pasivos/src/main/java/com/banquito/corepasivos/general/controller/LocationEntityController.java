@@ -26,9 +26,14 @@ public class LocationEntityController {
         return ResponseEntity.ok(this.locationEntityService.findAll());
     }
 
-    @RequestMapping(value = "/{codeLocation}", method = RequestMethod.GET)
+    @RequestMapping(value = "/code-location/{codeLocation}", method = RequestMethod.GET)
     public ResponseEntity<LocationEntity> getLocationEntityById(@PathVariable("codeLocation") Integer codeLocation) {
         return ResponseEntity.ok(this.locationEntityService.findById(codeLocation));
+    }
+
+    @RequestMapping(value = "/lvl/{level}", method = RequestMethod.GET)
+    public ResponseEntity<List<LocationEntity>> getLocationEntityByLvl(@PathVariable("level") Integer lvl) {
+        return ResponseEntity.ok(this.locationEntityService.findByLevel(lvl));
     }
 
     @RequestMapping(value = "/", method = RequestMethod.POST)

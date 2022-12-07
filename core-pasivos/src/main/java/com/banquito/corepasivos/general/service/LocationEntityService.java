@@ -31,6 +31,14 @@ public class LocationEntityService {
         }
     }
 
+    public List<LocationEntity> findByLevel(Integer lvl) {
+        try {
+            return this.locationEntityRepository.findByLevel(lvl);
+        } catch (Exception e) {
+            throw new RuntimeException("Location does not exist");
+        }
+    }
+
     @Transactional
     public void create(LocationEntity locationEntity) {
         Optional<LocationEntity> locationEntities = this.locationEntityRepository

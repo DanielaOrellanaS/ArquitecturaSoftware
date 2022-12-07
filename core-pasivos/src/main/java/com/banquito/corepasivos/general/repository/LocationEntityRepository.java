@@ -12,4 +12,6 @@ public interface LocationEntityRepository extends JpaRepository<LocationEntity, 
 
     List<LocationEntity> findByName(String name);
 
+    List<LocationEntity> findByLevel(Integer name);
+
 }
