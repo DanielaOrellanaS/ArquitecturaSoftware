@@ -22,7 +22,7 @@ public class CountryEntityController {
         this.countryEntityService = countryEntityService;
     }
 
-    @RequestMapping(value = "/", method = RequestMethod.GET)
+    @RequestMapping(value = "", method = RequestMethod.GET)
     public ResponseEntity<List<CountryEntity>> getCountryEntity() {
         return ResponseEntity.ok(this.countryEntityService.findAll());
     }
@@ -32,7 +32,7 @@ public class CountryEntityController {
         return ResponseEntity.ok(this.countryEntityService.findById(codeCountry));
     }
 
-    @RequestMapping(value = "/", method = RequestMethod.POST)
+    @RequestMapping(value = "", method = RequestMethod.POST)
     public ResponseEntity<String> createCountry(@RequestBody CountryEntity countryEntity) {
 
         try {
@@ -43,7 +43,7 @@ public class CountryEntityController {
         }
     }
 
-    @RequestMapping(value = "/", method = RequestMethod.PUT)
+    @RequestMapping(value = "", method = RequestMethod.PUT)
 
     public ResponseEntity<String> updateCountryEntity(@RequestBody CountryEntity countryEntity) {
         try {
@@ -54,10 +54,20 @@ public class CountryEntityController {
         }
     }
 
-    @RequestMapping(value = "/", method = RequestMethod.DELETE)
+    @RequestMapping(value = "", method = RequestMethod.DELETE)
     public ResponseEntity<String> deleteCountryEntity(@RequestBody CountryEntity countryEntity) {
         try {
             this.countryEntityService.delete(countryEntity);
+            return ResponseEntity.ok("Country Entity delete successfully");
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().body(e.getMessage());
+        }
+    }
+
+    @RequestMapping(value = "/{codeCountry}", method = RequestMethod.DELETE)
+    public ResponseEntity<String> deleteCountryEntityByCode(@PathVariable("codeCountry") String codeCountry) {
+        try {
+            this.countryEntityService.deleteByCode(codeCountry);
             return ResponseEntity.ok("Country Entity delete successfully");
         } catch (Exception e) {
             return ResponseEntity.internalServerError().body(e.getMessage());

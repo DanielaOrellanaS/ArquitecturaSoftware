@@ -28,7 +28,7 @@ public class BranchService {
         try {
             return this.branchRepository.findById(branchPK);
         } catch (Exception e) {
-            throw new RuntimeException("The Bank Entity does not exist");
+            throw new RuntimeException("The Branch does not exist");
         }
     }
 

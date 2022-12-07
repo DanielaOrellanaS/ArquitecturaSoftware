@@ -22,13 +22,12 @@ public class HolidayController {
         this.holidayService = holidayService;
     }
 
-    
-    @RequestMapping(value = "/", method = RequestMethod.GET)
+    @RequestMapping(value = "", method = RequestMethod.GET)
     public ResponseEntity<List<Holiday>> getHolidays() {
         return ResponseEntity.ok(this.holidayService.findAll());
     }
 
-    @RequestMapping(value = "/{date}", method = RequestMethod.PUT)
+    @RequestMapping(value = "/{date}", method = RequestMethod.GET)
     public ResponseEntity<Optional<Holiday>> getHolidayById(@PathVariable("date") String date) {
         return ResponseEntity.ok(this.holidayService.findById(date));
     }
@@ -45,8 +44,8 @@ public class HolidayController {
 
     @RequestMapping(value = "/{date}", method = RequestMethod.POST)
     public ResponseEntity<String> createHolidayWeekend(@PathVariable("date") Holiday dateHoliday) {
-        Holiday holiday = new Holiday(); 
-        if(holiday.validateWeekend(dateHoliday.getDate())){
+        Holiday holiday = new Holiday();
+        if (holiday.validateWeekend(dateHoliday.getDate())) {
             try {
                 this.holidayService.create(dateHoliday);
                 return ResponseEntity.ok("Holiday created successfully");
@@ -67,7 +66,7 @@ public class HolidayController {
         }
     }
 
-    @RequestMapping(value = "/", method = RequestMethod.DELETE)
+    @RequestMapping(value = "", method = RequestMethod.DELETE)
     public ResponseEntity<String> deleteHoliday(@RequestBody Holiday holiday) {
         try {
             this.holidayService.delete(holiday);
@@ -77,6 +76,13 @@ public class HolidayController {
         }
     }
 
-
-
+    @RequestMapping(value = "/{date}", method = RequestMethod.DELETE)
+    public ResponseEntity<String> deleteHolidayByDate(@PathVariable("date") String dateHoliday) {
+        try {
+            this.holidayService.deleteByDate(dateHoliday);
+            return ResponseEntity.ok("Holiday delete successfully");
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().body(e.getMessage());
+        }
+    }
 }
