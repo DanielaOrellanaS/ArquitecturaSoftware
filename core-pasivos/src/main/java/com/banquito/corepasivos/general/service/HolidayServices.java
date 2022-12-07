@@ -1,6 +1,7 @@
 package com.banquito.corepasivos.general.service;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -38,6 +39,7 @@ public class HolidayServices {
     @Transactional
     public void create(Holiday holiday) {
         List<Holiday> holidays = this.holidayRepository.findByDate(holiday.getDate());
+        
         if (holidays.isEmpty()) {
             this.holidayRepository.save(holiday);
         } else {
@@ -78,6 +80,82 @@ public class HolidayServices {
         } catch (Exception e) {
             throw new RuntimeException("The Holiday does not exist");
         }
+    }
+
+    public void generateHolidayByYear(int year) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(year, 0, 1);
+        Date date = calendar.getTime();
+        Date sunday;
+        Date saturday;
+        while (!(isDay(date, "sábado") || isDay(date, "domingo"))) {
+            date = addDaysToDate(date, 1);
+            System.out.println(date);
+        }
+
+        if (isDay(date, "sábado")) {
+            sunday = date;
+            saturday = addDaysToDate(date, 1);
+        } else {
+
+            Holiday holiday = new Holiday();
+            holiday.setDate(date);
+            holiday.setCodeLocation(17);
+            holiday.setName("Weekend Holiday");
+            holiday.setType("NAT");
+            create(holiday);
+
+            sunday = addDaysToDate(date, 6);
+            saturday = addDaysToDate(date, 7);
+        }
+
+        String yearHoliday;
+        SimpleDateFormat getYearFormat = new SimpleDateFormat("yyyy");
+
+        do {
+            yearHoliday = getYearFormat.format(sunday);
+            if (Integer.parseInt(yearHoliday) <= year) {
+                Holiday sundayHoliday = new Holiday();
+                sundayHoliday.setDate(sunday);
+                sundayHoliday.setCodeLocation(17);
+                sundayHoliday.setName("Weekend Holiday");
+                sundayHoliday.setType("NAT");
+                create(sundayHoliday);
+            }
+
+            yearHoliday = getYearFormat.format(saturday);
+            if (Integer.parseInt(yearHoliday) <= year) {
+                Holiday saturdayHoliday = new Holiday();
+                saturdayHoliday.setDate(saturday);
+                saturdayHoliday.setCodeLocation(17);
+                saturdayHoliday.setName("Weekend Holiday");
+                saturdayHoliday.setType("NAT");
+                create(saturdayHoliday);
+            }
+
+            sunday = addDaysToDate(sunday, 7);
+            saturday = addDaysToDate(saturday, 7);
+
+        } while (Integer.parseInt(yearHoliday) <= year);
+
+    }
+
+    private Date addDaysToDate(Date date, int dias) {
+        if (dias == 0)
+            return date;
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        calendar.add(Calendar.DAY_OF_YEAR, dias);
+        return calendar.getTime();
+    }
+
+    private boolean isDay(Date date, String day) {
+        String dateString;
+        SimpleDateFormat dateFormat = new SimpleDateFormat("EEEE yyy-MM-dd");
+        dateString = dateFormat.format(date);
+        System.out.println(dateString);
+        return dateString.indexOf(day) >= 0;
     }
 
 }

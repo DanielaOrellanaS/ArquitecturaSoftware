@@ -35,6 +35,7 @@ public class HolidayController {
     @RequestMapping(value = "/", method = RequestMethod.POST)
     public ResponseEntity<String> createHoliday(@RequestBody Holiday holiday) {
         try {
+            System.out.println(holiday);
             this.holidayService.create(holiday);
             return ResponseEntity.ok("Holiday created successfully");
         } catch (Exception e) {
@@ -54,6 +55,16 @@ public class HolidayController {
             }
         }
         return null;
+    }
+
+    @RequestMapping(value = "/weekend/{year}", method = RequestMethod.POST)
+    public ResponseEntity<String> generateWeekendHoliday(@PathVariable("year") int year) {
+        try {
+            this.holidayService.generateHolidayByYear(year);
+            return ResponseEntity.ok("Weekend Holiday created successfully");
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().body(e.getMessage());
+        }
     }
 
     @RequestMapping(value = "/", method = RequestMethod.PUT)
@@ -85,4 +96,6 @@ public class HolidayController {
             return ResponseEntity.internalServerError().body(e.getMessage());
         }
     }
+
+  
 }
