@@ -54,6 +54,38 @@ public class AccountSignatureController {
         }
     }
 
+    @RequestMapping(value = "/{identification}", method = RequestMethod.GET)
+    public ResponseEntity<List<AccountSignature>> findByIdentification(@PathVariable("identification") String identification) {
+        List<AccountSignature> accountSignatures = this.accountSignatureService.findByIdentification(identification);
+        if (accountSignatures.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        } else {
+            return ResponseEntity.ok(accountSignatures);
+        }
+    }
+
+    @RequestMapping(value = "/role/{identification}/{role}", method = RequestMethod.GET)
+    public ResponseEntity<List<AccountSignature>> findByRole(@PathVariable("identification") String identification, @PathVariable("role") String role) {
+        List<AccountSignature> accountSignatures = this.accountSignatureService.findByRole(identification, role);
+        if (accountSignatures.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        } else {
+            return ResponseEntity.ok(accountSignatures);
+        }
+    }
+
+    @RequestMapping(value = "/status/{identification}/{status}", method = RequestMethod.GET)
+    public ResponseEntity<List<AccountSignature>> findByStatus(@PathVariable("identification") String identification, @PathVariable("status") String status) {
+        List<AccountSignature> accountSignatures = this.accountSignatureService.findByStatus(identification, status);
+        if (accountSignatures.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        } else {
+            return ResponseEntity.ok(accountSignatures);
+        }
+    }
+
+
+
     @RequestMapping(value = "", method = RequestMethod.POST)
 	public ResponseEntity<String> createAccountSignature(
 			@RequestBody AccountSignature accountSignature) {
