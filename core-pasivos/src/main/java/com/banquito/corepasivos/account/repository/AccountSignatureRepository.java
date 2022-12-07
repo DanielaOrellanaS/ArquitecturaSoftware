@@ -3,6 +3,7 @@ package com.banquito.corepasivos.account.repository;
 import com.banquito.corepasivos.account.model.AccountSignature;
 import com.banquito.corepasivos.account.model.AccountSignaturePK;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -15,5 +16,5 @@ public interface AccountSignatureRepository extends JpaRepository<AccountSignatu
     List <AccountSignature> findBySignatureReference(String reference);
     List <AccountSignature> findByPk(AccountSignaturePK accountSignaturePK);
     List <AccountSignature> findByPkIdentification(String identification);
-   
+    List <AccountSignature> findByStartDateBetween(Date initialDate, Date endDate);
 }

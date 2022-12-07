@@ -136,13 +136,13 @@ public class AccountTransactionService {
 		}
 	}
 
-	public List<AccountTransaction> findByDate(Date start, Date end) {
-		List<AccountTransaction> transaction = this.accountTransactionRepository
-				.findByDate(start, end);
-		if (transaction.isEmpty()) {
-			throw new RuntimeException("Account Transaction by Date not found");
-		} else {
+	public List<AccountTransaction> findByExecuteDateBetween(Date start, Date end) {
+		try{
+			List<AccountTransaction> transaction = this.accountTransactionRepository
+					.findByExecuteDateBetween(start, end);
 			return transaction;
+		}catch (Exception e){
+			throw new RuntimeException("Account Transaction by Date not found");
 		}
 	}
 }

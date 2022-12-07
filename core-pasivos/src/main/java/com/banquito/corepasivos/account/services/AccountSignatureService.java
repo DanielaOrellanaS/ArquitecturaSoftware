@@ -8,6 +8,7 @@ import com.banquito.corepasivos.client.repository.ClientRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -66,11 +67,11 @@ public class AccountSignatureService {
         }
     }
 
-    public List<AccountSignature> findByRole(String identification, String role) {
-        List<AccountSignature> accountSignatures = findByIdentification(identification);
+    public List<AccountSignature> findByRole(String account, String identification, String role) {
+        List<AccountSignature> accountSignatures = findByCodeLocalAccount(account);
         List<AccountSignature> accountSignaturesAux = new ArrayList<>();
         for (AccountSignature accountSignature : accountSignatures) {
-            if (accountSignature.getRole().equals(role)) {
+            if (accountSignature.getPk().getIdentification().equals(identification) && accountSignature.getRole().equals(role)) {
                 accountSignaturesAux.add(accountSignature);
             }
         }
@@ -80,18 +81,50 @@ public class AccountSignatureService {
         return accountSignaturesAux;
     }
 
-    public List<AccountSignature> findByStatus(String identification, String status) {
-        List<AccountSignature> accountSignatures = findByIdentification(identification);
+    public List<AccountSignature> findByStatus(String account, String identification, String status) {
+        List<AccountSignature> accountSignatures = findByCodeLocalAccount(account);
         List<AccountSignature> accountSignaturesAux = new ArrayList<>();
         for (AccountSignature accountSignature : accountSignatures) {
-            if (accountSignature.getStatus().equals(status)) {
+            if (accountSignature.getPk().getIdentification().equals(identification) && accountSignature.getStatus().equals(status)) {
                 accountSignaturesAux.add(accountSignature);
             }
         }
         if (accountSignaturesAux.isEmpty()) {
             throw new RuntimeException("This account does not have the entry status");
+        }else{
+            return accountSignaturesAux;
         }
-        return accountSignaturesAux;
+    }
+
+    public List <AccountSignature> findByDates(String account, Date startDate, Date endDate){
+        List <AccountSignature> accountSignatures = this.accountSignatureRepository.findByStartDateBetween(startDate, endDate);
+        List<AccountSignature> accountSignaturesAux = new ArrayList<>();
+        for (AccountSignature accountSignature : accountSignatures) {
+            if(accountSignature.getPk().getCodelocalaccount().equals(account)){
+                accountSignaturesAux.add(accountSignature);
+            }
+        }
+        if (accountSignaturesAux.isEmpty()) {
+            throw new RuntimeException("This account has no records between the dates entered.");
+        }else{
+            return accountSignaturesAux;
+       }
+    }
+
+    @Transactional
+    public void updateByCodeLocalAccount(String account, AccountSignature accountDetails){
+        List<AccountSignature> accountSignatures = this.accountSignatureRepository.findByPkCodelocalaccount(account);
+        if (accountSignatures.isEmpty())
+            throw new RuntimeException("Account with code-local-account: " + account + " not found.");
+        
+            AccountSignature accountSignature = accountSignatures.get(0);
+            accountSignature.setSignatureReference(accountDetails.getSignatureReference());
+            accountSignature.setRole(accountDetails.getRole());
+            accountSignature.setStatus(accountDetails.getStatus());
+            accountSignature.setCreateDate(accountDetails.getCreateDate());
+            accountSignature.setEndDate(accountDetails.getEndDate());
+        
+            this.accountSignatureRepository.save(accountSignature);
     }
 
     @Transactional

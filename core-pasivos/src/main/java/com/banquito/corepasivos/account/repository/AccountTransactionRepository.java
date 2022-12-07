@@ -15,6 +15,6 @@ public interface AccountTransactionRepository extends JpaRepository<AccountTrans
     List<AccountTransaction> findByCodeUniqueTransaction(String codeUniqueTransaction);
     List<AccountTransaction> findByStatus(String status);
     List<AccountTransaction> findByRecipientBank(String recipientBank);
-    List<AccountTransaction> findByDate(Date start,Date end);
+    List<AccountTransaction> findByExecuteDateBetween(Date start,Date end);
 }
 

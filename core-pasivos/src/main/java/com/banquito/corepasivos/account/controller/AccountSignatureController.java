@@ -3,8 +3,10 @@ package com.banquito.corepasivos.account.controller;
 import com.banquito.corepasivos.account.model.AccountSignature;
 import com.banquito.corepasivos.account.services.AccountSignatureService;
 
+import java.util.Date;
 import java.util.List;
 
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,7 +22,6 @@ public class AccountSignatureController {
     public AccountSignatureController(AccountSignatureService accountSignatureService) {
         this.accountSignatureService = accountSignatureService;
     }
-
 
     @RequestMapping(value = "", method = RequestMethod.GET)
     public ResponseEntity<List<AccountSignature>> findAll() {
@@ -45,8 +46,10 @@ public class AccountSignatureController {
     }
 
     @RequestMapping(value = "/international/{codeInternationalAccount}", method = RequestMethod.GET)
-    public ResponseEntity<List<AccountSignature>> findByCodeInternationalAccount(@PathVariable("codeInternationalAccount") String codeInternationalAccount) {
-        List<AccountSignature> accountSignatures = this.accountSignatureService.findByCodeInternationalAccount(codeInternationalAccount);
+    public ResponseEntity<List<AccountSignature>> findByCodeInternationalAccount(
+            @PathVariable("codeInternationalAccount") String codeInternationalAccount) {
+        List<AccountSignature> accountSignatures = this.accountSignatureService
+                .findByCodeInternationalAccount(codeInternationalAccount);
         if (accountSignatures.isEmpty()) {
             return ResponseEntity.notFound().build();
         } else {
@@ -55,7 +58,8 @@ public class AccountSignatureController {
     }
 
     @RequestMapping(value = "/{identification}", method = RequestMethod.GET)
-    public ResponseEntity<List<AccountSignature>> findByIdentification(@PathVariable("identification") String identification) {
+    public ResponseEntity<List<AccountSignature>> findByIdentification(
+            @PathVariable("identification") String identification) {
         List<AccountSignature> accountSignatures = this.accountSignatureService.findByIdentification(identification);
         if (accountSignatures.isEmpty()) {
             return ResponseEntity.notFound().build();
@@ -64,11 +68,12 @@ public class AccountSignatureController {
         }
     }
 
-    @RequestMapping(value = "/role/{account}/{identification}/{role-code}", method = RequestMethod.GET)
+    @RequestMapping(value = "/local/role/{account}/{identification}/{role-code}", method = RequestMethod.GET)
     public ResponseEntity<List<AccountSignature>> findByRole(@PathVariable("account") String account,
-                                                             @PathVariable("identification") String identification,
-                                                             @PathVariable("role-code") String role) {
-        List<AccountSignature> accountSignatures = this.accountSignatureService.findByRole(identification, role);
+            @PathVariable("identification") String identification,
+            @PathVariable("role-code") String role) {
+        List<AccountSignature> accountSignatures = this.accountSignatureService.findByRole(account, identification,
+                role);
         if (accountSignatures.isEmpty()) {
             return ResponseEntity.notFound().build();
         } else {
@@ -76,11 +81,12 @@ public class AccountSignatureController {
         }
     }
 
-    @RequestMapping(value = "/status/{account}/{identification}/{status-code}", method = RequestMethod.GET)
-    public ResponseEntity<List<AccountSignature>> findByStatus( @PathVariable("account") String account,
-                                                                @PathVariable("identification") String identification,
-                                                                @PathVariable("status-code") String status) {
-        List<AccountSignature> accountSignatures = this.accountSignatureService.findByStatus(identification, status);
+    @RequestMapping(value = "/local/status/{account}/{identification}/{status-code}", method = RequestMethod.GET)
+    public ResponseEntity<List<AccountSignature>> findByStatus(@PathVariable("account") String account,
+            @PathVariable("identification") String identification,
+            @PathVariable("status-code") String status) {
+        List<AccountSignature> accountSignatures = this.accountSignatureService.findByStatus(account, identification,
+                status);
         if (accountSignatures.isEmpty()) {
             return ResponseEntity.notFound().build();
         } else {
@@ -88,28 +94,52 @@ public class AccountSignatureController {
         }
     }
 
-
+    @RequestMapping(value = "/local/date/{account}/{start-date}/{end-date}", method = RequestMethod.GET)
+    public ResponseEntity<List<AccountSignature>> findByStatus(
+            @PathVariable("account") String account,
+            @PathVariable("start-date") @DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate,
+            @DateTimeFormat(pattern = "yyyy-MM-dd") @PathVariable("end-date") Date endDate) {
+        List<AccountSignature> accountSignatures = this.accountSignatureService.findByDates(account, startDate, endDate);
+        if (accountSignatures.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        } else {
+            return ResponseEntity.ok(accountSignatures);
+        }
+    }
 
     @RequestMapping(value = "", method = RequestMethod.POST)
-	public ResponseEntity<String> createAccountSignature(
-			@RequestBody AccountSignature accountSignature) {
-		try {
+    public ResponseEntity<String> createAccountSignature(
+            @RequestBody AccountSignature accountSignature) {
+        try {
             this.accountSignatureService.register(accountSignature);
-			return ResponseEntity.ok("Account Signature succesfully added");
-		} catch (Exception e) {
-			return ResponseEntity.internalServerError().body(e.getMessage());
-		}
-	}
+            return ResponseEntity.ok("Account Signature succesfully added");
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().body(e.getMessage());
+        }
+    }
+
+    @RequestMapping(value = "/local/{codeLocalAccount}", method = RequestMethod.PUT)
+    public ResponseEntity<String> updateByCodeLocalAccount(@PathVariable("codeLocalAccount") String codeLocalAccount,
+            @RequestBody AccountSignature accountSignature) {
+
+        try {
+            this.accountSignatureService.updateByCodeLocalAccount(codeLocalAccount, accountSignature);
+            return ResponseEntity.ok("Account updated successfully");
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().body(e.getMessage());
+        }
+    }
 
     @RequestMapping(value = "/local/{codeLocalAccount}/{identification}", method = RequestMethod.DELETE)
-	public ResponseEntity<String> deleteAccountSignature(
-        @PathVariable("codeLocalAccount") String codeLocalAccount, @PathVariable("identification") String identification) {
-		try {
+    public ResponseEntity<String> deleteAccountSignature(
+            @PathVariable("codeLocalAccount") String codeLocalAccount,
+            @PathVariable("identification") String identification) {
+        try {
             this.accountSignatureService.delete(codeLocalAccount, identification);
-			return ResponseEntity.ok("Account Signature succesfully deleted");
-		} catch (Exception e) {
-			return ResponseEntity.internalServerError().body(e.getMessage());
-		}
-	}
+            return ResponseEntity.ok("Account Signature succesfully deleted");
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().body(e.getMessage());
+        }
+    }
 
 }
