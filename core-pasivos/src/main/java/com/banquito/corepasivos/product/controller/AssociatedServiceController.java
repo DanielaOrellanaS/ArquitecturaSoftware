@@ -2,22 +2,18 @@ package com.banquito.corepasivos.product.controller;
 
 import java.util.List;
 
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.banquito.corepasivos.product.model.AssociatedService;
 import com.banquito.corepasivos.product.service.AssociatedServiceService;
 
 @RestController
-@RequestMapping("/api/associatedservices")
+@RequestMapping("/api/associated-services")
 public class AssociatedServiceController {
 
     private final AssociatedServiceService associatedServiceService;
@@ -26,14 +22,14 @@ public class AssociatedServiceController {
         this.associatedServiceService = associatedServiceService;
     }
 
-    @GetMapping("/all")
+    @RequestMapping(value = "/all", method = RequestMethod.GET)
     public ResponseEntity<List<AssociatedService>> findAllAssociatedService() {
         List<AssociatedService> associatedService = this.associatedServiceService
                 .findAllAssociatedService();
         return ResponseEntity.ok(associatedService);
     }
 
-    @GetMapping("/{codeAssociatedService}")
+    @RequestMapping(value = "/{codeAssociatedService}", method = RequestMethod.GET)
     public ResponseEntity<AssociatedService> CodeAssociatedService(
             @PathVariable("codeAssociatedService") String codeAssociatedService) {
         List<AssociatedService> service = this.associatedServiceService
@@ -41,7 +37,7 @@ public class AssociatedServiceController {
         return service == null ? ResponseEntity.noContent().build() : ResponseEntity.ok(service.get(0));
     }
 
-    @PostMapping(consumes = { MediaType.APPLICATION_JSON_VALUE })
+    @RequestMapping(value = "", method = RequestMethod.POST)
     public ResponseEntity<String> createAssociatedService(@RequestBody AssociatedService associatedService) {
         try {
             this.associatedServiceService.saveAssociatedService(associatedService);
@@ -52,14 +48,14 @@ public class AssociatedServiceController {
         }
     }
 
-    @GetMapping("/name/{name}")
+    @RequestMapping(value = "/name/{name}", method = RequestMethod.GET)
     public ResponseEntity<List<AssociatedService>> findByNameContainins(@PathVariable("name") String name) {
 
         List<AssociatedService> service = this.associatedServiceService.findByNameContaining(name.toUpperCase());
         return service.isEmpty() ? ResponseEntity.noContent().build() : ResponseEntity.ok(service);
     }
 
-    @DeleteMapping("/{codeAssociatedService}")
+    @RequestMapping(value = "/{codeAssociatedService}", method = RequestMethod.DELETE)
     public ResponseEntity<String> deleteAssociatedService(@PathVariable("codeAssociatedService") String codeAssociatedService) {
         try {
             this.associatedServiceService.deleteAssociatedService(codeAssociatedService);
@@ -70,7 +66,7 @@ public class AssociatedServiceController {
         }
     }
 
-    @PutMapping(consumes = { MediaType.APPLICATION_JSON_VALUE })
+    @RequestMapping(value = "", method = RequestMethod.PUT)
     public ResponseEntity<String> updateAssociatedService(@RequestBody AssociatedService associatedService) {
         try {
             this.associatedServiceService.updateAssociatedService(associatedService);

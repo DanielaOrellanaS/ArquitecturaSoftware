@@ -2,15 +2,11 @@ package com.banquito.corepasivos.product.controller;
 
 import java.util.List;
 
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.banquito.corepasivos.product.service.AssociatedServiceParamService;
@@ -18,7 +14,7 @@ import com.banquito.corepasivos.product.model.AssociatedServiceParam;
 import com.banquito.corepasivos.product.model.AssociatedServiceParamPK;
 
 @RestController
-@RequestMapping("api/associatedserviceparams")
+@RequestMapping("api/associated-service-params")
 public class AssociatedServiceParamController {
     private final AssociatedServiceParamService associatedServiceParamService;
 
@@ -26,7 +22,7 @@ public class AssociatedServiceParamController {
         this.associatedServiceParamService = associatedServiceParamService;
     }
 
-    @GetMapping("/all")
+    @RequestMapping(value = "/all", method = RequestMethod.GET)
     public ResponseEntity<List<AssociatedServiceParam>> findAllAssociatedServiceParam() {
         List<AssociatedServiceParam> associatedServiceParam = this.associatedServiceParamService
                 .findAllAssociatedServiceParams();
@@ -34,7 +30,7 @@ public class AssociatedServiceParamController {
                 : ResponseEntity.ok(associatedServiceParam);
     }
 
-    @GetMapping("/param/{codeParam}")
+    @RequestMapping(value = "/param/{codeParam}", method = RequestMethod.GET)
     public ResponseEntity<List<AssociatedServiceParam>> findByCodeParam(@PathVariable("codeParam") String codeParam) {
         List<AssociatedServiceParam> associatedServiceParam = this.associatedServiceParamService
                 .findAllAssociatedServiceParamsByCodeParam(codeParam);
@@ -42,7 +38,7 @@ public class AssociatedServiceParamController {
                 : ResponseEntity.ok(associatedServiceParam);
     }
 
-    @GetMapping("/associatedservice/{codeAssociatedService}")
+    @RequestMapping(value = "/associatedservice/{codeAssociatedService}", method = RequestMethod.GET)
     public ResponseEntity<List<AssociatedServiceParam>> findByCodeAssociatedService(
             @PathVariable("codeAssociatedService") String codeAssociatedService) {
         List<AssociatedServiceParam> associatedServiceParam = this.associatedServiceParamService
@@ -51,7 +47,7 @@ public class AssociatedServiceParamController {
                 : ResponseEntity.ok(associatedServiceParam);
     }
 
-    @GetMapping("/nameparam/{name}")
+    @RequestMapping(value = "/nameparam/{name}", method = RequestMethod.GET)
     public ResponseEntity<List<AssociatedServiceParam>> findByNameParam(@PathVariable("name") String name) {
         List<AssociatedServiceParam> associatedServiceParam = this.associatedServiceParamService
                 .findByNameContaining(name);
@@ -59,7 +55,7 @@ public class AssociatedServiceParamController {
                 : ResponseEntity.ok(associatedServiceParam);
     }
 
-    @PostMapping(consumes = { MediaType.APPLICATION_JSON_VALUE })
+    @RequestMapping(value = "", method = RequestMethod.POST)
     public ResponseEntity<String> createAssociatedServiceParam(
             @RequestBody AssociatedServiceParam associatedServiceParam) {
         try {
@@ -70,7 +66,7 @@ public class AssociatedServiceParamController {
         }
     }
 
-    @PutMapping(consumes = { "application/json" })
+    @RequestMapping(value = "", method = RequestMethod.PUT)
     public ResponseEntity<String> updateAssociatedServiceParam(
             @RequestBody AssociatedServiceParam associatedServiceParam) {
         try {
@@ -81,7 +77,7 @@ public class AssociatedServiceParamController {
         }
     }
 
-    @DeleteMapping("/{codeParam}/{codeAssociatedService}")
+    @RequestMapping(value = "/{codeParam}/{codeAssociatedService}", method = RequestMethod.DELETE)
     public ResponseEntity<String> deleteAssociatedServiceParamEntity(
             @PathVariable("codeParam") String codeParam,
             @PathVariable("codeAssociatedService") String codeAssociatedService) {
