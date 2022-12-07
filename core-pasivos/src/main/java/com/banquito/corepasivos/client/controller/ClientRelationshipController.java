@@ -32,7 +32,7 @@ public class ClientRelationshipController {
         }
     }
 
-    @RequestMapping(value = "/{relationshipType}", method = RequestMethod.GET)
+    @RequestMapping(value = "/relation-type/{relationshipType}", method = RequestMethod.GET)
     public ResponseEntity<List<ClientRelationship>> searchTypeRelationship(
             @PathVariable("relationshipType") String relationshipType) {
         List<ClientRelationship> clientRelationship = this.clientRelationshipService
@@ -44,7 +44,7 @@ public class ClientRelationshipController {
         }
     }
 
-    @RequestMapping(value = "/{identification}", method = RequestMethod.GET)
+    @RequestMapping(value = "/identification/{identification}", method = RequestMethod.GET)
     public ResponseEntity<ClientRelationship> searchById(@PathVariable("identification") String identification) {
         ClientRelationship clientRelationship = this.clientRelationshipService.searchById(identification);
         if (clientRelationship != null) {
@@ -75,7 +75,7 @@ public class ClientRelationshipController {
         }
     }
 
-    @RequestMapping(value = "/{identification}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "delete-identification/{identification}", method = RequestMethod.DELETE)
     public ResponseEntity<String> deleteClientRelationshipIdentification(
             @PathVariable("identification") String identification) {
         try {
@@ -86,7 +86,7 @@ public class ClientRelationshipController {
         }
     }
 
-    @RequestMapping(value = "/code/{codeRelationship}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/delete-code/{codeRelationship}", method = RequestMethod.DELETE)
     public ResponseEntity<String> deleteClientRelationshipCode(
             @PathVariable("codeRelationship") Integer codeRelationship) {
         try {
