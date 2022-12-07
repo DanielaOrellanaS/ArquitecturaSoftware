@@ -63,7 +63,7 @@ public class AccountAssociatedServiceParamController {
 			@RequestBody AccountAssociatedServiceParam accountAssociatedServiceParam) {
 		try {
 			this.service.save(accountAssociatedServiceParam);
-			return ResponseEntity.ok("OK");
+			return ResponseEntity.ok("Account Associated Service Param created successfully");
 		} catch (Exception e) {
 			return ResponseEntity.internalServerError().body(e.getMessage());
 		}
@@ -74,7 +74,7 @@ public class AccountAssociatedServiceParamController {
 			@RequestBody AccountAssociatedServiceParam accountAssociatedServiceParam) {
 		try {
 			this.service.save(accountAssociatedServiceParam);
-			return ResponseEntity.ok("OK");
+			return ResponseEntity.ok("Account Associated Service Param updated successfully");
 		} catch (Exception e) {
 			return ResponseEntity.internalServerError().body(e.getMessage());
 		}
@@ -85,7 +85,7 @@ public class AccountAssociatedServiceParamController {
 			@PathVariable("codeLocalAccount") String codeLocalAccount) {
 		try {
 			this.service.deleteAllByCodeLocalAccount(codeLocalAccount);
-			return ResponseEntity.ok("OK");
+			return ResponseEntity.ok("Account Associated Service Param related to Local Account deleted successfully");
 		} catch (Exception e) {
 			return ResponseEntity.internalServerError().body(e.getMessage());
 		}
@@ -96,7 +96,8 @@ public class AccountAssociatedServiceParamController {
 			@PathVariable("codeInternationalAccount") String codeInternationalAccount) {
 		try {
 			this.service.deleteAllByCodeInternationalAccount(codeInternationalAccount);
-			return ResponseEntity.ok("OK");
+			return ResponseEntity
+					.ok("Account Associated Service Param related to International Account deleted successfully");
 		} catch (Exception e) {
 			return ResponseEntity.internalServerError().body(e.getMessage());
 		}
@@ -107,7 +108,7 @@ public class AccountAssociatedServiceParamController {
 			@PathVariable("codeParam") String codeParam) {
 		try {
 			this.service.deleteAllByCodeParam(codeParam);
-			return ResponseEntity.ok("OK");
+			return ResponseEntity.ok("Account Associated Service Param related to Param deleted successfully");
 		} catch (Exception e) {
 			return ResponseEntity.internalServerError().body(e.getMessage());
 		}

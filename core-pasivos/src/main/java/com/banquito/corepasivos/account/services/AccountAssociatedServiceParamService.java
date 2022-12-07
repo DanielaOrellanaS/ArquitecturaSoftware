@@ -2,6 +2,8 @@ package com.banquito.corepasivos.account.services;
 
 import com.banquito.corepasivos.account.model.AccountAssociatedServiceParam;
 import com.banquito.corepasivos.account.repository.AccountAssociatedServiceParamRepository;
+import com.banquito.corepasivos.account.repository.AccountRepository;
+
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,10 +13,13 @@ import javax.transaction.Transactional;
 @Service
 public class AccountAssociatedServiceParamService {
 	private final AccountAssociatedServiceParamRepository accountAssociatedServiceParamRepository;
+	private final AccountRepository accountRepository;
 
 	public AccountAssociatedServiceParamService(
-			AccountAssociatedServiceParamRepository accountAssociatedServiceParamRepository) {
+			AccountAssociatedServiceParamRepository accountAssociatedServiceParamRepository,
+			AccountRepository accountRepository) {
 		this.accountAssociatedServiceParamRepository = accountAssociatedServiceParamRepository;
+		this.accountRepository = accountRepository;
 	}
 
 	@Transactional
@@ -52,11 +57,16 @@ public class AccountAssociatedServiceParamService {
 
 	@Transactional
 	public void save(AccountAssociatedServiceParam accountAssociatedServiceParam) {
-		try {
-			this.accountAssociatedServiceParamRepository.save(accountAssociatedServiceParam);
-		} catch (Exception e) {
-			throw new RuntimeException("Error saving Account Associated Service Param");
+		if (!accountRepository
+				.existsByPkCodelocalaccount(accountAssociatedServiceParam.getPk().getCodelocalaccount())) {
+			throw new RuntimeException("Account not found");
 		}
+		if (!accountRepository
+				.existsByPkCodeinternationalaccount(
+						accountAssociatedServiceParam.getPk().getCodeinternationalaccount())) {
+			throw new RuntimeException("Account not found");
+		}
+		this.accountAssociatedServiceParamRepository.save(accountAssociatedServiceParam);
 	}
 
 	@Transactional
@@ -117,6 +127,12 @@ public class AccountAssociatedServiceParamService {
 	}
 
 	public List<AccountAssociatedServiceParam> findAll() {
-		return accountAssociatedServiceParamRepository.findAll();
+		List<AccountAssociatedServiceParam> accountAssociatedServiceParamList = this.accountAssociatedServiceParamRepository
+				.findAll();
+		if (accountAssociatedServiceParamList.isEmpty()) {
+			throw new RuntimeException("Account Associated Service Param not found");
+		} else {
+			return accountAssociatedServiceParamList;
+		}
 	}
 }
