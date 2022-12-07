@@ -20,37 +20,12 @@ public class BranchService {
         this.branchRepository = branchRepository;
     }
 
-    @Transactional
-    public void create(Branch branch) {
-        List<Branch> bankEntities = this.branchRepository.findByPkCodeBranch(branch.getPk().getCodeBranch());
-        if (bankEntities.isEmpty()) {
-            this.branchRepository.save(branch);
-        } else {
-            throw new RuntimeException("The Branch already exists");
-        }
+    
+    public List<Branch> findAll() {
+        return this.branchRepository.findAll();
     }
 
-    @Transactional
-    public void update(Branch branch) {
-        List<Branch> bankEntities = this.branchRepository.findByPkCodeBranch(branch.getPk().getCodeBranch());
-        if (!bankEntities.isEmpty()) {
-            this.branchRepository.save(branch);
-        } else {
-            throw new RuntimeException("An error has occurred in the Branch update");
-        }
-    }
-
-    @Transactional
-    public void delete(Branch branch) {
-        List<Branch> bankEntities = this.branchRepository.findByPkCodeBranch(branch.getPk().getCodeBranch());
-        if (!bankEntities.isEmpty()) {
-            this.branchRepository.delete(branch);
-        } else {
-            throw new RuntimeException("The Bank Entity does not exist");
-        }
-    }
-
-    public Optional<Branch> findById(BranchPK branchPK) {
+    public Optional<Branch> findByComposePK(BranchPK branchPK) {
         try {
             return this.branchRepository.findById(branchPK);
         } catch (Exception e) {
@@ -58,7 +33,37 @@ public class BranchService {
         }
     }
 
-    public List<Branch> findAll() {
-        return this.branchRepository.findAll();
+    public List<Branch> findByName(String name){
+        return this.branchRepository.findByNameLike(name);
+    }
+
+    @Transactional
+    public void create(Branch branch) {
+        Optional<Branch> optional = this.branchRepository.findById(branch.getPk());
+        if(optional.isPresent()){
+            throw new RuntimeException("Branch already exist");
+        } else {
+            this.branchRepository.save(branch);
+        }
+    }
+
+    @Transactional
+    public void update(Branch branch) {
+        Optional<Branch> optional = this.branchRepository.findById(branch.getPk());
+        if(optional.isPresent()){
+            this.branchRepository.save(branch);
+        } else {
+            throw new RuntimeException("Not found");
+        }
+    }
+
+    @Transactional
+    public void delete(Branch branch) {
+        Optional<Branch> optional = this.branchRepository.findById(branch.getPk());
+        if(optional.isPresent()){
+            this.branchRepository.delete(branch);
+        } else {
+            throw new RuntimeException("Not found");
+        }
     }
 }
