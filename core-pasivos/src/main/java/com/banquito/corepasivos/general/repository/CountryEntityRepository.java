@@ -12,5 +12,4 @@ public interface CountryEntityRepository extends JpaRepository<CountryEntity, St
     List<CountryEntity> findByCodeCountry(String codeCountry);
 
     List<CountryEntity> findByName(String nameCountry);
-
 }

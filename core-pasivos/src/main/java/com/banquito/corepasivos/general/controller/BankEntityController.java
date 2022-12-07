@@ -1,7 +1,6 @@
 package com.banquito.corepasivos.general.controller;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -21,17 +20,17 @@ public class BankEntityController {
     public BankEntityController(BankEntityService bankEntityService) {
         this.bankEntityService = bankEntityService;
     }
-
-    @RequestMapping(value = "", method = RequestMethod.POST)
-    public ResponseEntity<String> createdBankEntity(@RequestBody BankEntity bankEntity) {
-        try {
-            this.bankEntityService.create(bankEntity);
-            ;
-            return ResponseEntity.ok("Bank Entity created successfully");
-        } catch (Exception e) {
-            return ResponseEntity.internalServerError().body(e.getMessage());
-        }
-    }
+    /*
+     * Repetido
+     * 
+     * @RequestMapping(value = "", method = RequestMethod.GET)
+     * public ResponseEntity<List<BankEntity>> getBankEntity() {
+     * return ResponseEntity.ok(this.bankEntityService.findAll());
+     * return ResponseEntity.ok("Bank Entity created successfully");
+     * } catch (Exception e) {
+     * return ResponseEntity.internalServerError().body(e.getMessage());
+     * }
+     */
 
     @RequestMapping(value = "", method = RequestMethod.PUT)
     public ResponseEntity<String> updateBankEntity(@RequestBody BankEntity bankEntity) {
@@ -59,8 +58,17 @@ public class BankEntityController {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public ResponseEntity<Optional<BankEntity>> getBankEntityById(@RequestBody BankEntityPK bankEntityPK) {
+    public ResponseEntity<BankEntity> getBankEntityById(@RequestBody BankEntityPK bankEntityPK) {
         return ResponseEntity.ok(this.bankEntityService.findById(bankEntityPK));
     }
 
+    /*
+     * Antes
+     * 
+     * @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+     * public ResponseEntity<Optional<BankEntity>> getBankEntityById(@RequestBody
+     * BankEntityPK bankEntityPK) {
+     * return ResponseEntity.ok(this.bankEntityService.findById(bankEntityPK));
+     * }
+     */
 }

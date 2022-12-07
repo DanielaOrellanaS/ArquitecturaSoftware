@@ -1,6 +1,7 @@
 package com.banquito.corepasivos.general.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.transaction.Transactional;
 
@@ -17,11 +18,24 @@ public class LocationEntityService {
         this.locationEntityRepository = locationEntityRepository;
     }
 
+    public List<LocationEntity> findAll() {
+        return this.locationEntityRepository.findAll();
+    }
+
+    public LocationEntity findById(Integer codeLocation) {
+        Optional<LocationEntity> locationEntity = this.locationEntityRepository.findById(codeLocation);
+        if (locationEntity.isPresent()) {
+            return locationEntity.get();
+        } else {
+            throw new RuntimeException("Location does not exist");
+        }
+    }
+
     @Transactional
     public void create(LocationEntity locationEntity) {
-        List<LocationEntity> locationEntities = this.locationEntityRepository
-                .findByCodeLocation(locationEntity.getCodeLocation());
-        if (locationEntities.isEmpty()) {
+        Optional<LocationEntity> locationEntities = this.locationEntityRepository
+                .findById(locationEntity.getCodeLocation());
+        if (!locationEntities.isPresent()) {
             this.locationEntityRepository.save(locationEntity);
         } else {
             throw new RuntimeException("The Country Entity already exists");
@@ -30,9 +44,9 @@ public class LocationEntityService {
 
     @Transactional
     public void update(LocationEntity locationEntity) {
-        List<LocationEntity> locationEntities = this.locationEntityRepository
-                .findByCodeLocation(locationEntity.getCodeLocation());
-        if (!locationEntities.isEmpty() && locationEntities.size() == 1) {
+        Optional<LocationEntity> locationEntities = this.locationEntityRepository
+                .findById(locationEntity.getCodeLocation());
+        if (locationEntities.isPresent()) {
             this.locationEntityRepository.save(locationEntity);
         } else {
             throw new RuntimeException("An error has occurred in the product update");
@@ -41,16 +55,13 @@ public class LocationEntityService {
 
     @Transactional
     public void delete(LocationEntity locationEntity) {
-        List<LocationEntity> locationEntities = this.locationEntityRepository
-                .findByCodeLocation(locationEntity.getCodeLocation());
-        if (!locationEntities.isEmpty()) {
+        Optional<LocationEntity> locationEntities = this.locationEntityRepository
+                .findById(locationEntity.getCodeLocation());
+        if (locationEntities.isPresent()) {
             this.locationEntityRepository.delete(locationEntity);
         } else {
             throw new RuntimeException("The Country Entity does not exist");
         }
     }
 
-    public List<LocationEntity> findAll() {
-        return this.locationEntityRepository.findAll();
-    }
 }

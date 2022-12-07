@@ -10,9 +10,8 @@ import com.banquito.corepasivos.general.model.BranchPK;
 
 @Repository
 public interface BranchRepository extends JpaRepository<Branch, BranchPK> {
-    List<Branch> findByPkCodeBranch(String codeBranch);
+    List<Branch> findByPkCodebranch(String codeBranch);
 
-    List<Branch> findByPkEntityBankCode(String entityBankCode);
+    List<Branch> findByNameLike(String name);
 
-    List<Branch> findByPkInternationalBankCode(String iInternationalBankCode);
 }

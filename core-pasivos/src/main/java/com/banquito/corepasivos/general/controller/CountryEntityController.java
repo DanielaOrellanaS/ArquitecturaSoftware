@@ -1,7 +1,6 @@
 package com.banquito.corepasivos.general.controller;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -23,11 +22,21 @@ public class CountryEntityController {
         this.countryEntityService = countryEntityService;
     }
 
+    @RequestMapping(value = "/", method = RequestMethod.GET)
+    public ResponseEntity<List<CountryEntity>> getCountryEntity() {
+        return ResponseEntity.ok(this.countryEntityService.findAll());
+    }
+
+    @RequestMapping(value = "/{codeCountry}", method = RequestMethod.GET)
+    public ResponseEntity<CountryEntity> findById(@PathVariable("codeCountry") String codeCountry) {
+        return ResponseEntity.ok(this.countryEntityService.findById(codeCountry));
+    }
+
     @RequestMapping(value = "/", method = RequestMethod.POST)
-    public ResponseEntity<String> createCountryEntity(@RequestBody CountryEntity countryEntity) {
+    public ResponseEntity<String> createCountry(@RequestBody CountryEntity countryEntity) {
+
         try {
             this.countryEntityService.create(countryEntity);
-            ;
             return ResponseEntity.ok("Country Entity created successfully");
         } catch (Exception e) {
             return ResponseEntity.internalServerError().body(e.getMessage());
@@ -53,16 +62,6 @@ public class CountryEntityController {
         } catch (Exception e) {
             return ResponseEntity.internalServerError().body(e.getMessage());
         }
-    }
-
-    @RequestMapping(value = "/", method = RequestMethod.GET)
-    public ResponseEntity<List<CountryEntity>> getCountryEntity() {
-        return ResponseEntity.ok(this.countryEntityService.findAll());
-    }
-
-    @RequestMapping(value = "/{codeCountry}", method = RequestMethod.GET)
-    public ResponseEntity<Optional<CountryEntity>> getCountryEntityById(@PathVariable String codeCountry) {
-        return ResponseEntity.ok(this.countryEntityService.findById(codeCountry));
     }
 
 }
