@@ -90,7 +90,7 @@ public class AccountAssociatedServiceController {
 	}
 
 	@RequestMapping(value = "/local/{codeLocalAccount}", method = RequestMethod.DELETE)
-	public ResponseEntity<String> deleteByCodeLocalAccount(
+	public ResponseEntity<String> deleteAllByCodeLocalAccount(
 			@PathVariable("codeLocalAccount") String codeLocalAccount) {
 
 		try {
@@ -102,7 +102,7 @@ public class AccountAssociatedServiceController {
 	}
 
 	@RequestMapping(value = "/international/{codeInternationalAccount}", method = RequestMethod.DELETE)
-	public ResponseEntity<String> deleteByCodeInternationalAccount(
+	public ResponseEntity<String> deleteAllByCodeInternationalAccount(
 			@PathVariable("codeInternationalAccount") String codeInternationalAccount) {
 
 		try {
@@ -115,12 +115,26 @@ public class AccountAssociatedServiceController {
 	}
 
 	@RequestMapping(value = "/code-associated-service/{codeAssociatedService}", method = RequestMethod.DELETE)
-	public ResponseEntity<String> deleteByCodeAssociatedService(
+	public ResponseEntity<String> deleteAllByCodeAssociatedService(
 			@PathVariable("codeAssociatedService") String codeAssociatedService) {
 
 		try {
 			this.service.deleteAllByCodeAssociatedService(codeAssociatedService);
 			return ResponseEntity.ok("All account associated services related to the associated service were deleted ");
+		} catch (Exception e) {
+			return ResponseEntity.internalServerError().body(e.getMessage());
+		}
+	}
+
+	@RequestMapping(value = "/code-associated-service/{codeAssociatedService}/{codeLocalAccount}", method = RequestMethod.DELETE)
+	public ResponseEntity<String> deleteByCodeAssociatedServiceAndCodeLocalAccount(
+			@PathVariable("codeAssociatedService") String codeAssociatedService,
+			@PathVariable("codeLocalAccount") String codeLocalAccount) {
+
+		try {
+			this.service.deleteByCodeAssociatedService(codeAssociatedService, codeLocalAccount);
+			return ResponseEntity
+					.ok("Account associated service by code associated service and code local account deleted");
 		} catch (Exception e) {
 			return ResponseEntity.internalServerError().body(e.getMessage());
 		}

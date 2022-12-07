@@ -25,7 +25,7 @@ public class AccountAssociatedServiceService {
 	@Transactional
 	public List<AccountAssociatedService> findByCodeLocalAccount(String codeLocalAccount) {
 		List<AccountAssociatedService> accountAssociatedServiceList = this.accountAssociatedServiceRepository
-				.findByCodeLocalAccount(codeLocalAccount);
+				.findAllByCodeLocalAccount(codeLocalAccount);
 		if (accountAssociatedServiceList.isEmpty()) {
 			throw new RuntimeException("Account Associated Service not found");
 		} else {
@@ -36,7 +36,7 @@ public class AccountAssociatedServiceService {
 	@Transactional
 	public List<AccountAssociatedService> findByCodeInternationalAccount(String codeInternationalAccount) {
 		List<AccountAssociatedService> accountAssociatedServiceList = this.accountAssociatedServiceRepository
-				.findByCodeInternationalAccount(codeInternationalAccount);
+				.findAllByCodeInternationalAccount(codeInternationalAccount);
 		if (accountAssociatedServiceList.isEmpty()) {
 			throw new RuntimeException("Account Associated Service not found");
 		} else {
@@ -47,7 +47,7 @@ public class AccountAssociatedServiceService {
 	@Transactional
 	public List<AccountAssociatedService> findByCodeProduct(String codeProduct) {
 		List<AccountAssociatedService> accountAssociatedServiceList = this.accountAssociatedServiceRepository
-				.findByCodeProduct(codeProduct);
+				.findAllByCodeProduct(codeProduct);
 		if (accountAssociatedServiceList.isEmpty()) {
 			throw new RuntimeException("Account Associated Service not found");
 		} else {
@@ -58,7 +58,7 @@ public class AccountAssociatedServiceService {
 	@Transactional
 	public List<AccountAssociatedService> findByCodeProductType(String codeProductType) {
 		List<AccountAssociatedService> accountAssociatedServiceList = this.accountAssociatedServiceRepository
-				.findByCodeProductType(codeProductType);
+				.findAllByCodeProductType(codeProductType);
 		if (accountAssociatedServiceList.isEmpty()) {
 			throw new RuntimeException("Account Associated Service not found");
 		} else {
@@ -69,7 +69,7 @@ public class AccountAssociatedServiceService {
 	@Transactional
 	public List<AccountAssociatedService> findByCodeAssociatedService(String codeAssociatedService) {
 		List<AccountAssociatedService> accountAssociatedServiceList = this.accountAssociatedServiceRepository
-				.findByCodeAssociatedService(codeAssociatedService);
+				.findAllByCodeAssociatedService(codeAssociatedService);
 		if (accountAssociatedServiceList.isEmpty()) {
 			throw new RuntimeException("Account Associated Service not found");
 		} else {
@@ -80,7 +80,7 @@ public class AccountAssociatedServiceService {
 	@Transactional
 	public void deleteAllByCodeLocalAccount(String codeLocalAccount) {
 		List<AccountAssociatedService> accountAssociatedServiceList = this.accountAssociatedServiceRepository
-				.findByCodeLocalAccount(codeLocalAccount);
+				.findAllByCodeLocalAccount(codeLocalAccount);
 
 		if (accountAssociatedServiceList.isEmpty()) {
 			throw new RuntimeException("Account Associated Service not found");
@@ -95,7 +95,7 @@ public class AccountAssociatedServiceService {
 	@Transactional
 	public void deleteAllByCodeInternationalAccount(String codeInternationalAccount) {
 		List<AccountAssociatedService> accountAssociatedServiceList = this.accountAssociatedServiceRepository
-				.findByCodeInternationalAccount(codeInternationalAccount);
+				.findAllByCodeInternationalAccount(codeInternationalAccount);
 		if (accountAssociatedServiceList.isEmpty()) {
 			throw new RuntimeException("Account Associated Service not found");
 		} else {
@@ -109,7 +109,7 @@ public class AccountAssociatedServiceService {
 	@Transactional
 	public void deleteAllByCodeAssociatedService(String codeAssociatedService) {
 		List<AccountAssociatedService> accountAssociatedServiceList = this.accountAssociatedServiceRepository
-				.findByCodeAssociatedService(codeAssociatedService);
+				.findAllByCodeAssociatedService(codeAssociatedService);
 		if (accountAssociatedServiceList.isEmpty()) {
 			throw new RuntimeException("Account Associated Service not found");
 		} else {
@@ -117,6 +117,19 @@ public class AccountAssociatedServiceService {
 				accountToUpdate.setStatus("INA");
 				this.accountAssociatedServiceRepository.save(accountToUpdate);
 			}
+		}
+	}
+
+	@Transactional
+	public void deleteByCodeAssociatedService(String codeAssociatedService, String codeLocalAccount) {
+		AccountAssociatedService accountAssociatedService = this.accountAssociatedServiceRepository
+				.findByCodeAssociatedServiceAndCodeLocalAccount(codeAssociatedService, codeLocalAccount);
+
+		if (accountAssociatedService == null) {
+			throw new RuntimeException("Account Associated Service not found");
+		} else {
+			accountAssociatedService.setStatus("INA");
+			this.accountAssociatedServiceRepository.save(accountAssociatedService);
 		}
 	}
 
