@@ -10,14 +10,18 @@ import org.springframework.stereotype.Service;
 
 import com.banquito.corepasivos.product.model.InterestRateLog;
 import com.banquito.corepasivos.product.repository.InterestRateLogRepository;
+import com.banquito.corepasivos.product.repository.InterestRateRepository;
 
 @Service
 public class InterestRateLogService {
 
     private final InterestRateLogRepository interestRateLogRepository;
+    private final InterestRateRepository interestrateRepository;
 
-    public InterestRateLogService(InterestRateLogRepository interestRateLogRepository) {
+    public InterestRateLogService(InterestRateLogRepository interestRateLogRepository,
+            InterestRateRepository interestrateRepository) {
         this.interestRateLogRepository = interestRateLogRepository;
+        this.interestrateRepository = interestrateRepository;
     }
 
     public List<InterestRateLog> findAllInterestRatesLog() {
@@ -37,12 +41,15 @@ public class InterestRateLogService {
     }
 
     public List<InterestRateLog> findByDateInterestRateLog(Date startDate, Date endDate) {
-        return this.interestRateLogRepository.findByStartDateBetween(startDate,endDate);
+        return this.interestRateLogRepository.findByStartDateBetween(startDate, endDate);
     }
 
     @Transactional
     public void createInterestRateLog(InterestRateLog interestRateLog) {
         try {
+            if (!interestrateRepository.existsByCodeInterestRate(interestRateLog.getCodeInterestRate()))
+                throw new RuntimeException("The code of interest rate dont exist");
+
             this.interestRateLogRepository.save(interestRateLog);
         } catch (Exception e) {
             throw new RuntimeException("The interest could not be created, parameters failed.");
@@ -51,21 +58,23 @@ public class InterestRateLogService {
 
     @Transactional
     public void deleteInterestRateLog(InterestRateLog interestRateLog) {
-        Optional<InterestRateLog> interest = this.interestRateLogRepository.findById(interestRateLog.getCodeInterestLog());
+        Optional<InterestRateLog> interest = this.interestRateLogRepository
+                .findById(interestRateLog.getCodeInterestLog());
 
         interestRateLog.setStatus("INA");
-            try {
-                if(interest.isEmpty()){
-                    throw new RuntimeException(
-                        "An error occurred while change status on inetereste rate log");
-                }else{
-                    this.interestRateLogRepository.save(interestRateLog);
-                }
-            } catch (Exception e) {
+        try {
+            if (interest.isEmpty()) {
                 throw new RuntimeException(
-                        "An error occurred while removing one inetereste rate log");
+                        "An error occurred while change status on inetereste rate log");
+            } else {
+                this.interestRateLogRepository.save(interestRateLog);
             }
+        } catch (Exception e) {
+            throw new RuntimeException(
+                    "An error occurred while removing one inetereste rate log");
+        }
     }
+
     @Transactional
     public void updateInterestRateLog(InterestRateLog interestRateLog) {
         Optional<InterestRateLog> interest = this.interestRateLogRepository
