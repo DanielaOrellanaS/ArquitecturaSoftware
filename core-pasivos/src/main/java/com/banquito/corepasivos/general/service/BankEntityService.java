@@ -19,52 +19,48 @@ public class BankEntityService {
         this.bankEntityRepository = bankEntityRepository;
     }
 
+    public List<BankEntity> findAll() {
+        return this.bankEntityRepository.findAll();
+    }
+
+    public BankEntity findById(BankEntityPK pk) {
+        Optional<BankEntity> optional = this.bankEntityRepository.findById(pk);
+        if (optional.isPresent()) {
+            return optional.get();
+        } else {
+            throw new RuntimeException("Bank not found");
+        }
+    }
+
     // CRUD
     @Transactional
     public void create(BankEntity bankEntity) {
-        List<BankEntity> bankEntities = this.bankEntityRepository
-                .findByPkEntityBankCode(bankEntity.getPk().getEntityBankCode());
-        if (bankEntities.isEmpty()) {
-            this.bankEntityRepository.save(bankEntity);
-        } else {
+        Optional<BankEntity> optional = this.bankEntityRepository.findById(bankEntity.getPk());
+        if (optional.isPresent()) {
             throw new RuntimeException("The Bank Entity already exists");
+        } else {
+            this.bankEntityRepository.save(bankEntity);
         }
     }
 
     @Transactional
     public void update(BankEntity bankEntity) {
-        List<BankEntity> bankEntities = this.bankEntityRepository
-                .findByPkEntityBankCode(bankEntity.getPk().getEntityBankCode());
-        if (!bankEntities.isEmpty()) {
+        Optional<BankEntity> optional = this.bankEntityRepository.findById(bankEntity.getPk());
+        if (optional.isPresent()) {
             this.bankEntityRepository.save(bankEntity);
         } else {
-            throw new RuntimeException("An error has occurred in the BankEntity update");
+            throw new RuntimeException("Not found");
         }
     }
 
     @Transactional
     public void delete(BankEntity bankEntity) {
-        List<BankEntity> bankEntities = this.bankEntityRepository
-                .findByPkEntityBankCode(bankEntity.getPk().getEntityBankCode());
-        if (!bankEntities.isEmpty()) {
+        Optional<BankEntity> optional = this.bankEntityRepository.findById(bankEntity.getPk());
+        if (optional.isPresent()) {
             this.bankEntityRepository.delete(bankEntity);
         } else {
-            throw new RuntimeException("The Bank Entity does not exist");
+            throw new RuntimeException("Not found");
         }
-    }
-
-    // Servicios literal 1
-    public List<BankEntity> findAll() {
-        return this.bankEntityRepository.findAll();
-    }
-
-    public Optional<BankEntity> findById(BankEntityPK bankEntityPK) {
-        try {
-            return this.bankEntityRepository.findById(bankEntityPK);
-        } catch (Exception e) {
-            throw new RuntimeException("The Bank Entity does not exist");
-        }
-
     }
 
 }
