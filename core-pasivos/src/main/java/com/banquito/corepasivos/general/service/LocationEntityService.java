@@ -14,9 +14,10 @@ import com.banquito.corepasivos.general.repository.StructureEntityRepository;
 @Service
 public class LocationEntityService {
     private final LocationEntityRepository locationEntityRepository;
-    private final StructureEntityRepository structureEntityRepository; 
+    private final StructureEntityRepository structureEntityRepository;
 
-    public LocationEntityService(LocationEntityRepository locationEntityRepository, StructureEntityRepository structureEntityRepository) {
+    public LocationEntityService(LocationEntityRepository locationEntityRepository,
+            StructureEntityRepository structureEntityRepository) {
         this.locationEntityRepository = locationEntityRepository;
         this.structureEntityRepository = structureEntityRepository;
     }
@@ -27,9 +28,9 @@ public class LocationEntityService {
 
     public LocationEntity findById(Integer codeLocation) {
         Optional<LocationEntity> locationEntity = this.locationEntityRepository.findById(codeLocation);
-        if(locationEntity.isPresent()){
+        if (locationEntity.isPresent()) {
             return locationEntity.get();
-        } else{
+        } else {
             throw new RuntimeException("Location does not exist");
         }
     }
@@ -68,4 +69,3 @@ public class LocationEntityService {
     }
 
 }
-

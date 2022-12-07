@@ -9,4 +9,7 @@ import com.banquito.corepasivos.general.model.CountryEntity;
 
 @Repository
 public interface CountryEntityRepository extends JpaRepository<CountryEntity, String> {
+    List<CountryEntity> findByCodeCountry(String codeCountry);
+
+    List<CountryEntity> findByName(String nameCountry);
 }

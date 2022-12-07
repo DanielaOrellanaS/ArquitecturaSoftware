@@ -21,7 +21,7 @@ public class CountryEntityController {
     public CountryEntityController(CountryEntityService countryEntityService) {
         this.countryEntityService = countryEntityService;
     }
-    
+
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public ResponseEntity<List<CountryEntity>> getCountryEntity() {
         return ResponseEntity.ok(this.countryEntityService.findAll());
@@ -34,7 +34,7 @@ public class CountryEntityController {
 
     @RequestMapping(value = "/", method = RequestMethod.POST)
     public ResponseEntity<String> createCountry(@RequestBody CountryEntity countryEntity) {
-        
+
         try {
             this.countryEntityService.create(countryEntity);
             return ResponseEntity.ok("Country Entity created successfully");

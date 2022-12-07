@@ -20,7 +20,6 @@ public class BranchService {
         this.branchRepository = branchRepository;
     }
 
-    
     public List<Branch> findAll() {
         return this.branchRepository.findAll();
     }
@@ -33,14 +32,14 @@ public class BranchService {
         }
     }
 
-    public List<Branch> findByName(String name){
+    public List<Branch> findByName(String name) {
         return this.branchRepository.findByNameLike(name);
     }
 
     @Transactional
     public void create(Branch branch) {
         Optional<Branch> optional = this.branchRepository.findById(branch.getPk());
-        if(optional.isPresent()){
+        if (optional.isPresent()) {
             throw new RuntimeException("Branch already exist");
         } else {
             this.branchRepository.save(branch);
@@ -50,7 +49,7 @@ public class BranchService {
     @Transactional
     public void update(Branch branch) {
         Optional<Branch> optional = this.branchRepository.findById(branch.getPk());
-        if(optional.isPresent()){
+        if (optional.isPresent()) {
             this.branchRepository.save(branch);
         } else {
             throw new RuntimeException("Not found");
@@ -60,7 +59,7 @@ public class BranchService {
     @Transactional
     public void delete(Branch branch) {
         Optional<Branch> optional = this.branchRepository.findById(branch.getPk());
-        if(optional.isPresent()){
+        if (optional.isPresent()) {
             this.branchRepository.delete(branch);
         } else {
             throw new RuntimeException("Not found");

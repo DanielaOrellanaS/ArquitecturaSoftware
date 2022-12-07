@@ -7,13 +7,13 @@ import javax.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import com.banquito.corepasivos.general.model.StructureEntity;
-import com.banquito.corepasivos.general.repository.StructureEntityReposiroty;
+import com.banquito.corepasivos.general.repository.StructureEntityRepository;
 
 @Service
 public class StructureEntityService {
-    private final StructureEntityReposiroty structureEntityRepository;
+    private final StructureEntityRepository structureEntityRepository;
 
-    public StructureEntityService(StructureEntityReposiroty structureEntityRepository) {
+    public StructureEntityService(StructureEntityRepository structureEntityRepository) {
         this.structureEntityRepository = structureEntityRepository;
     }
 

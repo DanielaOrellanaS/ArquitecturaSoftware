@@ -25,9 +25,9 @@ public class CountryEntityService {
 
     public CountryEntity findById(String countryEntity) {
         Optional<CountryEntity> optional = this.countryEntityRepository.findById(countryEntity);
-        if(optional.isPresent()){
+        if (optional.isPresent()) {
             return optional.get();
-        } else{
+        } else {
             throw new RuntimeException("Country not found");
         }
 
@@ -36,9 +36,9 @@ public class CountryEntityService {
     @Transactional
     public void create(CountryEntity countryEntity) {
         Optional<CountryEntity> optional = this.countryEntityRepository.findById(countryEntity.getCodeCountry());
-        if(optional.isPresent()){
+        if (optional.isPresent()) {
             throw new RuntimeException("Country already exist");
-        } else{
+        } else {
             this.countryEntityRepository.save(countryEntity);
         }
     }
@@ -46,9 +46,9 @@ public class CountryEntityService {
     @Transactional
     public void update(CountryEntity countryEntity) {
         Optional<CountryEntity> optional = this.countryEntityRepository.findById(countryEntity.getCodeCountry());
-        if(optional.isPresent()){
+        if (optional.isPresent()) {
             this.countryEntityRepository.save(countryEntity);
-        } else{
+        } else {
             throw new RuntimeException("Not found");
         }
     }
@@ -56,9 +56,9 @@ public class CountryEntityService {
     @Transactional
     public void delete(CountryEntity countryEntity) {
         Optional<CountryEntity> optional = this.countryEntityRepository.findById(countryEntity.getCodeCountry());
-        if(optional.isPresent()){
+        if (optional.isPresent()) {
             this.countryEntityRepository.delete(countryEntity);
-        } else{
+        } else {
             throw new RuntimeException("Not found");
         }
     }

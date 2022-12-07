@@ -44,8 +44,8 @@ public class BranchController {
     @RequestMapping(value = "/{name}", method = RequestMethod.GET)
     public ResponseEntity<List<Branch>> findBranchByName(
             @PathVariable("name") String name) {
-                List<Branch> branches = this.branchService.findByName(name);
-                return ResponseEntity.ok(branches);
+        List<Branch> branches = this.branchService.findByName(name);
+        return ResponseEntity.ok(branches);
     }
 
     @RequestMapping(value = "", method = RequestMethod.POST)
