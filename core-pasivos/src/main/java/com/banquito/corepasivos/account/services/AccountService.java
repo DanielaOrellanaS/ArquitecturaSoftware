@@ -3,6 +3,10 @@ package com.banquito.corepasivos.account.services;
 import com.banquito.corepasivos.account.model.Account;
 import com.banquito.corepasivos.account.model.AccountClient;
 import com.banquito.corepasivos.account.repository.*;
+import com.banquito.corepasivos.general.repository.BankEntityRepository;
+import com.banquito.corepasivos.general.repository.BranchRepository;
+import com.banquito.corepasivos.product.repository.ProductRepository;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,14 +18,37 @@ public class AccountService {
 
     private final AccountRepository accountRepository;
     private final AccountClientRepository accountClientRepository;
+    private final ProductRepository productRepository;
+    private final BankEntityRepository bankEntityRepository;
+    private final BranchRepository branchRepository;
 
-    public AccountService(AccountRepository accountRepository, AccountClientRepository accountClientRepository) {
+    public AccountService(AccountRepository accountRepository, AccountClientRepository accountClientRepository,
+            ProductRepository productRepository, BankEntityRepository bankEntityRepository,
+            BranchRepository branchRepository) {
         this.accountRepository = accountRepository;
         this.accountClientRepository = accountClientRepository;
+        this.productRepository = productRepository;
+        this.bankEntityRepository = bankEntityRepository;
+        this.branchRepository = branchRepository;
     }
 
     @Transactional
     public void save(Account account) {
+        if (accountRepository.existsByPkCodelocalaccount(account.getPk().getCodelocalaccount()))
+            throw new RuntimeException("Code local account already exists.");
+
+        if (accountRepository.existsByPkCodeinternationalaccount(account.getPk().getCodeinternationalaccount()))
+            throw new RuntimeException("Code international account already exists.");
+
+        if (!productRepository.existsByPkCodeProduct(account.getCodeProduct()))
+            throw new RuntimeException("Code product does not exist.");
+
+        if (!bankEntityRepository.existsByPkInternationalbankcode(account.getInternationalBankCode()))
+            throw new RuntimeException("International bank code does not exist.");
+
+        if (!branchRepository.existsByPkCodebranch(account.getCodeBranch()))
+            throw new RuntimeException("Code branch does not exist.");
+
         this.accountRepository.save(account);
     }
 

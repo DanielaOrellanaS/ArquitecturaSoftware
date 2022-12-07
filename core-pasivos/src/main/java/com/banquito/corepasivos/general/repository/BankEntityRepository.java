@@ -17,4 +17,6 @@ public interface BankEntityRepository extends JpaRepository<BankEntity, BankEnti
     List<BankEntity> findByName(String name);
 
     List<BankEntity> findAll();
+
+    Boolean existsByPkInternationalbankcode(String internationalBankCode);
 }
