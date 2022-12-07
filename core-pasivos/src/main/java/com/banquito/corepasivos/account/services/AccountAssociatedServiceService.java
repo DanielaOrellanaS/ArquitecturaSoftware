@@ -2,6 +2,8 @@ package com.banquito.corepasivos.account.services;
 
 import com.banquito.corepasivos.account.model.AccountAssociatedService;
 import com.banquito.corepasivos.account.repository.AccountAssociatedServiceRepository;
+import com.banquito.corepasivos.account.repository.AccountRepository;
+
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,8 +14,12 @@ import javax.transaction.Transactional;
 public class AccountAssociatedServiceService {
 	private final AccountAssociatedServiceRepository accountAssociatedServiceRepository;
 
-	public AccountAssociatedServiceService(AccountAssociatedServiceRepository accountAssociatedServiceRepository) {
+	private final AccountRepository accountRepository;
+
+	public AccountAssociatedServiceService(AccountAssociatedServiceRepository accountAssociatedServiceRepository,
+			AccountRepository accountRepository) {
 		this.accountAssociatedServiceRepository = accountAssociatedServiceRepository;
+		this.accountRepository = accountRepository;
 	}
 
 	@Transactional
@@ -116,11 +122,17 @@ public class AccountAssociatedServiceService {
 
 	@Transactional
 	public void save(AccountAssociatedService accountAssociatedService) {
-		try {
-			this.accountAssociatedServiceRepository.save(accountAssociatedService);
-		} catch (Exception e) {
-			throw new RuntimeException("Error saving Account Associated Service");
+
+		if (!accountRepository.existsByPkCodelocalaccount(accountAssociatedService.getCodeLocalAccount())) {
+			throw new RuntimeException("Account not found");
 		}
+
+		if (!accountRepository
+				.existsByPkCodeinternationalaccount(accountAssociatedService.getCodeInternationalAccount())) {
+			throw new RuntimeException("Account not found");
+		}
+
+		this.accountAssociatedServiceRepository.save(accountAssociatedService);
 	}
 
 	@Transactional
