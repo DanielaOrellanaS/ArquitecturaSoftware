@@ -45,8 +45,8 @@ public class AccountTransactionService {
 				transaction.setCreateDate(new Date());
 				transaction.setStatus("ACT");
 
-				if (transaction.getType().contains("DEB")
-						&& transaction.getRecipientType().contains("BEN")) {
+				if (transaction.getType().toUpperCase().equals("DEB")
+						&& transaction.getRecipientType().toUpperCase().equals("BEN")) {
 					if (accountOpt.getAvailableBalance().compareTo(transaction.getValue()) == 1) {
 						accountOpt.setAvailableBalance(new BigDecimal(
 								accountOpt.getAvailableBalance().doubleValue() - transaction.getValue().doubleValue(),
