@@ -1,14 +1,12 @@
 package com.banquito.corepasivos.account.services;
 
 import com.banquito.corepasivos.account.model.AccountSignature;
-import com.banquito.corepasivos.account.model.AccountSignaturePK;
 import com.banquito.corepasivos.account.repository.AccountRepository;
 import com.banquito.corepasivos.account.repository.AccountSignatureRepository;
 import com.banquito.corepasivos.client.repository.ClientRepository;
 
 import org.springframework.stereotype.Service;
 
-import java.io.Console;
 import java.util.ArrayList;
 import java.util.List;
 
