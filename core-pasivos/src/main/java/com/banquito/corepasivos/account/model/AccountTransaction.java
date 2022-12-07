@@ -18,7 +18,7 @@ public class AccountTransaction implements Serializable {
 
     @Id
     @Include
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "code_transaction", nullable = false)
     private Integer codeTransaction;
 
