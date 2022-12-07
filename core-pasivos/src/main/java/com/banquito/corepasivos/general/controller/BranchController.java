@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.banquito.corepasivos.general.model.Branch;
@@ -40,11 +41,20 @@ public class BranchController {
         pk.setInternationalBankCode(bankInternational);
         return ResponseEntity.ok(this.branchService.findByComposePK(pk));
     }
+    /*
+     * @RequestMapping(value = "/{name}", method = RequestMethod.GET)
+     * public ResponseEntity<List<Branch>> findBranchByName(
+     * 
+     * @PathVariable("name") String name) {
+     * List<Branch> branches = this.branchService.findByName(name);
+     * return ResponseEntity.ok(branches);
+     * }
+     */
 
-    @RequestMapping(value = "/{name}", method = RequestMethod.GET)
+    @RequestMapping(value = "/namelike")
     public ResponseEntity<List<Branch>> findBranchByName(
-            @PathVariable("name") String name) {
-        List<Branch> branches = this.branchService.findByName(name);
+            @RequestParam String name) {
+        List<Branch> branches = this.branchService.findByNameLike("%" + name + "%");
         return ResponseEntity.ok(branches);
     }
 

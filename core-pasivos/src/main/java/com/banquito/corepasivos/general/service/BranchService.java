@@ -32,7 +32,7 @@ public class BranchService {
         }
     }
 
-    public List<Branch> findByName(String name) {
+    public List<Branch> findByNameLike(String name) {
         return this.branchRepository.findByNameLike(name);
     }
 

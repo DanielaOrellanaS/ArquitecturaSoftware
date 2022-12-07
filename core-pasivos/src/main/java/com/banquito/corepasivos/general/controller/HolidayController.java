@@ -35,26 +35,11 @@ public class HolidayController {
     @RequestMapping(value = "/", method = RequestMethod.POST)
     public ResponseEntity<String> createHoliday(@RequestBody Holiday holiday) {
         try {
-            System.out.println(holiday);
             this.holidayService.create(holiday);
             return ResponseEntity.ok("Holiday created successfully");
         } catch (Exception e) {
             return ResponseEntity.internalServerError().body(e.getMessage());
         }
-    }
-
-    @RequestMapping(value = "/{date}", method = RequestMethod.POST)
-    public ResponseEntity<String> createHolidayWeekend(@PathVariable("date") Holiday dateHoliday) {
-        Holiday holiday = new Holiday();
-        if (holiday.validateWeekend(dateHoliday.getDate())) {
-            try {
-                this.holidayService.create(dateHoliday);
-                return ResponseEntity.ok("Holiday created successfully");
-            } catch (Exception e) {
-                return ResponseEntity.internalServerError().body(e.getMessage());
-            }
-        }
-        return null;
     }
 
     @RequestMapping(value = "/weekend/{year}", method = RequestMethod.POST)
@@ -97,5 +82,4 @@ public class HolidayController {
         }
     }
 
-  
 }
