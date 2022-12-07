@@ -10,17 +10,9 @@ import com.banquito.corepasivos.general.model.BranchPK;
 
 @Repository
 public interface BranchRepository extends JpaRepository<Branch, BranchPK> {
+    List<Branch> findByPkCodeBranch(String codeBranch);
 
-    /*List<Branch> findByCode(BranchPK codeBranch);
+    List<Branch> findByPkEntityBankCode(String entityBankCode);
 
-    List<Branch> findByEntityBankCode(BranchPK codeBranch);
-
-    List<Branch> findByInternationalBranchCode(BranchPK internationalBranchCode);
-
-    List<Branch> findByCodeLocation(BranchPK codeLocation);
-
-    List<Branch> findByName(String name);*/
-    
-
-    // Tipo dato parametro PK o primirtivo?
+    List<Branch> findByPkInternationalBankCode(String iInternationalBankCode);
 }

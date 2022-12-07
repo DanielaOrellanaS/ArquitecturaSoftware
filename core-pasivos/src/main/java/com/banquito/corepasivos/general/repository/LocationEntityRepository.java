@@ -8,10 +8,10 @@ import org.springframework.stereotype.Repository;
 import com.banquito.corepasivos.general.model.LocationEntity;
 
 @Repository
-public interface LocationEntityRepository {
-    /*List<LocationEntity> findByCodeLocation(LocationEntityPK codeLocation);
+public interface LocationEntityRepository extends JpaRepository<LocationEntity, Integer> {
 
-    List<LocationEntity> findByCodeCountry(LocationEntityPK codeCountry);
+    List<LocationEntity> findByCodeLocation(Integer codeLocation);
 
-    List<LocationEntity> findByName(LocationEntityPK name);*/
+    List<LocationEntity> findByName(String name);
+
 }

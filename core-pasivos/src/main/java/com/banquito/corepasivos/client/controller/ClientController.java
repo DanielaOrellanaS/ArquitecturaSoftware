@@ -2,8 +2,14 @@ package com.banquito.corepasivos.client.controller;
 
 import java.util.List;
 
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -20,9 +26,51 @@ public class ClientController {
         this.clientService = clientService;
     }
 
-    @GetMapping
+    @GetMapping("/all")
     public ResponseEntity<List<Client>> findAll() {
-        return ResponseEntity.ok(this.clientService.findAllClients());
+        List<Client> clients = this.clientService.findAllClients();
+        return ResponseEntity.ok(clients);
     }
 
+    @GetMapping("/identification/{identification}")
+    public ResponseEntity<Client> findAllClientsByIdentification(
+            @PathVariable("identification") String identification) {
+        if (!this.clientService.existsClientByIdentification(identification)) {
+            return ResponseEntity.notFound().build();
+        } else {
+            // List<Client> clients =
+            // this.clientService.findAllClientsByIdentification(identification);
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @PostMapping(consumes = { MediaType.APPLICATION_JSON_VALUE })
+    public ResponseEntity<String> createClient(@RequestBody Client client) {
+        if (this.clientService.existsClientByIdentification(client.getPk().getIdentification())) {
+            return ResponseEntity.badRequest().body("Client already exists");
+        } else {
+            this.clientService.createClient(client);
+            return ResponseEntity.ok("Client created");
+        }
+    }
+
+    @DeleteMapping("/identification/{identification}")
+    public ResponseEntity<String> deleteClientEntity(@RequestBody Client client) {
+        if (!this.clientService.existsClientByIdentification(client.getPk().getIdentification())) {
+            return ResponseEntity.badRequest().body("Client not found");
+        } else {
+            this.clientService.deleteClient(client);
+            return ResponseEntity.ok("Client deleted");
+        }
+    }
+
+    @PutMapping(consumes = { "application/json" })
+    public ResponseEntity<String> updateClient(@RequestBody Client client) {
+        if (!this.clientService.existsClientByIdentification(client.getPk().getIdentification())) {
+            return ResponseEntity.badRequest().body("Client not found");
+        } else {
+            this.clientService.updateClient(client);
+            return ResponseEntity.ok("Client updated successfully");
+        }
+    }
 }

@@ -2,17 +2,11 @@ package com.banquito.corepasivos.client.controller;
 
 import java.util.List;
 
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.banquito.corepasivos.client.model.ClientAddress;
@@ -20,7 +14,7 @@ import com.banquito.corepasivos.client.model.ClientAddressPK;
 import com.banquito.corepasivos.client.service.ClientAddressService;
 
 @RestController
-@RequestMapping("/api/clientaddresses")
+@RequestMapping("/api/client-address")
 public class ClientAddressController {
 
     private final ClientAddressService clientAddressService;
@@ -29,40 +23,40 @@ public class ClientAddressController {
         this.clientAddressService = clientAddressService;
     }
 
-    @GetMapping("/all")
+    @RequestMapping(value = "/", method = RequestMethod.GET)
     public ResponseEntity<List<ClientAddress>> findAllClientAddresses() {
         List<ClientAddress> clientAddresses = this.clientAddressService.findAllClientAddresses();
         return ResponseEntity.ok(clientAddresses);
     }
 
-    @GetMapping("/address/{client}")
+    @RequestMapping(value = "/{client}", method = RequestMethod.GET)
     public ResponseEntity<List<ClientAddress>> findAllClientAddresses(@PathVariable("client") String client) {
         List<ClientAddress> clientAddresses = this.clientAddressService.findAllClientAddressesByIdentification(client);
         return ResponseEntity.ok(clientAddresses);
     }
 
-    @PostMapping(consumes = { MediaType.APPLICATION_JSON_VALUE })
+    @RequestMapping(value = "/", method = RequestMethod.POST)
     public ResponseEntity<String> createClientAddress(@RequestBody ClientAddress clientAddress) {
         try {
             this.clientAddressService.createClientAddress(clientAddress);
-            return ResponseEntity.ok("Cliente creado con exito");
+            return ResponseEntity.ok("Address successfully created");
         } catch (Exception e) {
             return ResponseEntity.internalServerError().body(e.getMessage());
         }
     }
 
-    @PutMapping(consumes = { "application/json" })
+    @RequestMapping(value = "/", method = RequestMethod.PUT)
     public ResponseEntity<String> updateClientAddress(
             @RequestBody ClientAddress clientAddress) {
         try {
             this.clientAddressService.updateClientAddress(clientAddress);
-            return ResponseEntity.ok("Direccion atualizada con exito");
+            return ResponseEntity.ok("Address successfully updated");
         } catch (Exception e) {
             return ResponseEntity.internalServerError().body(e.getMessage());
         }
     }
 
-    @DeleteMapping("/{identification}/{type}/{location}")
+    @RequestMapping(value = "/{identification}/{type}/{location}", method = RequestMethod.DELETE)
     public ResponseEntity<String> deleteClientEntity(
             @PathVariable("identification") String client,
             @PathVariable("type") String type,
@@ -73,18 +67,18 @@ public class ClientAddressController {
             pk.setIdentification(client);
             pk.setIdentificationType(type.toUpperCase());
             this.clientAddressService.deleteClientAdress(pk);
-            return ResponseEntity.ok("Direccion eliminada con exito");
+            return ResponseEntity.ok("Address successfully deleted");
         } catch (Exception e) {
             return ResponseEntity.internalServerError().body(e.getMessage());
         }
     }
 
-    @DeleteMapping
+    @RequestMapping(value = "/", method = RequestMethod.DELETE)
     public ResponseEntity<String> deleteClientEntity(
             @RequestBody ClientAddress clientAddress) {
         try {
             this.clientAddressService.deleteClientAdress(clientAddress);
-            return ResponseEntity.ok("Direccion eliminada con exito");
+            return ResponseEntity.ok("Address successfully deleted");
         } catch (Exception e) {
             return ResponseEntity.internalServerError().body(e.getMessage());
         }
