@@ -20,8 +20,13 @@ public class StructureEntityController {
         this.structureEntityService = structureEntityService;
     }
 
+    @RequestMapping(value = "", method = RequestMethod.GET)
+    public ResponseEntity<List<StructureEntity>> getStructureEntities() {
+        return ResponseEntity.ok(this.structureEntityService.findAll());
+    }
+
     @RequestMapping(value = "/", method = RequestMethod.POST)
-    public ResponseEntity<String> createLocatioEntity(@RequestBody StructureEntity structureEntity) {
+    public ResponseEntity<String> createStructureEntity(@RequestBody StructureEntity structureEntity) {
         try {
             this.structureEntityService.create(structureEntity);
             ;
@@ -32,7 +37,7 @@ public class StructureEntityController {
     }
 
     @RequestMapping(value = "/", method = RequestMethod.PUT)
-    public ResponseEntity<String> updateLocationEntity(@RequestBody StructureEntity structureEntity) {
+    public ResponseEntity<String> updateStructureEntity(@RequestBody StructureEntity structureEntity) {
         try {
             this.structureEntityService.update(structureEntity);
             return ResponseEntity.ok("Structure Entity updated successfully");
@@ -42,7 +47,7 @@ public class StructureEntityController {
     }
 
     @RequestMapping(value = "/", method = RequestMethod.DELETE)
-    public ResponseEntity<String> deleteLocationEntity(@RequestBody StructureEntity structureEntity) {
+    public ResponseEntity<String> deleteStructureEntityy(@RequestBody StructureEntity structureEntity) {
         try {
             this.structureEntityService.delete(structureEntity);
             return ResponseEntity.ok("Structure Entity delete successfully");
@@ -51,8 +56,4 @@ public class StructureEntityController {
         }
     }
 
-    @RequestMapping(value = "/", method = RequestMethod.GET)
-    public ResponseEntity<List<StructureEntity>> getLocationEntities() {
-        return ResponseEntity.ok(this.structureEntityService.findAll());
-    }
 }

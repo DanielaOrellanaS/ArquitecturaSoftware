@@ -67,4 +67,17 @@ public class HolidayServices {
         }
     }
 
+    @Transactional
+    public void deleteByDate(String dateHoliday) {
+
+        try {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyy-MM-dd");
+            Date newDate = dateFormat.parse(dateHoliday);
+            // this.holidayRepository.findById(newDate);
+            this.holidayRepository.deleteById(newDate);
+        } catch (Exception e) {
+            throw new RuntimeException("The Holiday does not exist");
+        }
+    }
+
 }
