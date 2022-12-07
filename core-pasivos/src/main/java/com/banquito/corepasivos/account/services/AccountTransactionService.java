@@ -57,7 +57,7 @@ public class AccountTransactionService {
 	 		Account accountOpt = accountList.get(0);
 			 try{
 	 			//BigDecimal valor = BigDecimal.ZERO;
-				 BigDecimal valor = BigDecimal.valueOf(20.00);
+				 BigDecimal valor = BigDecimal.valueOf(200.00);
 				 transaction.setCodeLocalAccount("21d6e4168ac6e7529ca7");
 				 transaction.setCodeInternationalAccount("d4bf80fcff5933f3b4c82fb1bd09bd8648");
 				 transaction.setCodeUniqueTransaction("216eb62cb3046fff2f9434b2c1e672707fcab8d3848840a8ada9bec5221056d0");

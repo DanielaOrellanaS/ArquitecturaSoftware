@@ -18,8 +18,7 @@ public class AccountTransaction implements Serializable {
 
     @Id
     @Include
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "COD_TRANS_SEQ")
-    @SequenceGenerator(sequenceName = "account_transaction_code_transaction_seq", allocationSize = 1, name = "COD_TRANS_SEQ")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "code_transaction", nullable = false)
     private Integer codeTransaction;
 
