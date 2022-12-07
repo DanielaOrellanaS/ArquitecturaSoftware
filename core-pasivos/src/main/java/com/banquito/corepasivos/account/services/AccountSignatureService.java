@@ -96,14 +96,20 @@ public class AccountSignatureService {
         }
     }
 
-    /* public List <AccountSignature> findByDates(String startDate, String endDate){
+    public List <AccountSignature> findByDates(String account, Date startDate, Date endDate){
         List <AccountSignature> accountSignatures = this.accountSignatureRepository.findByStartDateBetween(startDate, endDate);
-        if (accountSignatures.isEmpty()) {
-            throw new RuntimeException("This account has no record between the dates entered.");
+        List<AccountSignature> accountSignaturesAux = new ArrayList<>();
+        for (AccountSignature accountSignature : accountSignatures) {
+            if(accountSignature.getPk().getCodelocalaccount().equals(account)){
+                accountSignaturesAux.add(accountSignature);
+            }
+        }
+        if (accountSignaturesAux.isEmpty()) {
+            throw new RuntimeException("This account has no records between the dates entered.");
         }else{
-            return accountSignatures;
+            return accountSignaturesAux;
        }
-    }*/ 
+    }
 
     @Transactional
     public void updateByCodeLocalAccount(String account, AccountSignature accountDetails){

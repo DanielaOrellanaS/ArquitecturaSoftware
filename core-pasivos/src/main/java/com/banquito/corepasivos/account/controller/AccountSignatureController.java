@@ -6,6 +6,7 @@ import com.banquito.corepasivos.account.services.AccountSignatureService;
 import java.util.Date;
 import java.util.List;
 
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -93,22 +94,18 @@ public class AccountSignatureController {
         }
     }
 
-    /*
-     * @RequestMapping(value = "/date/{start-date}/{end-date}", method =
-     * RequestMethod.GET)
-     * public ResponseEntity<List<AccountSignature>>
-     * findByStatus(@PathVariable("start-date") String startDate,
-     * 
-     * @PathVariable("end-date") String endDate) {
-     * List<AccountSignature> accountSignatures =
-     * this.accountSignatureService.findByDates(startDate, endDate);
-     * if (accountSignatures.isEmpty()) {
-     * return ResponseEntity.notFound().build();
-     * } else {
-     * return ResponseEntity.ok(accountSignatures);
-     * }
-     * }
-     */
+    @RequestMapping(value = "/local/date/{account}/{start-date}/{end-date}", method = RequestMethod.GET)
+    public ResponseEntity<List<AccountSignature>> findByStatus(
+            @PathVariable("account") String account,
+            @PathVariable("start-date") @DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate,
+            @DateTimeFormat(pattern = "yyyy-MM-dd") @PathVariable("end-date") Date endDate) {
+        List<AccountSignature> accountSignatures = this.accountSignatureService.findByDates(account, startDate, endDate);
+        if (accountSignatures.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        } else {
+            return ResponseEntity.ok(accountSignatures);
+        }
+    }
 
     @RequestMapping(value = "", method = RequestMethod.POST)
     public ResponseEntity<String> createAccountSignature(
