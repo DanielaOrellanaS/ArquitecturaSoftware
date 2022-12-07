@@ -95,7 +95,7 @@ public class AccountAssociatedServiceController {
 
 		try {
 			this.service.deleteAllByCodeLocalAccount(codeLocalAccount);
-			return ResponseEntity.ok("OK");
+			return ResponseEntity.ok("All account associated services related to the local account were deleted ");
 		} catch (Exception e) {
 			return ResponseEntity.internalServerError().body(e.getMessage());
 		}
@@ -107,7 +107,8 @@ public class AccountAssociatedServiceController {
 
 		try {
 			this.service.deleteAllByCodeInternationalAccount(codeInternationalAccount);
-			return ResponseEntity.ok("OK");
+			return ResponseEntity
+					.ok("All account associated services related to the international account were deleted ");
 		} catch (Exception e) {
 			return ResponseEntity.internalServerError().body(e.getMessage());
 		}
@@ -119,7 +120,7 @@ public class AccountAssociatedServiceController {
 
 		try {
 			this.service.deleteAllByCodeAssociatedService(codeAssociatedService);
-			return ResponseEntity.ok("OK");
+			return ResponseEntity.ok("All account associated services related to the associated service were deleted ");
 		} catch (Exception e) {
 			return ResponseEntity.internalServerError().body(e.getMessage());
 		}
@@ -130,7 +131,7 @@ public class AccountAssociatedServiceController {
 			@RequestBody AccountAssociatedService accountAssociatedService) {
 		try {
 			this.service.save(accountAssociatedService);
-			return ResponseEntity.ok("OK");
+			return ResponseEntity.ok("Account associated service created successfully");
 		} catch (Exception e) {
 			return ResponseEntity.internalServerError().body(e.getMessage());
 		}
@@ -141,7 +142,7 @@ public class AccountAssociatedServiceController {
 			@RequestBody AccountAssociatedService accountAssociatedService) {
 		try {
 			this.service.update(accountAssociatedService);
-			return ResponseEntity.ok("OK");
+			return ResponseEntity.ok("Account associated service updated successfully");
 		} catch (Exception e) {
 			return ResponseEntity.internalServerError().body(e.getMessage());
 		}
