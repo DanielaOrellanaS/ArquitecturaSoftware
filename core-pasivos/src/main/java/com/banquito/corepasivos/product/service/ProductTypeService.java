@@ -5,7 +5,6 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
-import org.hibernate.query.criteria.internal.expression.ConcatExpression;
 import org.springframework.stereotype.Service;
 
 import com.banquito.corepasivos.product.model.ProductType;
