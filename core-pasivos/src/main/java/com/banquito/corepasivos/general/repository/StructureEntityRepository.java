@@ -10,7 +10,7 @@ import com.banquito.corepasivos.general.model.StructureEntityPK;
 
 @Repository
 public interface StructureEntityRepository extends JpaRepository<StructureEntity, StructureEntityPK> {
-    List<StructureEntity> findByCodeCountry(String internationalBankCode);
+    List<StructureEntity> findByPkCodecountry(String codeCountry);
 
     List<StructureEntity> findAll();
 }

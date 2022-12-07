@@ -20,7 +20,7 @@ public class StructureEntityService {
     @Transactional
     public void create(StructureEntity structureEntity) {
         List<StructureEntity> structureEntities = this.structureEntityRepository
-                .findByCodeCountry(structureEntity.getPk().getCodeCountry());
+                .findByPkCodecountry(structureEntity.getPk().getCodecountry());
         if (structureEntities.isEmpty()) {
             this.structureEntityRepository.save(structureEntity);
         } else {
@@ -31,7 +31,7 @@ public class StructureEntityService {
     @Transactional
     public void update(StructureEntity structureEntity) {
         List<StructureEntity> structureEntities = this.structureEntityRepository
-                .findByCodeCountry(structureEntity.getPk().getCodeCountry());
+                .findByPkCodecountry(structureEntity.getPk().getCodecountry());
         if (!structureEntities.isEmpty() && structureEntities.size() == 1) {
             this.structureEntityRepository.save(structureEntity);
         } else {
@@ -42,7 +42,7 @@ public class StructureEntityService {
     @Transactional
     public void delete(StructureEntity structureEntity) {
         List<StructureEntity> structureEntities = this.structureEntityRepository
-                .findByCodeCountry(structureEntity.getPk().getCodeCountry());
+                .findByPkCodecountry(structureEntity.getPk().getCodecountry());
         if (!structureEntities.isEmpty()) {
             this.structureEntityRepository.delete(structureEntity);
         } else {

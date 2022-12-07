@@ -9,17 +9,13 @@ import org.springframework.stereotype.Service;
 
 import com.banquito.corepasivos.general.model.LocationEntity;
 import com.banquito.corepasivos.general.repository.LocationEntityRepository;
-import com.banquito.corepasivos.general.repository.StructureEntityRepository;
 
 @Service
 public class LocationEntityService {
     private final LocationEntityRepository locationEntityRepository;
-    private final StructureEntityRepository structureEntityRepository;
 
-    public LocationEntityService(LocationEntityRepository locationEntityRepository,
-            StructureEntityRepository structureEntityRepository) {
+    public LocationEntityService(LocationEntityRepository locationEntityRepository) {
         this.locationEntityRepository = locationEntityRepository;
-        this.structureEntityRepository = structureEntityRepository;
     }
 
     public List<LocationEntity> findAll() {
