@@ -5,17 +5,11 @@ import lombok.NoArgsConstructor;
 import lombok.EqualsAndHashCode.Include;
 
 import java.io.Serializable;
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
-
-import com.banquito.corepasivos.product.model.Product;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Data
 @NoArgsConstructor
@@ -33,14 +27,6 @@ public class Segment implements Serializable {
 
     @Column(name = "status", length = 3, nullable = false)
     private String status;
-
-    @JsonManagedReference(value = "segment-products")
-    @OneToMany(mappedBy = "segment")
-    private List<Product> products;
-
-    @JsonManagedReference(value = "segment-clients")
-    @OneToMany(mappedBy = "segment", fetch = FetchType.LAZY)
-    private List<Client> clients;
 
     public Segment(String codeSegment) {
         this.codeSegment = codeSegment;

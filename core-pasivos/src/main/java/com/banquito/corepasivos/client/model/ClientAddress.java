@@ -33,16 +33,16 @@ public class ClientAddress implements Serializable {
     @Column(name = "longitude", length = 32, nullable = false)
     private String longitude;
 
-    @JsonBackReference(value = "client-clientAddress")
-    @ManyToOne
+    // @JsonBackReference(value = "client-clientAddress")
+    /* @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumns({
             @JoinColumn(name = "identification_type", referencedColumnName = "identification_type", insertable = false, updatable = false, nullable = false),
             @JoinColumn(name = "identification", referencedColumnName = "identification", insertable = false, updatable = false, nullable = false)
     })
-    private Client client;
+    private Client client; */
 
     @JsonBackReference(value = "locationEntity-clientAddress")
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "code_location", referencedColumnName = "code_location", insertable = false, updatable = false, nullable = false)
     private LocationEntity locationEntity;
 

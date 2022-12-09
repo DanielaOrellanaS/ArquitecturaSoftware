@@ -8,8 +8,6 @@ import java.io.Serializable;
 
 import javax.persistence.*;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-
 @Data
 @NoArgsConstructor
 @Entity
@@ -37,14 +35,6 @@ public class ClientReference implements Serializable {
 
     @Column(name = "related", length = 64, nullable = true)
     private String related;
-
-    @JsonBackReference(value = "client-clientReference")
-    @ManyToOne
-    @JoinColumns({
-            @JoinColumn(name = "identification_type", referencedColumnName = "identification_type", insertable = false, updatable = false),
-            @JoinColumn(name = "identification", referencedColumnName = "identification", insertable = false, updatable = false),
-    })
-    private Client client;
 
     public ClientReference(Integer codeReference) {
         this.codeReference = codeReference;

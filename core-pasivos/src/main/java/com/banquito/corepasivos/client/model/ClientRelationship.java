@@ -6,8 +6,6 @@ import lombok.EqualsAndHashCode.Include;
 
 import javax.persistence.*;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-
 import java.io.Serializable;
 import java.util.Date;
 
@@ -37,7 +35,6 @@ public class ClientRelationship implements Serializable {
 
 	@Column(name = "relationship_type", length = 32, nullable = false)
 	private String relationshiptype;
-	
 
 	@Column(name = "start_date", nullable = false)
 	@Temporal(TemporalType.DATE)
@@ -46,14 +43,6 @@ public class ClientRelationship implements Serializable {
 	@Temporal(TemporalType.DATE)
 	@Column(name = "end_date", nullable = false)
 	private Date endDate;
-
-	@JsonBackReference(value = "client-clientRelationship")
-	@ManyToOne
-	@JoinColumns({
-			@JoinColumn(name = "identification_type", referencedColumnName = "identification_type", insertable = false, updatable = false),
-			@JoinColumn(name = "identification", referencedColumnName = "identification", insertable = false, updatable = false),
-	})
-	private Client client;
 
 	public ClientRelationship(Integer codeRelationship) {
 		this.codeRelationship = codeRelationship;
