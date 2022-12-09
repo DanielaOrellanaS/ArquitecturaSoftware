@@ -32,6 +32,13 @@ public class ClientRelationship implements Serializable {
 	@Column(name = "relationship_type", length = 32, nullable = false)
 	private String relationshiptype;
 
+	@Column(name = "cli_identification", length = 20, nullable = false)
+	private String cliIdentification;
+
+	@Column(name = "cli_identification_type", length = 3, nullable = false)
+	private String cliIdentificationType;
+	
+
 	@Column(name = "start_date", nullable = false)
 	@Temporal(TemporalType.DATE)
 	private Date startDate;
