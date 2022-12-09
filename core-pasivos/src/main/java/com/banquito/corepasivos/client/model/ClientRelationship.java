@@ -23,11 +23,17 @@ public class ClientRelationship implements Serializable {
 	@Column(name = "code_relationship", nullable = false)
 	private Integer codeRelationship;
 
+	@Column(name = "identification_type", length = 3, nullable = false)
+	private String identificationType;
+
 	@Column(name = "identification", length = 20, nullable = false)
 	private String identification;
 
-	@Column(name = "identification_type", length = 3, nullable = false)
-	private String identificationType;
+	@Column(name = "cli_identification_type", length = 3, nullable = false)
+	private String cliIdentificationType;
+
+	@Column(name = "cli_identification", length = 20, nullable = false)
+	private String cliIdentification;
 
 	@Column(name = "relationship_type", length = 32, nullable = false)
 	private String relationshiptype;
