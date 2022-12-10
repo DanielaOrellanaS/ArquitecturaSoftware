@@ -2,6 +2,7 @@ package com.banquito.corepasivos.client.controller;
 
 import java.util.List;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.banquito.corepasivos.client.model.ClientAddress;
 import com.banquito.corepasivos.client.model.ClientAddressPK;
 import com.banquito.corepasivos.client.service.ClientAddressService;
+import com.banquito.corepasivos.utils.DTO;
 
 @RestController
 @RequestMapping("/api/client-address")
@@ -23,72 +25,81 @@ public class ClientAddressController {
         this.clientAddressService = clientAddressService;
     }
 
-    @RequestMapping(value = "/", method = RequestMethod.GET)
-    public ResponseEntity<List<ClientAddress>> findAllClientAddresses() {
+    @RequestMapping(value = "/{id}/{type}", method = RequestMethod.GET)
+    public ResponseEntity<DTO<List<ClientAddress>>> findAllClientAddresses(
+            @PathVariable("id") String id,
+            @PathVariable("type") String type) {
+        DTO<List<ClientAddress>> response = new DTO<>();
         try {
-            List<ClientAddress> clientAddresses = this.clientAddressService.findAllClientAddresses();
-            return ResponseEntity.ok(clientAddresses);
+            List<ClientAddress> addresses = this.clientAddressService.findAddressByClientId(id, type.toUpperCase());
+            response.setStatus(200);
+            response.setMessage("Data found");
+            response.setData(addresses);
+            return ResponseEntity.status(HttpStatus.OK).body(response);
         } catch (Exception e) {
-            return ResponseEntity.internalServerError().body(null);
-        }
-    }
-
-    @RequestMapping(value = "/{client}", method = RequestMethod.GET)
-    public ResponseEntity<List<ClientAddress>> findAllClientAddresses(@PathVariable("client") String client) {
-        try {
-            List<ClientAddress> clientAddresses = this.clientAddressService
-                    .findAllClientAddressesByIdentification(client);
-            return ResponseEntity.ok(clientAddresses);
-        } catch (Exception e) {
-            return ResponseEntity.internalServerError().body(null);
+            response.setStatus(400);
+            response.setMessage(e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
         }
     }
 
     @RequestMapping(value = "/", method = RequestMethod.POST)
-    public ResponseEntity<String> createClientAddress(@RequestBody ClientAddress clientAddress) {
+    public ResponseEntity<DTO<ClientAddress>> createClientAddress(@RequestBody ClientAddress clientAddress) {
+        DTO<ClientAddress> response = new DTO<>();
         try {
             this.clientAddressService.createClientAddress(clientAddress);
-            return ResponseEntity.ok("Address successfully created");
+            response.setStatus(201);
+            response.setMessage("Address successfully created");
+            return ResponseEntity.status(HttpStatus.CREATED).body(response);
         } catch (Exception e) {
-            return ResponseEntity.internalServerError().body(e.getMessage());
+            response.setStatus(400);
+            response.setMessage(e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
         }
     }
 
-    @RequestMapping(value = "/", method = RequestMethod.PUT)
-    public ResponseEntity<String> updateClientAddress(@RequestBody ClientAddress clientAddress) {
-        try {
-            this.clientAddressService.updateClientAddress(clientAddress);
-            return ResponseEntity.ok("Address successfully updated");
-        } catch (Exception e) {
-            return ResponseEntity.internalServerError().body(e.getMessage());
-        }
-    }
-
-    @RequestMapping(value = "/{identification}/{type}/{location}", method = RequestMethod.DELETE)
-    public ResponseEntity<String> deleteClientEntity(
+    @RequestMapping(value = "/{identification}/{type}/{location}", method = RequestMethod.PUT)
+    public ResponseEntity<DTO<ClientAddress>> updateClientAddress(
             @PathVariable("identification") String client,
             @PathVariable("type") String type,
-            @PathVariable("location") Integer location) {
+            @PathVariable("location") Integer location,
+            @RequestBody ClientAddress clientAddress) {
+        DTO<ClientAddress> response = new DTO<>();
         try {
             ClientAddressPK pk = new ClientAddressPK();
             pk.setCodeLocation(location);
             pk.setIdentification(client);
-            pk.setIdentificationType(type.toUpperCase());
-            this.clientAddressService.deleteClientAdress(pk);
-            return ResponseEntity.ok("Address successfully deleted");
+            pk.setIdentificationtype(type.toUpperCase());
+            this.clientAddressService.updateClientAddress(pk, clientAddress);
+            response.setStatus(200);
+            response.setMessage("Address successfully updated");
+            return ResponseEntity.status(HttpStatus.OK).body(response);
         } catch (Exception e) {
-            return ResponseEntity.internalServerError().body(e.getMessage());
+            response.setStatus(400);
+            response.setMessage(e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
         }
     }
 
-    @RequestMapping(value = "/", method = RequestMethod.DELETE)
-    public ResponseEntity<String> deleteClientEntity(
-            @RequestBody ClientAddress clientAddress) {
+    @RequestMapping(value = "/{identification}/{type}/{location}", method = RequestMethod.DELETE)
+    public ResponseEntity<DTO<ClientAddress>> deleteClientAddress(
+            @PathVariable("identification") String client,
+            @PathVariable("type") String type,
+            @PathVariable("location") Integer location) {
+        DTO<ClientAddress> response = new DTO<>();
         try {
-            this.clientAddressService.deleteClientAdress(clientAddress);
-            return ResponseEntity.ok("Address successfully deleted");
+            ClientAddressPK pk = new ClientAddressPK();
+            pk.setCodeLocation(location);
+            pk.setIdentification(client);
+            pk.setIdentificationtype(type.toUpperCase());
+            this.clientAddressService.deleteClientAddress(pk);
+            response.setStatus(200);
+            response.setMessage("Address successfully updated");
+            return ResponseEntity.status(HttpStatus.OK).body(response);
         } catch (Exception e) {
-            return ResponseEntity.internalServerError().body(e.getMessage());
+            response.setStatus(400);
+            response.setMessage(e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
         }
     }
 }

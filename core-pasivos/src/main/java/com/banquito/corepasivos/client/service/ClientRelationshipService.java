@@ -1,6 +1,7 @@
 package com.banquito.corepasivos.client.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,62 +18,65 @@ public class ClientRelationshipService {
         this.clientRelationshipRepository = clientRelationshipRepository;
     }
 
-    public List<ClientRelationship> searchAll() {
-        return clientRelationshipRepository.findAll();
-    }
-
-    public List<ClientRelationship> searchTypeRelationship(String relationshipType) {
-        return clientRelationshipRepository.findByRelationshiptype(relationshipType);
-    }
-
-    public ClientRelationship searchById(String identification) {
-        List<ClientRelationship> clientRelationships = this.clientRelationshipRepository
-                .findByIdentification(identification);
-        if (clientRelationships.get(0) == null) {
-            throw new RuntimeException("Data not found");
+    public List<ClientRelationship> findByClient(String id, String type) {
+        try {
+            List<ClientRelationship> clientRelationships = this.clientRelationshipRepository
+                    .findByIdentificationAndIdentificationtype(id, type);
+            if (clientRelationships.isEmpty()) {
+                throw new RuntimeException("Data not found");
+            }
+            return clientRelationships;
+        } catch (Exception e) {
+            throw new RuntimeException("Something went wrong");
         }
-        return (clientRelationships.isEmpty()) ? null : clientRelationships.get(0);
     }
 
     @Transactional
     public void createClientRelationship(ClientRelationship clientRelationship) {
         try {
+            if (this.clientRelationshipRepository.existsById(clientRelationship.getCodeRelationship())) {
+                throw new RuntimeException("There is already a relationship created with these parameters.");
+            }
             this.clientRelationshipRepository.save(clientRelationship);
         } catch (Exception e) {
-            throw new RuntimeException("There is already a relationship created with these parameters.");
+            throw new RuntimeException("Something went wrong");
         }
     }
 
     @Transactional
-    public void updateClientRelationship(ClientRelationship clientRelationship) {
-        List<ClientRelationship> clientRelationships = this.clientRelationshipRepository
-                .findByIdentification(clientRelationship.getIdentification());
-        if (clientRelationships.isEmpty()) {
-            throw new RuntimeException("The client does not exist.");
-        } else {
+    public void updateClientRelationship(Integer pk, ClientRelationship clientRelationship) {
+        try {
+            if (!this.clientRelationshipRepository.existsById(clientRelationship.getCodeRelationship())) {
+                throw new RuntimeException("Not found");
+            }
             this.clientRelationshipRepository.save(clientRelationship);
+        } catch (Exception e) {
+            throw new RuntimeException("Something went wrong");
         }
     }
 
     @Transactional
-    public void deleteClientRelationshipIdentification(String identification) {
-        List<ClientRelationship> clientRelationships = this.clientRelationshipRepository
-                .findByIdentification(identification);
-        if (clientRelationships.isEmpty()) {
-            throw new RuntimeException("The client with this ID does not exist.");
-        } else {
-            this.clientRelationshipRepository.delete(clientRelationships.get(0));
+    public void deleteClientRelationship(Integer id) {
+        try {
+            Optional<ClientRelationship> optional = this.clientRelationshipRepository.findById(id);
+            if (optional.isPresent()) {
+                ClientRelationship relationship = optional.get();
+                this.clientRelationshipRepository.delete(relationship);
+            } else {
+                throw new RuntimeException("Not found");
+            }
+        } catch (Exception e) {
+            throw new RuntimeException("Something went wrong");
         }
     }
 
     @Transactional
-    public void deleteClientRelationshipCode(Integer codeRelationship) {
-        List<ClientRelationship> clientRelationships = this.clientRelationshipRepository
-                .findByCodeRelationship(codeRelationship);
-        if (clientRelationships.isEmpty()) {
-            throw new RuntimeException("The client with this code does not exist.");
-        } else {
-            this.clientRelationshipRepository.delete(clientRelationships.get(0));
+    public void deleteByClient(String id, String type) {
+        try {
+            this.clientRelationshipRepository
+                    .deleteByIdentificationAndIdentificationtype(id, type);
+        } catch (Exception e) {
+            throw new RuntimeException("Something went wrong");
         }
     }
 }

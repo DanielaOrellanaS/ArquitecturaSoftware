@@ -12,7 +12,7 @@ import lombok.Data;
 public class ClientAddressPK implements Serializable {
 
     @Column(name = "identification_type", length = 3, nullable = false)
-    private String identificationType;
+    private String identificationtype;
 
     @Column(name = "identification", length = 20, nullable = false)
     private String identification;

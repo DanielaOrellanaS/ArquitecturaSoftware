@@ -62,9 +62,12 @@ public class LocationEntity {
     @OneToMany(mappedBy = "locationEntity")
     private List<Holiday> holidays;
 
-    @JsonManagedReference(value = "locationEntity-clientAddress")
-    @OneToMany(mappedBy = "locationEntity")
-    private List<ClientAddress> clientAddresses;
+    /*
+     * @JsonManagedReference(value = "locationEntity-clientAddress")
+     * 
+     * @OneToMany(mappedBy = "locationEntity")
+     * private List<ClientAddress> clientAddresses;
+     */
 
     @JsonManagedReference(value = "locationEntity-branch")
     @OneToMany(mappedBy = "locationEntity")

@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class TTO<T> implements Serializable {
+public class DTO<T> implements Serializable {
     private Integer status;
     private String message;
     private T data;

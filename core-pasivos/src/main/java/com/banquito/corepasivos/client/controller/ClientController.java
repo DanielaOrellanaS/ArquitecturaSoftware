@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.banquito.corepasivos.client.model.Client;
 import com.banquito.corepasivos.client.model.ClientPK;
 import com.banquito.corepasivos.client.service.ClientService;
-import com.banquito.corepasivos.utils.TTO;
+import com.banquito.corepasivos.utils.DTO;
 
 @RestController
 @RequestMapping("/api/clients")
@@ -23,11 +23,11 @@ public class ClientController {
         this.clientService = clientService;
     }
 
-    @RequestMapping(value = "/client/{id}/{type}", method = RequestMethod.GET)
-    public ResponseEntity<TTO<Client>> findAllClientsByIdentification(
+    @RequestMapping(value = "/{id}/{type}", method = RequestMethod.GET)
+    public ResponseEntity<DTO<Client>> findAllClientsByIdentification(
             @PathVariable("id") String id,
             @PathVariable("type") String type) {
-        TTO<Client> response = new TTO<>();
+        DTO<Client> response = new DTO<>();
         ClientPK pk = new ClientPK();
         pk.setIdentification(id);
         pk.setIdentificationType(type.toUpperCase());
@@ -51,8 +51,8 @@ public class ClientController {
     }
 
     @RequestMapping(value = "/", method = RequestMethod.POST)
-    public ResponseEntity<TTO<Client>> createClient(@RequestBody Client client) {
-        TTO<Client> response = new TTO<>();
+    public ResponseEntity<DTO<Client>> createClient(@RequestBody Client client) {
+        DTO<Client> response = new DTO<>();
         try {
             response.setStatus(200);
             response.setMessage("Client successfully created");
@@ -65,11 +65,11 @@ public class ClientController {
     }
 
     @RequestMapping(value = "/{id}/{type}", method = RequestMethod.PUT)
-    public ResponseEntity<TTO<Client>> updateClient(
+    public ResponseEntity<DTO<Client>> updateClient(
             @PathVariable("id") String id,
             @PathVariable("type") String type,
             @RequestBody Client client) {
-        TTO<Client> response = new TTO<>();
+        DTO<Client> response = new DTO<>();
         ClientPK pk = new ClientPK();
         pk.setIdentification(id);
         pk.setIdentificationType(type.toUpperCase());
@@ -86,10 +86,10 @@ public class ClientController {
     }
 
     @RequestMapping(value = "/{id}/{type}", method = RequestMethod.DELETE)
-    public ResponseEntity<TTO<Client>> updateStatus(
+    public ResponseEntity<DTO<Client>> updateStatus(
             @PathVariable("id") String id,
             @PathVariable("type") String type) {
-        TTO<Client> response = new TTO<>();
+        DTO<Client> response = new DTO<>();
         ClientPK pk = new ClientPK();
         pk.setIdentification(id);
         pk.setIdentificationType(type.toUpperCase());
@@ -104,5 +104,4 @@ public class ClientController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
         }
     }
-
 }

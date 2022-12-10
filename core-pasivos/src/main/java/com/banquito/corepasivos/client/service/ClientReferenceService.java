@@ -18,57 +18,55 @@ public class ClientReferenceService {
         this.clientReferenceRepo = clientReferenceRepo;
     }
 
-    public List<ClientReference> findAllClientReferences() {
-        return this.clientReferenceRepo.findAll();
-    }
-
-    public List<ClientReference> findAllClientReference(String id) {
-        return this.clientReferenceRepo.findByIdentification(id);
-    }
-
-    @Transactional // 1
-    public void saveClientReference(ClientReference client) {
-        if (client.getCodeReference() != null) {
-            Optional<ClientReference> clientOpt = this.clientReferenceRepo.findById(client.getCodeReference());
-            if (clientOpt.isPresent()) {
-                throw new RuntimeException("Cant insert that referece, client already registered");
-            }
+    public List<ClientReference> findAllClientReferences(String id, String type) {
+        try {
+            List<ClientReference> references = this.clientReferenceRepo
+                    .findByIdentificationAndIdentificationtype(id, type);
+            return references;
+        } catch (Exception e) {
+            throw new RuntimeException("Something went wrong");
         }
-        this.clientReferenceRepo.save(client);
     }
 
     @Transactional
-    public void updateClientReference(ClientReference client) {
-        if (client.getCodeReference() != null) {
-            Optional<ClientReference> clientOpt = this.clientReferenceRepo.findById(client.getCodeReference());
-            if (!clientOpt.isPresent())
-                throw new RuntimeException("Client reference not found");
-            else {
-                try {
-                    this.clientReferenceRepo.save(client);
-                } catch (Exception e) {
-                    throw new RuntimeException("Data update error");
-                }
+    public void createClientReference(ClientReference reference) {
+        try {
+            Optional<ClientReference> optional = this.clientReferenceRepo.findById(reference.getCodeReference());
+            if (optional.isPresent()) {
+                throw new RuntimeException("Cant insert that referece");
             }
-        } else
-            throw new RuntimeException("Code reference can't be null");
+            this.clientReferenceRepo.save(reference);
+        } catch (Exception e) {
+            throw new RuntimeException("Something went wrong");
+        }
     }
 
     @Transactional
-    public void deleteClientReference(Integer codeReference) {
-        if (codeReference == null) {
-            throw new RuntimeException("Code reference can't be null");
-        } else {
-            Optional<ClientReference> clientOpt = this.clientReferenceRepo.findById(codeReference);
-            if (!clientOpt.isPresent())
+    public void updateClientReference(Integer pk, ClientReference client) {
+        try {
+            Optional<ClientReference> optional = this.clientReferenceRepo.findById(pk);
+            if (optional.isPresent()) {
+                this.clientReferenceRepo.save(client);
+            } else {
                 throw new RuntimeException("Client reference not found");
-            else {
-                try {
-                    this.clientReferenceRepo.deleteById(codeReference);
-                } catch (Exception e) {
-                    throw new RuntimeException("Data delete error");
-                }
             }
+        } catch (Exception e) {
+            throw new RuntimeException("Something went wrong");
+        }
+    }
+
+    @Transactional
+    public void deleteClientReference(Integer pk) {
+        try {
+            Optional<ClientReference> optional = this.clientReferenceRepo.findById(pk);
+            if (optional.isPresent()) {
+                ClientReference reference = optional.get();
+                this.clientReferenceRepo.delete(reference);
+            } else {
+                throw new RuntimeException("Client reference not found");
+            }
+        } catch (Exception e) {
+            throw new RuntimeException("Something went wrong");
         }
     }
 

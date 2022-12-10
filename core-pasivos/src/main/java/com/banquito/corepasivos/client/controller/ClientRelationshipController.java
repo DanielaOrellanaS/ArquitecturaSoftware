@@ -2,6 +2,7 @@ package com.banquito.corepasivos.client.controller;
 
 import java.util.List;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.banquito.corepasivos.client.model.ClientRelationship;
 import com.banquito.corepasivos.client.service.ClientRelationshipService;
+import com.banquito.corepasivos.utils.DTO;
 
 @RestController
 @RequestMapping("/api/client-relationships")
@@ -22,83 +24,88 @@ public class ClientRelationshipController {
         this.clientRelationshipService = clientRelationshipService;
     }
 
-    // get
-
-    @RequestMapping(value = "/", method = RequestMethod.GET)
-    public ResponseEntity<List<ClientRelationship>> getAll() {
-        List<ClientRelationship> clientRelationship = this.clientRelationshipService.searchAll();
-        if (clientRelationship != null) {
-            return ResponseEntity.ok(clientRelationship);
-        } else {
-            return ResponseEntity.notFound().build();
+    @RequestMapping(value = "/{id}/{type}", method = RequestMethod.GET)
+    public ResponseEntity<DTO<List<ClientRelationship>>> searchTypeRelationship(
+            @PathVariable("id") String id,
+            @PathVariable("type") String type) {
+        DTO<List<ClientRelationship>> response = new DTO<>();
+        try {
+            List<ClientRelationship> relationships = this.clientRelationshipService.findByClient(id,
+                    type.toUpperCase());
+            response.setStatus(HttpStatus.OK.value());
+            response.setMessage("Data found");
+            response.setData(relationships);
+            return ResponseEntity.status(HttpStatus.OK).body(response);
+        } catch (Exception e) {
+            response.setStatus(HttpStatus.BAD_REQUEST.value());
+            response.setMessage(e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
         }
     }
 
-    @RequestMapping(value = "/relation-type/{relationshipType}", method = RequestMethod.GET)
-    public ResponseEntity<List<ClientRelationship>> searchTypeRelationship(
-            @PathVariable("relationshipType") String relationshipType) {
-        List<ClientRelationship> clientRelationship = this.clientRelationshipService
-                .searchTypeRelationship(relationshipType);
-        if (clientRelationship != null) {
-            return ResponseEntity.ok(clientRelationship);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
-    }
-
-    @RequestMapping(value = "/identification/{identification}", method = RequestMethod.GET)
-    public ResponseEntity<ClientRelationship> searchById(@PathVariable("identification") String identification) {
-        ClientRelationship clientRelationship = this.clientRelationshipService.searchById(identification);
-        if (clientRelationship != null) {
-            return ResponseEntity.ok(clientRelationship);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
-    }
-
-    // Post
     @RequestMapping(value = "/", method = RequestMethod.POST)
-    public ResponseEntity<String> createClientRelationship(@RequestBody ClientRelationship clientRelationship) {
+    public ResponseEntity<DTO<ClientRelationship>> createClientRelationship(
+            @RequestBody ClientRelationship clientRelationship) {
+        DTO<ClientRelationship> response = new DTO<>();
         try {
             this.clientRelationshipService.createClientRelationship(clientRelationship);
-            return ResponseEntity.ok("Client created successfully.");
+            response.setStatus(HttpStatus.CREATED.value());
+            response.setMessage("Data successfully created");
+            return ResponseEntity.status(HttpStatus.CREATED).body(response);
         } catch (Exception e) {
-            return ResponseEntity.internalServerError().body(e.getMessage());
+            response.setStatus(HttpStatus.BAD_REQUEST.value());
+            response.setMessage(e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
         }
     }
 
-    // Put
-
-    @RequestMapping(value = "/", method = RequestMethod.PUT )
-    public ResponseEntity<String> updateClientRelationship(@RequestBody ClientRelationship clientRelationship) {
+    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+    public ResponseEntity<DTO<ClientRelationship>> updateClientRelationship(
+            @PathVariable("id") Integer id,
+            @RequestBody ClientRelationship clientRelationship) {
+        DTO<ClientRelationship> response = new DTO<>();
         try {
-            this.clientRelationshipService.updateClientRelationship(clientRelationship);
-            return ResponseEntity.ok("Client updated successfully.");
+            this.clientRelationshipService.updateClientRelationship(id, clientRelationship);
+            response.setStatus(HttpStatus.OK.value());
+            response.setMessage("Data successfully updated");
+            return ResponseEntity.status(HttpStatus.OK).body(response);
         } catch (Exception e) {
-            return ResponseEntity.internalServerError().body(e.getMessage());
+            response.setStatus(HttpStatus.BAD_REQUEST.value());
+            response.setMessage(e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
         }
     }
 
-    // Delete
-    @RequestMapping(value = "delete-identification/{identification}", method = RequestMethod.DELETE)
-    public ResponseEntity<String> deleteClientRelationshipIdentification(
-            @PathVariable("identification") String identification) {
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity<DTO<ClientRelationship>> deleteClientRelationshipIdentification(
+            @PathVariable("id") Integer id) {
+        DTO<ClientRelationship> response = new DTO<>();
         try {
-            this.clientRelationshipService.deleteClientRelationshipIdentification(identification);
-            return ResponseEntity.ok("Customer relationship successfully removed.");
+            this.clientRelationshipService.deleteClientRelationship(id);
+            response.setStatus(HttpStatus.OK.value());
+            response.setMessage("Data successfully deleted");
+            return ResponseEntity.status(HttpStatus.OK).body(response);
         } catch (Exception e) {
-            return ResponseEntity.internalServerError().body(e.getMessage());
+            response.setStatus(HttpStatus.BAD_REQUEST.value());
+            response.setMessage(e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
         }
     }
 
-    @RequestMapping(value = "/delete-code/{codeRelationship}", method = RequestMethod.DELETE)
-    public ResponseEntity<String> deleteClientRelationshipCode(
-            @PathVariable("codeRelationship") Integer codeRelationship) {
+    @RequestMapping(value = "/{id}/{type}", method = RequestMethod.DELETE)
+    public ResponseEntity<DTO<ClientRelationship>> deleteClientRelationshipCode(
+            @PathVariable("id") String id,
+            @PathVariable("type") String type) {
+        DTO<ClientRelationship> response = new DTO<>();
         try {
-            this.clientRelationshipService.deleteClientRelationshipCode(codeRelationship);
-            return ResponseEntity.ok("Customer relationship successfully removed.");
+            this.clientRelationshipService.deleteByClient(id, type.toUpperCase());
+            response.setStatus(HttpStatus.OK.value());
+            response.setMessage("Data successfully deleted");
+            return ResponseEntity.status(HttpStatus.OK).body(response);
         } catch (Exception e) {
-            return ResponseEntity.internalServerError().body(e.getMessage());
+            response.setStatus(HttpStatus.BAD_REQUEST.value());
+            response.setMessage(e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
         }
     }
 }

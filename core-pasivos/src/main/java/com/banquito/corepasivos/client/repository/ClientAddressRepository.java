@@ -10,5 +10,5 @@ import com.banquito.corepasivos.client.model.ClientAddressPK;
 
 @Repository
 public interface ClientAddressRepository extends JpaRepository<ClientAddress, ClientAddressPK> {
-    List<ClientAddress> findByPkIdentification(String identification);
+    List<ClientAddress> findByPkIdentificationAndPkIdentificationtype(String id, String type);
 }

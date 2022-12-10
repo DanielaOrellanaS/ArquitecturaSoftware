@@ -8,9 +8,6 @@ import java.io.Serializable;
 
 import javax.persistence.*;
 
-import com.banquito.corepasivos.general.model.LocationEntity;
-import com.fasterxml.jackson.annotation.JsonBackReference;
-
 @Data
 @NoArgsConstructor
 @Entity
@@ -33,18 +30,9 @@ public class ClientAddress implements Serializable {
     @Column(name = "longitude", length = 32, nullable = false)
     private String longitude;
 
-    // @JsonBackReference(value = "client-clientAddress")
     /* @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumns({
-            @JoinColumn(name = "identification_type", referencedColumnName = "identification_type", insertable = false, updatable = false, nullable = false),
-            @JoinColumn(name = "identification", referencedColumnName = "identification", insertable = false, updatable = false, nullable = false)
-    })
-    private Client client; */
-
-    @JsonBackReference(value = "locationEntity-clientAddress")
-    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "code_location", referencedColumnName = "code_location", insertable = false, updatable = false, nullable = false)
-    private LocationEntity locationEntity;
+    private LocationEntity locationEntity; */
 
     public ClientAddress(ClientAddressPK pk) {
         this.pk = pk;
