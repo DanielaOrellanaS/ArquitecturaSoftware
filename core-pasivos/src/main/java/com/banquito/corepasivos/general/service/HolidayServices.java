@@ -1,5 +1,6 @@
 package com.banquito.corepasivos.general.service;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -55,6 +56,18 @@ public class HolidayServices {
             this.holidayRepository.save(holiday);
         } else {
             throw new RuntimeException("An error has occurred in the Holiday update");
+        }
+    }
+
+    @Transactional
+    public void updateByDate(String dateHoliday, Holiday holiday) throws ParseException {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyy-MM-dd");
+        Date newDate = dateFormat.parse(dateHoliday);
+        Optional<Holiday> optional = this.holidayRepository.findById(newDate);
+        if(optional.isPresent()){
+            this.holidayRepository.save(holiday);
+        } else {
+            throw new RuntimeException("Not found");
         }
     }
 

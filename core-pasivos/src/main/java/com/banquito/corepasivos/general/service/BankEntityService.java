@@ -52,8 +52,8 @@ public class BankEntityService {
     }
 
     @Transactional
-    public void update(BankEntity bankEntity) {
-        Optional<BankEntity> optional = this.bankEntityRepository.findById(bankEntity.getPk());
+    public void update(BankEntity bankEntity, BankEntityPK pk) {
+        Optional<BankEntity> optional = this.bankEntityRepository.findById(pk);
         if (optional.isPresent()) {
             this.bankEntityRepository.save(bankEntity);
         } else {
@@ -62,10 +62,10 @@ public class BankEntityService {
     }
 
     @Transactional
-    public void delete(BankEntity bankEntity) {
-        Optional<BankEntity> optional = this.bankEntityRepository.findById(bankEntity.getPk());
+    public void delete(BankEntityPK bankEntity) {
+        Optional<BankEntity> optional = this.bankEntityRepository.findById(bankEntity);
         if (optional.isPresent()) {
-            this.bankEntityRepository.delete(bankEntity);
+            this.bankEntityRepository.delete(optional.get());
         } else {
             throw new RuntimeException("Not found");
         }

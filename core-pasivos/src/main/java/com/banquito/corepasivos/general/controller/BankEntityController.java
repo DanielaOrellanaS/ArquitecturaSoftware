@@ -28,28 +28,55 @@ public class BankEntityController {
         return ResponseEntity.ok(this.bankEntityService.findAll());
     }
 
-    @RequestMapping(value = "/{entitybankcode}", method = RequestMethod.GET)
+    @RequestMapping(value = "/{entitybankcode}/{internationalbankcode}", method = RequestMethod.GET)
     public ResponseEntity<Optional<BankEntity>> getBankEntityById(
-            @PathVariable("entitybankcode") String entityBankCode) {
+            @PathVariable("entitybankcode") String entityBankCode,
+            @PathVariable("internationalbankcode") String international) {
         BankEntityPK pk = new BankEntityPK();
         pk.setEntitybankcode(entityBankCode);
+        pk.setInternationalbankcode(international);
         return ResponseEntity.ok(this.bankEntityService.findByComposePK(pk));
     }
 
-    @RequestMapping(value = "", method = RequestMethod.PUT)
-    public ResponseEntity<String> updateBankEntity(@RequestBody BankEntity bankEntity) {
+    @RequestMapping(value = "", method = RequestMethod.POST)
+    public ResponseEntity<String> createBankEntity(@RequestBody BankEntity bankEntity) {
         try {
-            this.bankEntityService.update(bankEntity);
-            return ResponseEntity.ok("Bank Entity updated successfully");
+            this.bankEntityService.create(bankEntity);
+            return ResponseEntity.ok("Bank Entity create successfully");
         } catch (Exception e) {
             return ResponseEntity.internalServerError().body(e.getMessage());
         }
     }
 
-    @RequestMapping(value = "", method = RequestMethod.DELETE)
-    public ResponseEntity<String> deleteBankEntity(@RequestBody BankEntity bankEntity) {
+    @RequestMapping(value = "/{entitybankcode}/{internationalbankcode}", method = RequestMethod.PUT)
+    public ResponseEntity<String> updateBankEntity(
+        @PathVariable("entitybankcode") String codeBankEntity, 
+        @PathVariable("internationalbankcode") String international,
+        @RequestBody BankEntity bankEntity) {
+
+        BankEntityPK pk = new BankEntityPK();
+        pk.setEntitybankcode(codeBankEntity);
+        pk.setInternationalbankcode(international);
+        
         try {
-            this.bankEntityService.delete(bankEntity);
+            this.bankEntityService.update(bankEntity, pk);
+            return ResponseEntity.ok("Bank Entity update successfully");
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().body(e.getMessage());
+        }
+    }
+
+    @RequestMapping(value = "/{entitybankcode}/{internationalbankcode}", method = RequestMethod.DELETE)
+    public ResponseEntity<String> deleteBankEntity(
+        @PathVariable("entitybankcode") String bankEntity, 
+        @PathVariable("internationalbankcode") String international) {
+
+        BankEntityPK pk = new BankEntityPK();
+        pk.setEntitybankcode(bankEntity);
+        pk.setInternationalbankcode(international);
+        
+        try {
+            this.bankEntityService.delete(pk);
             return ResponseEntity.ok("Bank Entity delete successfully");
         } catch (Exception e) {
             return ResponseEntity.internalServerError().body(e.getMessage());

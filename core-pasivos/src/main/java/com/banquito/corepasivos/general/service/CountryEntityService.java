@@ -44,8 +44,8 @@ public class CountryEntityService {
     }
 
     @Transactional
-    public void update(CountryEntity countryEntity) {
-        Optional<CountryEntity> optional = this.countryEntityRepository.findById(countryEntity.getCodeCountry());
+    public void update(CountryEntity countryEntity, String codeCountry) {
+        Optional<CountryEntity> optional = this.countryEntityRepository.findById(codeCountry);
         if (optional.isPresent()) {
             this.countryEntityRepository.save(countryEntity);
         } else {

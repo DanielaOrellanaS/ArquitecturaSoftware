@@ -58,18 +58,6 @@ public class LocationEntity {
     })
     private CountryEntity countryEntity;
 
-    @JsonManagedReference(value = "locationEntity-holiday")
-    @OneToMany(mappedBy = "locationEntity")
-    private List<Holiday> holidays;
-
-    @JsonManagedReference(value = "locationEntity-clientAddress")
-    @OneToMany(mappedBy = "locationEntity")
-    private List<ClientAddress> clientAddresses;
-
-    @JsonManagedReference(value = "locationEntity-branch")
-    @OneToMany(mappedBy = "locationEntity")
-    private List<Branch> branches;
-
     public LocationEntity(Integer codeLocation) {
         this.codeLocation = codeLocation;
     }

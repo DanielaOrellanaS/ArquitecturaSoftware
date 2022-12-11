@@ -3,6 +3,7 @@ package com.banquito.corepasivos.general.service;
 import java.util.List;
 import java.util.Optional;
 
+import javax.tools.DocumentationTool.Location;
 import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Service;
@@ -35,6 +36,15 @@ public class LocationEntityService {
         try {
             return this.locationEntityRepository.findByLevel(lvl);
         } catch (Exception e) {
+            throw new RuntimeException("Location does not exist");
+        }
+    }
+
+    public List<LocationEntity> findByCountry(String country) {
+        List<LocationEntity> locationEntities = this.locationEntityRepository.findByName(country);
+        if(locationEntities.isEmpty()){
+            return this.locationEntityRepository.findByName(country);
+        } else {
             throw new RuntimeException("Location does not exist");
         }
     }

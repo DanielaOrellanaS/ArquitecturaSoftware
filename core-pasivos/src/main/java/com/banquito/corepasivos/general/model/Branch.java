@@ -39,22 +39,10 @@ public class Branch implements Serializable {
     @Column(name = "name", length = 64, nullable = false)
     private String name;
 
-    @JsonBackReference(value = "bank-branch")
-    @ManyToOne
-    @JoinColumns({
-            @JoinColumn(name = "entity_bank_code", referencedColumnName = "entity_bank_code", insertable = false, updatable = false, nullable = true),
-            @JoinColumn(name = "international_bank_code", referencedColumnName = "international_bank_code", insertable = false, updatable = false, nullable = true)
-    })
-    private BankEntity bankEntity;
-
     @JsonBackReference(value = "locationEntity-branch")
     @ManyToOne
     @JoinColumn(name = "code_location", nullable = false, insertable = false, updatable = false)
     private LocationEntity locationEntity;
-
-    @JsonManagedReference(value = "branch-account")
-    @OneToMany(mappedBy = "branch")
-    private List<Account> accounts;
 
     public Branch(BranchPK pk) {
         this.pk = pk;
