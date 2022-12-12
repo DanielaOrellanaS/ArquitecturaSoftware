@@ -1,14 +1,17 @@
 package com.banquito.corepasivos.account.services;
 
+import com.banquito.corepasivos.account.dto.request.AccountAssociatedServiceReqDto;
 import com.banquito.corepasivos.account.dto.response.AccountAssociatedServiceResDto;
 import com.banquito.corepasivos.account.mapper.AccountAssociatedServiceMapper;
 import com.banquito.corepasivos.account.model.AccountAssociatedService;
+import com.banquito.corepasivos.account.model.AccountAssociatedServicePK;
 import com.banquito.corepasivos.account.repository.AccountAssociatedServiceRepository;
 import com.banquito.corepasivos.account.repository.AccountRepository;
 
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -99,18 +102,39 @@ public class AccountAssociatedServiceService {
 	}
 
 	@Transactional
-	public void save(AccountAssociatedService accountAssociatedService) {
+	public void save(AccountAssociatedServiceReqDto accountAssociatedServiceReqDto) {
 
-		if (!accountRepository.existsByPkCodelocalaccount(accountAssociatedService.getPk().getCodelocalaccount())) {
+		if (!accountRepository
+				.existsByPkCodelocalaccount(accountAssociatedServiceReqDto.getCodeLocalAccount())) {
 			throw new RuntimeException("Local Account not found");
 		}
 
 		if (!accountRepository
-				.existsByPkCodeinternationalaccount(accountAssociatedService.getPk().getCodeinternationalaccount())) {
+				.existsByPkCodeinternationalaccount(
+						accountAssociatedServiceReqDto.getCodeInternationalAccount())) {
 			throw new RuntimeException("International Account not found");
 		}
 
+		AccountAssociatedService accountAssociatedService = new AccountAssociatedService();
+		AccountAssociatedServicePK pk = new AccountAssociatedServicePK();
+
+		pk.setCodelocalaccount(accountAssociatedServiceReqDto.getCodeLocalAccount());
+		pk.setCodeinternationalaccount(accountAssociatedServiceReqDto.getCodeInternationalAccount());
+		pk.setCodeproduct(accountAssociatedServiceReqDto.getCodeProduct());
+		pk.setCodeproducttype(accountAssociatedServiceReqDto.getCodeProductType());
+
+		accountAssociatedService.setPk(pk);
+
+		accountAssociatedService.setCodeAssociatedService(accountAssociatedServiceReqDto.getCodeAssociatedService());
+
+		accountAssociatedService.setStatus("ACT");
+
+		accountAssociatedService.setStartDate(new Date());
+
+		accountAssociatedService.setEndDate(null);
+
 		this.accountAssociatedServiceRepository.save(accountAssociatedService);
+
 	}
 
 	@Transactional

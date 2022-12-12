@@ -1,5 +1,6 @@
 package com.banquito.corepasivos.account.controller;
 
+import com.banquito.corepasivos.account.dto.request.AccountAssociatedServiceReqDto;
 import com.banquito.corepasivos.account.dto.response.AccountAssociatedServiceResDto;
 import com.banquito.corepasivos.account.model.AccountAssociatedService;
 import com.banquito.corepasivos.account.services.AccountAssociatedServiceService;
@@ -62,9 +63,9 @@ public class AccountAssociatedServiceController {
 
 	@RequestMapping(value = "", method = RequestMethod.POST)
 	public ResponseEntity<String> createAccountAssociatedService(
-			@RequestBody AccountAssociatedService accountAssociatedService) {
+			@RequestBody AccountAssociatedServiceReqDto accountAssociatedServiceReqDto) {
 		try {
-			this.service.save(accountAssociatedService);
+			this.service.save(accountAssociatedServiceReqDto);
 			return ResponseEntity.ok("Record created successfully");
 		} catch (Exception e) {
 			return ResponseEntity.internalServerError().body("Error while creating record");
