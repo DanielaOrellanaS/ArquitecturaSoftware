@@ -72,14 +72,16 @@ public class AccountAssociatedServiceController {
 		}
 	}
 
-	@RequestMapping(value = "", method = RequestMethod.PUT)
+	@RequestMapping(value = "/local/{codeLocalAccount}/international/{codeInternationalAccount}", method = RequestMethod.PUT)
 	public ResponseEntity<String> updateAccountAssociatedService(
-			@RequestBody AccountAssociatedService accountAssociatedService) {
+			@RequestBody AccountAssociatedServiceReqDto accountAssociatedServiceReqDto,
+			@PathVariable("codeLocalAccount") String codeLocalAccount,
+			@PathVariable("codeInternationalAccount") String codeInternationalAccount) {
 		try {
-			this.service.update(accountAssociatedService);
+			this.service.update(accountAssociatedServiceReqDto, codeLocalAccount, codeInternationalAccount);
 			return ResponseEntity.ok("Record updated successfully");
 		} catch (Exception e) {
-			return ResponseEntity.internalServerError().body(e.getMessage());
+			return ResponseEntity.internalServerError().body("Error while updating record");
 		}
 	}
 

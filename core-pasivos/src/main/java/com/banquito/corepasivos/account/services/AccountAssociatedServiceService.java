@@ -138,12 +138,37 @@ public class AccountAssociatedServiceService {
 	}
 
 	@Transactional
-	public void update(AccountAssociatedService accountAssociatedService) {
-		try {
+	public void update(
+			AccountAssociatedServiceReqDto accountAssociatedServiceReqDto) {
+
+		if (!accountRepository
+				.existsByPkCodelocalaccount(accountAssociatedServiceReqDto.getCodeLocalAccount())) {
+			throw new RuntimeException("Local Account not found");
+		}
+
+		if (!accountRepository
+				.existsByPkCodeinternationalaccount(
+						accountAssociatedServiceReqDto.getCodeInternationalAccount())) {
+			throw new RuntimeException("International Account not found");
+		}
+
+		AccountAssociatedService accountAssociatedService = this.accountAssociatedServiceRepository
+				.findByCodeLocalAccountAndCodeInternationalAccountAndCodeAssociatedService(
+						accountAssociatedServiceReqDto.getCodeLocalAccount(),
+						accountAssociatedServiceReqDto.getCodeInternationalAccount(),
+						accountAssociatedServiceReqDto.getCodeAssociatedService());
+
+		if (accountAssociatedService == null) {
+			throw new RuntimeException("Account Associated Service not found");
+		} else {
+			accountAssociatedService
+					.setCodeAssociatedService(accountAssociatedServiceReqDto.getCodeAssociatedService());
+
+			accountAssociatedService.setCodeProduct(accountAssociatedServiceReqDto.getCodeProduct());
+
+			accountAssociatedService.setCodeProductType(accountAssociatedServiceReqDto.getCodeProductType());
+
 			this.accountAssociatedServiceRepository.save(accountAssociatedService);
-		} catch (Exception e) {
-			throw new RuntimeException("Error updating Account Associated Service");
 		}
 	}
-
 }
