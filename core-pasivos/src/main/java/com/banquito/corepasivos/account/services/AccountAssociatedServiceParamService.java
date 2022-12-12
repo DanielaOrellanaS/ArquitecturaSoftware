@@ -1,11 +1,14 @@
 package com.banquito.corepasivos.account.services;
 
+import com.banquito.corepasivos.account.dto.response.AccountAssociatedServiceParamResDto;
+import com.banquito.corepasivos.account.mapper.AccountAssociatedServiceParamMapper;
 import com.banquito.corepasivos.account.model.AccountAssociatedServiceParam;
 import com.banquito.corepasivos.account.repository.AccountAssociatedServiceParamRepository;
 import com.banquito.corepasivos.account.repository.AccountRepository;
 
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -135,4 +138,26 @@ public class AccountAssociatedServiceParamService {
 			return accountAssociatedServiceParamList;
 		}
 	}
+
+	@Transactional
+	public List<AccountAssociatedServiceParamResDto> findByCodeLocalAccountAndCodeInternationalAccountAndCodeAssociatedService(
+			String codeLocalAccount, String codeInternationalAccount, String codeAssociatedService) {
+		List<AccountAssociatedServiceParam> accountAssociatedServiceParamList = this.accountAssociatedServiceParamRepository
+				.findByCodeLocalAccountAndCodeInternationalAccountAndCodeAssociatedService(codeLocalAccount,
+						codeInternationalAccount, codeAssociatedService);
+		List<AccountAssociatedServiceParamResDto> listDto = new ArrayList<>();
+		AccountAssociatedServiceParamResDto serviceDto;
+
+		for (AccountAssociatedServiceParam service : accountAssociatedServiceParamList) {
+			serviceDto = AccountAssociatedServiceParamMapper.mapper(service);
+			serviceDto.setCodeParam(service.getCodeParam());
+			serviceDto.setStatus(service.getStatus());
+			serviceDto.setTextValue(service.getTextValue());
+			serviceDto.setDateValue(service.getDateValue());
+			serviceDto.setNumberValue(service.getNumberValue());
+			listDto.add(serviceDto);
+		}
+		return listDto;
+	}
+
 }

@@ -13,4 +13,5 @@ public interface BranchRepository extends JpaRepository<Branch, BranchPK> {
 
     List<Branch> findByNameLike(String name);
 
+    Boolean existsByPkCodebranch(String codeBranch);
 }

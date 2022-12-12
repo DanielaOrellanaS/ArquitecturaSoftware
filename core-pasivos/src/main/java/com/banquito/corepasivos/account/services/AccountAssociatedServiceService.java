@@ -1,11 +1,14 @@
 package com.banquito.corepasivos.account.services;
 
+import com.banquito.corepasivos.account.dto.response.AccountAssociatedServiceResDto;
+import com.banquito.corepasivos.account.mapper.AccountAssociatedServiceMapper;
 import com.banquito.corepasivos.account.model.AccountAssociatedService;
 import com.banquito.corepasivos.account.repository.AccountAssociatedServiceRepository;
 import com.banquito.corepasivos.account.repository.AccountRepository;
 
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -157,11 +160,49 @@ public class AccountAssociatedServiceService {
 		}
 	}
 
-	public List<AccountAssociatedService> findAll() {
-		List<AccountAssociatedService> accountAssociatedServiceList = this.accountAssociatedServiceRepository.findAll();
-		if (accountAssociatedServiceList.isEmpty()) {
-			throw new RuntimeException("Account Associated Service not found");
+	@Transactional
+	public List<AccountAssociatedServiceResDto> findByCodeLocalAccountAndCodeInternationalAccount(
+			String codeLocalAccount, String codeInternationalAccount) {
+		List<AccountAssociatedService> accountAssociatedServiceList = this.accountAssociatedServiceRepository
+				.findAllByCodeLocalAccountAndCodeInternationalAccount(codeLocalAccount, codeInternationalAccount);
+		List<AccountAssociatedServiceResDto> listDto = new ArrayList<>();
+		AccountAssociatedServiceResDto serviceDto;
+
+		for (AccountAssociatedService service : accountAssociatedServiceList) {
+			serviceDto = AccountAssociatedServiceMapper.mapper(service);
+			serviceDto.setCodeProduct(service.getCodeProduct());
+			serviceDto.setCodeProductType(service.getCodeProductType());
+			serviceDto.setCodeAssociatedService(service.getCodeAssociatedService());
+			serviceDto.setStatus(service.getStatus());
+			serviceDto.setStartDate(service.getStartDate());
+			serviceDto.setEndDate(service.getEndDate());
+			listDto.add(serviceDto);
 		}
-		return accountAssociatedServiceList;
+
+		return listDto;
 	}
+
+	@Transactional
+	public List<AccountAssociatedServiceResDto> findByCodeLocalAccountAndCodeInternationalAccountAndStatus(
+			String codeLocalAccount, String codeInternationalAccount, String status) {
+		List<AccountAssociatedService> accountAssociatedServiceList = this.accountAssociatedServiceRepository
+				.findAllByCodeLocalAccountAndCodeInternationalAccountAndStatus(codeLocalAccount,
+						codeInternationalAccount,
+						status);
+		List<AccountAssociatedServiceResDto> listDto = new ArrayList<>();
+		AccountAssociatedServiceResDto serviceDto;
+
+		for (AccountAssociatedService service : accountAssociatedServiceList) {
+			serviceDto = AccountAssociatedServiceMapper.mapper(service);
+			serviceDto.setCodeProduct(service.getCodeProduct());
+			serviceDto.setCodeProductType(service.getCodeProductType());
+			serviceDto.setCodeAssociatedService(service.getCodeAssociatedService());
+			serviceDto.setStartDate(service.getStartDate());
+			serviceDto.setEndDate(service.getEndDate());
+			listDto.add(serviceDto);
+		}
+
+		return listDto;
+	}
+
 }

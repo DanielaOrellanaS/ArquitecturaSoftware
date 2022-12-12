@@ -1,14 +1,9 @@
 package com.banquito.corepasivos.product.model;
 
-import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
-
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -37,10 +32,6 @@ public class ProductType {
 
     @Column(name = "temporality_interest", length = 3, nullable = true)
     private String temporalityInterest;
-
-    @JsonManagedReference(value = "productType-products")
-    @OneToMany(mappedBy = "productType")
-    private List<Product> products;
 
     public ProductType(String codeProductType) {
         this.codeProductType = codeProductType;

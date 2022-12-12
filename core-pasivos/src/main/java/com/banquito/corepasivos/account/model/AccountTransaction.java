@@ -1,6 +1,5 @@
 package com.banquito.corepasivos.account.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Data;
 import lombok.EqualsAndHashCode.Include;
 import lombok.NoArgsConstructor;
@@ -63,7 +62,6 @@ public class AccountTransaction implements Serializable {
     @Column(name = "status", length = 3, nullable = false)
     private String status;
 
-    @JsonBackReference(value = "account-accountTransaction")
     @ManyToOne
     @JoinColumns({
             @JoinColumn(name = "code_local_account", referencedColumnName = "code_local_account", insertable = false, updatable = false),

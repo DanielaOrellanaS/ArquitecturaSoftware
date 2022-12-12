@@ -6,7 +6,6 @@ import java.util.Date;
 import javax.persistence.*;
 
 import com.banquito.corepasivos.client.model.Client;
-import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -42,7 +41,6 @@ public class AccountSignature implements Serializable {
     @Column(name = "end_date", nullable = true)
     private Date endDate;
 
-    @JsonBackReference(value = "account-accountSignature")
     @ManyToOne
     @JoinColumns({
             @JoinColumn(name = "code_local_account", referencedColumnName = "code_local_account", insertable = false, updatable = false),
@@ -50,7 +48,6 @@ public class AccountSignature implements Serializable {
     })
     private Account account;
 
-    @JsonBackReference(value = "client-accountSignature")
     @ManyToOne
     @JoinColumns({
             @JoinColumn(name = "identification_type", referencedColumnName = "identification_type", insertable = false, updatable = false),

@@ -1,5 +1,9 @@
 package com.banquito.corepasivos.account.controller;
 
+import com.banquito.corepasivos.account.dto.response.AccountTransactionRecipientBankResDto;
+import com.banquito.corepasivos.account.dto.response.AccountTransactionResDto;
+import com.banquito.corepasivos.account.dto.response.AccountTransactionStatusResDto;
+import com.banquito.corepasivos.account.dto.response.AccountTransactionUniqueResDto;
 import com.banquito.corepasivos.account.model.AccountTransaction;
 import com.banquito.corepasivos.account.services.AccountTransactionService;
 
@@ -25,23 +29,13 @@ public class AccountTransactionController {
 		this.accountTransactionService = accountTransactionService;
 	}
 
-	@RequestMapping(value = "", method = RequestMethod.GET)
-	public ResponseEntity<List<AccountTransaction>> findAll() {
-		List<AccountTransaction> transaction = this.accountTransactionService.findAll();
+	@RequestMapping(value = "/local/{codeLocalAccount}/international/{codeInternationalAccount}",method = RequestMethod.GET)
+	public ResponseEntity<List<AccountTransactionResDto>> findByCodeLocalAccountAndInternationalAccount(
+			@PathVariable("codeLocalAccount") String codeLocalAccount,
+			@PathVariable("codeInternationalAccount") String codeInternationalAccount) {
 
-		if (transaction.isEmpty()) {
-			return ResponseEntity.notFound().build();
-		} else {
-			return ResponseEntity.ok(transaction);
-		}
-	}
-
-	@RequestMapping(value = "/local-account/{codeLocalAccount}",method = RequestMethod.GET)
-	public ResponseEntity<List<AccountTransaction>> findByCodeLocalAccount(
-			@PathVariable("codeLocalAccount") String codeLocalAccount) {
-
-		List<AccountTransaction> accountTransactionService = this.accountTransactionService
-				.findByCodeLocalAccount(codeLocalAccount.toLowerCase());
+		List<AccountTransactionResDto> accountTransactionService = this.accountTransactionService.findByCodeLocalAccountAndCodeInternationalAccount(codeLocalAccount, codeInternationalAccount);
+				
 		if (accountTransactionService.isEmpty()) {
 			return ResponseEntity.notFound().build();
 		} else {
@@ -50,11 +44,11 @@ public class AccountTransactionController {
 
 	}
 
-	@RequestMapping(value = "/code-transaction/{codeUniqueTransaction}",method = RequestMethod.GET)
-	public ResponseEntity<List<AccountTransaction>> findByCodeUniqueTransaction(
+	@RequestMapping(value = "/	/{codeUniqueTransaction}",method = RequestMethod.GET)
+	public ResponseEntity<List<AccountTransactionUniqueResDto>> findByCodeUniqueTransaction(
 			@PathVariable("codeUniqueTransaction") String codeUniqueTransaction) {
 
-		List<AccountTransaction> accountTransactionService = this.accountTransactionService
+		List<AccountTransactionUniqueResDto> accountTransactionService = this.accountTransactionService
 				.findByCodeUniqueTransaction(codeUniqueTransaction.toLowerCase());
 		if (accountTransactionService.isEmpty()) {
 			return ResponseEntity.notFound().build();
@@ -64,12 +58,14 @@ public class AccountTransactionController {
 
 	}
 
-	@RequestMapping(value = "/status/{status}",method = RequestMethod.GET)
-	public ResponseEntity<List<AccountTransaction>> findByStatus(
-			@PathVariable("status") String status) {
+	@RequestMapping(value = "/local/{codeLocalAccount}/international/{codeInternationalAccount}/type/{type}",method = RequestMethod.GET)
+	public ResponseEntity<List<AccountTransactionResDto>> findByCodeLocalAccountAndInternationalAccountType(
+			@PathVariable("codeLocalAccount") String codeLocalAccount,
+			@PathVariable("codeInternationalAccount") String codeInternationalAccount,
+			@PathVariable("type") String type) {
 
-		List<AccountTransaction> accountTransactionService = this.accountTransactionService
-				.findByStatus(status.toUpperCase());
+		List<AccountTransactionResDto> accountTransactionService = this.accountTransactionService.findByCodeLocalAccountAndCodeInternationalAccountAndType(codeLocalAccount, codeInternationalAccount,type.toUpperCase());
+				
 		if (accountTransactionService.isEmpty()) {
 			return ResponseEntity.notFound().build();
 		} else {
@@ -78,12 +74,14 @@ public class AccountTransactionController {
 
 	}
 
-	@RequestMapping(value = "/recipient-bank/{recipientBank}",method = RequestMethod.GET)
-	public ResponseEntity<List<AccountTransaction>> findByRecipientBank(
+	@RequestMapping(value = "/local/{codeLocalAccount}/international/{codeInternationalAccount}/recipient-bank/{recipientBank}",method = RequestMethod.GET)
+	public ResponseEntity<List<AccountTransactionRecipientBankResDto>> findByCodeLocalAccountAndInternationalAccountRecipientBank(
+			@PathVariable("codeLocalAccount") String codeLocalAccount,
+			@PathVariable("codeInternationalAccount") String codeInternationalAccount,
 			@PathVariable("recipientBank") String recipientBank) {
 
-		List<AccountTransaction> accountTransactionService = this.accountTransactionService
-				.findByRecipientBank(recipientBank.toUpperCase());
+		List<AccountTransactionRecipientBankResDto> accountTransactionService = this.accountTransactionService.findByCodeLocalAccountAndCodeInternationalAccountAndRecipientBank(codeLocalAccount, codeInternationalAccount,recipientBank.toUpperCase());
+				
 		if (accountTransactionService.isEmpty()) {
 			return ResponseEntity.notFound().build();
 		} else {
@@ -92,13 +90,31 @@ public class AccountTransactionController {
 
 	}
 
-	@RequestMapping(value = "/range-date/{start}/{end}",method = RequestMethod.GET)
-	public ResponseEntity<List<AccountTransaction>> findByRangeDate(
+	@RequestMapping(value = "/local/{codeLocalAccount}/international/{codeInternationalAccount}/status/{status}",method = RequestMethod.GET)
+	public ResponseEntity<List<AccountTransactionStatusResDto>> findByCodeLocalAccountAndInternationalAccountStatus(
+			@PathVariable("codeLocalAccount") String codeLocalAccount,
+			@PathVariable("codeInternationalAccount") String codeInternationalAccount,
+			@PathVariable("status") String status) {
+
+		List<AccountTransactionStatusResDto> accountTransactionService = this.accountTransactionService.findByCodeLocalAccountAndCodeInternationalAccountAndStatus(codeLocalAccount, codeInternationalAccount,status.toUpperCase());
+				
+		if (accountTransactionService.isEmpty()) {
+			return ResponseEntity.notFound().build();
+		} else {
+			return ResponseEntity.ok(accountTransactionService);
+		}
+
+	}
+
+	@RequestMapping(value = "/local/{codeLocalAccount}/international/{codeInternationalAccount}/range-date/{start}/{end}",method = RequestMethod.GET)
+	public ResponseEntity<List<AccountTransactionResDto>> findByRangeDate(
+		@PathVariable("codeLocalAccount") String codeLocalAccount,
+			@PathVariable("codeInternationalAccount") String codeInternationalAccount,
 			@PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd")Date start,
 			@PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd") Date end) {
 
-		List<AccountTransaction> accountTransactionService = this.accountTransactionService
-				.findByExecuteDateBetween(start, end);
+		List<AccountTransactionResDto> accountTransactionService = this.accountTransactionService
+				.findByExecuteDateBetween(codeLocalAccount,codeInternationalAccount, start, end);
 		if (accountTransactionService.isEmpty()) {
 			return ResponseEntity.notFound().build();
 		} else {
@@ -106,6 +122,10 @@ public class AccountTransactionController {
 		}
 
 	}
+
+	
+
+	
 
 	
 

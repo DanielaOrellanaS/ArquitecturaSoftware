@@ -4,17 +4,13 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
-
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.List;
 
 @Data
 @Entity
@@ -40,14 +36,6 @@ public class AssociatedService implements Serializable {
 
     @Column(name = "fee", scale = 17, precision = 2, nullable = false)
     private BigDecimal fee;
-
-    @JsonManagedReference(value = "associatedService-associatedServiceParam")
-    @OneToMany(mappedBy = "associatedService")
-    private List<AssociatedServiceParam> associatedServiceParams; 
-
-    @JsonManagedReference(value = "associatedService-productAssociatedServices")
-    @OneToMany(mappedBy = "associatedService")
-    private List<ProductAssociatedService> productAssociatedServices;
 
     public AssociatedService(String codeAssociatedService) {
         this.codeAssociatedService = codeAssociatedService;

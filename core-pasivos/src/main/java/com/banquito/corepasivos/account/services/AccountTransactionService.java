@@ -1,5 +1,11 @@
 package com.banquito.corepasivos.account.services;
 
+import com.banquito.corepasivos.account.dto.response.AccountTransactionRecipientBankResDto;
+import com.banquito.corepasivos.account.dto.response.AccountTransactionResDto;
+import com.banquito.corepasivos.account.dto.response.AccountTransactionStatusResDto;
+import com.banquito.corepasivos.account.dto.response.AccountTransactionUniqueResDto;
+import com.banquito.corepasivos.account.mapper.AccountTransactionMapper;
+
 import com.banquito.corepasivos.account.model.Account;
 import com.banquito.corepasivos.account.model.AccountTransaction;
 import com.banquito.corepasivos.account.repository.AccountRepository;
@@ -8,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -27,9 +34,7 @@ public class AccountTransactionService {
 		this.accountRepository = accountRepository;
 	}
 
-	public List<AccountTransaction> findAll() {
-		return this.accountTransactionRepository.findAll();
-	}
+	
 
 	@Transactional
 	public void saveTransactionDeb(AccountTransaction transaction) {
@@ -96,53 +101,158 @@ public class AccountTransactionService {
 		return result;
 	}
 
-	public List<AccountTransaction> findByCodeLocalAccount(String codeLocalAccount) {
-		List<AccountTransaction> accountTransaction = this.accountTransactionRepository
-				.findByCodeLocalAccount(codeLocalAccount);
-		if (accountTransaction.isEmpty()) {
-			throw new RuntimeException("Account Transaction by Account not found");
-		} else {
-			return accountTransaction;
+	public List<AccountTransactionResDto> findByCodeLocalAccountAndCodeInternationalAccount(String codeLocalAccount,String codeInternationalAccount) {
+		List<AccountTransaction> accountTransactionList = this.accountTransactionRepository
+				.findAllByCodeLocalAccountAndCodeInternationalAccount(codeLocalAccount, codeInternationalAccount);
+		List<AccountTransactionResDto> listDto = new ArrayList<>();
+		AccountTransactionResDto serviceDto;
+
+		for (AccountTransaction service : accountTransactionList) {
+			serviceDto = AccountTransactionMapper.mapper(service);
+			serviceDto.setCodeUniqueTransaction(service.getCodeUniqueTransaction());
+			serviceDto.setType(service.getType());
+			serviceDto.setRecipientAccountNumber(service.getRecipientAccountNumber());
+			serviceDto.setRecipientType(service.getRecipientType());
+			serviceDto.setRecipientBank(service.getRecipientBank());
+			serviceDto.setReference(service.getReference());
+			serviceDto.setDescription(service.getDescription());
+			serviceDto.setValue(service.getValue());
+			serviceDto.setCreateDate(service.getCreateDate());
+			serviceDto.setExecuteDate(service.getExecuteDate());
+			serviceDto.setStatus(service.getStatus());
+			listDto.add(serviceDto);
 		}
+
+		return listDto;
 	}
 
-	public List<AccountTransaction> findByCodeUniqueTransaction(String codeUniqueTransaction) {
-		List<AccountTransaction> accountTransaction = this.accountTransactionRepository
-				.findByCodeUniqueTransaction(codeUniqueTransaction);
-		if (accountTransaction.isEmpty()) {
-			throw new RuntimeException("Account Transaction not found");
-		} else {
-			return accountTransaction;
-		}
-	}
-
-	public List<AccountTransaction> findByStatus(String status) {
-		List<AccountTransaction> accountTransaction = this.accountTransactionRepository
-				.findByStatus(status);
-		if (accountTransaction.isEmpty()) {
-			throw new RuntimeException("Account not found");
-		} else {
-			return accountTransaction;
-		}
-	}
-
-	public List<AccountTransaction> findByRecipientBank(String recipientBank) {
-		List<AccountTransaction> accountTransaction = this.accountTransactionRepository
-				.findByRecipientBank(recipientBank);
-		if (accountTransaction.isEmpty()) {
-			throw new RuntimeException("Account Transaction by Recipient Bank not found");
-		} else {
-			return accountTransaction;
-		}
-	}
-
-	public List<AccountTransaction> findByExecuteDateBetween(Date start, Date end) {
-		try{
-			List<AccountTransaction> transaction = this.accountTransactionRepository
+	public List<AccountTransactionResDto> findByExecuteDateBetween(String codeLocalAccount,String codeInternationalAccount,Date start, Date end) {
+		
+		List<AccountTransaction> accountTransactionList = this.accountTransactionRepository
 					.findByExecuteDateBetween(start, end);
-			return transaction;
-		}catch (Exception e){
-			throw new RuntimeException("Account Transaction by Date not found");
-		}
+					List<AccountTransactionResDto> listDto = new ArrayList<>();
+		AccountTransactionResDto serviceDto;
+
+					for (AccountTransaction service : accountTransactionList) {
+						serviceDto = AccountTransactionMapper.mapper(service);
+						serviceDto.setCodeUniqueTransaction(service.getCodeUniqueTransaction());
+						serviceDto.setType(service.getType());
+						serviceDto.setRecipientAccountNumber(service.getRecipientAccountNumber());
+						serviceDto.setRecipientType(service.getRecipientType());
+						serviceDto.setRecipientBank(service.getRecipientBank());
+						serviceDto.setReference(service.getReference());
+						serviceDto.setDescription(service.getDescription());
+						serviceDto.setValue(service.getValue());
+						serviceDto.setCreateDate(service.getCreateDate());
+						serviceDto.setExecuteDate(service.getExecuteDate());
+						serviceDto.setStatus(service.getStatus());
+						listDto.add(serviceDto);
+					}
+			
+					return listDto;
 	}
+
+
+	
+	public List<AccountTransactionResDto> findByCodeLocalAccountAndCodeInternationalAccountAndType(String codeLocalAccount,String codeInternationalAccount,String type) {
+		List<AccountTransaction> accountTransactionList = this.accountTransactionRepository
+				.findAllByCodeLocalAccountAndCodeInternationalAccountAndType(codeLocalAccount, codeInternationalAccount,type.toUpperCase());
+		List<AccountTransactionResDto> listDto = new ArrayList<>();
+		AccountTransactionResDto serviceDto;
+
+		for (AccountTransaction service : accountTransactionList) {
+			serviceDto = AccountTransactionMapper.mapper(service);
+			serviceDto.setCodeUniqueTransaction(service.getCodeUniqueTransaction());
+			serviceDto.setType(service.getType());
+			serviceDto.setRecipientAccountNumber(service.getRecipientAccountNumber());
+			serviceDto.setRecipientType(service.getRecipientType());
+			serviceDto.setRecipientBank(service.getRecipientBank());
+			serviceDto.setReference(service.getReference());
+			serviceDto.setDescription(service.getDescription());
+			serviceDto.setValue(service.getValue());
+			serviceDto.setCreateDate(service.getCreateDate());
+			serviceDto.setExecuteDate(service.getExecuteDate());
+			serviceDto.setStatus(service.getStatus());
+			listDto.add(serviceDto);
+		}
+
+		return listDto;
+	}
+
+	public List<AccountTransactionRecipientBankResDto> findByCodeLocalAccountAndCodeInternationalAccountAndRecipientBank(String codeLocalAccount,String codeInternationalAccount,String recipientBank) {
+		List<AccountTransaction> accountTransactionList = this.accountTransactionRepository
+				.findAllByCodeLocalAccountAndCodeInternationalAccountAndRecipientBank(codeLocalAccount, codeInternationalAccount,recipientBank);
+		List<AccountTransactionRecipientBankResDto> listDto = new ArrayList<>();
+		AccountTransactionRecipientBankResDto serviceDto;
+
+		for (AccountTransaction service : accountTransactionList) {
+			serviceDto = AccountTransactionMapper.mapperRecipientBanl(service);
+			serviceDto.setCodeUniqueTransaction(service.getCodeUniqueTransaction());
+			serviceDto.setType(service.getType());
+			serviceDto.setRecipientAccountNumber(service.getRecipientAccountNumber());
+			serviceDto.setRecipientType(service.getRecipientType());
+			serviceDto.setReference(service.getReference());
+			serviceDto.setDescription(service.getDescription());
+			serviceDto.setValue(service.getValue());
+			serviceDto.setCreateDate(service.getCreateDate());
+			serviceDto.setExecuteDate(service.getExecuteDate());
+			serviceDto.setStatus(service.getStatus());
+			listDto.add(serviceDto);
+		}
+
+		return listDto;
+	}
+
+	public List<AccountTransactionStatusResDto> findByCodeLocalAccountAndCodeInternationalAccountAndStatus(String codeLocalAccount,String codeInternationalAccount,String status) {
+		List<AccountTransaction> accountTransactionList = this.accountTransactionRepository
+				.findAllByCodeLocalAccountAndCodeInternationalAccountAndStatus(codeLocalAccount, codeInternationalAccount,status.toUpperCase());
+		List<AccountTransactionStatusResDto> listDto = new ArrayList<>();
+		AccountTransactionStatusResDto serviceDto;
+
+		for (AccountTransaction service : accountTransactionList) {
+			serviceDto = AccountTransactionMapper.mapperStatus(service);
+			serviceDto.setCodeUniqueTransaction(service.getCodeUniqueTransaction());
+			serviceDto.setType(service.getType());
+			serviceDto.setRecipientAccountNumber(service.getRecipientAccountNumber());
+			serviceDto.setRecipientType(service.getRecipientType());
+			serviceDto.setReference(service.getReference());
+			serviceDto.setDescription(service.getDescription());
+			serviceDto.setValue(service.getValue());
+			serviceDto.setCreateDate(service.getCreateDate());
+			serviceDto.setExecuteDate(service.getExecuteDate());
+			
+			listDto.add(serviceDto);
+		}
+
+		return listDto;
+	}
+
+	public List<AccountTransactionUniqueResDto> findByCodeUniqueTransaction(String codeUniqueTransaction) {
+		List<AccountTransaction> accountTransactionList = this.accountTransactionRepository
+				.findByCodeUniqueTransaction(codeUniqueTransaction);
+				List<AccountTransactionUniqueResDto> listDto = new ArrayList<>();
+				AccountTransactionUniqueResDto serviceDto;
+		
+				for (AccountTransaction service : accountTransactionList) {
+					serviceDto = AccountTransactionMapper.mapperUniqueCode(service);
+					serviceDto.setCodeLocalAccount(service.getCodeLocalAccount());
+					serviceDto.setCodeInternationalAccount(service.getCodeInternationalAccount());
+					serviceDto.setType(service.getType());
+					serviceDto.setRecipientAccountNumber(service.getRecipientAccountNumber());
+					serviceDto.setRecipientType(service.getRecipientType());
+					serviceDto.setRecipientBank(service.getRecipientBank());
+					serviceDto.setReference(service.getReference());
+					serviceDto.setDescription(service.getDescription());
+					serviceDto.setValue(service.getValue());
+					serviceDto.setCreateDate(service.getCreateDate());
+					serviceDto.setExecuteDate(service.getExecuteDate());
+					serviceDto.setStatus(service.getStatus());
+					listDto.add(serviceDto);
+				}
+		
+				return listDto;
+	}
+
+	
+	
 }

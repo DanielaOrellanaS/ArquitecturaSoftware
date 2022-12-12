@@ -1,5 +1,10 @@
 package com.banquito.corepasivos.account.controller;
 
+import com.banquito.corepasivos.account.dto.response.AccountSignatureAccountDatesDto;
+import com.banquito.corepasivos.account.dto.response.AccountSignatureAccountIdentificationDto;
+import com.banquito.corepasivos.account.dto.response.AccountSignatureAccountStatusDto;
+import com.banquito.corepasivos.account.dto.response.AccountSignatureIdentificationDatesDto;
+import com.banquito.corepasivos.account.dto.response.AccountSignatureIdentificationStatusDto;
 import com.banquito.corepasivos.account.model.AccountSignature;
 import com.banquito.corepasivos.account.services.AccountSignatureService;
 
@@ -23,83 +28,72 @@ public class AccountSignatureController {
         this.accountSignatureService = accountSignatureService;
     }
 
-    @RequestMapping(value = "", method = RequestMethod.GET)
-    public ResponseEntity<List<AccountSignature>> findAll() {
-        List<AccountSignature> accounts = this.accountSignatureService.findAll();
-
-        if (accounts.isEmpty())
-            return ResponseEntity.notFound().build();
-
-        return ResponseEntity.ok(accounts);
-    }
-
-    @RequestMapping(value = "/local/{codeLocalAccount}", method = RequestMethod.GET)
-    public ResponseEntity<List<AccountSignature>> findByCodeLocalAccount(
-            @PathVariable("codeLocalAccount") String codeLocalAccount) {
-        List<AccountSignature> accountSignatures = this.accountSignatureService
-                .findByCodeLocalAccount(codeLocalAccount);
-        if (accountSignatures.isEmpty()) {
+    @RequestMapping(value = "/localAcc/{local}/internationalAcc/{international}/indentificationType/{identificationType}/identification/{identification}", method = RequestMethod.GET)
+    public ResponseEntity<List<AccountSignatureAccountIdentificationDto>> findByPrimaryKey(
+            @PathVariable("local") String local, @PathVariable("international") String international,
+            @PathVariable("identificationType") String type, @PathVariable("identification") String identification) {
+        List<AccountSignatureAccountIdentificationDto> accountIdentificationDtos = this.accountSignatureService
+                .findByPk(local, international, identification, identification);
+        if (accountIdentificationDtos.isEmpty()) {
             return ResponseEntity.notFound().build();
         } else {
-            return ResponseEntity.ok(accountSignatures);
+            return ResponseEntity.ok(accountIdentificationDtos);
         }
     }
 
-    @RequestMapping(value = "/international/{codeInternationalAccount}", method = RequestMethod.GET)
-    public ResponseEntity<List<AccountSignature>> findByCodeInternationalAccount(
-            @PathVariable("codeInternationalAccount") String codeInternationalAccount) {
-        List<AccountSignature> accountSignatures = this.accountSignatureService
-                .findByCodeInternationalAccount(codeInternationalAccount);
-        if (accountSignatures.isEmpty()) {
-            return ResponseEntity.notFound().build();
-        } else {
-            return ResponseEntity.ok(accountSignatures);
-        }
-    }
-
-    @RequestMapping(value = "/{identification}", method = RequestMethod.GET)
-    public ResponseEntity<List<AccountSignature>> findByIdentification(
-            @PathVariable("identification") String identification) {
-        List<AccountSignature> accountSignatures = this.accountSignatureService.findByIdentification(identification);
-        if (accountSignatures.isEmpty()) {
-            return ResponseEntity.notFound().build();
-        } else {
-            return ResponseEntity.ok(accountSignatures);
-        }
-    }
-
-    @RequestMapping(value = "/local/role/{account}/{identification}/{role-code}", method = RequestMethod.GET)
-    public ResponseEntity<List<AccountSignature>> findByRole(@PathVariable("account") String account,
-            @PathVariable("identification") String identification,
-            @PathVariable("role-code") String role) {
-        List<AccountSignature> accountSignatures = this.accountSignatureService.findByRole(account, identification,
-                role);
-        if (accountSignatures.isEmpty()) {
-            return ResponseEntity.notFound().build();
-        } else {
-            return ResponseEntity.ok(accountSignatures);
-        }
-    }
-
-    @RequestMapping(value = "/local/status/{account}/{identification}/{status-code}", method = RequestMethod.GET)
-    public ResponseEntity<List<AccountSignature>> findByStatus(@PathVariable("account") String account,
-            @PathVariable("identification") String identification,
-            @PathVariable("status-code") String status) {
-        List<AccountSignature> accountSignatures = this.accountSignatureService.findByStatus(account, identification,
-                status);
-        if (accountSignatures.isEmpty()) {
-            return ResponseEntity.notFound().build();
-        } else {
-            return ResponseEntity.ok(accountSignatures);
-        }
-    }
-
-    @RequestMapping(value = "/local/date/{account}/{start-date}/{end-date}", method = RequestMethod.GET)
-    public ResponseEntity<List<AccountSignature>> findByStatus(
-            @PathVariable("account") String account,
+    @RequestMapping(value = "/localAcc/{local}/internationalAcc/{international}/startDate/{start-date}/endDate/{end-date}", method = RequestMethod.GET)
+    public ResponseEntity<List<AccountSignatureIdentificationDatesDto>> findByAccountDates(
+            @PathVariable("local") String local, @PathVariable("international") String international,
             @PathVariable("start-date") @DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate,
-            @DateTimeFormat(pattern = "yyyy-MM-dd") @PathVariable("end-date") Date endDate) {
-        List<AccountSignature> accountSignatures = this.accountSignatureService.findByDates(account, startDate, endDate);
+            @PathVariable("end-date") @DateTimeFormat(pattern = "yyyy-MM-dd") Date endDate) {
+        List<AccountSignatureIdentificationDatesDto> accountSignatureDatesDtos = this.accountSignatureService
+                .findByAccountDates(local, international, startDate,
+                        endDate);
+        if (accountSignatureDatesDtos.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        } else {
+            return ResponseEntity.ok(accountSignatureDatesDtos);
+        }
+    }
+
+    @RequestMapping(value = "/identification/{identification}/identificationType/{identificationType}/startDate/{start-date}/endDate/{end-date}", method = RequestMethod.GET)
+    public ResponseEntity<List<AccountSignatureAccountDatesDto>> findByIdentificationDates(
+            @PathVariable("identification") String identification,
+            @PathVariable("identificationType") String identificationType,
+            @PathVariable("start-date") @DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate,
+            @PathVariable("end-date") @DateTimeFormat(pattern = "yyyy-MM-dd") Date endDate) {
+        List<AccountSignatureAccountDatesDto> accountSignatureDatesDtos = this.accountSignatureService
+                .findByIdentificationDates(identification, identificationType, startDate,
+                        endDate);
+        if (accountSignatureDatesDtos.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        } else {
+            return ResponseEntity.ok(accountSignatureDatesDtos);
+        }
+    }
+
+    @RequestMapping(value = "/localAcc/{local}/internationalAcc/{international}/status/{status}", method = RequestMethod.GET)
+    public ResponseEntity<List<AccountSignatureIdentificationStatusDto>> findByAccountStatus(
+            @PathVariable("local") String local, @PathVariable("international") String international,
+            @PathVariable("status") String status) {
+        List<AccountSignatureIdentificationStatusDto> accountSignatures = this.accountSignatureService
+                .findByAccountStatus(local, international,
+                        status);
+        if (accountSignatures.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        } else {
+            return ResponseEntity.ok(accountSignatures);
+        }
+    }
+
+    @RequestMapping(value = "/identification/{identification}/identificationType/{identificationType}/status/{status}", method = RequestMethod.GET)
+    public ResponseEntity<List<AccountSignatureAccountStatusDto>> findByIdentificationStatus(
+            @PathVariable("identification") String identification,
+            @PathVariable("identificationType") String identificationType,
+            @PathVariable("status") String status) {
+        List<AccountSignatureAccountStatusDto> accountSignatures = this.accountSignatureService
+                .findByIdentificationStatus(identification, identificationType,
+                        status);
         if (accountSignatures.isEmpty()) {
             return ResponseEntity.notFound().build();
         } else {

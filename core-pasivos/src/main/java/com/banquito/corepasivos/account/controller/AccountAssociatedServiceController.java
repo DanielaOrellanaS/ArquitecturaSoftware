@@ -1,5 +1,6 @@
 package com.banquito.corepasivos.account.controller;
 
+import com.banquito.corepasivos.account.dto.response.AccountAssociatedServiceResDto;
 import com.banquito.corepasivos.account.model.AccountAssociatedService;
 import com.banquito.corepasivos.account.services.AccountAssociatedServiceService;
 
@@ -21,9 +22,42 @@ public class AccountAssociatedServiceController {
 		this.service = service;
 	}
 
-	@RequestMapping("/all")
-	public Object findAll() {
-		return this.service.findAll();
+	@RequestMapping(value = "/local/{codeLocalAccount}/international/{codeInternationalAccount}", method = RequestMethod.GET)
+	public ResponseEntity<List<AccountAssociatedServiceResDto>> findByCodeLocalAccountAndCodeInternationalAccount(
+			@PathVariable("codeLocalAccount") String codeLocalAccount,
+			@PathVariable("codeInternationalAccount") String codeInternationalAccount) {
+
+		List<AccountAssociatedServiceResDto> accountAssociatedService = this.service
+				.findByCodeLocalAccountAndCodeInternationalAccount(codeLocalAccount, codeInternationalAccount);
+		try {
+			if (accountAssociatedService.isEmpty()) {
+				return ResponseEntity.notFound().build();
+			} else {
+				return ResponseEntity.ok(accountAssociatedService);
+			}
+		} catch (Exception e) {
+			return ResponseEntity.notFound().build();
+		}
+	}
+
+	@RequestMapping(value = "/local/{codeLocalAccount}/international/{codeInternationalAccount}/status/{status}", method = RequestMethod.GET)
+	public ResponseEntity<List<AccountAssociatedServiceResDto>> findByCodeLocalAccountAndCodeInternationalAccountAndStatus(
+			@PathVariable("codeLocalAccount") String codeLocalAccount,
+			@PathVariable("codeInternationalAccount") String codeInternationalAccount,
+			@PathVariable("status") String status) {
+
+		List<AccountAssociatedServiceResDto> accountAssociatedService = this.service
+				.findByCodeLocalAccountAndCodeInternationalAccountAndStatus(codeLocalAccount, codeInternationalAccount,
+						status);
+		try {
+			if (accountAssociatedService.isEmpty()) {
+				return ResponseEntity.notFound().build();
+			} else {
+				return ResponseEntity.ok(accountAssociatedService);
+			}
+		} catch (Exception e) {
+			return ResponseEntity.notFound().build();
+		}
 	}
 
 	@RequestMapping(value = "/local/{codeLocalAccount}", method = RequestMethod.GET)
