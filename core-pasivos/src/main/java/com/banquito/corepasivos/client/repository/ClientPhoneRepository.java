@@ -10,7 +10,7 @@ import com.banquito.corepasivos.client.model.ClientPhonePK;
 
 @Repository
 public interface ClientPhoneRepository extends JpaRepository<ClientPhone, ClientPhonePK> {
-    List<ClientPhone> findByPkIdentificationAndPkIdentificationtype(String id, String type);
+    List<ClientPhone> findByPkIdentificationAndPkIdentificationtype(String id, String identificationType);
 
-    List<ClientPhone> deleteByPkIdentificationAndPkIdentificationtype(String id, String type);
+    List<ClientPhone> deleteByPkIdentificationAndPkIdentificationtype(String id, String identificationType);
 }

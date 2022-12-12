@@ -20,12 +20,12 @@ public class ClientPhoneService {
         this.clientPhoneRepository = clientPhoneRepository;
     }
 
-    public List<ClientPhone> findByClient(String id, String type) {
+    public List<ClientPhone> findByIdentification(String identification, String identificationType) {
         try {
             List<ClientPhone> phonesByIdentificationClient = this.clientPhoneRepository
-                    .findByPkIdentificationAndPkIdentificationtype(id, type);
+                    .findByPkIdentificationAndPkIdentificationtype(identification, identificationType);
             if (phonesByIdentificationClient.isEmpty())
-                throw new RuntimeException("Phone of: " + id + " not found.");
+                throw new RuntimeException("Phone of: " + identification + " not found.");
             return phonesByIdentificationClient;
         } catch (Exception e) {
             throw new RuntimeException("Something went wrong");
@@ -52,44 +52,64 @@ public class ClientPhoneService {
     }
 
     @Transactional
-    public void updateById(ClientPhonePK pk, ClientPhone phone) {
-        Optional<ClientPhone> optional = this.clientPhoneRepository.findById(pk);
-        if (!optional.isPresent())
-            throw new RuntimeException("Phone of: " + pk.getIdentification() + " not found.");
+    public ClientPhone updateById(String identification, String identificationType, 
+                                String phone, ClientPhone clientPhone) throws Exception {
 
-        if (phone.getPk().getPhonenumber().length() > 16
-                || phone.getPk().getPhonenumber().length() <= 0)
-            throw new RuntimeException("The phone: " + phone.getPk().getPhonenumber() + " is too long.");
+        ClientPhonePK pk = new ClientPhonePK();
+        pk.setIdentification(identification);
+        pk.setIdentificationtype(identificationType.toUpperCase());
+        pk.setPhonenumber(phone);
+
+        Optional<ClientPhone> currentClientPhone = this.clientPhoneRepository.findById(pk);
 
         try {
-            if (!Validations.validateIdentificationByType(pk.getIdentification(),
-                    phone.getPk().getIdentificationtype()))
+            if (currentClientPhone.isPresent())
+                throw new RuntimeException("Phone of: " + identification + " not found.");
+
+            if (!clientPhone.getPk().getIdentification().equals(identification))
+                throw new RuntimeException("Identification searching isn't equal to : " + clientPhone.getPk().getIdentification());
+
+            if (clientPhone.getPk().getPhonenumber().length() > 16
+                    || clientPhone.getPk().getPhonenumber().length() <= 0)
+                throw new RuntimeException("The phone: " + clientPhone.getPk().getPhonenumber() + " is too long.");
+
+            if (!Validations.validateIdentificationByType(identification,
+                clientPhone.getPk().getIdentificationtype()))
                 throw new RuntimeException(
-                        "The identification:" + phone.getPk().getIdentification() + " is incorrect");
+                        "The identification:" + clientPhone.getPk().getIdentification() + " is incorrect");
         } catch (Exception e) {
             e.printStackTrace();
-            throw new RuntimeException(
-                    "The identification:" + phone.getPk().getIdentification() + " is incorrect");
         }
-        this.clientPhoneRepository.save(phone);
+
+        ClientPhone oldClientPhone = currentClientPhone.get();
+        this.clientPhoneRepository.delete(oldClientPhone);
+        return this.clientPhoneRepository.save(clientPhone);
+
     }
 
     @Transactional
-    public void deleteById(ClientPhonePK pk) {
-        Optional<ClientPhone> phone = this.clientPhoneRepository.findById(pk);
+    public void deleteById(String identification, String identificationType, 
+    String phone) throws Exception {
 
-        if (!phone.isPresent())
+    ClientPhonePK pk = new ClientPhonePK();
+    pk.setIdentification(identification);
+    pk.setIdentificationtype(identificationType.toUpperCase());
+    pk.setPhonenumber(phone);
+
+    Optional<ClientPhone> currentClientPhone = this.clientPhoneRepository.findById(pk);
+
+        if (!currentClientPhone.isPresent())
             throw new RuntimeException(
                     "Phone of: " + pk.getIdentification() + " not found.");
 
-        ClientPhone phoneClient = phone.get();
+        ClientPhone phoneClient = currentClientPhone.get();
         this.clientPhoneRepository.delete(phoneClient);
     }
 
     @Transactional
-    public void deletePhones(String id, String type) {
+    public void deletePhones(String identification, String identificationType) {
         try {
-            this.clientPhoneRepository.deleteByPkIdentificationAndPkIdentificationtype(id, type);
+            this.clientPhoneRepository.deleteByPkIdentificationAndPkIdentificationtype(identification, identificationType);
         } catch (Exception e) {
             throw new RuntimeException("Something went wrong");
         }
