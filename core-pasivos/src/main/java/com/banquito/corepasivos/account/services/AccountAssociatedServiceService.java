@@ -165,11 +165,33 @@ public class AccountAssociatedServiceService {
 		List<AccountAssociatedServiceResDto> listDto = new ArrayList<>();
 		AccountAssociatedServiceResDto serviceDto;
 
-		for(AccountAssociatedService service: accountAssociatedServiceList){
+		for (AccountAssociatedService service : accountAssociatedServiceList) {
 			serviceDto = AccountAssociatedServiceMapper.mapper(service);
 			listDto.add(serviceDto);
 		}
 
 		return listDto;
 	}
+
+	public List<AccountAssociatedServiceResDto> findByCodeLocalAccountAndCodeInternationalAccount(
+			String codeLocalAccount, String codeInternationalAccount) {
+		List<AccountAssociatedService> accountAssociatedServiceList = this.accountAssociatedServiceRepository
+				.findAllByCodeLocalAccountAndCodeInternationalAccount(codeLocalAccount, codeInternationalAccount);
+		List<AccountAssociatedServiceResDto> listDto = new ArrayList<>();
+		AccountAssociatedServiceResDto serviceDto;
+
+		for (AccountAssociatedService service : accountAssociatedServiceList) {
+			serviceDto = AccountAssociatedServiceMapper.mapper(service);
+			serviceDto.setCodeProduct(service.getCodeProduct());
+			serviceDto.setCodeProductType(service.getCodeProductType());
+			serviceDto.setCodeAssociatedService(service.getCodeAssociatedService());
+			serviceDto.setStatus(service.getStatus());
+			serviceDto.setStartDate(service.getStartDate());
+			serviceDto.setEndDate(service.getEndDate());
+			listDto.add(serviceDto);
+		}
+
+		return listDto;
+	}
+
 }
