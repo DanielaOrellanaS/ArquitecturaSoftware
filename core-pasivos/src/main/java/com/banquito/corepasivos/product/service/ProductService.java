@@ -24,13 +24,8 @@ public class ProductService {
         return this.productRepository.findAll();
     }
 
-    public List<Product> findByCodeProductType(String codeProductType) {
-        return this.productRepository.findByPkCodeProductType(codeProductType);
-    }
-
-    public Product findByCodeProduct(String codeProduct) {
-        List<Product> products = this.productRepository.findByPkCodeProduct(codeProduct);
-        return products.isEmpty() ? null : products.get(0);
+    public Optional<Product> findById(ProductPK pk) {
+        return this.productRepository.findById(pk);
     }
 
     public List<Product> findByNameContaining(String name) {
@@ -57,13 +52,23 @@ public class ProductService {
     }
 
     @Transactional
-    public void updateProduct(Product product) {
-        Optional<Product> productPk = this.productRepository.findById(product.getPk());
-        if (productPk.isEmpty())
+    public void updateProduct(ProductPK pk, Product product) {
+        Optional<Product> products = this.productRepository.findById(pk);
+        if (products.isEmpty())
             throw new RuntimeException("The code associated with the product was not found");
         else
             try {
-                this.productRepository.save(product);
+                Product productToUpdate = products.get();
+                productToUpdate.setName(product.getName());
+                productToUpdate.setStatus(product.getStatus());
+                productToUpdate.setStartDate(product.getStartDate());
+                productToUpdate.setEndDate(product.getEndDate());
+                productToUpdate.setTemporalityAccountState(product.getTemporalityAccountState());
+                productToUpdate.setUseCheckbook(product.getUseCheckbook());
+                productToUpdate.setAllowTransferences(product.getAllowTransferences());
+                productToUpdate.setTypeClient(product.getTypeClient());
+                productToUpdate.setMinOpeningBalance(product.getMinOpeningBalance());
+                this.productRepository.save(productToUpdate);
             } catch (Exception e) {
                 throw new RuntimeException("An error has occurred in the product update");
             }

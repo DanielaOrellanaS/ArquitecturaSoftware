@@ -9,11 +9,7 @@ import com.banquito.corepasivos.product.model.Product;
 import com.banquito.corepasivos.product.model.ProductPK;
 
 @Repository
-public interface ProductRepository extends JpaRepository<Product, ProductPK>{
-
-    List<Product> findByPkCodeProduct(String codeProduct);
-    
-    List<Product> findByPkCodeProductType(String codeProductType);
+public interface ProductRepository extends JpaRepository<Product, ProductPK> {
 
     List<Product> findByNameContaining(String name);
 
