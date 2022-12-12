@@ -60,74 +60,6 @@ public class AccountAssociatedServiceController {
 		}
 	}
 
-	@RequestMapping(value = "/local/{codeLocalAccount}", method = RequestMethod.GET)
-	public ResponseEntity<List<AccountAssociatedService>> findByCodeLocalAccount(
-			@PathVariable("codeLocalAccount") String codeLocalAccount) {
-
-		List<AccountAssociatedService> accountAssociatedService = this.service
-				.findByCodeLocalAccount(codeLocalAccount);
-		if (accountAssociatedService.isEmpty()) {
-			return ResponseEntity.notFound().build();
-		} else {
-			return ResponseEntity.ok(accountAssociatedService);
-		}
-
-	}
-
-	@RequestMapping(value = "/international/{codeInternationalAccount}", method = RequestMethod.GET)
-	public ResponseEntity<List<AccountAssociatedService>> findByCodeInternationalAccount(
-			@PathVariable("codeInternationalAccount") String codeInternationalAccount) {
-
-		List<AccountAssociatedService> accountAssociatedService = this.service
-				.findByCodeInternationalAccount(codeInternationalAccount);
-		if (accountAssociatedService.isEmpty()) {
-			return ResponseEntity.notFound().build();
-		} else {
-			return ResponseEntity.ok(accountAssociatedService);
-		}
-
-	}
-
-	@RequestMapping(value = "/code-product/{codeProduct}", method = RequestMethod.GET)
-	public ResponseEntity<List<AccountAssociatedService>> findByCodeProduct(
-			@PathVariable("codeProduct") String codeProduct) {
-
-		List<AccountAssociatedService> accountAssociatedService = this.service.findByCodeProduct(codeProduct);
-		if (accountAssociatedService.isEmpty()) {
-			return ResponseEntity.notFound().build();
-		} else {
-			return ResponseEntity.ok(accountAssociatedService);
-		}
-
-	}
-
-	@RequestMapping(value = "/code-product-type/{codeProductType}", method = RequestMethod.GET)
-	public ResponseEntity<List<AccountAssociatedService>> findByCodeProductType(
-			@PathVariable("codeProductType") String codeProductType) {
-
-		List<AccountAssociatedService> accountAssociatedService = this.service.findByCodeProductType(codeProductType);
-		if (accountAssociatedService.isEmpty()) {
-			return ResponseEntity.notFound().build();
-		} else {
-			return ResponseEntity.ok(accountAssociatedService);
-		}
-
-	}
-
-	@RequestMapping(value = "/code-associated-service/{codeAssociatedService}", method = RequestMethod.GET)
-	public ResponseEntity<List<AccountAssociatedService>> findByCodeAssociatedService(
-			@PathVariable("codeAssociatedService") String codeAssociatedService) {
-
-		List<AccountAssociatedService> accountAssociatedService = this.service
-				.findByCodeAssociatedService(codeAssociatedService);
-		if (accountAssociatedService.isEmpty()) {
-			return ResponseEntity.notFound().build();
-		} else {
-			return ResponseEntity.ok(accountAssociatedService);
-		}
-
-	}
-
 	@RequestMapping(value = "", method = RequestMethod.POST)
 	public ResponseEntity<String> createAccountAssociatedService(
 			@RequestBody AccountAssociatedService accountAssociatedService) {
@@ -150,13 +82,15 @@ public class AccountAssociatedServiceController {
 		}
 	}
 
-	@RequestMapping(value = "/local/{codeLocalAccount}", method = RequestMethod.DELETE)
-	public ResponseEntity<String> deleteAllByCodeLocalAccount(
-			@PathVariable("codeLocalAccount") String codeLocalAccount) {
+	@RequestMapping(value = "/local/{codeLocalAccount}/international/{codeInternationalAccount}", method = RequestMethod.DELETE)
+	public ResponseEntity<String> deleteAllByCodeLocalAccountAndCodeInternationalAccount(
+			@PathVariable("codeLocalAccount") String codeLocalAccount,
+			@PathVariable("codeInternationalAccount") String codeInternationalAccount) {
 
 		try {
-			this.service.deleteAllByCodeLocalAccount(codeLocalAccount);
-			return ResponseEntity.ok("All account associated services related to the local account were deleted ");
+			this.service.deleteAllByLocalInternationalCodeAccount(codeLocalAccount, codeInternationalAccount);
+			return ResponseEntity
+					.ok("Record deleted successfully");
 		} catch (Exception e) {
 			return ResponseEntity.internalServerError().body(e.getMessage());
 		}

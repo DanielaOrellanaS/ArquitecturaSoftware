@@ -26,65 +26,54 @@ public class AccountAssociatedServiceService {
 	}
 
 	@Transactional
-	public List<AccountAssociatedService> findByCodeLocalAccount(String codeLocalAccount) {
+	public List<AccountAssociatedServiceResDto> findByCodeLocalAccountAndCodeInternationalAccount(
+			String codeLocalAccount, String codeInternationalAccount) {
 		List<AccountAssociatedService> accountAssociatedServiceList = this.accountAssociatedServiceRepository
-				.findAllByCodeLocalAccount(codeLocalAccount);
-		if (accountAssociatedServiceList.isEmpty()) {
-			throw new RuntimeException("Account Associated Service not found");
-		} else {
-			return accountAssociatedServiceList;
+				.findAllByCodeLocalAccountAndCodeInternationalAccount(codeLocalAccount, codeInternationalAccount);
+		List<AccountAssociatedServiceResDto> listDto = new ArrayList<>();
+		AccountAssociatedServiceResDto serviceDto;
+
+		for (AccountAssociatedService service : accountAssociatedServiceList) {
+			serviceDto = AccountAssociatedServiceMapper.mapper(service);
+			serviceDto.setCodeProduct(service.getCodeProduct());
+			serviceDto.setCodeProductType(service.getCodeProductType());
+			serviceDto.setCodeAssociatedService(service.getCodeAssociatedService());
+			serviceDto.setStatus(service.getStatus());
+			serviceDto.setStartDate(service.getStartDate());
+			serviceDto.setEndDate(service.getEndDate());
+			listDto.add(serviceDto);
 		}
+
+		return listDto;
 	}
 
 	@Transactional
-	public List<AccountAssociatedService> findByCodeInternationalAccount(String codeInternationalAccount) {
+	public List<AccountAssociatedServiceResDto> findByCodeLocalAccountAndCodeInternationalAccountAndStatus(
+			String codeLocalAccount, String codeInternationalAccount, String status) {
 		List<AccountAssociatedService> accountAssociatedServiceList = this.accountAssociatedServiceRepository
-				.findAllByCodeInternationalAccount(codeInternationalAccount);
-		if (accountAssociatedServiceList.isEmpty()) {
-			throw new RuntimeException("Account Associated Service not found");
-		} else {
-			return accountAssociatedServiceList;
+				.findAllByCodeLocalAccountAndCodeInternationalAccountAndStatus(codeLocalAccount,
+						codeInternationalAccount,
+						status);
+		List<AccountAssociatedServiceResDto> listDto = new ArrayList<>();
+		AccountAssociatedServiceResDto serviceDto;
+
+		for (AccountAssociatedService service : accountAssociatedServiceList) {
+			serviceDto = AccountAssociatedServiceMapper.mapper(service);
+			serviceDto.setCodeProduct(service.getCodeProduct());
+			serviceDto.setCodeProductType(service.getCodeProductType());
+			serviceDto.setCodeAssociatedService(service.getCodeAssociatedService());
+			serviceDto.setStartDate(service.getStartDate());
+			serviceDto.setEndDate(service.getEndDate());
+			listDto.add(serviceDto);
 		}
+
+		return listDto;
 	}
 
 	@Transactional
-	public List<AccountAssociatedService> findByCodeProduct(String codeProduct) {
+	public void deleteAllByLocalInternationalCodeAccount(String codeLocalAccount, String codeInternationalAccount) {
 		List<AccountAssociatedService> accountAssociatedServiceList = this.accountAssociatedServiceRepository
-				.findAllByCodeProduct(codeProduct);
-		if (accountAssociatedServiceList.isEmpty()) {
-			throw new RuntimeException("Account Associated Service not found");
-		} else {
-			return accountAssociatedServiceList;
-		}
-	}
-
-	@Transactional
-	public List<AccountAssociatedService> findByCodeProductType(String codeProductType) {
-		List<AccountAssociatedService> accountAssociatedServiceList = this.accountAssociatedServiceRepository
-				.findAllByCodeProductType(codeProductType);
-		if (accountAssociatedServiceList.isEmpty()) {
-			throw new RuntimeException("Account Associated Service not found");
-		} else {
-			return accountAssociatedServiceList;
-		}
-	}
-
-	@Transactional
-	public List<AccountAssociatedService> findByCodeAssociatedService(String codeAssociatedService) {
-		List<AccountAssociatedService> accountAssociatedServiceList = this.accountAssociatedServiceRepository
-				.findAllByCodeAssociatedService(codeAssociatedService);
-		if (accountAssociatedServiceList.isEmpty()) {
-			throw new RuntimeException("Account Associated Service not found");
-		} else {
-			return accountAssociatedServiceList;
-		}
-	}
-
-	@Transactional
-	public void deleteAllByCodeLocalAccount(String codeLocalAccount) {
-		List<AccountAssociatedService> accountAssociatedServiceList = this.accountAssociatedServiceRepository
-				.findAllByCodeLocalAccount(codeLocalAccount);
-
+				.findAllByCodeLocalAccountAndCodeInternationalAccount(codeLocalAccount, codeInternationalAccount);
 		if (accountAssociatedServiceList.isEmpty()) {
 			throw new RuntimeException("Account Associated Service not found");
 		} else {
@@ -158,51 +147,6 @@ public class AccountAssociatedServiceService {
 		} catch (Exception e) {
 			throw new RuntimeException("Error updating Account Associated Service");
 		}
-	}
-
-	@Transactional
-	public List<AccountAssociatedServiceResDto> findByCodeLocalAccountAndCodeInternationalAccount(
-			String codeLocalAccount, String codeInternationalAccount) {
-		List<AccountAssociatedService> accountAssociatedServiceList = this.accountAssociatedServiceRepository
-				.findAllByCodeLocalAccountAndCodeInternationalAccount(codeLocalAccount, codeInternationalAccount);
-		List<AccountAssociatedServiceResDto> listDto = new ArrayList<>();
-		AccountAssociatedServiceResDto serviceDto;
-
-		for (AccountAssociatedService service : accountAssociatedServiceList) {
-			serviceDto = AccountAssociatedServiceMapper.mapper(service);
-			serviceDto.setCodeProduct(service.getCodeProduct());
-			serviceDto.setCodeProductType(service.getCodeProductType());
-			serviceDto.setCodeAssociatedService(service.getCodeAssociatedService());
-			serviceDto.setStatus(service.getStatus());
-			serviceDto.setStartDate(service.getStartDate());
-			serviceDto.setEndDate(service.getEndDate());
-			listDto.add(serviceDto);
-		}
-
-		return listDto;
-	}
-
-	@Transactional
-	public List<AccountAssociatedServiceResDto> findByCodeLocalAccountAndCodeInternationalAccountAndStatus(
-			String codeLocalAccount, String codeInternationalAccount, String status) {
-		List<AccountAssociatedService> accountAssociatedServiceList = this.accountAssociatedServiceRepository
-				.findAllByCodeLocalAccountAndCodeInternationalAccountAndStatus(codeLocalAccount,
-						codeInternationalAccount,
-						status);
-		List<AccountAssociatedServiceResDto> listDto = new ArrayList<>();
-		AccountAssociatedServiceResDto serviceDto;
-
-		for (AccountAssociatedService service : accountAssociatedServiceList) {
-			serviceDto = AccountAssociatedServiceMapper.mapper(service);
-			serviceDto.setCodeProduct(service.getCodeProduct());
-			serviceDto.setCodeProductType(service.getCodeProductType());
-			serviceDto.setCodeAssociatedService(service.getCodeAssociatedService());
-			serviceDto.setStartDate(service.getStartDate());
-			serviceDto.setEndDate(service.getEndDate());
-			listDto.add(serviceDto);
-		}
-
-		return listDto;
 	}
 
 }
