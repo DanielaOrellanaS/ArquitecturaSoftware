@@ -1,7 +1,6 @@
 package com.banquito.corepasivos.account.model;
 
 import com.banquito.corepasivos.product.model.AssociatedServiceParam;
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Data;
 import lombok.EqualsAndHashCode.Include;
 import lombok.NoArgsConstructor;
@@ -49,6 +48,9 @@ public class AccountAssociatedServiceParam implements Serializable {
 
 	@Column(name = "code_param", length = 16, nullable = false, insertable = false, updatable = false)
 	private String codeParam;
+
+	@Column(name = "code_associated_service", length = 16, nullable = false, insertable = false, updatable = false)
+	private String codeAssociatedService;
 
 	@ManyToOne
 	@JoinColumns({

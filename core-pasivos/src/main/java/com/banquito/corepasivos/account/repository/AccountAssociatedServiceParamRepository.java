@@ -18,4 +18,7 @@ public interface AccountAssociatedServiceParamRepository extends
 
 	List<AccountAssociatedServiceParam> findByCodeParam(String codeParam);
 
+	List<AccountAssociatedServiceParam> findByCodeLocalAccountAndCodeInternationalAccountAndCodeAssociatedService(
+			String codeLocalAccount, String codeInternationalAccount, String codeAssociatedService);
+
 }

@@ -1,5 +1,6 @@
 package com.banquito.corepasivos.account.controller;
 
+import com.banquito.corepasivos.account.dto.response.AccountAssociatedServiceParamResDto;
 import com.banquito.corepasivos.account.model.AccountAssociatedServiceParam;
 import com.banquito.corepasivos.account.services.AccountAssociatedServiceParamService;
 
@@ -22,16 +23,15 @@ public class AccountAssociatedServiceParamController {
 		this.service = service;
 	}
 
-	@RequestMapping("/all")
-	public Object findAll() {
-		return this.service.findAll();
-	}
+	@RequestMapping(value = "/local/{codeLocalAccount}/international/{codeInternationalAccount}/associated_service/{codeAssociatedService}", method = RequestMethod.GET)
+	public ResponseEntity<List<AccountAssociatedServiceParamResDto>> findByCodeLocalAccountAndCodeInternationalAccountAndCodeAssociatedService(
+			@PathVariable("codeLocalAccount") String codeLocalAccount,
+			@PathVariable("codeInternationalAccount") String codeInternationalAccount,
+			@PathVariable("codeAssociatedService") String codeAssociatedService) {
+		List<AccountAssociatedServiceParamResDto> accountAssociatedServiceParam = this.service
+				.findByCodeLocalAccountAndCodeInternationalAccountAndCodeAssociatedService(codeLocalAccount,
+						codeInternationalAccount, codeAssociatedService);
 
-	@RequestMapping(value = "/local/{codeLocalAccount}", method = RequestMethod.GET)
-	public ResponseEntity<List<AccountAssociatedServiceParam>> findByCodeLocalAccount(
-			@PathVariable("codeLocalAccount") String codeLocalAccount) {
-		List<AccountAssociatedServiceParam> accountAssociatedServiceParam = this.service
-				.findByCodeLocalAccount(codeLocalAccount);
 		if (accountAssociatedServiceParam.isEmpty()) {
 			return ResponseEntity.notFound().build();
 		} else {
