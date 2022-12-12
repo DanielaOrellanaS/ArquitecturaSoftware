@@ -22,11 +22,6 @@ public class AccountAssociatedServiceController {
 		this.service = service;
 	}
 
-	@RequestMapping("/all")
-	public Object findAll() {
-		return this.service.findAll();
-	}
-
 	@RequestMapping(value = "/local/{codeLocalAccount}/international/{codeInternationalAccount}", method = RequestMethod.GET)
 	public ResponseEntity<List<AccountAssociatedServiceResDto>> findByCodeLocalAccountAndCodeInternationalAccount(
 			@PathVariable("codeLocalAccount") String codeLocalAccount,
@@ -34,10 +29,14 @@ public class AccountAssociatedServiceController {
 
 		List<AccountAssociatedServiceResDto> accountAssociatedService = this.service
 				.findByCodeLocalAccountAndCodeInternationalAccount(codeLocalAccount, codeInternationalAccount);
-		if (accountAssociatedService.isEmpty()) {
+		try {
+			if (accountAssociatedService.isEmpty()) {
+				return ResponseEntity.notFound().build();
+			} else {
+				return ResponseEntity.ok(accountAssociatedService);
+			}
+		} catch (Exception e) {
 			return ResponseEntity.notFound().build();
-		} else {
-			return ResponseEntity.ok(accountAssociatedService);
 		}
 	}
 

@@ -160,19 +160,7 @@ public class AccountAssociatedServiceService {
 		}
 	}
 
-	public List<AccountAssociatedServiceResDto> findAll() {
-		List<AccountAssociatedService> accountAssociatedServiceList = this.accountAssociatedServiceRepository.findAll();
-		List<AccountAssociatedServiceResDto> listDto = new ArrayList<>();
-		AccountAssociatedServiceResDto serviceDto;
-
-		for (AccountAssociatedService service : accountAssociatedServiceList) {
-			serviceDto = AccountAssociatedServiceMapper.mapper(service);
-			listDto.add(serviceDto);
-		}
-
-		return listDto;
-	}
-
+	@Transactional
 	public List<AccountAssociatedServiceResDto> findByCodeLocalAccountAndCodeInternationalAccount(
 			String codeLocalAccount, String codeInternationalAccount) {
 		List<AccountAssociatedService> accountAssociatedServiceList = this.accountAssociatedServiceRepository
@@ -194,6 +182,7 @@ public class AccountAssociatedServiceService {
 		return listDto;
 	}
 
+	@Transactional
 	public List<AccountAssociatedServiceResDto> findByCodeLocalAccountAndCodeInternationalAccountAndStatus(
 			String codeLocalAccount, String codeInternationalAccount, String status) {
 		List<AccountAssociatedService> accountAssociatedServiceList = this.accountAssociatedServiceRepository
