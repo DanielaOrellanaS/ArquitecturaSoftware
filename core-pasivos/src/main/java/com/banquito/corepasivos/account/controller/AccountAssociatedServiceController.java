@@ -21,7 +21,7 @@ public class AccountAssociatedServiceController {
 		this.service = service;
 	}
 
-	@RequestMapping("/all")
+	@RequestMapping(value = "", method = RequestMethod.GET)
 	public Object findAll() {
 		return this.service.findAll();
 	}

@@ -35,6 +35,7 @@ public class AccountClientService {
         if (!clientRepository.existsByPkIdentification(accountClient.getPk().getIdentification()))
             throw new RuntimeException("Client identification entered does not exist.");
 
+
         this.accountClientRepository.save(accountClient);
     }
 

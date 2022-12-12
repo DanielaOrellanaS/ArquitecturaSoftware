@@ -1,5 +1,6 @@
 package com.banquito.corepasivos.account.controller;
 
+import com.banquito.corepasivos.account.dto.request.AccountClientReqDto;
 import com.banquito.corepasivos.account.model.AccountClient;
 import com.banquito.corepasivos.account.services.AccountClientService;
 

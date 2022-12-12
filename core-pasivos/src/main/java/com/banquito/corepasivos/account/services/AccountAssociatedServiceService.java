@@ -1,11 +1,14 @@
 package com.banquito.corepasivos.account.services;
 
+import com.banquito.corepasivos.account.dto.response.AccountAssociatedServiceResDto;
+import com.banquito.corepasivos.account.mapper.AccountAssociatedServiceMapper;
 import com.banquito.corepasivos.account.model.AccountAssociatedService;
 import com.banquito.corepasivos.account.repository.AccountAssociatedServiceRepository;
 import com.banquito.corepasivos.account.repository.AccountRepository;
 
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -157,11 +160,16 @@ public class AccountAssociatedServiceService {
 		}
 	}
 
-	public List<AccountAssociatedService> findAll() {
+	public List<AccountAssociatedServiceResDto> findAll() {
 		List<AccountAssociatedService> accountAssociatedServiceList = this.accountAssociatedServiceRepository.findAll();
-		if (accountAssociatedServiceList.isEmpty()) {
-			throw new RuntimeException("Account Associated Service not found");
+		List<AccountAssociatedServiceResDto> listDto = new ArrayList<>();
+		AccountAssociatedServiceResDto serviceDto;
+
+		for(AccountAssociatedService service: accountAssociatedServiceList){
+			serviceDto = AccountAssociatedServiceMapper.mapper(service);
+			listDto.add(serviceDto);
 		}
-		return accountAssociatedServiceList;
+
+		return listDto;
 	}
 }
