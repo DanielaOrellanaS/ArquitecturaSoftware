@@ -1,6 +1,7 @@
 package com.banquito.corepasivos.product.service;
 
 import java.io.Console;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -67,7 +68,17 @@ public class ProductTypeService {
     }
 
     public List<ProductType> findByNameContaining(String name) {
-        return this.productTypeRepository.findByNameContaining(name);
+        // name in lowercase
+       final String nameFind = name.toLowerCase();
+        List<ProductType> productTypes = new ArrayList<ProductType>();
+        this.findAllProductTypes().forEach(productType -> {
+
+            String productName = productType.getName().toLowerCase();
+            if (productName.contains(nameFind)) {
+                productTypes.add(productType);
+            }
+        });
+        return productTypes;
     }
 
     @Transactional

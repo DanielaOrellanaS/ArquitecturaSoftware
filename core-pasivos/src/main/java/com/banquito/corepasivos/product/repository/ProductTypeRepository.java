@@ -22,4 +22,9 @@ public interface ProductTypeRepository extends JpaRepository<ProductType, String
     // find by name
     List<ProductType> findByName(String name);
 
+    // find by type]
+    List<ProductType> findByType(String type);
+
+
+
 }
