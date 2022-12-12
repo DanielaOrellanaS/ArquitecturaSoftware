@@ -6,7 +6,6 @@ import java.util.Date;
 import javax.persistence.*;
 
 import com.banquito.corepasivos.client.model.Client;
-import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;

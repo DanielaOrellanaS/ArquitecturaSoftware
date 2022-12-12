@@ -1,6 +1,13 @@
 package com.banquito.corepasivos.account.services;
 
+import com.banquito.corepasivos.account.dto.response.AccountSignatureAccountDatesDto;
+import com.banquito.corepasivos.account.dto.response.AccountSignatureAccountIdentificationDto;
+import com.banquito.corepasivos.account.dto.response.AccountSignatureAccountStatusDto;
+import com.banquito.corepasivos.account.dto.response.AccountSignatureIdentificationDatesDto;
+import com.banquito.corepasivos.account.dto.response.AccountSignatureIdentificationStatusDto;
+import com.banquito.corepasivos.account.mapper.AccountSignatureMapper;
 import com.banquito.corepasivos.account.model.AccountSignature;
+import com.banquito.corepasivos.account.model.AccountSignaturePK;
 import com.banquito.corepasivos.account.repository.AccountRepository;
 import com.banquito.corepasivos.account.repository.AccountSignatureRepository;
 import com.banquito.corepasivos.client.repository.ClientRepository;
@@ -20,15 +27,111 @@ public class AccountSignatureService {
     private final ClientRepository clientRepository;
 
     public AccountSignatureService(AccountSignatureRepository accountSignatureRepository,
-                                   AccountRepository accountRepository,
-                                   ClientRepository clientRepository) {
+            AccountRepository accountRepository,
+            ClientRepository clientRepository) {
         this.accountSignatureRepository = accountSignatureRepository;
         this.accountRepository = accountRepository;
         this.clientRepository = clientRepository;
     }
 
-    public List<AccountSignature> findAll() {
-        return this.accountSignatureRepository.findAll();
+    public List<AccountSignatureAccountIdentificationDto> findByPk(String local, String international,
+            String identificationType, String identification) {
+        AccountSignaturePK accountSignaturePK = new AccountSignaturePK(local, international, identificationType,
+                identification);
+        List<AccountSignature> accountSignatures = this.accountSignatureRepository.findByPk(accountSignaturePK);
+        List<AccountSignatureAccountIdentificationDto> accountIdentificationDtos = new ArrayList<>();
+        AccountSignatureAccountIdentificationDto objDto;
+
+        if (!accountSignatures.isEmpty()) {
+            for (AccountSignature accountSignature : accountSignatures) {
+                objDto = AccountSignatureMapper.responsePK(accountSignature);
+                accountIdentificationDtos.add(objDto);
+            }
+        } else {
+            throw new RuntimeException("Error while requesting information");
+        }
+
+        return accountIdentificationDtos;
+    }
+
+    public List<AccountSignatureIdentificationDatesDto> findByAccountDates(String local, String international,
+            Date startDate, Date endDate) {
+        List<AccountSignature> accountSignatures = this.accountSignatureRepository.findByStartDateBetween(startDate,
+                endDate);
+        List<AccountSignatureIdentificationDatesDto> accountSignatureDatesDtos = new ArrayList<>();
+        AccountSignatureIdentificationDatesDto objDto;
+
+        for (AccountSignature accountSignature : accountSignatures) {
+            if (accountSignature.getPk().getCodelocalaccount().equals(local)
+                    && accountSignature.getPk().getCodeinternationalaccount().equals(international)) {
+                objDto = AccountSignatureMapper.responseIdentificationDate(accountSignature);
+                accountSignatureDatesDtos.add(objDto);
+            }
+        }
+        if (accountSignatureDatesDtos.isEmpty()) {
+            throw new RuntimeException("Error while requesting information");
+        } else {
+            return accountSignatureDatesDtos;
+        }
+    }
+
+    public List<AccountSignatureAccountDatesDto> findByIdentificationDates(String identification,
+            String identificationType, Date startDate, Date endDate) {
+        List<AccountSignature> accountSignatures = this.accountSignatureRepository.findByStartDateBetween(startDate,
+                endDate);
+        List<AccountSignatureAccountDatesDto> accountSignatureDatesDtos = new ArrayList<>();
+        AccountSignatureAccountDatesDto objDto;
+
+        for (AccountSignature accountSignature : accountSignatures) {
+            if (accountSignature.getPk().getIdentification().equals(identification)
+                    && accountSignature.getPk().getIdentificationtype().equals(identificationType)) {
+                objDto = AccountSignatureMapper.responseAccountDates(accountSignature);
+                accountSignatureDatesDtos.add(objDto);
+            }
+        }
+        if (accountSignatureDatesDtos.isEmpty()) {
+            throw new RuntimeException("Error while requesting information");
+        } else {
+            return accountSignatureDatesDtos;
+        }
+    }
+
+    public List<AccountSignatureAccountStatusDto> findByIdentificationStatus(String identification,
+            String identificationType, String status) {
+        List<AccountSignature> accountSignatures = findByIdentification(identificationType);
+        List<AccountSignatureAccountStatusDto> accountSignatureDatesDtos = new ArrayList<>();
+        AccountSignatureAccountStatusDto objDto;
+
+        for (AccountSignature accountSignature : accountSignatures) {
+            if (accountSignature.getStatus().equals(status)) {
+                objDto = AccountSignatureMapper.responseAccountStatus(accountSignature);
+                accountSignatureDatesDtos.add(objDto);
+            }
+        }
+        if (accountSignatureDatesDtos.isEmpty()) {
+            throw new RuntimeException("Error while requesting information");
+        } else {
+            return accountSignatureDatesDtos;
+        }
+    }
+
+    public List<AccountSignatureIdentificationStatusDto> findByAccountStatus(String local, String international,
+            String status) {
+        List<AccountSignature> accountSignatures = findByCodeLocalAccount(local);
+        List<AccountSignatureIdentificationStatusDto> accountSignatureDatesDtos = new ArrayList<>();
+        AccountSignatureIdentificationStatusDto objDto;
+
+        for (AccountSignature accountSignature : accountSignatures) {
+            if (accountSignature.getStatus().equals(status)) {
+                objDto = AccountSignatureMapper.responseIdentificationStatus(accountSignature);
+                accountSignatureDatesDtos.add(objDto);
+            }
+        }
+        if (accountSignatureDatesDtos.isEmpty()) {
+            throw new RuntimeException("Error while requesting information");
+        } else {
+            return accountSignatureDatesDtos;
+        }
     }
 
     public List<AccountSignature> findByCodeLocalAccount(String code) {
@@ -67,64 +170,20 @@ public class AccountSignatureService {
         }
     }
 
-    public List<AccountSignature> findByRole(String account, String identification, String role) {
-        List<AccountSignature> accountSignatures = findByCodeLocalAccount(account);
-        List<AccountSignature> accountSignaturesAux = new ArrayList<>();
-        for (AccountSignature accountSignature : accountSignatures) {
-            if (accountSignature.getPk().getIdentification().equals(identification) && accountSignature.getRole().equals(role)) {
-                accountSignaturesAux.add(accountSignature);
-            }
-        }
-        if (accountSignaturesAux.isEmpty()) {
-            throw new RuntimeException("This account does not have the entry role");
-        }
-        return accountSignaturesAux;
-    }
-
-    public List<AccountSignature> findByStatus(String account, String identification, String status) {
-        List<AccountSignature> accountSignatures = findByCodeLocalAccount(account);
-        List<AccountSignature> accountSignaturesAux = new ArrayList<>();
-        for (AccountSignature accountSignature : accountSignatures) {
-            if (accountSignature.getPk().getIdentification().equals(identification) && accountSignature.getStatus().equals(status)) {
-                accountSignaturesAux.add(accountSignature);
-            }
-        }
-        if (accountSignaturesAux.isEmpty()) {
-            throw new RuntimeException("This account does not have the entry status");
-        }else{
-            return accountSignaturesAux;
-        }
-    }
-
-    public List <AccountSignature> findByDates(String account, Date startDate, Date endDate){
-        List <AccountSignature> accountSignatures = this.accountSignatureRepository.findByStartDateBetween(startDate, endDate);
-        List<AccountSignature> accountSignaturesAux = new ArrayList<>();
-        for (AccountSignature accountSignature : accountSignatures) {
-            if(accountSignature.getPk().getCodelocalaccount().equals(account)){
-                accountSignaturesAux.add(accountSignature);
-            }
-        }
-        if (accountSignaturesAux.isEmpty()) {
-            throw new RuntimeException("This account has no records between the dates entered.");
-        }else{
-            return accountSignaturesAux;
-       }
-    }
-
     @Transactional
-    public void updateByCodeLocalAccount(String account, AccountSignature accountDetails){
+    public void updateByCodeLocalAccount(String account, AccountSignature accountDetails) {
         List<AccountSignature> accountSignatures = this.accountSignatureRepository.findByPkCodelocalaccount(account);
         if (accountSignatures.isEmpty())
             throw new RuntimeException("Account with code-local-account: " + account + " not found.");
-        
-            AccountSignature accountSignature = accountSignatures.get(0);
-            accountSignature.setSignatureReference(accountDetails.getSignatureReference());
-            accountSignature.setRole(accountDetails.getRole());
-            accountSignature.setStatus(accountDetails.getStatus());
-            accountSignature.setCreateDate(accountDetails.getCreateDate());
-            accountSignature.setEndDate(accountDetails.getEndDate());
-        
-            this.accountSignatureRepository.save(accountSignature);
+
+        AccountSignature accountSignature = accountSignatures.get(0);
+        accountSignature.setSignatureReference(accountDetails.getSignatureReference());
+        accountSignature.setRole(accountDetails.getRole());
+        accountSignature.setStatus(accountDetails.getStatus());
+        accountSignature.setCreateDate(accountDetails.getCreateDate());
+        accountSignature.setEndDate(accountDetails.getEndDate());
+
+        this.accountSignatureRepository.save(accountSignature);
     }
 
     @Transactional
