@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.banquito.corepasivos.client.model.ClientRelationship;
 import com.banquito.corepasivos.client.repository.ClientRelationshipRepository;
+import com.banquito.corepasivos.utils.Validations;
 
 @Service
 public class ClientRelationshipService {
@@ -34,13 +35,16 @@ public class ClientRelationshipService {
     @Transactional
     public void createClientRelationship(ClientRelationship clientRelationship) {
         try {
-            if (this.clientRelationshipRepository.existsById(clientRelationship.getCodeRelationship())) {
-                throw new RuntimeException("There is already a relationship created with these parameters.");
-            }
-            this.clientRelationshipRepository.save(clientRelationship);
+            if (!Validations.validateIdentificationByType(clientRelationship.getIdentification(),
+                    clientRelationship.getIdentificationtype()))
+                throw new RuntimeException(
+                        "The identification:" + clientRelationship.getIdentification() + " is incorrect");
         } catch (Exception e) {
-            throw new RuntimeException("Something went wrong");
+            e.printStackTrace();
+            throw new RuntimeException(
+                    "The identification:" + clientRelationship.getIdentification() + " is incorrect");
         }
+        this.clientRelationshipRepository.save(clientRelationship);
     }
 
     @Transactional

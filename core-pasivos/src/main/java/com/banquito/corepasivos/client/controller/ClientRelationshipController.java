@@ -49,9 +49,9 @@ public class ClientRelationshipController {
         DTO<ClientRelationship> response = new DTO<>();
         try {
             this.clientRelationshipService.createClientRelationship(clientRelationship);
-            response.setStatus(HttpStatus.CREATED.value());
+            response.setStatus(HttpStatus.OK.value());
             response.setMessage("Data successfully created");
-            return ResponseEntity.status(HttpStatus.CREATED).body(response);
+            return ResponseEntity.status(HttpStatus.OK).body(response);
         } catch (Exception e) {
             response.setStatus(HttpStatus.BAD_REQUEST.value());
             response.setMessage(e.getMessage());
@@ -59,9 +59,9 @@ public class ClientRelationshipController {
         }
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+    @RequestMapping(value = "/{codeRelationship}", method = RequestMethod.PUT)
     public ResponseEntity<DTO<ClientRelationship>> updateClientRelationship(
-            @PathVariable("id") Integer id,
+            @PathVariable("codeRelationship") Integer id,
             @RequestBody ClientRelationship clientRelationship) {
         DTO<ClientRelationship> response = new DTO<>();
         try {
