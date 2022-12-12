@@ -47,8 +47,8 @@ public class BranchService {
     }
 
     @Transactional
-    public void update(Branch branch) {
-        Optional<Branch> optional = this.branchRepository.findById(branch.getPk());
+    public void update(Branch branch, BranchPK pk) {
+        Optional<Branch> optional = this.branchRepository.findById(pk);
         if (optional.isPresent()) {
             this.branchRepository.save(branch);
         } else {
@@ -57,10 +57,10 @@ public class BranchService {
     }
 
     @Transactional
-    public void delete(Branch branch) {
-        Optional<Branch> optional = this.branchRepository.findById(branch.getPk());
+    public void delete(BranchPK branch) {
+        Optional<Branch> optional = this.branchRepository.findById(branch);
         if (optional.isPresent()) {
-            this.branchRepository.delete(branch);
+            this.branchRepository.delete(optional.get());
         } else {
             throw new RuntimeException("Not found");
         }

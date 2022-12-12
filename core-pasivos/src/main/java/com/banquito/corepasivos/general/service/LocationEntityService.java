@@ -39,6 +39,15 @@ public class LocationEntityService {
         }
     }
 
+    public List<LocationEntity> findByCountry(String country) {
+        List<LocationEntity> locationEntities = this.locationEntityRepository.findByName(country);
+        if(locationEntities.isEmpty()){
+            return this.locationEntityRepository.findByName(country);
+        } else {
+            throw new RuntimeException("Location does not exist");
+        }
+    }
+
     @Transactional
     public void create(LocationEntity locationEntity) {
         Optional<LocationEntity> locationEntities = this.locationEntityRepository

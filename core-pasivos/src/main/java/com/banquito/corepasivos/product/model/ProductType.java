@@ -33,10 +33,6 @@ public class ProductType {
     @Column(name = "temporality_interest", length = 3, nullable = true)
     private String temporalityInterest;
 
-<<<<<<< HEAD
-=======
-
->>>>>>> Product
     public ProductType(String codeProductType) {
         this.codeProductType = codeProductType;
     }

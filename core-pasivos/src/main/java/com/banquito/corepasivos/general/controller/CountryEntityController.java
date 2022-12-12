@@ -43,22 +43,17 @@ public class CountryEntityController {
         }
     }
 
-    @RequestMapping(value = "", method = RequestMethod.PUT)
+    @RequestMapping(value = "/{codecountry}", method = RequestMethod.PUT)
 
-    public ResponseEntity<String> updateCountryEntity(@RequestBody CountryEntity countryEntity) {
+    public ResponseEntity<String> updateCountryEntity(
+        @PathVariable("codecountry") String codeCountry,
+        @RequestBody CountryEntity countryEntity) {
+            CountryEntity pk = new CountryEntity(); 
+            pk.setCodeCountry(codeCountry);
+
         try {
-            this.countryEntityService.update(countryEntity);
+            this.countryEntityService.update(countryEntity, codeCountry);
             return ResponseEntity.ok("Country Entity updated successfully");
-        } catch (Exception e) {
-            return ResponseEntity.internalServerError().body(e.getMessage());
-        }
-    }
-
-    @RequestMapping(value = "", method = RequestMethod.DELETE)
-    public ResponseEntity<String> deleteCountryEntity(@RequestBody CountryEntity countryEntity) {
-        try {
-            this.countryEntityService.delete(countryEntity);
-            return ResponseEntity.ok("Country Entity delete successfully");
         } catch (Exception e) {
             return ResponseEntity.internalServerError().body(e.getMessage());
         }

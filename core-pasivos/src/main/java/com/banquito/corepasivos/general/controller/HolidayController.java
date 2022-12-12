@@ -52,7 +52,7 @@ public class HolidayController {
         }
     }
 
-    @RequestMapping(value = "/", method = RequestMethod.PUT)
+    /* @RequestMapping(value = "/", method = RequestMethod.PUT)
     public ResponseEntity<String> updateHoliday(@RequestBody Holiday holiday) {
         try {
             this.holidayService.update(holiday);
@@ -60,9 +60,21 @@ public class HolidayController {
         } catch (Exception e) {
             return ResponseEntity.internalServerError().body(e.getMessage());
         }
+    } */
+
+    @RequestMapping(value = "/{date}", method = RequestMethod.PUT)
+    public ResponseEntity<String> updateHolidayByDate(
+        @PathVariable("date") String dateHoliday,
+        @RequestBody Holiday holiday) {
+        try {
+            this.holidayService.updateByDate(dateHoliday, holiday);
+            return ResponseEntity.ok("Holiday update successfully");
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().body(e.getMessage());
+        }
     }
 
-    @RequestMapping(value = "", method = RequestMethod.DELETE)
+    /* @RequestMapping(value = "", method = RequestMethod.DELETE)
     public ResponseEntity<String> deleteHoliday(@RequestBody Holiday holiday) {
         try {
             this.holidayService.delete(holiday);
@@ -70,7 +82,7 @@ public class HolidayController {
         } catch (Exception e) {
             return ResponseEntity.internalServerError().body(e.getMessage());
         }
-    }
+    } */
 
     @RequestMapping(value = "/{date}", method = RequestMethod.DELETE)
     public ResponseEntity<String> deleteHolidayByDate(@PathVariable("date") String dateHoliday) {

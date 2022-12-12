@@ -31,7 +31,7 @@ public class BranchController {
     }
 
     @RequestMapping(value = "/{branch}/{bank}/{bankInternational}", method = RequestMethod.GET)
-    public ResponseEntity<Optional<Branch>> findBranchById(
+    public ResponseEntity<Optional<Branch>> findBranchBankById(
             @PathVariable("branch") String branch,
             @PathVariable("bank") String bank,
             @PathVariable("bankInternational") String bankInternational) {
@@ -41,15 +41,6 @@ public class BranchController {
         pk.setInternationalBankCode(bankInternational);
         return ResponseEntity.ok(this.branchService.findByComposePK(pk));
     }
-    /*
-     * @RequestMapping(value = "/{name}", method = RequestMethod.GET)
-     * public ResponseEntity<List<Branch>> findBranchByName(
-     * 
-     * @PathVariable("name") String name) {
-     * List<Branch> branches = this.branchService.findByName(name);
-     * return ResponseEntity.ok(branches);
-     * }
-     */
 
     @RequestMapping(value = "/namelike")
     public ResponseEntity<List<Branch>> findBranchByName(
@@ -68,20 +59,35 @@ public class BranchController {
         }
     }
 
-    @RequestMapping(value = "", method = RequestMethod.PUT)
-    public ResponseEntity<String> updateBranch(@RequestBody Branch branch) {
+    @RequestMapping(value = "/{branch}/{bank}/{bankInternational}", method = RequestMethod.PUT)
+    public ResponseEntity<String> updateBranch(
+            @PathVariable("branch") String branchCode,
+            @PathVariable("bank") String bank,
+            @PathVariable("bankInternational") String bankInternational,
+            @RequestBody Branch branch) {
+        BranchPK pk = new BranchPK();
+        pk.setCodebranch(branchCode);
+        pk.setEntityBankCode(bank);
+        pk.setInternationalBankCode(bankInternational);
         try {
-            this.branchService.update(branch);
+            this.branchService.update(branch, pk);
             return ResponseEntity.ok("Branch updated successfully");
         } catch (Exception e) {
             return ResponseEntity.internalServerError().body(e.getMessage());
         }
     }
 
-    @RequestMapping(value = "", method = RequestMethod.DELETE)
-    public ResponseEntity<String> deleteBranch(@RequestBody Branch branch) {
+    @RequestMapping(value = "/{branch}/{bank}/{bankInternational}", method = RequestMethod.DELETE)
+    public ResponseEntity<String> deleteBranch(
+            @PathVariable("branch") String branchCode,
+            @PathVariable("bank") String bank,
+            @PathVariable("bankInternational") String bankInternational) {
+        BranchPK pk = new BranchPK();
+        pk.setCodebranch(branchCode);
+        pk.setEntityBankCode(bank);
+        pk.setInternationalBankCode(bankInternational);
         try {
-            this.branchService.delete(branch);
+            this.branchService.delete(pk);
             return ResponseEntity.ok("Branch delete successfully");
         } catch (Exception e) {
             return ResponseEntity.internalServerError().body(e.getMessage());
