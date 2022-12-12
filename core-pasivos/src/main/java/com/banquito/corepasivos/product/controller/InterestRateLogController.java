@@ -22,13 +22,7 @@ public class InterestRateLogController {
         this.interestRateLogService = interestRateLogService;
     }
 
-    @RequestMapping(value = "/all", method = RequestMethod.GET)
-    public ResponseEntity<List<InterestRateLog>> findAllInterestRateLog() {
-        List<InterestRateLog> interestRateLog = this.interestRateLogService
-                .findAllInterestRatesLog();
-        return interestRateLog.isEmpty() ? ResponseEntity.noContent().build()
-                : ResponseEntity.ok(interestRateLog);
-    }
+    
 
     @RequestMapping(value = "/codelog/{codeInterestRateLog}", method = RequestMethod.GET)
     public ResponseEntity<List<InterestRateLog>> findByCodeInterestRateLog(

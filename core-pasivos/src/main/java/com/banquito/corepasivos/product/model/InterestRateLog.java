@@ -6,8 +6,7 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -41,10 +40,6 @@ public class InterestRateLog {
 
     @Column(name = "status", length = 3, nullable = false)
     private String status;
-
-    @ManyToOne
-    @JoinColumn(name = "code_interest_rate", referencedColumnName = "code_interest_rate", insertable = false, updatable = false, nullable = true)
-    private InterestRate interestRate;
 
     public InterestRateLog(String codeInteresLog) {
         this.codeInterestLog = codeInteresLog;
