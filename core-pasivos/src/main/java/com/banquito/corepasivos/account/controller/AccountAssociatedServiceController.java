@@ -65,9 +65,9 @@ public class AccountAssociatedServiceController {
 			@RequestBody AccountAssociatedService accountAssociatedService) {
 		try {
 			this.service.save(accountAssociatedService);
-			return ResponseEntity.ok("Account associated service created successfully");
+			return ResponseEntity.ok("Record created successfully");
 		} catch (Exception e) {
-			return ResponseEntity.internalServerError().body(e.getMessage());
+			return ResponseEntity.internalServerError().body("Error while creating record");
 		}
 	}
 
@@ -76,7 +76,7 @@ public class AccountAssociatedServiceController {
 			@RequestBody AccountAssociatedService accountAssociatedService) {
 		try {
 			this.service.update(accountAssociatedService);
-			return ResponseEntity.ok("Account associated service updated successfully");
+			return ResponseEntity.ok("Record updated successfully");
 		} catch (Exception e) {
 			return ResponseEntity.internalServerError().body(e.getMessage());
 		}
@@ -92,47 +92,24 @@ public class AccountAssociatedServiceController {
 			return ResponseEntity
 					.ok("Record deleted successfully");
 		} catch (Exception e) {
-			return ResponseEntity.internalServerError().body(e.getMessage());
+			return ResponseEntity.internalServerError().body("Error while deleting record");
 		}
 	}
 
-	@RequestMapping(value = "/international/{codeInternationalAccount}", method = RequestMethod.DELETE)
-	public ResponseEntity<String> deleteAllByCodeInternationalAccount(
-			@PathVariable("codeInternationalAccount") String codeInternationalAccount) {
-
-		try {
-			this.service.deleteAllByCodeInternationalAccount(codeInternationalAccount);
-			return ResponseEntity
-					.ok("All account associated services related to the international account were deleted ");
-		} catch (Exception e) {
-			return ResponseEntity.internalServerError().body(e.getMessage());
-		}
-	}
-
-	@RequestMapping(value = "/code-associated-service/{codeAssociatedService}", method = RequestMethod.DELETE)
-	public ResponseEntity<String> deleteAllByCodeAssociatedService(
+	@RequestMapping(value = "/local/{codeLocalAccount}/international/{codeInternationalAccount}/associated-service/{codeAssociatedService}", method = RequestMethod.DELETE)
+	public ResponseEntity<String> deleteByCodeLocalAccountAndCodeInternationalAccountAndCodeAssociatedService(
+			@PathVariable("codeLocalAccount") String codeLocalAccount,
+			@PathVariable("codeInternationalAccount") String codeInternationalAccount,
 			@PathVariable("codeAssociatedService") String codeAssociatedService) {
 
 		try {
-			this.service.deleteAllByCodeAssociatedService(codeAssociatedService);
-			return ResponseEntity.ok("All account associated services related to the associated service were deleted ");
-		} catch (Exception e) {
-			return ResponseEntity.internalServerError().body(e.getMessage());
-		}
-	}
-
-	@RequestMapping(value = "/code-associated-service/{codeAssociatedService}/{codeLocalAccount}", method = RequestMethod.DELETE)
-	public ResponseEntity<String> deleteByCodeAssociatedServiceAndCodeLocalAccount(
-			@PathVariable("codeAssociatedService") String codeAssociatedService,
-			@PathVariable("codeLocalAccount") String codeLocalAccount) {
-
-		try {
-			this.service.deleteByCodeAssociatedService(codeAssociatedService, codeLocalAccount);
+			this.service.deleteByLocalInternationalCodeAccountAndCodeAssociatedService(codeLocalAccount,
+					codeInternationalAccount, codeAssociatedService);
 			return ResponseEntity
-					.ok("Account associated service by code associated service and code local account deleted");
+					.ok("Record deleted successfully");
 		} catch (Exception e) {
-			return ResponseEntity.internalServerError().body(e.getMessage());
+			return ResponseEntity.internalServerError().body("Error while deleting record");
 		}
-	}
 
+	}
 }

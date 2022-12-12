@@ -85,38 +85,11 @@ public class AccountAssociatedServiceService {
 	}
 
 	@Transactional
-	public void deleteAllByCodeInternationalAccount(String codeInternationalAccount) {
-		List<AccountAssociatedService> accountAssociatedServiceList = this.accountAssociatedServiceRepository
-				.findAllByCodeInternationalAccount(codeInternationalAccount);
-		if (accountAssociatedServiceList.isEmpty()) {
-			throw new RuntimeException("Account Associated Service not found");
-		} else {
-			for (AccountAssociatedService accountToUpdate : accountAssociatedServiceList) {
-				accountToUpdate.setStatus("INA");
-				this.accountAssociatedServiceRepository.save(accountToUpdate);
-			}
-		}
-	}
-
-	@Transactional
-	public void deleteAllByCodeAssociatedService(String codeAssociatedService) {
-		List<AccountAssociatedService> accountAssociatedServiceList = this.accountAssociatedServiceRepository
-				.findAllByCodeAssociatedService(codeAssociatedService);
-		if (accountAssociatedServiceList.isEmpty()) {
-			throw new RuntimeException("Account Associated Service not found");
-		} else {
-			for (AccountAssociatedService accountToUpdate : accountAssociatedServiceList) {
-				accountToUpdate.setStatus("INA");
-				this.accountAssociatedServiceRepository.save(accountToUpdate);
-			}
-		}
-	}
-
-	@Transactional
-	public void deleteByCodeAssociatedService(String codeAssociatedService, String codeLocalAccount) {
+	public void deleteByLocalInternationalCodeAccountAndCodeAssociatedService(String codeLocalAccount,
+			String codeInternationalAccount, String codeAssociatedService) {
 		AccountAssociatedService accountAssociatedService = this.accountAssociatedServiceRepository
-				.findByCodeAssociatedServiceAndCodeLocalAccount(codeAssociatedService, codeLocalAccount);
-
+				.findByCodeLocalAccountAndCodeInternationalAccountAndCodeAssociatedService(codeLocalAccount,
+						codeInternationalAccount, codeAssociatedService);
 		if (accountAssociatedService == null) {
 			throw new RuntimeException("Account Associated Service not found");
 		} else {
