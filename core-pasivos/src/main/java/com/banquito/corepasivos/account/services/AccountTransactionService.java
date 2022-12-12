@@ -12,7 +12,6 @@ import com.banquito.corepasivos.account.repository.AccountRepository;
 import com.banquito.corepasivos.account.repository.AccountTransactionRepository;
 import org.springframework.stereotype.Service;
 
-import java.io.Serial;
 import java.math.BigDecimal;
 import java.math.MathContext;
 import java.util.ArrayList;
