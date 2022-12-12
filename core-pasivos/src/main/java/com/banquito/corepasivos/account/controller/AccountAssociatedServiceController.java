@@ -39,7 +39,26 @@ public class AccountAssociatedServiceController {
 		} else {
 			return ResponseEntity.ok(accountAssociatedService);
 		}
+	}
 
+	@RequestMapping(value = "/local/{codeLocalAccount}/international/{codeInternationalAccount}/status/{status}", method = RequestMethod.GET)
+	public ResponseEntity<List<AccountAssociatedServiceResDto>> findByCodeLocalAccountAndCodeInternationalAccountAndStatus(
+			@PathVariable("codeLocalAccount") String codeLocalAccount,
+			@PathVariable("codeInternationalAccount") String codeInternationalAccount,
+			@PathVariable("status") String status) {
+
+		List<AccountAssociatedServiceResDto> accountAssociatedService = this.service
+				.findByCodeLocalAccountAndCodeInternationalAccountAndStatus(codeLocalAccount, codeInternationalAccount,
+						status);
+		try {
+			if (accountAssociatedService.isEmpty()) {
+				return ResponseEntity.notFound().build();
+			} else {
+				return ResponseEntity.ok(accountAssociatedService);
+			}
+		} catch (Exception e) {
+			return ResponseEntity.notFound().build();
+		}
 	}
 
 	@RequestMapping(value = "/local/{codeLocalAccount}", method = RequestMethod.GET)

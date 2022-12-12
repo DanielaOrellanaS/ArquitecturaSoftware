@@ -27,4 +27,8 @@ public interface AccountAssociatedServiceRepository
 
 	List<AccountAssociatedService> findAllByCodeLocalAccountAndCodeInternationalAccount(String codeLocalAccount,
 			String codeInternationalAccount);
+
+	List<AccountAssociatedService> findAllByCodeLocalAccountAndCodeInternationalAccountAndStatus(
+			String codeLocalAccount,
+			String codeInternationalAccount, String status);
 }
