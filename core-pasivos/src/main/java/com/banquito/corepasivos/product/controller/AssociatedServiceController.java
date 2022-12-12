@@ -37,17 +37,6 @@ public class AssociatedServiceController {
         return service == null ? ResponseEntity.noContent().build() : ResponseEntity.ok(service.get(0));
     }
 
-    @RequestMapping(value = "", method = RequestMethod.POST)
-    public ResponseEntity<String> createAssociatedService(@RequestBody AssociatedService associatedService) {
-        try {
-            this.associatedServiceService.saveAssociatedService(associatedService);
-            return ResponseEntity.ok("Service created successfully");
-
-        } catch (Exception e) {
-            return ResponseEntity.internalServerError().body(e.getMessage());
-        }
-    }
-
     @RequestMapping(value = "/name/{name}", method = RequestMethod.GET)
     public ResponseEntity<List<AssociatedService>> findByNameContainins(@PathVariable("name") String name) {
 
@@ -55,11 +44,11 @@ public class AssociatedServiceController {
         return service.isEmpty() ? ResponseEntity.noContent().build() : ResponseEntity.ok(service);
     }
 
-    @RequestMapping(value = "/{codeAssociatedService}", method = RequestMethod.DELETE)
-    public ResponseEntity<String> deleteAssociatedService(@PathVariable("codeAssociatedService") String codeAssociatedService) {
+    @RequestMapping(value = "", method = RequestMethod.POST)
+    public ResponseEntity<String> createAssociatedService(@RequestBody AssociatedService associatedService) {
         try {
-            this.associatedServiceService.deleteAssociatedService(codeAssociatedService);
-            return ResponseEntity.ok("Service removed successfully");
+            this.associatedServiceService.saveAssociatedService(associatedService);
+            return ResponseEntity.ok("Service created successfully");
 
         } catch (Exception e) {
             return ResponseEntity.internalServerError().body(e.getMessage());
@@ -76,4 +65,16 @@ public class AssociatedServiceController {
             return ResponseEntity.internalServerError().body(e.getMessage());
         }
     }
+
+    @RequestMapping(value = "/{codeAssociatedService}", method = RequestMethod.DELETE)
+    public ResponseEntity<String> deleteAssociatedService(@PathVariable("codeAssociatedService") String codeAssociatedService) {
+        try {
+            this.associatedServiceService.deleteAssociatedService(codeAssociatedService);
+            return ResponseEntity.ok("Service removed successfully");
+
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().body(e.getMessage());
+        }
+    }
+
 }

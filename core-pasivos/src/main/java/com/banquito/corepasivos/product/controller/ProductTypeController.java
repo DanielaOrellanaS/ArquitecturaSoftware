@@ -79,4 +79,11 @@ public class ProductTypeController {
             return ResponseEntity.internalServerError().body(e.getMessage());
         }
     }
+
+    // bytype
+    @RequestMapping(value = "/type/{type}", method = RequestMethod.GET)
+    public ResponseEntity<List<ProductType>> findByType(@PathVariable("type") String type) {
+        List<ProductType> productTypes = this.productTypeService.findByType(type);
+        return productTypes.isEmpty() ? ResponseEntity.noContent().build() : ResponseEntity.ok(productTypes);
+    }
 }

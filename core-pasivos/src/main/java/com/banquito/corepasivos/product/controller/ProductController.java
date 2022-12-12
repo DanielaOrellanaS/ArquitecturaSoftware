@@ -1,6 +1,7 @@
 package com.banquito.corepasivos.product.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -29,16 +30,16 @@ public class ProductController {
         return products.isEmpty() ? ResponseEntity.noContent().build() : ResponseEntity.ok(products);
     }
 
-    @RequestMapping(value = "/code-type/{codeProductType}", method = RequestMethod.GET)
-    public ResponseEntity<List<Product>> findByCodeProductType(@PathVariable("codeProductType") String codeProductType) {
-        List<Product> products = this.productService.findByCodeProductType(codeProductType);
+    @RequestMapping(value = "/{codeProduct}/{codeProductType}", method = RequestMethod.GET)
+    public ResponseEntity<Optional<Product>> findById(
+        @PathVariable("codeProduct") String codeProduct, 
+        @PathVariable("codeProductType") String codeProductType
+    ) {
+        ProductPK pk = new ProductPK();
+        pk.setCodeProduct(codeProduct);
+        pk.setCodeProductType(codeProductType);
+        Optional<Product> products = this.productService.findById(pk);
         return products.isEmpty() ? ResponseEntity.noContent().build() : ResponseEntity.ok(products);
-    }
-
-    @RequestMapping(value = "/code/{codeProduct}", method = RequestMethod.GET)
-    public ResponseEntity<Product> findByCodeProduct(@PathVariable("codeProduct") String codeProduct) {
-        Product product = this.productService.findByCodeProduct(codeProduct);
-        return product == null ? ResponseEntity.noContent().build() : ResponseEntity.ok(product);
     }
 
     @RequestMapping(value = "/name-contain/{name}", method = RequestMethod.GET)
@@ -63,11 +64,17 @@ public class ProductController {
         }
     }
 
-    @RequestMapping(value = "", method = RequestMethod.PUT)
+    @RequestMapping(value = "/{codeProduct}/{codeProductType}", method = RequestMethod.PUT)
     public ResponseEntity<String> updateProduct(
-            @RequestBody Product product) {
+        @PathVariable("codeProduct") String codeProduct, 
+        @PathVariable("codeProductType") String codeProductType,
+        @RequestBody Product product
+    ) {
         try {
-            this.productService.updateProduct(product);
+            ProductPK pk = new ProductPK();
+            pk.setCodeProduct(codeProduct);
+            pk.setCodeProductType(codeProductType);
+            this.productService.updateProduct(pk, product);
             return ResponseEntity.ok("Product updated successfully");
         } catch (Exception e) {
             return ResponseEntity.internalServerError().body(e.getMessage());
