@@ -25,10 +25,17 @@ public class ProductTypeService {
         return this.productTypeRepository.findAll();
     }
 
+    // by type
+    public List<ProductType> findByType(String type) {
+        return this.productTypeRepository.findByType(type);
+    }
+
     public ProductType findByCodeProductType(String codeProductType) {
         List<ProductType> productType = this.productTypeRepository.findByCodeProductType(codeProductType);
         return productType.isEmpty() ? null : productType.get(0);
     }
+
+   
 
     public ProductType findByName(String name) {
         List<ProductType> productType = this.productTypeRepository.findByName(name);
