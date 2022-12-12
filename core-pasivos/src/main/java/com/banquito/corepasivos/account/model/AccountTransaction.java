@@ -1,6 +1,5 @@
 package com.banquito.corepasivos.account.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Data;
 import lombok.EqualsAndHashCode.Include;
 import lombok.NoArgsConstructor;
