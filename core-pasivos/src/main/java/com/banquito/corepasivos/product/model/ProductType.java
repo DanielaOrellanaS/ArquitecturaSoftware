@@ -38,10 +38,6 @@ public class ProductType {
     @Column(name = "temporality_interest", length = 3, nullable = true)
     private String temporalityInterest;
 
-    @JsonManagedReference(value = "productType-products")
-    @OneToMany(mappedBy = "productType")
-    private List<Product> products;
-
     public ProductType(String codeProductType) {
         this.codeProductType = codeProductType;
     }

@@ -49,7 +49,6 @@ public class AccountAssociatedService implements Serializable {
 	@Column(name = "code_product_type", length = 32, nullable = false, insertable = false, updatable = false)
 	private String codeProductType;
 
-	@JsonBackReference(value = "account-accountAssociatedService")
 	@ManyToOne
 	@JoinColumns({
 			@JoinColumn(name = "code_local_account", referencedColumnName = "code_local_account", insertable = false, updatable = false),
@@ -57,7 +56,6 @@ public class AccountAssociatedService implements Serializable {
 	})
 	private Account account;
 
-	@JsonBackReference(value = "accountAssociatedService-associatedServiceParam")
 	@ManyToOne
 	@JoinColumns({
 			@JoinColumn(name = "code_product", referencedColumnName = "code_product", insertable = false, updatable = false),
@@ -65,10 +63,6 @@ public class AccountAssociatedService implements Serializable {
 			@JoinColumn(name = "code_associated_service", referencedColumnName = "code_associated_service", insertable = false, updatable = false)
 	})
 	private ProductAssociatedService productAssociatedService;
-
-	@JsonManagedReference(value = "accountAssociatedService-associatedServiceParam")
-	@OneToMany(mappedBy = "accountAssociatedService")
-	private List<AccountAssociatedServiceParam> accountAssociatedServiceParamsList;
 
 	public AccountAssociatedService(AccountAssociatedServicePK pk) {
 		this.pk = pk;

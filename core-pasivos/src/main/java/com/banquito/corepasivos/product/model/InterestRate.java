@@ -33,14 +33,6 @@ public class InterestRate implements Serializable {
     @Column(name = "calc_base", nullable = false, length = 8)
     private String calcBase;
 
-    @JsonBackReference(value = "interestRate-interestRateLog")
-    @OneToMany(mappedBy = "interestRate")
-    private List<InterestRateLog> interestRateLog;
-
-    @JsonBackReference(value = "interestRate-products")
-    @OneToMany(mappedBy = "interestRate")
-    private List<Product> products;
-
     public InterestRate(String codeInterestRate) {
         this.codeInterestRate = codeInterestRate;
     }

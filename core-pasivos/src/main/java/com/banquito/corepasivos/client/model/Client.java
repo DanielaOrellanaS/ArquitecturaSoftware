@@ -106,34 +106,9 @@ public class Client implements Serializable {
     @Column(name = "career", nullable = false, length = 64)
     private String career;
 
-    @JsonBackReference(value = "segment-clients")
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "code_segment", insertable = false, updatable = false)
     private Segment segment;
-
-    @JsonManagedReference(value = "client-accountClients")
-    @OneToMany(mappedBy = "client")
-    private List<AccountClient> accountsClient;
-
-    @JsonManagedReference(value = "client-accountSignature")
-    @OneToMany(mappedBy = "client")
-    private List<AccountSignature> accountSignatures;
-
-    @JsonManagedReference(value = "client-clientAddress")
-    @OneToMany(mappedBy = "client")
-    private List<ClientAddress> clientAddresses;
-
-    @JsonManagedReference(value = "client-clientReference")
-    @OneToMany(mappedBy = "client")
-    private List<ClientReference> clientReferences;
-
-    @JsonManagedReference(value = "client-clientPhone")
-    @OneToMany(mappedBy = "client")
-    private List<ClientPhone> clientPhones;
-
-    @JsonManagedReference(value = "client-clientRelationship")
-    @OneToMany(mappedBy = "client")
-    private List<ClientRelationship> clientRelationships;
 
     public Client(ClientPK pk) {
         this.pk = pk;

@@ -41,14 +41,6 @@ public class AssociatedService implements Serializable {
     @Column(name = "fee", scale = 17, precision = 2, nullable = false)
     private BigDecimal fee;
 
-    @JsonManagedReference(value = "associatedService-associatedServiceParam")
-    @OneToMany(mappedBy = "associatedService")
-    private List<AssociatedServiceParam> associatedServiceParams; 
-
-    @JsonManagedReference(value = "associatedService-productAssociatedServices")
-    @OneToMany(mappedBy = "associatedService")
-    private List<ProductAssociatedService> productAssociatedServices;
-
     public AssociatedService(String codeAssociatedService) {
         this.codeAssociatedService = codeAssociatedService;
     }

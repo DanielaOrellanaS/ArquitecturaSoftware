@@ -34,14 +34,6 @@ public class Segment implements Serializable {
     @Column(name = "status", length = 3, nullable = false)
     private String status;
 
-    @JsonManagedReference(value = "segment-products")
-    @OneToMany(mappedBy = "segment")
-    private List<Product> products;
-
-    @JsonManagedReference(value = "segment-clients")
-    @OneToMany(mappedBy = "segment", fetch = FetchType.LAZY)
-    private List<Client> clients;
-
     public Segment(String codeSegment) {
         this.codeSegment = codeSegment;
     }

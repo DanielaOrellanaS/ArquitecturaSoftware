@@ -13,7 +13,6 @@ import java.util.List;
 @Entity
 @Table(name = "country_entity")
 public class CountryEntity {
-
     @Id
     @Include
     @Column(name = "code_country", length = 2, nullable = false)
@@ -24,14 +23,6 @@ public class CountryEntity {
 
     @Column(name = "name", length = 64, nullable = false)
     private String name;
-
-    @JsonManagedReference(value = "country-locationEntity")
-    @OneToMany(mappedBy = "countryEntity")
-    private List<LocationEntity> locationEntities;
-
-    @JsonManagedReference(value = "country-structureEntity")
-    @OneToMany(mappedBy = "countryEntity")
-    private List<StructureEntity> structureEntities;
 
     public CountryEntity(String codeCountry) {
         this.codeCountry = codeCountry;

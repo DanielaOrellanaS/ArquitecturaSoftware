@@ -26,11 +26,7 @@ public class BankEntity implements Serializable {
 
     @Column(name = "name", length = 64, nullable = false)
     private String name;
-
-    @JsonManagedReference(value = "bank-branch")
-    @OneToMany(mappedBy = "bankEntity")
-    private List<Branch> branches;
-
+    
     public BankEntity(BankEntityPK pk) {
         this.pk = pk;
     }

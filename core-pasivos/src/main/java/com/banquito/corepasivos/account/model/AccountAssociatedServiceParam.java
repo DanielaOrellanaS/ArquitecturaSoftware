@@ -50,7 +50,6 @@ public class AccountAssociatedServiceParam implements Serializable {
 	@Column(name = "code_param", length = 16, nullable = false, insertable = false, updatable = false)
 	private String codeParam;
 
-	@JsonBackReference(value = "associatedServiceParam-accountAssociatedServiceParam")
 	@ManyToOne
 	@JoinColumns({
 			@JoinColumn(name = "code_param", referencedColumnName = "code_param", insertable = false, updatable = false),
@@ -58,7 +57,6 @@ public class AccountAssociatedServiceParam implements Serializable {
 	})
 	private AssociatedServiceParam associatedServiceParam;
 
-	@JsonBackReference(value = "accountAssociatedService-associatedServiceParam")
 	@ManyToOne
 	@JoinColumns({
 			@JoinColumn(name = "code_local_account", referencedColumnName = "code_local_account", insertable = false, updatable = false),
