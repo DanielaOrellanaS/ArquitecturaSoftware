@@ -1,11 +1,13 @@
 package com.banquito.corepasivos.account.mapper;
 
+import com.banquito.corepasivos.account.dto.request.AccountSignatureCreateDto;
 import com.banquito.corepasivos.account.dto.response.AccountSignatureAccountDatesDto;
 import com.banquito.corepasivos.account.dto.response.AccountSignatureAccountIdentificationDto;
 import com.banquito.corepasivos.account.dto.response.AccountSignatureAccountStatusDto;
 import com.banquito.corepasivos.account.dto.response.AccountSignatureIdentificationDatesDto;
 import com.banquito.corepasivos.account.dto.response.AccountSignatureIdentificationStatusDto;
 import com.banquito.corepasivos.account.model.AccountSignature;
+import com.banquito.corepasivos.account.model.AccountSignaturePK;
 
 public class AccountSignatureMapper {
 
@@ -64,4 +66,14 @@ public class AccountSignatureMapper {
         return accountSignatureAccountStatusDto;
     }
 
+    public static AccountSignature requestCreate(AccountSignatureCreateDto accountSignatureCreateDto) {
+        AccountSignature accountSignature = new AccountSignature();
+        AccountSignaturePK accountSignaturePK = new AccountSignaturePK(accountSignatureCreateDto.getCodelocalaccount(),
+                accountSignatureCreateDto.getCodeinternationalaccount(),
+                accountSignatureCreateDto.getIdentificationtype(), accountSignatureCreateDto.getIdentification());
+        accountSignature.setPk(accountSignaturePK);
+        accountSignature.setSignatureReference(accountSignatureCreateDto.getSignatureReference());
+        accountSignature.setRole(accountSignatureCreateDto.getRole());
+        return accountSignature;
+    }
 }
