@@ -1,5 +1,6 @@
 package com.banquito.corepasivos.account.controller;
 
+import com.banquito.corepasivos.account.dto.request.AccountSignatureCreateDto;
 import com.banquito.corepasivos.account.dto.response.AccountSignatureAccountDatesDto;
 import com.banquito.corepasivos.account.dto.response.AccountSignatureAccountIdentificationDto;
 import com.banquito.corepasivos.account.dto.response.AccountSignatureAccountStatusDto;
@@ -8,6 +9,7 @@ import com.banquito.corepasivos.account.dto.response.AccountSignatureIdentificat
 import com.banquito.corepasivos.account.model.AccountSignature;
 import com.banquito.corepasivos.account.services.AccountSignatureService;
 
+import java.lang.ProcessBuilder.Redirect.Type;
 import java.util.Date;
 import java.util.List;
 
@@ -33,7 +35,7 @@ public class AccountSignatureController {
             @PathVariable("local") String local, @PathVariable("international") String international,
             @PathVariable("identificationType") String type, @PathVariable("identification") String identification) {
         List<AccountSignatureAccountIdentificationDto> accountIdentificationDtos = this.accountSignatureService
-                .findByPk(local, international, identification, identification);
+                .findByPk(local, international, type, identification);
         if (accountIdentificationDtos.isEmpty()) {
             return ResponseEntity.notFound().build();
         } else {
@@ -103,10 +105,10 @@ public class AccountSignatureController {
 
     @RequestMapping(value = "", method = RequestMethod.POST)
     public ResponseEntity<String> createAccountSignature(
-            @RequestBody AccountSignature accountSignature) {
+            @RequestBody AccountSignatureCreateDto accountSignatureCreateDto) {
         try {
-            this.accountSignatureService.register(accountSignature);
-            return ResponseEntity.ok("Account Signature succesfully added");
+            this.accountSignatureService.register(accountSignatureCreateDto);
+            return ResponseEntity.ok("Record saved succesfully");
         } catch (Exception e) {
             return ResponseEntity.internalServerError().body(e.getMessage());
         }
@@ -124,13 +126,13 @@ public class AccountSignatureController {
         }
     }
 
-    @RequestMapping(value = "/local/{codeLocalAccount}/{identification}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/localAcc/{local}/internationalAcc/{international}/indentificationType/{identificationType}/identification/{identification}", method = RequestMethod.DELETE)
     public ResponseEntity<String> deleteAccountSignature(
-            @PathVariable("codeLocalAccount") String codeLocalAccount,
-            @PathVariable("identification") String identification) {
+            @PathVariable("local") String local, @PathVariable("international") String international,
+            @PathVariable("identificationType") String type, @PathVariable("identification") String identification) {
         try {
-            this.accountSignatureService.delete(codeLocalAccount, identification);
-            return ResponseEntity.ok("Account Signature succesfully deleted");
+            this.accountSignatureService.delete(local, international, type, identification);
+            return ResponseEntity.ok("Record deleted succesfully");
         } catch (Exception e) {
             return ResponseEntity.internalServerError().body(e.getMessage());
         }

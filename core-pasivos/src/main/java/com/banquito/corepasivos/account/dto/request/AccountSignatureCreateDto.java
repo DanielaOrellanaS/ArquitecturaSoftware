@@ -7,9 +7,11 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class AccountSginatureKeyDto implements Serializable {
+public class AccountSignatureCreateDto implements Serializable {
     private String codelocalaccount;
     private String codeinternationalaccount;
     private String identificationtype;
     private String identification;
+    private String signatureReference;
+    private String role;
 }

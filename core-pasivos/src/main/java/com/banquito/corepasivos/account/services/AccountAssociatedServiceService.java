@@ -1,14 +1,17 @@
 package com.banquito.corepasivos.account.services;
 
+import com.banquito.corepasivos.account.dto.request.AccountAssociatedServiceReqDto;
 import com.banquito.corepasivos.account.dto.response.AccountAssociatedServiceResDto;
 import com.banquito.corepasivos.account.mapper.AccountAssociatedServiceMapper;
 import com.banquito.corepasivos.account.model.AccountAssociatedService;
+import com.banquito.corepasivos.account.model.AccountAssociatedServicePK;
 import com.banquito.corepasivos.account.repository.AccountAssociatedServiceRepository;
 import com.banquito.corepasivos.account.repository.AccountRepository;
 
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -23,141 +26,6 @@ public class AccountAssociatedServiceService {
 			AccountRepository accountRepository) {
 		this.accountAssociatedServiceRepository = accountAssociatedServiceRepository;
 		this.accountRepository = accountRepository;
-	}
-
-	@Transactional
-	public List<AccountAssociatedService> findByCodeLocalAccount(String codeLocalAccount) {
-		List<AccountAssociatedService> accountAssociatedServiceList = this.accountAssociatedServiceRepository
-				.findAllByCodeLocalAccount(codeLocalAccount);
-		if (accountAssociatedServiceList.isEmpty()) {
-			throw new RuntimeException("Account Associated Service not found");
-		} else {
-			return accountAssociatedServiceList;
-		}
-	}
-
-	@Transactional
-	public List<AccountAssociatedService> findByCodeInternationalAccount(String codeInternationalAccount) {
-		List<AccountAssociatedService> accountAssociatedServiceList = this.accountAssociatedServiceRepository
-				.findAllByCodeInternationalAccount(codeInternationalAccount);
-		if (accountAssociatedServiceList.isEmpty()) {
-			throw new RuntimeException("Account Associated Service not found");
-		} else {
-			return accountAssociatedServiceList;
-		}
-	}
-
-	@Transactional
-	public List<AccountAssociatedService> findByCodeProduct(String codeProduct) {
-		List<AccountAssociatedService> accountAssociatedServiceList = this.accountAssociatedServiceRepository
-				.findAllByCodeProduct(codeProduct);
-		if (accountAssociatedServiceList.isEmpty()) {
-			throw new RuntimeException("Account Associated Service not found");
-		} else {
-			return accountAssociatedServiceList;
-		}
-	}
-
-	@Transactional
-	public List<AccountAssociatedService> findByCodeProductType(String codeProductType) {
-		List<AccountAssociatedService> accountAssociatedServiceList = this.accountAssociatedServiceRepository
-				.findAllByCodeProductType(codeProductType);
-		if (accountAssociatedServiceList.isEmpty()) {
-			throw new RuntimeException("Account Associated Service not found");
-		} else {
-			return accountAssociatedServiceList;
-		}
-	}
-
-	@Transactional
-	public List<AccountAssociatedService> findByCodeAssociatedService(String codeAssociatedService) {
-		List<AccountAssociatedService> accountAssociatedServiceList = this.accountAssociatedServiceRepository
-				.findAllByCodeAssociatedService(codeAssociatedService);
-		if (accountAssociatedServiceList.isEmpty()) {
-			throw new RuntimeException("Account Associated Service not found");
-		} else {
-			return accountAssociatedServiceList;
-		}
-	}
-
-	@Transactional
-	public void deleteAllByCodeLocalAccount(String codeLocalAccount) {
-		List<AccountAssociatedService> accountAssociatedServiceList = this.accountAssociatedServiceRepository
-				.findAllByCodeLocalAccount(codeLocalAccount);
-
-		if (accountAssociatedServiceList.isEmpty()) {
-			throw new RuntimeException("Account Associated Service not found");
-		} else {
-			for (AccountAssociatedService accountToUpdate : accountAssociatedServiceList) {
-				accountToUpdate.setStatus("INA");
-				this.accountAssociatedServiceRepository.save(accountToUpdate);
-			}
-		}
-	}
-
-	@Transactional
-	public void deleteAllByCodeInternationalAccount(String codeInternationalAccount) {
-		List<AccountAssociatedService> accountAssociatedServiceList = this.accountAssociatedServiceRepository
-				.findAllByCodeInternationalAccount(codeInternationalAccount);
-		if (accountAssociatedServiceList.isEmpty()) {
-			throw new RuntimeException("Account Associated Service not found");
-		} else {
-			for (AccountAssociatedService accountToUpdate : accountAssociatedServiceList) {
-				accountToUpdate.setStatus("INA");
-				this.accountAssociatedServiceRepository.save(accountToUpdate);
-			}
-		}
-	}
-
-	@Transactional
-	public void deleteAllByCodeAssociatedService(String codeAssociatedService) {
-		List<AccountAssociatedService> accountAssociatedServiceList = this.accountAssociatedServiceRepository
-				.findAllByCodeAssociatedService(codeAssociatedService);
-		if (accountAssociatedServiceList.isEmpty()) {
-			throw new RuntimeException("Account Associated Service not found");
-		} else {
-			for (AccountAssociatedService accountToUpdate : accountAssociatedServiceList) {
-				accountToUpdate.setStatus("INA");
-				this.accountAssociatedServiceRepository.save(accountToUpdate);
-			}
-		}
-	}
-
-	@Transactional
-	public void deleteByCodeAssociatedService(String codeAssociatedService, String codeLocalAccount) {
-		AccountAssociatedService accountAssociatedService = this.accountAssociatedServiceRepository
-				.findByCodeAssociatedServiceAndCodeLocalAccount(codeAssociatedService, codeLocalAccount);
-
-		if (accountAssociatedService == null) {
-			throw new RuntimeException("Account Associated Service not found");
-		} else {
-			accountAssociatedService.setStatus("INA");
-			this.accountAssociatedServiceRepository.save(accountAssociatedService);
-		}
-	}
-
-	@Transactional
-	public void save(AccountAssociatedService accountAssociatedService) {
-
-		if (!accountRepository.existsByPkCodelocalaccount(accountAssociatedService.getPk().getCodelocalaccount())) {
-			throw new RuntimeException("Local Account not found");
-		}
-
-		if (!accountRepository
-				.existsByPkCodeinternationalaccount(accountAssociatedService.getPk().getCodeinternationalaccount())) {
-			throw new RuntimeException("International Account not found");
-		}
-
-		this.accountAssociatedServiceRepository.save(accountAssociatedService);
-	}
-
-	@Transactional
-	public void update(AccountAssociatedService accountAssociatedService) {
-		try {
-			this.accountAssociatedServiceRepository.save(accountAssociatedService);
-		} catch (Exception e) {
-			throw new RuntimeException("Error updating Account Associated Service");
-		}
 	}
 
 	@Transactional
@@ -205,4 +73,102 @@ public class AccountAssociatedServiceService {
 		return listDto;
 	}
 
+	@Transactional
+	public void deleteAllByLocalInternationalCodeAccount(String codeLocalAccount, String codeInternationalAccount) {
+		List<AccountAssociatedService> accountAssociatedServiceList = this.accountAssociatedServiceRepository
+				.findAllByCodeLocalAccountAndCodeInternationalAccount(codeLocalAccount, codeInternationalAccount);
+		if (accountAssociatedServiceList.isEmpty()) {
+			throw new RuntimeException("Account Associated Service not found");
+		} else {
+			for (AccountAssociatedService accountToUpdate : accountAssociatedServiceList) {
+				accountToUpdate.setStatus("INA");
+				this.accountAssociatedServiceRepository.save(accountToUpdate);
+			}
+		}
+	}
+
+	@Transactional
+	public void deleteByLocalInternationalCodeAccountAndCodeAssociatedService(String codeLocalAccount,
+			String codeInternationalAccount, String codeAssociatedService) {
+		AccountAssociatedService accountAssociatedService = this.accountAssociatedServiceRepository
+				.findByCodeLocalAccountAndCodeInternationalAccountAndCodeAssociatedService(codeLocalAccount,
+						codeInternationalAccount, codeAssociatedService);
+		if (accountAssociatedService == null) {
+			throw new RuntimeException("Account Associated Service not found");
+		} else {
+			accountAssociatedService.setStatus("INA");
+			this.accountAssociatedServiceRepository.save(accountAssociatedService);
+		}
+	}
+
+	@Transactional
+	public void save(AccountAssociatedServiceReqDto accountAssociatedServiceReqDto) {
+
+		if (!accountRepository
+				.existsByPkCodelocalaccount(accountAssociatedServiceReqDto.getCodeLocalAccount())) {
+			throw new RuntimeException("Local Account not found");
+		}
+
+		if (!accountRepository
+				.existsByPkCodeinternationalaccount(
+						accountAssociatedServiceReqDto.getCodeInternationalAccount())) {
+			throw new RuntimeException("International Account not found");
+		}
+
+		AccountAssociatedService accountAssociatedService = new AccountAssociatedService();
+		AccountAssociatedServicePK pk = new AccountAssociatedServicePK();
+
+		pk.setCodelocalaccount(accountAssociatedServiceReqDto.getCodeLocalAccount());
+		pk.setCodeinternationalaccount(accountAssociatedServiceReqDto.getCodeInternationalAccount());
+		pk.setCodeproduct(accountAssociatedServiceReqDto.getCodeProduct());
+		pk.setCodeproducttype(accountAssociatedServiceReqDto.getCodeProductType());
+
+		accountAssociatedService.setPk(pk);
+
+		accountAssociatedService.setCodeAssociatedService(accountAssociatedServiceReqDto.getCodeAssociatedService());
+
+		accountAssociatedService.setStatus("ACT");
+
+		accountAssociatedService.setStartDate(new Date());
+
+		accountAssociatedService.setEndDate(null);
+
+		this.accountAssociatedServiceRepository.save(accountAssociatedService);
+
+	}
+
+	@Transactional
+	public void update(
+			AccountAssociatedServiceReqDto accountAssociatedServiceReqDto) {
+
+		if (!accountRepository
+				.existsByPkCodelocalaccount(accountAssociatedServiceReqDto.getCodeLocalAccount())) {
+			throw new RuntimeException("Local Account not found");
+		}
+
+		if (!accountRepository
+				.existsByPkCodeinternationalaccount(
+						accountAssociatedServiceReqDto.getCodeInternationalAccount())) {
+			throw new RuntimeException("International Account not found");
+		}
+
+		AccountAssociatedService accountAssociatedService = this.accountAssociatedServiceRepository
+				.findByCodeLocalAccountAndCodeInternationalAccountAndCodeAssociatedService(
+						accountAssociatedServiceReqDto.getCodeLocalAccount(),
+						accountAssociatedServiceReqDto.getCodeInternationalAccount(),
+						accountAssociatedServiceReqDto.getCodeAssociatedService());
+
+		if (accountAssociatedService == null) {
+			throw new RuntimeException("Account Associated Service not found");
+		} else {
+			accountAssociatedService
+					.setCodeAssociatedService(accountAssociatedServiceReqDto.getCodeAssociatedService());
+
+			accountAssociatedService.setCodeProduct(accountAssociatedServiceReqDto.getCodeProduct());
+
+			accountAssociatedService.setCodeProductType(accountAssociatedServiceReqDto.getCodeProductType());
+
+			this.accountAssociatedServiceRepository.save(accountAssociatedService);
+		}
+	}
 }

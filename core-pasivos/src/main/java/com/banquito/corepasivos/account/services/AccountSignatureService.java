@@ -1,5 +1,6 @@
 package com.banquito.corepasivos.account.services;
 
+import com.banquito.corepasivos.account.dto.request.AccountSignatureCreateDto;
 import com.banquito.corepasivos.account.dto.response.AccountSignatureAccountDatesDto;
 import com.banquito.corepasivos.account.dto.response.AccountSignatureAccountIdentificationDto;
 import com.banquito.corepasivos.account.dto.response.AccountSignatureAccountStatusDto;
@@ -14,6 +15,7 @@ import com.banquito.corepasivos.client.repository.ClientRepository;
 
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -98,7 +100,7 @@ public class AccountSignatureService {
 
     public List<AccountSignatureAccountStatusDto> findByIdentificationStatus(String identification,
             String identificationType, String status) {
-        List<AccountSignature> accountSignatures = findByIdentification(identificationType);
+        List<AccountSignature> accountSignatures = findByIdentification(identification);
         List<AccountSignatureAccountStatusDto> accountSignatureDatesDtos = new ArrayList<>();
         AccountSignatureAccountStatusDto objDto;
 
@@ -187,20 +189,32 @@ public class AccountSignatureService {
     }
 
     @Transactional
-    public void register(AccountSignature accountSignature) {
+    public void register(AccountSignatureCreateDto accountSignatureCreateDto) {
+        AccountSignaturePK accountSignaturePK = new AccountSignaturePK(accountSignatureCreateDto.getCodelocalaccount(),
+                accountSignatureCreateDto.getCodeinternationalaccount(),
+                accountSignatureCreateDto.getIdentificationtype(), accountSignatureCreateDto.getIdentification());
+        // SimpleDateFormat formDate = new SimpleDateFormat("yyyy-MM-dd");
+        AccountSignature accountSignature = new AccountSignature();
+        // boolean existAccountSignature =
+        // this.accountSignatureRepository.existByPk(accountSignaturePK);
+
         boolean existClient = this.clientRepository
-                .existsByPkIdentification(accountSignature.getPk().getIdentification());
+                .existsByPkIdentification(accountSignatureCreateDto.getIdentification());
 
         boolean existAccount = this.accountRepository
-                .existsByPkCodelocalaccount(accountSignature.getPk().getCodelocalaccount());
+                .existsByPkCodelocalaccount(accountSignatureCreateDto.getCodelocalaccount());
 
         List<AccountSignature> accountSignaturePKs = this.accountSignatureRepository
-                .findByPk(accountSignature.getPk());
+                .findByPk(accountSignaturePK);
 
         List<AccountSignature> accountSignaturesReferences = this.accountSignatureRepository
-                .findBySignatureReference(accountSignature.getSignatureReference());
+                .findBySignatureReference(accountSignatureCreateDto.getSignatureReference());
 
         if (existAccount && accountSignaturesReferences.isEmpty() && existClient && accountSignaturePKs.isEmpty()) {
+            accountSignature = AccountSignatureMapper.requestCreate(accountSignatureCreateDto);
+            accountSignature.setStatus("ACT");
+            accountSignature.setCreateDate(new Date());
+            accountSignature.setStartDate(new Date());
             this.accountSignatureRepository.save(accountSignature);
         } else {
             throw new RuntimeException("The entry data is incorrect");
@@ -208,21 +222,22 @@ public class AccountSignatureService {
     }
 
     @Transactional
-    public void delete(String codeAccount, String identification) {
-        List<AccountSignature> accountSignatures = this.accountSignatureRepository
-                .findByPkCodelocalaccount(codeAccount);
+    public void delete(String local, String international, String type, String identification) {
+        AccountSignaturePK accountSignaturePK = new AccountSignaturePK(local, international, type, identification);
+        List<AccountSignature> accountSignatures = this.accountSignatureRepository.findByPk(accountSignaturePK);
+
         for (AccountSignature accountSignature : accountSignatures) {
-            if (accountSignature.getPk().getIdentification().equals(identification)) {
-                if (accountSignature.getStatus().equals("INA")) {
-                    throw new RuntimeException("The account is already deleted");
-                } else {
-                    accountSignature.setStatus("INA");
-                    this.accountSignatureRepository.save(accountSignature);
-                }
+            if (accountSignature.getStatus().equals("INA")) {
+                throw new RuntimeException("The account is already deleted");
+            } else {
+                accountSignature.setStatus("INA");
+                accountSignature.setEndDate(new Date());
+                this.accountSignatureRepository.save(accountSignature);
             }
         }
+
         if (accountSignatures.isEmpty()) {
-            throw new RuntimeException("The entry code does not belong to an account");
+            throw new RuntimeException("Error while deleting record");
         }
     }
 }
