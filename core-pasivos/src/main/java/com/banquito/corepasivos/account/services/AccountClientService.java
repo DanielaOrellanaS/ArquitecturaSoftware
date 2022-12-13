@@ -1,6 +1,12 @@
 package com.banquito.corepasivos.account.services;
 
+import com.banquito.corepasivos.account.dto.request.AccountClientCompleteReqDto;
+import com.banquito.corepasivos.account.dto.request.AccountClientReqDto;
+import com.banquito.corepasivos.account.dto.response.AccountClientResDto;
+import com.banquito.corepasivos.account.dto.response.AccountClientResStatusDto;
+import com.banquito.corepasivos.account.mapper.AccountClientMapper;
 import com.banquito.corepasivos.account.model.AccountClient;
+import com.banquito.corepasivos.account.model.AccountClientPK;
 import com.banquito.corepasivos.account.repository.AccountClientRepository;
 import com.banquito.corepasivos.account.repository.AccountRepository;
 import com.banquito.corepasivos.client.repository.ClientRepository;
@@ -8,6 +14,8 @@ import com.banquito.corepasivos.client.repository.ClientRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -25,87 +33,71 @@ public class AccountClientService {
     }
 
     @Transactional
-    public void save(AccountClient accountClient) {
-        if (!accountRepository.existsByPkCodelocalaccount(accountClient.getPk().getCodelocalaccount()))
-            throw new RuntimeException("Local account entered does not exist.");
+    public void save(AccountClientReqDto accountClientReqDto) {
+        if (!accountRepository.existsByPkCodelocalaccount(accountClientReqDto.getCodeLocalAccount())
+                || !accountRepository
+                        .existsByPkCodeinternationalaccount(accountClientReqDto.getCodeInternationalAccount())
+                || !clientRepository.existsByPkIdentification(accountClientReqDto.getIdentification()))
+            throw new RuntimeException("Error while saving record.");
 
-        if (!accountRepository.existsByPkCodeinternationalaccount(accountClient.getPk().getCodeinternationalaccount()))
-            throw new RuntimeException("International account entered does not exist.");
+        AccountClient accountClient = new AccountClient();
+        AccountClientPK pk = new AccountClientPK();
 
-        if (!clientRepository.existsByPkIdentification(accountClient.getPk().getIdentification()))
-            throw new RuntimeException("Client identification entered does not exist.");
+        pk.setCodelocalaccount(accountClientReqDto.getCodeLocalAccount());
+        pk.setCodeinternationalaccount(accountClientReqDto.getCodeInternationalAccount());
+        pk.setIdentificationtype(accountClientReqDto.getIdentificationType());
+        pk.setIdentification(accountClientReqDto.getIdentification());
 
+        accountClient.setPk(pk);
+        accountClient.setCreateDate(new Date());
+        accountClient.setStatus("ACT");
 
         this.accountClientRepository.save(accountClient);
     }
 
-    public List<AccountClient> findAll() {
-        List<AccountClient> accountClients = this.accountClientRepository.findAll();
+    public List<AccountClientResStatusDto> findById(String codeLocalAccount,
+            String codeInternationalAccount) {
+        List<AccountClient> accountsById = this.accountClientRepository
+                .findByPkCodelocalaccountAndPkCodeinternationalaccount(codeLocalAccount, codeInternationalAccount);
 
-        if (accountClients.isEmpty())
-            throw new RuntimeException("AccountClients not found.");
+        if (accountsById.isEmpty())
+            throw new RuntimeException("Error while searching record");
 
-        return accountClients;
+        List<AccountClientResStatusDto> accountsResponse = new ArrayList<AccountClientResStatusDto>();
+
+        for (AccountClient accountClient : accountsById) {
+            accountsResponse.add(AccountClientMapper.mapperStatus(accountClient));
+        }
+
+        return accountsResponse;
     }
 
-    public List<AccountClient> findByCodeLocalAccount(String codeLocalAccount) {
-        List<AccountClient> accountsByCodeLocalAccount = this.accountClientRepository
-                .findByPkCodelocalaccount(codeLocalAccount);
-
-        if (accountsByCodeLocalAccount.isEmpty())
-            throw new RuntimeException("AccountClient with code-local-account: " + codeLocalAccount + " not found.");
-
-        return accountsByCodeLocalAccount;
-    }
-
-    public List<AccountClient> findByCodeInternationalAccount(String codeInternationalAccount) {
-        List<AccountClient> accountsByCodeInternationalAccount = this.accountClientRepository
-                .findByPkCodeinternationalaccount(codeInternationalAccount);
-
-        if (accountsByCodeInternationalAccount.isEmpty())
-            throw new RuntimeException(
-                    "AccountClient with code-international-account: " + codeInternationalAccount + " not found.");
-
-        return accountsByCodeInternationalAccount;
-    }
-
-    public List<AccountClient> findByIndentificationType(String identificationType) {
-        List<AccountClient> accountsByIdentificationType = this.accountClientRepository
-                .findByPkIdentificationtype(identificationType);
-
-        if (accountsByIdentificationType.isEmpty())
-            throw new RuntimeException(
-                    "AccountClient with identification-type: " + identificationType + " not found.");
-
-        return accountsByIdentificationType;
-    }
-
-    public List<AccountClient> findByIndentification(String identification) {
-        List<AccountClient> accountsByIdentification = this.accountClientRepository
-                .findByPkIdentification(identification);
-
-        if (accountsByIdentification.isEmpty())
-            throw new RuntimeException(
-                    "AccountClient with identification: " + identification + " not found.");
-
-        return accountsByIdentification;
-    }
-
-    public List<AccountClient> findByStatus(String status) {
-        List<AccountClient> accountsByStatus = this.accountClientRepository.findByStatus(status);
+    public List<AccountClientResDto> findByStatus(String codeLocalAccount,
+            String codeInternationalAccount, String status) {
+        List<AccountClient> accountsByStatus = this.accountClientRepository
+                .findByPkCodelocalaccountAndPkCodeinternationalaccountAndStatus(codeLocalAccount,
+                        codeInternationalAccount, status);
 
         if (accountsByStatus.isEmpty())
-            throw new RuntimeException("AccountClient with status: " + status + " not found.");
+            throw new RuntimeException("Error while searching record.");
 
-        return accountsByStatus;
+        List<AccountClientResDto> accountsResponse = new ArrayList<AccountClientResDto>();
+
+        for (AccountClient accountClient : accountsByStatus) {
+            accountsResponse.add(AccountClientMapper.mapper(accountClient));
+        }
+
+        return accountsResponse;
     }
 
     @Transactional
-    public void updateByCodeLocalAccount(String codeLocalAccount, AccountClient accountClientDetails) {
-        List<AccountClient> accountClients = this.accountClientRepository.findByPkCodelocalaccount(codeLocalAccount);
+    public void updateById(String codeLocalAccount, String codeInternationalAccount,
+            AccountClientCompleteReqDto accountClientDetails) {
+        List<AccountClient> accountClients = this.accountClientRepository
+                .findByPkCodelocalaccountAndPkCodeinternationalaccount(codeLocalAccount, codeInternationalAccount);
 
         if (accountClients.isEmpty())
-            throw new RuntimeException("AccountClient with code-local-account: " + codeLocalAccount + " not found.");
+            throw new RuntimeException("Error while updating record");
 
         AccountClient accountClient = accountClients.get(0);
         accountClient.setStatus(accountClientDetails.getStatus());
@@ -115,74 +107,12 @@ public class AccountClientService {
     }
 
     @Transactional
-    public void updateByCodeInternationalAccount(String codeInternationalAccount,
-            AccountClient accountClientDetails) {
+    public void deleteById(String codeLocalAccount, String codeInternationalAccount) {
         List<AccountClient> accountClients = this.accountClientRepository
-                .findByPkCodeinternationalaccount(codeInternationalAccount);
+                .findByPkCodelocalaccountAndPkCodeinternationalaccount(codeLocalAccount, codeInternationalAccount);
 
         if (accountClients.isEmpty())
-            throw new RuntimeException(
-                    "AccountClient with code-international-account: " + codeInternationalAccount + " not found.");
-
-        AccountClient accountClient = accountClients.get(0);
-        accountClient.setStatus(accountClientDetails.getStatus());
-        accountClient.setCreateDate(accountClientDetails.getCreateDate());
-
-        this.accountClientRepository.save(accountClient);
-    }
-
-    @Transactional
-    public void updateByIdentification(String identification, AccountClient accountClientDetails) {
-        List<AccountClient> accountClients = this.accountClientRepository
-                .findByPkIdentification(identification);
-
-        if (accountClients.isEmpty())
-            throw new RuntimeException("AccountClient with identification: " + identification + " not found.");
-
-        AccountClient accountClient = accountClients.get(0);
-        accountClient.setStatus(accountClientDetails.getStatus());
-        accountClient.setCreateDate(accountClientDetails.getCreateDate());
-
-        this.accountClientRepository.save(accountClient);
-    }
-
-    @Transactional
-    public void deleteByCodeLocalAccount(String codeLocalAccount) {
-        List<AccountClient> accountClients = this.accountClientRepository.findByPkCodelocalaccount(codeLocalAccount);
-
-        if (accountClients.isEmpty())
-            throw new RuntimeException(
-                    "AccountClient with code-local-account: " + codeLocalAccount + " not found.");
-
-        AccountClient accountClient = accountClients.get(0);
-        accountClient.setStatus("INA");
-
-        this.accountClientRepository.save(accountClient);
-    }
-
-    @Transactional
-    public void deleteByCodeInternationalAccount(String codeInternationalAccount) {
-        List<AccountClient> accountClients = this.accountClientRepository
-                .findByPkCodeinternationalaccount(codeInternationalAccount);
-
-        if (accountClients.isEmpty())
-            throw new RuntimeException(
-                    "AccountClient with code-International-account: " + codeInternationalAccount + " not found.");
-
-        AccountClient accountClient = accountClients.get(0);
-        accountClient.setStatus("INA");
-
-        this.accountClientRepository.save(accountClient);
-    }
-
-    @Transactional
-    public void deleteByIdentification(String Identification) {
-        List<AccountClient> accountClients = this.accountClientRepository
-                .findByPkIdentification(Identification);
-
-        if (accountClients.isEmpty())
-            throw new RuntimeException(
-                    "AccountClient with identification: " + Identification + " not found.");
+            throw new RuntimeException("Error while deleting record");
 
         AccountClient accountClient = accountClients.get(0);
         accountClient.setStatus("INA");
