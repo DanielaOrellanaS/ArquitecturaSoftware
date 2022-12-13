@@ -34,15 +34,14 @@ public class AccountTransactionService {
 		this.accountRepository = accountRepository;
 	}
 
-	
-
 	@Transactional
 	public void saveTransactionDeb(AccountTransaction transaction) {
 
 		if (transaction.getCodeLocalAccount() != null) {
-			List<Account> accountList = this.accountRepository
-					.findByPkCodelocalaccount(transaction.getCodeLocalAccount().toLowerCase());
-			if (accountList.size() > 0) {
+			if (this.accountRepository.existsByPkCodelocalaccount(transaction.getCodeLocalAccount().toLowerCase())) {
+				List<Account> accountList = this.accountRepository
+						.findByPkCodelocalaccountAndPkCodeinternationalaccount(
+								transaction.getCodeLocalAccount(), transaction.getCodeInternationalAccount());
 				Account accountOpt = accountList.get(0);
 
 				transaction.setCodeInternationalAccount(accountOpt.getPk().getCodeinternationalaccount());
@@ -101,7 +100,8 @@ public class AccountTransactionService {
 		return result;
 	}
 
-	public List<AccountTransactionResDto> findByCodeLocalAccountAndCodeInternationalAccount(String codeLocalAccount,String codeInternationalAccount) {
+	public List<AccountTransactionResDto> findByCodeLocalAccountAndCodeInternationalAccount(String codeLocalAccount,
+			String codeInternationalAccount) {
 		List<AccountTransaction> accountTransactionList = this.accountTransactionRepository
 				.findAllByCodeLocalAccountAndCodeInternationalAccount(codeLocalAccount, codeInternationalAccount);
 		List<AccountTransactionResDto> listDto = new ArrayList<>();
@@ -126,37 +126,11 @@ public class AccountTransactionService {
 		return listDto;
 	}
 
-	public List<AccountTransactionResDto> findByExecuteDateBetween(String codeLocalAccount,String codeInternationalAccount,Date start, Date end) {
-		
+	public List<AccountTransactionResDto> findByExecuteDateBetween(String codeLocalAccount,
+			String codeInternationalAccount, Date start, Date end) {
+
 		List<AccountTransaction> accountTransactionList = this.accountTransactionRepository
-					.findByExecuteDateBetween(start, end);
-					List<AccountTransactionResDto> listDto = new ArrayList<>();
-		AccountTransactionResDto serviceDto;
-
-					for (AccountTransaction service : accountTransactionList) {
-						serviceDto = AccountTransactionMapper.mapper(service);
-						serviceDto.setCodeUniqueTransaction(service.getCodeUniqueTransaction());
-						serviceDto.setType(service.getType());
-						serviceDto.setRecipientAccountNumber(service.getRecipientAccountNumber());
-						serviceDto.setRecipientType(service.getRecipientType());
-						serviceDto.setRecipientBank(service.getRecipientBank());
-						serviceDto.setReference(service.getReference());
-						serviceDto.setDescription(service.getDescription());
-						serviceDto.setValue(service.getValue());
-						serviceDto.setCreateDate(service.getCreateDate());
-						serviceDto.setExecuteDate(service.getExecuteDate());
-						serviceDto.setStatus(service.getStatus());
-						listDto.add(serviceDto);
-					}
-			
-					return listDto;
-	}
-
-
-	
-	public List<AccountTransactionResDto> findByCodeLocalAccountAndCodeInternationalAccountAndType(String codeLocalAccount,String codeInternationalAccount,String type) {
-		List<AccountTransaction> accountTransactionList = this.accountTransactionRepository
-				.findAllByCodeLocalAccountAndCodeInternationalAccountAndType(codeLocalAccount, codeInternationalAccount,type.toUpperCase());
+				.findByExecuteDateBetween(start, end);
 		List<AccountTransactionResDto> listDto = new ArrayList<>();
 		AccountTransactionResDto serviceDto;
 
@@ -179,9 +153,38 @@ public class AccountTransactionService {
 		return listDto;
 	}
 
-	public List<AccountTransactionRecipientBankResDto> findByCodeLocalAccountAndCodeInternationalAccountAndRecipientBank(String codeLocalAccount,String codeInternationalAccount,String recipientBank) {
+	public List<AccountTransactionResDto> findByCodeLocalAccountAndCodeInternationalAccountAndType(
+			String codeLocalAccount, String codeInternationalAccount, String type) {
 		List<AccountTransaction> accountTransactionList = this.accountTransactionRepository
-				.findAllByCodeLocalAccountAndCodeInternationalAccountAndRecipientBank(codeLocalAccount, codeInternationalAccount,recipientBank);
+				.findAllByCodeLocalAccountAndCodeInternationalAccountAndType(codeLocalAccount, codeInternationalAccount,
+						type.toUpperCase());
+		List<AccountTransactionResDto> listDto = new ArrayList<>();
+		AccountTransactionResDto serviceDto;
+
+		for (AccountTransaction service : accountTransactionList) {
+			serviceDto = AccountTransactionMapper.mapper(service);
+			serviceDto.setCodeUniqueTransaction(service.getCodeUniqueTransaction());
+			serviceDto.setType(service.getType());
+			serviceDto.setRecipientAccountNumber(service.getRecipientAccountNumber());
+			serviceDto.setRecipientType(service.getRecipientType());
+			serviceDto.setRecipientBank(service.getRecipientBank());
+			serviceDto.setReference(service.getReference());
+			serviceDto.setDescription(service.getDescription());
+			serviceDto.setValue(service.getValue());
+			serviceDto.setCreateDate(service.getCreateDate());
+			serviceDto.setExecuteDate(service.getExecuteDate());
+			serviceDto.setStatus(service.getStatus());
+			listDto.add(serviceDto);
+		}
+
+		return listDto;
+	}
+
+	public List<AccountTransactionRecipientBankResDto> findByCodeLocalAccountAndCodeInternationalAccountAndRecipientBank(
+			String codeLocalAccount, String codeInternationalAccount, String recipientBank) {
+		List<AccountTransaction> accountTransactionList = this.accountTransactionRepository
+				.findAllByCodeLocalAccountAndCodeInternationalAccountAndRecipientBank(codeLocalAccount,
+						codeInternationalAccount, recipientBank);
 		List<AccountTransactionRecipientBankResDto> listDto = new ArrayList<>();
 		AccountTransactionRecipientBankResDto serviceDto;
 
@@ -203,9 +206,11 @@ public class AccountTransactionService {
 		return listDto;
 	}
 
-	public List<AccountTransactionStatusResDto> findByCodeLocalAccountAndCodeInternationalAccountAndStatus(String codeLocalAccount,String codeInternationalAccount,String status) {
+	public List<AccountTransactionStatusResDto> findByCodeLocalAccountAndCodeInternationalAccountAndStatus(
+			String codeLocalAccount, String codeInternationalAccount, String status) {
 		List<AccountTransaction> accountTransactionList = this.accountTransactionRepository
-				.findAllByCodeLocalAccountAndCodeInternationalAccountAndStatus(codeLocalAccount, codeInternationalAccount,status.toUpperCase());
+				.findAllByCodeLocalAccountAndCodeInternationalAccountAndStatus(codeLocalAccount,
+						codeInternationalAccount, status.toUpperCase());
 		List<AccountTransactionStatusResDto> listDto = new ArrayList<>();
 		AccountTransactionStatusResDto serviceDto;
 
@@ -220,7 +225,7 @@ public class AccountTransactionService {
 			serviceDto.setValue(service.getValue());
 			serviceDto.setCreateDate(service.getCreateDate());
 			serviceDto.setExecuteDate(service.getExecuteDate());
-			
+
 			listDto.add(serviceDto);
 		}
 
@@ -230,29 +235,27 @@ public class AccountTransactionService {
 	public List<AccountTransactionUniqueResDto> findByCodeUniqueTransaction(String codeUniqueTransaction) {
 		List<AccountTransaction> accountTransactionList = this.accountTransactionRepository
 				.findByCodeUniqueTransaction(codeUniqueTransaction);
-				List<AccountTransactionUniqueResDto> listDto = new ArrayList<>();
-				AccountTransactionUniqueResDto serviceDto;
-		
-				for (AccountTransaction service : accountTransactionList) {
-					serviceDto = AccountTransactionMapper.mapperUniqueCode(service);
-					serviceDto.setCodeLocalAccount(service.getCodeLocalAccount());
-					serviceDto.setCodeInternationalAccount(service.getCodeInternationalAccount());
-					serviceDto.setType(service.getType());
-					serviceDto.setRecipientAccountNumber(service.getRecipientAccountNumber());
-					serviceDto.setRecipientType(service.getRecipientType());
-					serviceDto.setRecipientBank(service.getRecipientBank());
-					serviceDto.setReference(service.getReference());
-					serviceDto.setDescription(service.getDescription());
-					serviceDto.setValue(service.getValue());
-					serviceDto.setCreateDate(service.getCreateDate());
-					serviceDto.setExecuteDate(service.getExecuteDate());
-					serviceDto.setStatus(service.getStatus());
-					listDto.add(serviceDto);
-				}
-		
-				return listDto;
+		List<AccountTransactionUniqueResDto> listDto = new ArrayList<>();
+		AccountTransactionUniqueResDto serviceDto;
+
+		for (AccountTransaction service : accountTransactionList) {
+			serviceDto = AccountTransactionMapper.mapperUniqueCode(service);
+			serviceDto.setCodeLocalAccount(service.getCodeLocalAccount());
+			serviceDto.setCodeInternationalAccount(service.getCodeInternationalAccount());
+			serviceDto.setType(service.getType());
+			serviceDto.setRecipientAccountNumber(service.getRecipientAccountNumber());
+			serviceDto.setRecipientType(service.getRecipientType());
+			serviceDto.setRecipientBank(service.getRecipientBank());
+			serviceDto.setReference(service.getReference());
+			serviceDto.setDescription(service.getDescription());
+			serviceDto.setValue(service.getValue());
+			serviceDto.setCreateDate(service.getCreateDate());
+			serviceDto.setExecuteDate(service.getExecuteDate());
+			serviceDto.setStatus(service.getStatus());
+			listDto.add(serviceDto);
+		}
+
+		return listDto;
 	}
 
-	
-	
 }
