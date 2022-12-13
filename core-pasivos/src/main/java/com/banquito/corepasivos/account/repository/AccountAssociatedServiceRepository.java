@@ -12,23 +12,17 @@ import org.springframework.stereotype.Repository;
 public interface AccountAssociatedServiceRepository
 		extends JpaRepository<AccountAssociatedService, AccountAssociatedServicePK> {
 
-	List<AccountAssociatedService> findAllByCodeLocalAccount(String codeLocalAccount);
-
-	List<AccountAssociatedService> findAllByCodeInternationalAccount(String codeInternationalAccount);
-
-	List<AccountAssociatedService> findAllByCodeProduct(String codeProduct);
-
-	List<AccountAssociatedService> findAllByCodeProductType(String codeProductType);
-
-	List<AccountAssociatedService> findAllByCodeAssociatedService(String codeAssociatedService);
-
-	AccountAssociatedService findByCodeAssociatedServiceAndCodeLocalAccount(String codeAssociatedService,
-			String codeLocalAccount);
-
 	List<AccountAssociatedService> findAllByCodeLocalAccountAndCodeInternationalAccount(String codeLocalAccount,
+			String codeInternationalAccount);
+
+	AccountAssociatedService findByCodeLocalAccountAndCodeInternationalAccount(String codeLocalAccount,
 			String codeInternationalAccount);
 
 	List<AccountAssociatedService> findAllByCodeLocalAccountAndCodeInternationalAccountAndStatus(
 			String codeLocalAccount,
 			String codeInternationalAccount, String status);
+
+	AccountAssociatedService findByCodeLocalAccountAndCodeInternationalAccountAndCodeAssociatedService(
+			String codeLocalAccount, String codeInternationalAccount, String codeAssociatedService);
+
 }
