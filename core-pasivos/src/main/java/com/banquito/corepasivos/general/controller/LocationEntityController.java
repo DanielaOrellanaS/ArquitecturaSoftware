@@ -1,5 +1,6 @@
 package com.banquito.corepasivos.general.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
@@ -10,7 +11,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.banquito.corepasivos.general.model.LocationEntity;
+import com.banquito.corepasivos.general.model.StructureEntity;
 import com.banquito.corepasivos.general.service.LocationEntityService;
+
+import net.minidev.json.JSONObject;
 
 @RestController
 @RequestMapping("/api/location")
@@ -74,6 +78,16 @@ public class LocationEntityController {
         } catch (Exception e) {
             return ResponseEntity.internalServerError().body(e.getMessage());
         }
+    }
+
+    @RequestMapping(value = "/codeLocationParent/{codeLocationParent}/{codeCountryEntity}/{level}", method = RequestMethod.GET)
+    public ResponseEntity<List<LocationEntity>> getStructureEntitiesFindBycodeLocationParent(@PathVariable("codeLocationParent") Integer codeLocationParent,@PathVariable("codeCountryEntity")String codeCountryEntity,@PathVariable("level")Integer level) {
+        return ResponseEntity.ok(this.locationEntityService.findByCodeLocationParent(codeLocationParent,codeCountryEntity,level));
+    }
+
+    @RequestMapping(value = "/geographic-organization/{codeCountry}", method = RequestMethod.GET)
+    public ResponseEntity<List<JSONObject>> getGeographicOrganization(@PathVariable("codeCountry") String codeCountry) {
+        return ResponseEntity.ok(this.locationEntityService.search(codeCountry));
     }
 
 }

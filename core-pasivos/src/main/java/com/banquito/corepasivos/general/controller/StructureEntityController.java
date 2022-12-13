@@ -3,6 +3,7 @@ package com.banquito.corepasivos.general.controller;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -23,6 +24,11 @@ public class StructureEntityController {
     @RequestMapping(value = "", method = RequestMethod.GET)
     public ResponseEntity<List<StructureEntity>> getStructureEntities() {
         return ResponseEntity.ok(this.structureEntityService.findAll());
+    }
+
+    @RequestMapping(value = "/{codeCountry}", method = RequestMethod.GET)
+    public ResponseEntity<List<StructureEntity>> getStructureEntitiesByCodeCountry(@PathVariable("codeCountry") String codeCountry) {
+        return ResponseEntity.ok(this.structureEntityService.findAllByCodeCountry(codeCountry));
     }
 
     @RequestMapping(value = "/", method = RequestMethod.POST)

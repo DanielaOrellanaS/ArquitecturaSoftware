@@ -26,6 +26,32 @@ public class HolidayServices {
         return this.holidayRepository.findAll();
     }
 
+    public List<Holiday> findDateBetweenYear(Integer year) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(year, 0, 1);
+        Date dateBefore = calendar.getTime();
+        calendar.set(year, 11, 31);
+        Date dateAfter = calendar.getTime();
+        return this.holidayRepository.findByDateBetween(dateBefore,dateAfter);
+    }
+    public List<Holiday> findDateBetweenMonthAndYear(Integer month,Integer year) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(year, month-1,1);
+        Date dateBefore = calendar.getTime();
+        calendar.set(year, month,1);
+        Date dateAfter = calendar.getTime();
+        return this.holidayRepository.findByDateBetween(dateBefore,dateAfter);
+
+    }
+
+    public List<Holiday> findByType(String type) {
+        try {
+            return this.holidayRepository.findByType(type);
+        } catch (Exception e) {
+            throw new RuntimeException("The Holiday by type does not exist");
+        }
+    }
+
     public Optional<Holiday> findById(String date) {
         try {
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyy-MM-dd");

@@ -33,6 +33,21 @@ public class HolidayController {
         return ResponseEntity.ok(this.holidayService.findById(date));
     }
 
+    @RequestMapping(value = "by-year/{year}", method = RequestMethod.GET)
+    public ResponseEntity<List<Holiday>> getHolidayByYear(@PathVariable("year") Integer year) {
+        return ResponseEntity.ok(this.holidayService.findDateBetweenYear(year));
+    }
+
+    @RequestMapping(value = "by-month-year/{month}/{year}", method = RequestMethod.GET)
+    public ResponseEntity<List<Holiday>> getHolidayByYear(@PathVariable("month") Integer month,@PathVariable("year") Integer year) {
+        return ResponseEntity.ok(this.holidayService.findDateBetweenMonthAndYear(month,year));
+    }
+
+    @RequestMapping(value = "by-type/{type}", method = RequestMethod.GET)
+    public ResponseEntity<List<Holiday>> getHolidayByYear(@PathVariable("type") String type) {
+        return ResponseEntity.ok(this.holidayService.findByType(type));
+    }
+
     @RequestMapping(value = "/", method = RequestMethod.POST)
     public ResponseEntity<String> createHoliday(@RequestBody Holiday holiday) {
         try {

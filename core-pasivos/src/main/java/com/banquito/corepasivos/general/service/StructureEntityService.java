@@ -53,4 +53,8 @@ public class StructureEntityService {
     public List<StructureEntity> findAll() {
         return this.structureEntityRepository.findAll();
     }
+
+    public List<StructureEntity> findAllByCodeCountry(String codeCountry) {
+        return this.structureEntityRepository.findByPkCodecountry(codeCountry);
+    }
 }
