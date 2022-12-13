@@ -8,10 +8,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.banquito.corepasivos.client.dto.ClientDto;
+import com.banquito.corepasivos.client.mapper.ClientMapper;
 import com.banquito.corepasivos.client.model.Client;
 import com.banquito.corepasivos.client.model.ClientPK;
 import com.banquito.corepasivos.client.service.ClientService;
-import com.banquito.corepasivos.utils.DTO;
 
 @RestController
 @RequestMapping("/api/clients")
@@ -24,84 +25,65 @@ public class ClientController {
     }
 
     @RequestMapping(value = "/{id}/{type}", method = RequestMethod.GET)
-    public ResponseEntity<DTO<Client>> findAllClientsByIdentification(
+    public ResponseEntity<ClientDto> findAllClientsByIdentification(
             @PathVariable("id") String id,
             @PathVariable("type") String type) {
-        DTO<Client> response = new DTO<>();
         ClientPK pk = new ClientPK();
         pk.setIdentification(id);
         pk.setIdentificationType(type.toUpperCase());
         try {
             Client client = this.clientService.findClient(pk);
-            if (client.equals(null)) {
-                response.setStatus(404);
-                response.setMessage("Data not found");
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
+            if (!client.equals(null)) {
+                ClientDto dto = ClientMapper.map(client);
+                return ResponseEntity.status(HttpStatus.OK).body(dto);
             } else {
-                response.setStatus(200);
-                response.setMessage("Data found");
-                response.setData(client);
-                return ResponseEntity.status(HttpStatus.OK).body(response);
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
             }
         } catch (Exception e) {
-            response.setStatus(500);
-            response.setMessage("An error occurs");
-            return ResponseEntity.internalServerError().body(response);
+            return ResponseEntity.internalServerError().body(null);
         }
     }
 
     @RequestMapping(value = "/", method = RequestMethod.POST)
-    public ResponseEntity<DTO<Client>> createClient(@RequestBody Client client) {
-        DTO<Client> response = new DTO<>();
+    public ResponseEntity<String> createClient(@RequestBody ClientDto dto) {
         try {
-            response.setStatus(200);
-            response.setMessage("Client successfully created");
-            return ResponseEntity.status(HttpStatus.OK).body(response);
+            Client client = ClientMapper.map(dto);
+            this.clientService.createClient(client);
+            return ResponseEntity.status(HttpStatus.OK).body("Client successfully created");
         } catch (Exception e) {
-            response.setStatus(400);
-            response.setMessage(e.getMessage());
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
     }
 
     @RequestMapping(value = "/{id}/{type}", method = RequestMethod.PUT)
-    public ResponseEntity<DTO<Client>> updateClient(
+    public ResponseEntity<String> updateClient(
             @PathVariable("id") String id,
             @PathVariable("type") String type,
-            @RequestBody Client client) {
-        DTO<Client> response = new DTO<>();
+            @RequestBody ClientDto dto) {
         ClientPK pk = new ClientPK();
         pk.setIdentification(id);
         pk.setIdentificationType(type.toUpperCase());
         try {
+            Client client = ClientMapper.map(dto);
             this.clientService.updateClient(pk, client);
-            response.setStatus(200);
-            response.setMessage("Client successfully updated");
-            return ResponseEntity.status(HttpStatus.OK).body(response);
+            return ResponseEntity.status(HttpStatus.OK).body("Client successfully updated");
         } catch (Exception e) {
-            response.setStatus(400);
-            response.setMessage(e.getMessage());
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
     }
 
     @RequestMapping(value = "/{id}/{type}", method = RequestMethod.DELETE)
-    public ResponseEntity<DTO<Client>> updateStatus(
+    public ResponseEntity<String> updateStatus(
             @PathVariable("id") String id,
             @PathVariable("type") String type) {
-        DTO<Client> response = new DTO<>();
         ClientPK pk = new ClientPK();
         pk.setIdentification(id);
         pk.setIdentificationType(type.toUpperCase());
         try {
             this.clientService.updateStatus(pk);
-            response.setStatus(200);
-            response.setMessage("Client successfully deleted");
-            return ResponseEntity.status(HttpStatus.OK).body(response);
+            return ResponseEntity.status(HttpStatus.OK).body("Client successfully deleted");
         } catch (Exception e) {
-            response.setStatus(400);
-            response.setMessage(e.getMessage());
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
     }
 }

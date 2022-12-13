@@ -1,6 +1,7 @@
 package com.banquito.corepasivos.client.controller;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,9 +11,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.banquito.corepasivos.client.dto.ClientReferenceDto;
+import com.banquito.corepasivos.client.mapper.ClientReferenceMapper;
 import com.banquito.corepasivos.client.model.ClientReference;
 import com.banquito.corepasivos.client.service.ClientReferenceService;
-import com.banquito.corepasivos.utils.DTO;
 
 @RestController
 @RequestMapping("/api/client-reference")
@@ -24,69 +26,53 @@ public class ClientReferenceController {
     }
 
     @RequestMapping(value = "/{id}/{type}", method = RequestMethod.GET)
-    public ResponseEntity<DTO<List<ClientReference>>> findReferences(
+    public ResponseEntity<List<ClientReferenceDto>> findReferences(
             @PathVariable("id") String id,
             @PathVariable("type") String type) {
-        DTO<List<ClientReference>> response = new DTO<>();
         try {
             List<ClientReference> references = this.clientReferenceService.findAllClientReferences(id,
                     type.toUpperCase());
-            response.setStatus(HttpStatus.OK.value());
-            response.setMessage("Data found");
-            response.setData(references);
-            return ResponseEntity.status(HttpStatus.OK).body(response);
+            List<ClientReferenceDto> dtos = references.stream().map(reference -> ClientReferenceMapper.map(reference))
+                    .collect(Collectors.toList());
+
+            return ResponseEntity.status(HttpStatus.OK).body(dtos);
         } catch (Exception e) {
-            response.setStatus(HttpStatus.BAD_REQUEST.value());
-            response.setMessage(e.getMessage());
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }
     }
 
     @RequestMapping(value = "/", method = RequestMethod.POST)
-    public ResponseEntity<DTO<ClientReference>> createClientReference(@RequestBody ClientReference clientRef) {
-        DTO<ClientReference> response = new DTO<>();
+    public ResponseEntity<String> createClientReference(@RequestBody ClientReferenceDto dto) {
         try {
+            ClientReference clientRef = ClientReferenceMapper.map(dto);
             this.clientReferenceService.createClientReference(clientRef);
-            response.setStatus(HttpStatus.CREATED.value());
-            response.setMessage("Reference successfully created");
-            return ResponseEntity.status(HttpStatus.CREATED).body(response);
+            return ResponseEntity.status(HttpStatus.CREATED).body("Reference successfully created");
         } catch (Exception e) {
-            response.setStatus(HttpStatus.BAD_REQUEST.value());
-            response.setMessage(e.getMessage());
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public ResponseEntity<DTO<ClientReference>> updateClientReference(
+    public ResponseEntity<String> updateClientReference(
             @PathVariable("id") Integer id,
-            @RequestBody ClientReference clientRef) {
-        DTO<ClientReference> response = new DTO<>();
+            @RequestBody ClientReferenceDto dto) {
         try {
+            ClientReference clientRef = ClientReferenceMapper.map(dto);
             this.clientReferenceService.updateClientReference(id, clientRef);
-            response.setStatus(HttpStatus.OK.value());
-            response.setMessage("Reference successfully updated");
-            return ResponseEntity.status(HttpStatus.OK).body(response);
+            return ResponseEntity.status(HttpStatus.OK).body("Reference successfully updated");
         } catch (Exception e) {
-            response.setStatus(HttpStatus.BAD_REQUEST.value());
-            response.setMessage(e.getMessage());
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-    public ResponseEntity<DTO<ClientReference>> deleteClientReference(
+    public ResponseEntity<String> deleteClientReference(
             @PathVariable("id") Integer id) {
-        DTO<ClientReference> response = new DTO<>();
         try {
             this.clientReferenceService.deleteClientReference(id);
-            response.setStatus(HttpStatus.OK.value());
-            response.setMessage("Reference successfully deleted");
-            return ResponseEntity.status(HttpStatus.OK).body(response);
+            return ResponseEntity.status(HttpStatus.OK).body("Reference successfully deleted");
         } catch (Exception e) {
-            response.setStatus(HttpStatus.BAD_REQUEST.value());
-            response.setMessage(e.getMessage());
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
     }
 

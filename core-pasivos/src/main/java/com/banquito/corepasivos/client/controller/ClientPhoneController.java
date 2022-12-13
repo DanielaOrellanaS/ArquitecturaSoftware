@@ -1,6 +1,7 @@
 package com.banquito.corepasivos.client.controller;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,9 +11,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.banquito.corepasivos.client.dto.ClientPhoneDto;
+import com.banquito.corepasivos.client.mapper.ClientPhoneMapper;
 import com.banquito.corepasivos.client.model.ClientPhone;
 import com.banquito.corepasivos.client.service.ClientPhoneService;
-import com.banquito.corepasivos.utils.DTO;
 
 @RestController
 @RequestMapping("/api/client-phone")
@@ -24,90 +26,68 @@ public class ClientPhoneController {
     }
 
     @RequestMapping(value = "/{identification}/{identificationType}", method = RequestMethod.GET)
-    public ResponseEntity<DTO<List<ClientPhone>>> findByIdentification(
+    public ResponseEntity<List<ClientPhoneDto>> findByIdentification(
             @PathVariable("identification") String identification,
             @PathVariable("identificationType") String identificationType) {
-        DTO<List<ClientPhone>> response = new DTO<>();
         try {
-            List<ClientPhone> phones = this.clientPhoneService.findByIdentification(identification, identificationType.toUpperCase());
-            response.setStatus(200);
-            response.setMessage("Data found");
-            response.setData(phones);
-            return ResponseEntity.status(HttpStatus.OK).body(response);
+            List<ClientPhone> phones = this.clientPhoneService.findByIdentification(identification,
+                    identificationType.toUpperCase());
+            List<ClientPhoneDto> dtos = phones.stream().map(phone -> ClientPhoneMapper.map(phone))
+                    .collect(Collectors.toList());
+            return ResponseEntity.status(HttpStatus.OK).body(dtos);
         } catch (Exception e) {
-            response.setStatus(HttpStatus.BAD_REQUEST.value());
-            response.setMessage(e.getMessage());
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }
     }
 
     @RequestMapping(value = "/", method = RequestMethod.POST)
-    public ResponseEntity<DTO<ClientPhone>> createPhone(@RequestBody ClientPhone clientPhone) {
-        DTO<ClientPhone> response = new DTO<>();
+    public ResponseEntity<String> createPhone(@RequestBody ClientPhoneDto clientPhone) {
         try {
-            this.clientPhoneService.createPhone(clientPhone);
-            response.setStatus(HttpStatus.OK.value());
-            response.setMessage("Phone successfully created");
-            return ResponseEntity.status(HttpStatus.OK).body(response);
+            ClientPhone phone = ClientPhoneMapper.map(clientPhone);
+            this.clientPhoneService.createPhone(phone);
+            return ResponseEntity.status(HttpStatus.OK).body("Phone successfully created");
         } catch (Exception e) {
-            response.setStatus(HttpStatus.BAD_REQUEST.value());
-            response.setMessage(e.getMessage());
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
     }
 
     @RequestMapping(value = "/{identification}/{identificationType}/{phone}", method = RequestMethod.PUT)
-    public ResponseEntity<DTO<ClientPhone>> updatePhone(
+    public ResponseEntity<String> updatePhone(
             @PathVariable("identification") String identification,
             @PathVariable("identificationType") String identificationType,
             @PathVariable("phone") String phone,
-            @RequestBody ClientPhone clientPhone) {
-        DTO<ClientPhone> response = new DTO<>();
+            @RequestBody ClientPhoneDto dto) {
         try {
+            ClientPhone clientPhone = ClientPhoneMapper.map(dto);
             this.clientPhoneService.updateById(identification, identificationType, phone, clientPhone);
-            response.setStatus(HttpStatus.OK.value());
-            response.setMessage("Phone successfully updated");
-            return ResponseEntity.status(HttpStatus.OK).body(response);
+            return ResponseEntity.status(HttpStatus.OK).body("Phone successfully updated");
         } catch (Exception e) {
-            response.setStatus(HttpStatus.BAD_REQUEST.value());
-            response.setMessage(e.getMessage());
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
-
     }
 
     @RequestMapping(value = "/{identification}/{identificationType}/{phone}", method = RequestMethod.DELETE)
-    public ResponseEntity<DTO<ClientPhone>> deletePhone(
+    public ResponseEntity<String> deletePhone(
             @PathVariable("identification") String identification,
             @PathVariable("identificationType") String identificationType,
             @PathVariable("phone") String phone) {
-        DTO<ClientPhone> response = new DTO<>();
         try {
             this.clientPhoneService.deleteById(identification, identificationType, phone);
-            response.setStatus(HttpStatus.OK.value());
-            response.setMessage("Phone successfully updated");
-            return ResponseEntity.status(HttpStatus.OK).body(response);
+            return ResponseEntity.status(HttpStatus.OK).body("Phone successfully updated");
         } catch (Exception e) {
-            response.setStatus(HttpStatus.BAD_REQUEST.value());
-            response.setMessage(e.getMessage());
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
     }
 
     @RequestMapping(value = "/{identification}/{identificationType}", method = RequestMethod.DELETE)
-    public ResponseEntity<DTO<ClientPhone>> deletePhones(
+    public ResponseEntity<String> deletePhones(
             @PathVariable("identification") String identification,
             @PathVariable("identificationType") String identificationType) {
-        DTO<ClientPhone> response = new DTO<>();
         try {
             this.clientPhoneService.deletePhones(identification, identificationType);
-            response.setStatus(HttpStatus.OK.value());
-            response.setMessage("Phones successfully deleted");
-            return ResponseEntity.status(HttpStatus.OK).body(response);
+            return ResponseEntity.status(HttpStatus.OK).body("Phones successfully deleted");
         } catch (Exception e) {
-            response.setStatus(HttpStatus.BAD_REQUEST.value());
-            response.setMessage(e.getMessage());
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
     }
 }
