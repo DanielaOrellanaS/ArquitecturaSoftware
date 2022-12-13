@@ -49,13 +49,13 @@ public class LocationEntityService {
         }
     }
 
-    public List<LocationEntity> findByCodeLocationParent(Integer codeLocationParent,String codeCountryEntity, Integer level) {
+    /*public List<LocationEntity> findByCodeLocationParent(Integer codeLocationParent,String codeCountryEntity, Integer level) {
         try {
-            return this.locationEntityRepository.findByCodeLocationParentAndCodeCountryEntityAndLevel(codeLocationParent,codeCountryEntity,level);
+            return this.locationEntityRepository.findByCodeLocationParent(codeLocationParent,codeCountryEntity,level);
         } catch (Exception e) {
             throw new RuntimeException("Location does not exist");
         }
-    }
+    }*/
 
     public List<LocationEntity> findByCountry(String country) {
         List<LocationEntity> locationEntities = this.locationEntityRepository.findByName(country);
