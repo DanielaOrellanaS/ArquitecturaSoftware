@@ -78,7 +78,7 @@ public class AccountAssociatedServiceController {
 			@PathVariable("codeLocalAccount") String codeLocalAccount,
 			@PathVariable("codeInternationalAccount") String codeInternationalAccount) {
 		try {
-			this.service.update(accountAssociatedServiceReqDto, codeLocalAccount, codeInternationalAccount);
+			this.service.update(accountAssociatedServiceReqDto);
 			return ResponseEntity.ok("Record updated successfully");
 		} catch (Exception e) {
 			return ResponseEntity.internalServerError().body("Error while updating record");

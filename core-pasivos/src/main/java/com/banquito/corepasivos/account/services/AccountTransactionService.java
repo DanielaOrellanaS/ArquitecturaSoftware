@@ -37,7 +37,7 @@ public class AccountTransactionService {
 	@Transactional
 	public void saveTransactionDeb(AccountTransaction transaction) {
 
-		if (transaction.getCodeLocalAccount() != null) {
+		/*if (transaction.getCodeLocalAccount() != null) {
 			if (this.accountRepository.existsByPkCodelocalaccount(transaction.getCodeLocalAccount().toLowerCase())) {
 				List<Account> accountList = this.accountRepository
 						.findByPkCodelocalaccountAndPkCodeinternationalaccount(
@@ -85,7 +85,7 @@ public class AccountTransactionService {
 
 		} else {
 			throw new RuntimeException("Please set an account code");
-		}
+		}*/
 	}
 
 	public String randomHex() {

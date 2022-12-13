@@ -138,7 +138,8 @@ public class AccountService {
     }
 
     public List<Account> findConsolidatedPosition(String identification) {
-        List<AccountClient> accountClients = this.accountClientRepository.findByPkIdentification(identification);
+       /* List<AccountClient> accountClients = this.accountClientRepository.findByPkIdentification(identification);
+
         List<Account> accounts = new ArrayList<Account>();
 
         if (accountClients.isEmpty())
@@ -149,6 +150,9 @@ public class AccountService {
                     .findByPkCodeinternationalaccount(accountClient.getPk().getCodeinternationalaccount());
             accounts.add(temporalAccountList.get(0));
         }
+
+        return accounts;*/
+        List<Account> accounts = new ArrayList<Account>();
 
         return accounts;
     }
