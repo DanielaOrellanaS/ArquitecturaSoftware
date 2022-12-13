@@ -1,7 +1,6 @@
 package com.banquito.corepasivos.account.model;
 
 import com.banquito.corepasivos.client.model.Client;
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Data;
 import lombok.EqualsAndHashCode.Include;
 import lombok.NoArgsConstructor;
@@ -36,7 +35,7 @@ public class AccountClient implements Serializable {
 
     @ManyToOne
     @JoinColumns({
-            @JoinColumn(name = "identification_type", referencedColumnName = "identification_type",insertable = false, updatable = false),
+            @JoinColumn(name = "identification_type", referencedColumnName = "identification_type", insertable = false, updatable = false),
             @JoinColumn(name = "identification", referencedColumnName = "identification", insertable = false, updatable = false)
     })
     private Client client;

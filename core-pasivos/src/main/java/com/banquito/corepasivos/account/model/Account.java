@@ -2,8 +2,6 @@ package com.banquito.corepasivos.account.model;
 
 import com.banquito.corepasivos.general.model.Branch;
 import com.banquito.corepasivos.product.model.Product;
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 import lombok.EqualsAndHashCode.Include;
 import lombok.NoArgsConstructor;
@@ -12,7 +10,6 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
-import java.util.List;
 
 @Data
 @NoArgsConstructor
