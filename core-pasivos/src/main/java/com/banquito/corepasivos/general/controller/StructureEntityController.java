@@ -27,7 +27,8 @@ public class StructureEntityController {
     }
 
     @RequestMapping(value = "/{codeCountry}", method = RequestMethod.GET)
-    public ResponseEntity<List<StructureEntity>> getStructureEntitiesByCodeCountry(@PathVariable("codeCountry") String codeCountry) {
+    public ResponseEntity<List<StructureEntity>> getStructureEntitiesByCodeCountry(
+            @PathVariable("codeCountry") String codeCountry) {
         return ResponseEntity.ok(this.structureEntityService.findAllByCodeCountry(codeCountry));
     }
 

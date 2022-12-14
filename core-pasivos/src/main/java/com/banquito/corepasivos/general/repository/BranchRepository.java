@@ -12,5 +12,6 @@ import com.banquito.corepasivos.general.model.BranchPK;
 public interface BranchRepository extends JpaRepository<Branch, BranchPK> {
 
     List<Branch> findByNameLike(String name);
+
     List<Branch> findByPk(BranchPK pk);
 }

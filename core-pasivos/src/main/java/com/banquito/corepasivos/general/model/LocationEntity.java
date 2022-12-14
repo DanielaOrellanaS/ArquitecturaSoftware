@@ -59,12 +59,18 @@ public class LocationEntity {
         this.codeLocation = codeLocation;
     }
 
-    /*@JsonBackReference(value = "locationEntity-locationEntity")
-    @ManyToOne
-    @JoinColumn(name="code_location_parent",referencedColumnName = "code_location", insertable = false, updatable = false )
-    private LocationEntity locationEntityParent;
-
-    @JsonBackReference(value = "locationEntity-locationEntity")
-    @OneToMany(mappedBy = "locationEntityParent")
-    private List<LocationEntity> locationEntityChild;*/
+    /*
+     * @JsonBackReference(value = "locationEntity-locationEntity")
+     * 
+     * @ManyToOne
+     * 
+     * @JoinColumn(name="code_location_parent",referencedColumnName =
+     * "code_location", insertable = false, updatable = false )
+     * private LocationEntity locationEntityParent;
+     * 
+     * @JsonBackReference(value = "locationEntity-locationEntity")
+     * 
+     * @OneToMany(mappedBy = "locationEntityParent")
+     * private List<LocationEntity> locationEntityChild;
+     */
 }

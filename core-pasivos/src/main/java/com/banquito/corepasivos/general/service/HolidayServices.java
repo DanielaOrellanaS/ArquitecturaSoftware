@@ -32,15 +32,16 @@ public class HolidayServices {
         Date dateBefore = calendar.getTime();
         calendar.set(year, 11, 31);
         Date dateAfter = calendar.getTime();
-        return this.holidayRepository.findByDateBetween(dateBefore,dateAfter);
+        return this.holidayRepository.findByDateBetween(dateBefore, dateAfter);
     }
-    public List<Holiday> findDateBetweenMonthAndYear(Integer month,Integer year) {
+
+    public List<Holiday> findDateBetweenMonthAndYear(Integer month, Integer year) {
         Calendar calendar = Calendar.getInstance();
-        calendar.set(year, month-1,1);
+        calendar.set(year, month - 1, 1);
         Date dateBefore = calendar.getTime();
-        calendar.set(year, month,1);
+        calendar.set(year, month, 1);
         Date dateAfter = calendar.getTime();
-        return this.holidayRepository.findByDateBetween(dateBefore,dateAfter);
+        return this.holidayRepository.findByDateBetween(dateBefore, dateAfter);
 
     }
 
@@ -66,7 +67,7 @@ public class HolidayServices {
     @Transactional
     public void create(Holiday holiday) {
         List<Holiday> holidays = this.holidayRepository.findByDate(holiday.getDate());
-        
+
         if (holidays.isEmpty()) {
             this.holidayRepository.save(holiday);
         } else {
@@ -90,7 +91,7 @@ public class HolidayServices {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyy-MM-dd");
         Date newDate = dateFormat.parse(dateHoliday);
         Optional<Holiday> optional = this.holidayRepository.findById(newDate);
-        if(optional.isPresent()){
+        if (optional.isPresent()) {
             this.holidayRepository.save(holiday);
         } else {
             throw new RuntimeException("Not found");

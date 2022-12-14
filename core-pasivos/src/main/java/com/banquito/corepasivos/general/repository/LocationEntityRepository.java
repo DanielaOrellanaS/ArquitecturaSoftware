@@ -15,8 +15,10 @@ public interface LocationEntityRepository extends JpaRepository<LocationEntity, 
     List<LocationEntity> findByLevel(Integer name);
 
     List<LocationEntity> findByCodeCountryEntityLike(String codeCountryEntity);
-    
-    List<LocationEntity> findByCodeCountryEntityAndLevelAndCodeLocationParent(String codeCountryEntity,Integer level,Integer codeLocationParent);
-    List<LocationEntity> findByCodeCountryEntityAndLevel(String codeCountryEntity,Integer level);
+
+    List<LocationEntity> findByCodeCountryEntityAndLevelAndCodeLocationParent(String codeCountryEntity, Integer level,
+            Integer codeLocationParent);
+
+    List<LocationEntity> findByCodeCountryEntityAndLevel(String codeCountryEntity, Integer level);
 
 }

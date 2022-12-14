@@ -78,10 +78,19 @@ public class LocationEntityController {
         }
     }
 
-    /*@RequestMapping(value = "/codeLocationParent/{codeLocationParent}/{codeCountryEntity}/{level}", method = RequestMethod.GET)
-    public ResponseEntity<List<LocationEntity>> getStructureEntitiesFindBycodeLocationParent(@PathVariable("codeLocationParent") Integer codeLocationParent,@PathVariable("codeCountryEntity")String codeCountryEntity,@PathVariable("level")Integer level) {
-        return ResponseEntity.ok(this.locationEntityService.findByCodeLocationParent(codeLocationParent,codeCountryEntity,level));
-    }*/
+    /*
+     * @RequestMapping(value =
+     * "/codeLocationParent/{codeLocationParent}/{codeCountryEntity}/{level}",
+     * method = RequestMethod.GET)
+     * public ResponseEntity<List<LocationEntity>>
+     * getStructureEntitiesFindBycodeLocationParent(@PathVariable(
+     * "codeLocationParent") Integer
+     * codeLocationParent,@PathVariable("codeCountryEntity")String
+     * codeCountryEntity,@PathVariable("level")Integer level) {
+     * return ResponseEntity.ok(this.locationEntityService.findByCodeLocationParent(
+     * codeLocationParent,codeCountryEntity,level));
+     * }
+     */
 
     @RequestMapping(value = "/geographic-organization/{codeCountry}", method = RequestMethod.GET)
     public ResponseEntity<List<JSONObject>> getGeographicOrganization(@PathVariable("codeCountry") String codeCountry) {

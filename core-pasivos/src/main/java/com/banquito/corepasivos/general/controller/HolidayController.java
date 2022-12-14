@@ -38,8 +38,9 @@ public class HolidayController {
     }
 
     @RequestMapping(value = "by-month-year/{month}/{year}", method = RequestMethod.GET)
-    public ResponseEntity<List<Holiday>> getHolidayByYear(@PathVariable("month") Integer month,@PathVariable("year") Integer year) {
-        return ResponseEntity.ok(this.holidayService.findDateBetweenMonthAndYear(month,year));
+    public ResponseEntity<List<Holiday>> getHolidayByYear(@PathVariable("month") Integer month,
+            @PathVariable("year") Integer year) {
+        return ResponseEntity.ok(this.holidayService.findDateBetweenMonthAndYear(month, year));
     }
 
     @RequestMapping(value = "by-type/{type}", method = RequestMethod.GET)
@@ -67,20 +68,22 @@ public class HolidayController {
         }
     }
 
-    /* @RequestMapping(value = "/", method = RequestMethod.PUT)
-    public ResponseEntity<String> updateHoliday(@RequestBody Holiday holiday) {
-        try {
-            this.holidayService.update(holiday);
-            return ResponseEntity.ok("Holiday updated successfully");
-        } catch (Exception e) {
-            return ResponseEntity.internalServerError().body(e.getMessage());
-        }
-    } */
+    /*
+     * @RequestMapping(value = "/", method = RequestMethod.PUT)
+     * public ResponseEntity<String> updateHoliday(@RequestBody Holiday holiday) {
+     * try {
+     * this.holidayService.update(holiday);
+     * return ResponseEntity.ok("Holiday updated successfully");
+     * } catch (Exception e) {
+     * return ResponseEntity.internalServerError().body(e.getMessage());
+     * }
+     * }
+     */
 
     @RequestMapping(value = "/{date}", method = RequestMethod.PUT)
     public ResponseEntity<String> updateHolidayByDate(
-        @PathVariable("date") String dateHoliday,
-        @RequestBody Holiday holiday) {
+            @PathVariable("date") String dateHoliday,
+            @RequestBody Holiday holiday) {
         try {
             this.holidayService.updateByDate(dateHoliday, holiday);
             return ResponseEntity.ok("Holiday update successfully");
@@ -89,15 +92,17 @@ public class HolidayController {
         }
     }
 
-    /* @RequestMapping(value = "", method = RequestMethod.DELETE)
-    public ResponseEntity<String> deleteHoliday(@RequestBody Holiday holiday) {
-        try {
-            this.holidayService.delete(holiday);
-            return ResponseEntity.ok("Holiday delete successfully");
-        } catch (Exception e) {
-            return ResponseEntity.internalServerError().body(e.getMessage());
-        }
-    } */
+    /*
+     * @RequestMapping(value = "", method = RequestMethod.DELETE)
+     * public ResponseEntity<String> deleteHoliday(@RequestBody Holiday holiday) {
+     * try {
+     * this.holidayService.delete(holiday);
+     * return ResponseEntity.ok("Holiday delete successfully");
+     * } catch (Exception e) {
+     * return ResponseEntity.internalServerError().body(e.getMessage());
+     * }
+     * }
+     */
 
     @RequestMapping(value = "/{date}", method = RequestMethod.DELETE)
     public ResponseEntity<String> deleteHolidayByDate(@PathVariable("date") String dateHoliday) {

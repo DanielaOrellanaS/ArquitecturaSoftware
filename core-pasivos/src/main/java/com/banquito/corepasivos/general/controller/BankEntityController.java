@@ -50,14 +50,14 @@ public class BankEntityController {
 
     @RequestMapping(value = "/{entitybankcode}/{internationalbankcode}", method = RequestMethod.PUT)
     public ResponseEntity<String> updateBankEntity(
-        @PathVariable("entitybankcode") String codeBankEntity, 
-        @PathVariable("internationalbankcode") String international,
-        @RequestBody BankEntity bankEntity) {
+            @PathVariable("entitybankcode") String codeBankEntity,
+            @PathVariable("internationalbankcode") String international,
+            @RequestBody BankEntity bankEntity) {
 
         BankEntityPK pk = new BankEntityPK();
         pk.setEntitybankcode(codeBankEntity);
         pk.setInternationalbankcode(international);
-        
+
         try {
             this.bankEntityService.update(bankEntity, pk);
             return ResponseEntity.ok("Bank Entity update successfully");
@@ -68,13 +68,13 @@ public class BankEntityController {
 
     @RequestMapping(value = "/{entitybankcode}/{internationalbankcode}", method = RequestMethod.DELETE)
     public ResponseEntity<String> deleteBankEntity(
-        @PathVariable("entitybankcode") String bankEntity, 
-        @PathVariable("internationalbankcode") String international) {
+            @PathVariable("entitybankcode") String bankEntity,
+            @PathVariable("internationalbankcode") String international) {
 
         BankEntityPK pk = new BankEntityPK();
         pk.setEntitybankcode(bankEntity);
         pk.setInternationalbankcode(international);
-        
+
         try {
             this.bankEntityService.delete(pk);
             return ResponseEntity.ok("Bank Entity delete successfully");

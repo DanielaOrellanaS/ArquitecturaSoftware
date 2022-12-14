@@ -46,10 +46,10 @@ public class CountryEntityController {
     @RequestMapping(value = "/{codecountry}", method = RequestMethod.PUT)
 
     public ResponseEntity<String> updateCountryEntity(
-        @PathVariable("codecountry") String codeCountry,
-        @RequestBody CountryEntity countryEntity) {
-            CountryEntity pk = new CountryEntity(); 
-            pk.setCodeCountry(codeCountry);
+            @PathVariable("codecountry") String codeCountry,
+            @RequestBody CountryEntity countryEntity) {
+        CountryEntity pk = new CountryEntity();
+        pk.setCodeCountry(codeCountry);
 
         try {
             this.countryEntityService.update(countryEntity, codeCountry);

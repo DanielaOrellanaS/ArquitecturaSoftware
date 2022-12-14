@@ -29,10 +29,10 @@ public class BankEntity implements Serializable {
 
     @OneToMany
     @JoinColumns({
-        @JoinColumn(name = "entity_bank_code", referencedColumnName = "entity_bank_code", insertable = false, updatable = false, nullable = true),
-        @JoinColumn(name = "international_bank_code", referencedColumnName = "international_bank_code", insertable = false, updatable = false, nullable = true)
+            @JoinColumn(name = "entity_bank_code", referencedColumnName = "entity_bank_code", insertable = false, updatable = false, nullable = true),
+            @JoinColumn(name = "international_bank_code", referencedColumnName = "international_bank_code", insertable = false, updatable = false, nullable = true)
     })
-    private List<Branch> branches; 
+    private List<Branch> branches;
 
     public BankEntity(BankEntityPK pk) {
         this.pk = pk;
