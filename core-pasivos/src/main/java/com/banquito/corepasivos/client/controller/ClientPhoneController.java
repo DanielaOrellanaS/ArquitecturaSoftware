@@ -11,7 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.banquito.corepasivos.client.dto.ClientPhoneDto;
+import com.banquito.corepasivos.client.dto.request.RequestDtoClientPhone;
+import com.banquito.corepasivos.client.dto.response.ResponseDtoClientPhone;
 import com.banquito.corepasivos.client.mapper.ClientPhoneMapper;
 import com.banquito.corepasivos.client.model.ClientPhone;
 import com.banquito.corepasivos.client.service.ClientPhoneService;
@@ -26,13 +27,13 @@ public class ClientPhoneController {
     }
 
     @RequestMapping(value = "/{identification}/{identificationType}", method = RequestMethod.GET)
-    public ResponseEntity<List<ClientPhoneDto>> findByIdentification(
+    public ResponseEntity<List<RequestDtoClientPhone>> findByIdentification(
             @PathVariable("identification") String identification,
             @PathVariable("identificationType") String identificationType) {
         try {
             List<ClientPhone> phones = this.clientPhoneService.findByIdentification(identification,
                     identificationType.toUpperCase());
-            List<ClientPhoneDto> dtos = phones.stream().map(phone -> ClientPhoneMapper.map(phone))
+            List<RequestDtoClientPhone> dtos = phones.stream().map(phone -> ClientPhoneMapper.map(phone))
                     .collect(Collectors.toList());
             return ResponseEntity.status(HttpStatus.OK).body(dtos);
         } catch (Exception e) {
@@ -41,7 +42,7 @@ public class ClientPhoneController {
     }
 
     @RequestMapping(value = "/", method = RequestMethod.POST)
-    public ResponseEntity<String> createPhone(@RequestBody ClientPhoneDto clientPhone) {
+    public ResponseEntity<String> createPhone(@RequestBody ResponseDtoClientPhone clientPhone) {
         try {
             ClientPhone phone = ClientPhoneMapper.map(clientPhone);
             this.clientPhoneService.createPhone(phone);
@@ -56,7 +57,7 @@ public class ClientPhoneController {
             @PathVariable("identification") String identification,
             @PathVariable("identificationType") String identificationType,
             @PathVariable("phone") String phone,
-            @RequestBody ClientPhoneDto dto) {
+            @RequestBody ResponseDtoClientPhone dto) {
         try {
             ClientPhone clientPhone = ClientPhoneMapper.map(dto);
             this.clientPhoneService.updateById(identification, identificationType, phone, clientPhone);

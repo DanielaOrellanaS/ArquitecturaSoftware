@@ -1,12 +1,13 @@
 package com.banquito.corepasivos.client.mapper;
 
-import com.banquito.corepasivos.client.dto.ClientDto;
+import com.banquito.corepasivos.client.dto.request.RequestDtoClient;
+import com.banquito.corepasivos.client.dto.response.ResponseDtoClient;
 import com.banquito.corepasivos.client.model.Client;
 import com.banquito.corepasivos.client.model.ClientPK;
 
 public class ClientMapper {
 
-    public static Client map(ClientDto data) {
+    public static Client map(ResponseDtoClient data) {
         Client client = new Client();
         ClientPK pk = new ClientPK();
         pk.setIdentification(data.getIdentification());
@@ -42,8 +43,8 @@ public class ClientMapper {
         return client;
     }
 
-    public static ClientDto map(Client data) {
-        ClientDto dto = new ClientDto();
+    public static RequestDtoClient map(Client data) {
+        RequestDtoClient dto = new RequestDtoClient();
         dto.setIdentification(data.getPk().getIdentification());
         dto.setIdentificationType(data.getPk().getIdentificationType());
         dto.setAppLegalRepresentDoc(data.getAppLegalRepresentDoc());
@@ -73,6 +74,13 @@ public class ClientMapper {
         dto.setBirthDate(data.getBirthDate());
         dto.setCreateDate(data.getCreateDate());
         dto.setLastStatusDate(data.getLastStatusDate());
+
+        dto.setSegment(data.getSegment());
+        dto.setClientRelationships(data.getClientRelationships());
+        dto.setClientAddresses(data.getClientAddresses());
+        dto.setClientReferences(data.getClientReferences());
+        dto.setClientPhones(data.getClientPhones());
+
         return dto;
     }
 

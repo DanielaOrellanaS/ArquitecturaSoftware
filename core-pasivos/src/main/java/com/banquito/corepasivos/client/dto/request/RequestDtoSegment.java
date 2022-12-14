@@ -1,4 +1,4 @@
-package com.banquito.corepasivos.client.dto;
+package com.banquito.corepasivos.client.dto.request;
 
 import java.io.Serializable;
 
@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class SegmentDto implements Serializable {
+public class RequestDtoSegment implements Serializable {
     private String codeSegment;
     private String name;
     private String status;

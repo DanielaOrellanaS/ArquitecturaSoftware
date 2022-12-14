@@ -11,7 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.banquito.corepasivos.client.dto.ClientReferenceDto;
+import com.banquito.corepasivos.client.dto.request.RequestDtoClientReference;
+import com.banquito.corepasivos.client.dto.response.ResponseDtoClientReference;
 import com.banquito.corepasivos.client.mapper.ClientReferenceMapper;
 import com.banquito.corepasivos.client.model.ClientReference;
 import com.banquito.corepasivos.client.service.ClientReferenceService;
@@ -26,13 +27,13 @@ public class ClientReferenceController {
     }
 
     @RequestMapping(value = "/{id}/{type}", method = RequestMethod.GET)
-    public ResponseEntity<List<ClientReferenceDto>> findReferences(
+    public ResponseEntity<List<RequestDtoClientReference>> findReferences(
             @PathVariable("id") String id,
             @PathVariable("type") String type) {
         try {
             List<ClientReference> references = this.clientReferenceService.findAllClientReferences(id,
                     type.toUpperCase());
-            List<ClientReferenceDto> dtos = references.stream().map(reference -> ClientReferenceMapper.map(reference))
+            List<RequestDtoClientReference> dtos = references.stream().map(reference -> ClientReferenceMapper.map(reference))
                     .collect(Collectors.toList());
 
             return ResponseEntity.status(HttpStatus.OK).body(dtos);
@@ -42,7 +43,7 @@ public class ClientReferenceController {
     }
 
     @RequestMapping(value = "/", method = RequestMethod.POST)
-    public ResponseEntity<String> createClientReference(@RequestBody ClientReferenceDto dto) {
+    public ResponseEntity<String> createClientReference(@RequestBody ResponseDtoClientReference dto) {
         try {
             ClientReference clientRef = ClientReferenceMapper.map(dto);
             this.clientReferenceService.createClientReference(clientRef);
@@ -55,7 +56,7 @@ public class ClientReferenceController {
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public ResponseEntity<String> updateClientReference(
             @PathVariable("id") Integer id,
-            @RequestBody ClientReferenceDto dto) {
+            @RequestBody ResponseDtoClientReference dto) {
         try {
             ClientReference clientRef = ClientReferenceMapper.map(dto);
             this.clientReferenceService.updateClientReference(id, clientRef);

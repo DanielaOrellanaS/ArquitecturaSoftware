@@ -8,7 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.banquito.corepasivos.client.dto.ClientDto;
+import com.banquito.corepasivos.client.dto.request.RequestDtoClient;
+import com.banquito.corepasivos.client.dto.response.ResponseDtoClient;
 import com.banquito.corepasivos.client.mapper.ClientMapper;
 import com.banquito.corepasivos.client.model.Client;
 import com.banquito.corepasivos.client.model.ClientPK;
@@ -25,7 +26,7 @@ public class ClientController {
     }
 
     @RequestMapping(value = "/{id}/{type}", method = RequestMethod.GET)
-    public ResponseEntity<ClientDto> findAllClientsByIdentification(
+    public ResponseEntity<RequestDtoClient> findAllClientsByIdentification(
             @PathVariable("id") String id,
             @PathVariable("type") String type) {
         ClientPK pk = new ClientPK();
@@ -34,7 +35,7 @@ public class ClientController {
         try {
             Client client = this.clientService.findClient(pk);
             if (!client.equals(null)) {
-                ClientDto dto = ClientMapper.map(client);
+                RequestDtoClient dto = ClientMapper.map(client);
                 return ResponseEntity.status(HttpStatus.OK).body(dto);
             } else {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
@@ -45,7 +46,7 @@ public class ClientController {
     }
 
     @RequestMapping(value = "/", method = RequestMethod.POST)
-    public ResponseEntity<String> createClient(@RequestBody ClientDto dto) {
+    public ResponseEntity<String> createClient(@RequestBody ResponseDtoClient dto) {
         try {
             Client client = ClientMapper.map(dto);
             this.clientService.createClient(client);
@@ -59,7 +60,7 @@ public class ClientController {
     public ResponseEntity<String> updateClient(
             @PathVariable("id") String id,
             @PathVariable("type") String type,
-            @RequestBody ClientDto dto) {
+            @RequestBody ResponseDtoClient dto) {
         ClientPK pk = new ClientPK();
         pk.setIdentification(id);
         pk.setIdentificationType(type.toUpperCase());

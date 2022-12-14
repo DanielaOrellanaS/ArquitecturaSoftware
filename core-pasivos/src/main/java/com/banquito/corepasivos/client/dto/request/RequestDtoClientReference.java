@@ -1,4 +1,4 @@
-package com.banquito.corepasivos.client.dto;
+package com.banquito.corepasivos.client.dto.request;
 
 import java.io.Serializable;
 
@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class ClientReferenceDto implements Serializable {
+public class RequestDtoClientReference implements Serializable {
     private Integer codeReference;
     private String identificationType;
     private String identification;

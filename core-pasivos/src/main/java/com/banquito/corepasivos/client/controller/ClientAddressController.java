@@ -11,7 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.banquito.corepasivos.client.dto.ClientAddressDto;
+import com.banquito.corepasivos.client.dto.request.RequestDtoClientAddress;
+import com.banquito.corepasivos.client.dto.response.ResponseDtoClientAddress;
 import com.banquito.corepasivos.client.mapper.ClientAddressMapper;
 import com.banquito.corepasivos.client.model.ClientAddress;
 import com.banquito.corepasivos.client.model.ClientAddressPK;
@@ -28,12 +29,12 @@ public class ClientAddressController {
     }
 
     @RequestMapping(value = "/{id}/{type}", method = RequestMethod.GET)
-    public ResponseEntity<List<ClientAddressDto>> findAllClientAddresses(
+    public ResponseEntity<List<RequestDtoClientAddress>> findAllClientAddresses(
             @PathVariable("id") String id,
             @PathVariable("type") String type) {
         try {
             List<ClientAddress> addresses = this.clientAddressService.findAddressByClientId(id, type.toUpperCase());
-            List<ClientAddressDto> dtos = addresses.stream().map(address -> ClientAddressMapper.map(address))
+            List<RequestDtoClientAddress> dtos = addresses.stream().map(address -> ClientAddressMapper.map(address))
                     .collect(Collectors.toList());
             return ResponseEntity.status(HttpStatus.OK).body(dtos);
         } catch (Exception e) {
@@ -42,7 +43,7 @@ public class ClientAddressController {
     }
 
     @RequestMapping(value = "/", method = RequestMethod.POST)
-    public ResponseEntity<String> createClientAddress(@RequestBody ClientAddressDto clientAddress) {
+    public ResponseEntity<String> createClientAddress(@RequestBody ResponseDtoClientAddress clientAddress) {
         try {
             ClientAddress address = ClientAddressMapper.map(clientAddress);
             this.clientAddressService.createClientAddress(address);
@@ -57,7 +58,7 @@ public class ClientAddressController {
             @PathVariable("identification") String client,
             @PathVariable("type") String type,
             @PathVariable("location") Integer location,
-            @RequestBody ClientAddressDto clientAddress) {
+            @RequestBody ResponseDtoClientAddress clientAddress) {
         try {
             ClientAddress address = ClientAddressMapper.map(clientAddress);
             ClientAddressPK pk = new ClientAddressPK();

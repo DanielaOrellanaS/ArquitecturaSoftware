@@ -1,4 +1,4 @@
-package com.banquito.corepasivos.client.dto;
+package com.banquito.corepasivos.client.dto.response;
 
 import java.io.Serializable;
 
@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class ClientPhoneDto implements Serializable {
+public class ResponseDtoClientPhone implements Serializable {
     private String phoneNumber;
     private String identificationType;
     private String identification;

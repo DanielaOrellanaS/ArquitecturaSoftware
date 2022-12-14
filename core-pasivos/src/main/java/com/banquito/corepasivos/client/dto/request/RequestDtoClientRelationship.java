@@ -1,4 +1,4 @@
-package com.banquito.corepasivos.client.dto;
+package com.banquito.corepasivos.client.dto.request;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class ClientRelationshipDto implements Serializable {
+public class RequestDtoClientRelationship implements Serializable {
     private Integer codeRelationship;
     private String identificationType;
     private String identification;
