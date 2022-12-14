@@ -30,10 +30,6 @@ public class ClientAddress implements Serializable {
     @Column(name = "longitude", length = 32, nullable = false)
     private String longitude;
 
-    /* @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "code_location", referencedColumnName = "code_location", insertable = false, updatable = false, nullable = false)
-    private LocationEntity locationEntity; */
-
     public ClientAddress(ClientAddressPK pk) {
         this.pk = pk;
     }
