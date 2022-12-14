@@ -27,15 +27,15 @@ public class ClientReferenceController {
     }
 
     @RequestMapping(value = "/{id}/{type}", method = RequestMethod.GET)
-    public ResponseEntity<List<RequestDtoClientReference>> findReferences(
+    public ResponseEntity<List<ResponseDtoClientReference>> findReferences(
             @PathVariable("id") String id,
             @PathVariable("type") String type) {
         try {
             List<ClientReference> references = this.clientReferenceService.findAllClientReferences(id,
                     type.toUpperCase());
-            List<RequestDtoClientReference> dtos = references.stream().map(reference -> ClientReferenceMapper.map(reference))
+            List<ResponseDtoClientReference> dtos = references.stream()
+                    .map(reference -> ClientReferenceMapper.map(reference))
                     .collect(Collectors.toList());
-
             return ResponseEntity.status(HttpStatus.OK).body(dtos);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
@@ -43,7 +43,7 @@ public class ClientReferenceController {
     }
 
     @RequestMapping(value = "/", method = RequestMethod.POST)
-    public ResponseEntity<String> createClientReference(@RequestBody ResponseDtoClientReference dto) {
+    public ResponseEntity<String> createClientReference(@RequestBody RequestDtoClientReference dto) {
         try {
             ClientReference clientRef = ClientReferenceMapper.map(dto);
             this.clientReferenceService.createClientReference(clientRef);
@@ -56,7 +56,7 @@ public class ClientReferenceController {
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public ResponseEntity<String> updateClientReference(
             @PathVariable("id") Integer id,
-            @RequestBody ResponseDtoClientReference dto) {
+            @RequestBody RequestDtoClientReference dto) {
         try {
             ClientReference clientRef = ClientReferenceMapper.map(dto);
             this.clientReferenceService.updateClientReference(id, clientRef);

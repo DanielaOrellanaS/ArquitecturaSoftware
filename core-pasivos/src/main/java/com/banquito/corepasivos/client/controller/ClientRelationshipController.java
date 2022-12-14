@@ -28,13 +28,13 @@ public class ClientRelationshipController {
     }
 
     @RequestMapping(value = "/{id}/{type}", method = RequestMethod.GET)
-    public ResponseEntity<List<RequestDtoClientRelationship>> searchTypeRelationship(
+    public ResponseEntity<List<ResponseDtoClientRelationship>> searchTypeRelationship(
             @PathVariable("id") String id,
             @PathVariable("type") String type) {
         try {
             List<ClientRelationship> relationships = this.clientRelationshipService.findByClient(id,
                     type.toUpperCase());
-            List<RequestDtoClientRelationship> dtos = relationships.stream()
+            List<ResponseDtoClientRelationship> dtos = relationships.stream()
                     .map(relation -> ClientRelationshipMapper.map(relation)).collect(Collectors.toList());
             return ResponseEntity.status(HttpStatus.OK).body(dtos);
         } catch (Exception e) {
@@ -44,7 +44,7 @@ public class ClientRelationshipController {
 
     @RequestMapping(value = "/", method = RequestMethod.POST)
     public ResponseEntity<String> createClientRelationship(
-            @RequestBody ResponseDtoClientRelationship dto) {
+            @RequestBody RequestDtoClientRelationship dto) {
         try {
             ClientRelationship clientRelationship = ClientRelationshipMapper.map(dto);
             this.clientRelationshipService.createClientRelationship(clientRelationship);
@@ -57,7 +57,7 @@ public class ClientRelationshipController {
     @RequestMapping(value = "/{codeRelationship}", method = RequestMethod.PUT)
     public ResponseEntity<String> updateClientRelationship(
             @PathVariable("codeRelationship") Integer id,
-            @RequestBody ResponseDtoClientRelationship dto) {
+            @RequestBody RequestDtoClientRelationship dto) {
         try {
             ClientRelationship clientRelationship = ClientRelationshipMapper.map(dto);
             this.clientRelationshipService.updateClientRelationship(id, clientRelationship);

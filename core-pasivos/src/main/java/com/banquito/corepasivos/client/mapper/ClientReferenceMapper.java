@@ -5,7 +5,7 @@ import com.banquito.corepasivos.client.dto.response.ResponseDtoClientReference;
 import com.banquito.corepasivos.client.model.ClientReference;
 
 public class ClientReferenceMapper {
-    public static ClientReference map(ResponseDtoClientReference data) {
+    public static ClientReference map(RequestDtoClientReference data) {
         ClientReference reference = new ClientReference();
         reference.setCodeReference(data.getCodeReference());
         reference.setIdentification(data.getIdentification());
@@ -16,8 +16,8 @@ public class ClientReferenceMapper {
         return reference;
     }
 
-    public static RequestDtoClientReference map(ClientReference data) {
-        RequestDtoClientReference dto = new RequestDtoClientReference();
+    public static ResponseDtoClientReference map(ClientReference data) {
+        ResponseDtoClientReference dto = new ResponseDtoClientReference();
         dto.setCodeReference(data.getCodeReference());
         dto.setIdentification(data.getIdentification());
         dto.setIdentificationType(data.getIdentificationtype());

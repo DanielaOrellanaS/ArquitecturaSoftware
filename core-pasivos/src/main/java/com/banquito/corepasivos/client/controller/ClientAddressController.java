@@ -29,12 +29,12 @@ public class ClientAddressController {
     }
 
     @RequestMapping(value = "/{id}/{type}", method = RequestMethod.GET)
-    public ResponseEntity<List<RequestDtoClientAddress>> findAllClientAddresses(
+    public ResponseEntity<List<ResponseDtoClientAddress>> findAllClientAddresses(
             @PathVariable("id") String id,
             @PathVariable("type") String type) {
         try {
             List<ClientAddress> addresses = this.clientAddressService.findAddressByClientId(id, type.toUpperCase());
-            List<RequestDtoClientAddress> dtos = addresses.stream().map(address -> ClientAddressMapper.map(address))
+            List<ResponseDtoClientAddress> dtos = addresses.stream().map(address -> ClientAddressMapper.map(address))
                     .collect(Collectors.toList());
             return ResponseEntity.status(HttpStatus.OK).body(dtos);
         } catch (Exception e) {
@@ -43,7 +43,7 @@ public class ClientAddressController {
     }
 
     @RequestMapping(value = "/", method = RequestMethod.POST)
-    public ResponseEntity<String> createClientAddress(@RequestBody ResponseDtoClientAddress clientAddress) {
+    public ResponseEntity<String> createClientAddress(@RequestBody RequestDtoClientAddress clientAddress) {
         try {
             ClientAddress address = ClientAddressMapper.map(clientAddress);
             this.clientAddressService.createClientAddress(address);
@@ -58,7 +58,7 @@ public class ClientAddressController {
             @PathVariable("identification") String client,
             @PathVariable("type") String type,
             @PathVariable("location") Integer location,
-            @RequestBody ResponseDtoClientAddress clientAddress) {
+            @RequestBody RequestDtoClientAddress clientAddress) {
         try {
             ClientAddress address = ClientAddressMapper.map(clientAddress);
             ClientAddressPK pk = new ClientAddressPK();

@@ -27,13 +27,13 @@ public class ClientPhoneController {
     }
 
     @RequestMapping(value = "/{identification}/{identificationType}", method = RequestMethod.GET)
-    public ResponseEntity<List<RequestDtoClientPhone>> findByIdentification(
+    public ResponseEntity<List<ResponseDtoClientPhone>> findByIdentification(
             @PathVariable("identification") String identification,
             @PathVariable("identificationType") String identificationType) {
         try {
             List<ClientPhone> phones = this.clientPhoneService.findByIdentification(identification,
                     identificationType.toUpperCase());
-            List<RequestDtoClientPhone> dtos = phones.stream().map(phone -> ClientPhoneMapper.map(phone))
+            List<ResponseDtoClientPhone> dtos = phones.stream().map(phone -> ClientPhoneMapper.map(phone))
                     .collect(Collectors.toList());
             return ResponseEntity.status(HttpStatus.OK).body(dtos);
         } catch (Exception e) {
@@ -42,7 +42,7 @@ public class ClientPhoneController {
     }
 
     @RequestMapping(value = "/", method = RequestMethod.POST)
-    public ResponseEntity<String> createPhone(@RequestBody ResponseDtoClientPhone clientPhone) {
+    public ResponseEntity<String> createPhone(@RequestBody RequestDtoClientPhone clientPhone) {
         try {
             ClientPhone phone = ClientPhoneMapper.map(clientPhone);
             this.clientPhoneService.createPhone(phone);
@@ -57,7 +57,7 @@ public class ClientPhoneController {
             @PathVariable("identification") String identification,
             @PathVariable("identificationType") String identificationType,
             @PathVariable("phone") String phone,
-            @RequestBody ResponseDtoClientPhone dto) {
+            @RequestBody RequestDtoClientPhone dto) {
         try {
             ClientPhone clientPhone = ClientPhoneMapper.map(dto);
             this.clientPhoneService.updateById(identification, identificationType, phone, clientPhone);

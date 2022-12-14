@@ -7,7 +7,7 @@ import com.banquito.corepasivos.client.model.ClientPK;
 
 public class ClientMapper {
 
-    public static Client map(ResponseDtoClient data) {
+    public static Client map(RequestDtoClient data) {
         Client client = new Client();
         ClientPK pk = new ClientPK();
         pk.setIdentification(data.getIdentification());
@@ -43,8 +43,8 @@ public class ClientMapper {
         return client;
     }
 
-    public static RequestDtoClient map(Client data) {
-        RequestDtoClient dto = new RequestDtoClient();
+    public static ResponseDtoClient map(Client data) {
+        ResponseDtoClient dto = new ResponseDtoClient();
         dto.setIdentification(data.getPk().getIdentification());
         dto.setIdentificationType(data.getPk().getIdentificationType());
         dto.setAppLegalRepresentDoc(data.getAppLegalRepresentDoc());

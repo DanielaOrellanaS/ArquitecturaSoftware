@@ -2,6 +2,13 @@ package com.banquito.corepasivos.client.dto.response;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
+
+import com.banquito.corepasivos.client.model.ClientAddress;
+import com.banquito.corepasivos.client.model.ClientPhone;
+import com.banquito.corepasivos.client.model.ClientReference;
+import com.banquito.corepasivos.client.model.ClientRelationship;
+import com.banquito.corepasivos.client.model.Segment;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -37,4 +44,10 @@ public class ResponseDtoClient implements Serializable {
     private String tinDocument;
     private String appLegalRepresentDoc;
     private String career;
+
+    private Segment segment;
+    private List<ClientRelationship> clientRelationships;
+    private List<ClientAddress> clientAddresses;
+    private List<ClientReference> clientReferences;
+    private List<ClientPhone> clientPhones;
 }

@@ -5,7 +5,7 @@ import com.banquito.corepasivos.client.dto.response.ResponseDtoClientRelationshi
 import com.banquito.corepasivos.client.model.ClientRelationship;
 
 public class ClientRelationshipMapper {
-    public static ClientRelationship map(ResponseDtoClientRelationship data) {
+    public static ClientRelationship map(RequestDtoClientRelationship data) {
         ClientRelationship relationship = new ClientRelationship();
         relationship.setIdentification(data.getIdentification());
         relationship.setIdentificationtype(data.getIdentificationType());
@@ -17,8 +17,8 @@ public class ClientRelationshipMapper {
         return relationship;
     }
 
-    public static RequestDtoClientRelationship map(ClientRelationship data) {
-        RequestDtoClientRelationship dto = new RequestDtoClientRelationship();
+    public static ResponseDtoClientRelationship map(ClientRelationship data) {
+        ResponseDtoClientRelationship dto = new ResponseDtoClientRelationship();
         dto.setIdentification(data.getIdentification());
         dto.setIdentificationType(data.getIdentificationtype());
         dto.setCliIdentification(data.getCliIdentification());

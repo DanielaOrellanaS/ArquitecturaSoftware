@@ -6,7 +6,7 @@ import com.banquito.corepasivos.client.model.ClientAddress;
 import com.banquito.corepasivos.client.model.ClientAddressPK;
 
 public class ClientAddressMapper {
-    public static ClientAddress map(ResponseDtoClientAddress data) {
+    public static ClientAddress map(RequestDtoClientAddress data) {
         ClientAddress address = new ClientAddress();
         ClientAddressPK pk = new ClientAddressPK();
         pk.setCodeLocation(data.getCodeLocation());
@@ -20,8 +20,8 @@ public class ClientAddressMapper {
         return address;
     }
 
-    public static RequestDtoClientAddress map(ClientAddress data) {
-        RequestDtoClientAddress dto = new RequestDtoClientAddress();
+    public static ResponseDtoClientAddress map(ClientAddress data) {
+        ResponseDtoClientAddress dto = new ResponseDtoClientAddress();
         dto.setCodeLocation(data.getPk().getCodeLocation());
         dto.setIdentification(data.getPk().getIdentification());
         dto.setIdentificationType(data.getPk().getIdentificationtype());

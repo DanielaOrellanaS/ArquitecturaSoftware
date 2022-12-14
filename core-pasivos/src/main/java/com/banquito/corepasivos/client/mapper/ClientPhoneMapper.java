@@ -6,7 +6,7 @@ import com.banquito.corepasivos.client.model.ClientPhone;
 import com.banquito.corepasivos.client.model.ClientPhonePK;
 
 public class ClientPhoneMapper {
-    public static ClientPhone map(ResponseDtoClientPhone data) {
+    public static ClientPhone map(RequestDtoClientPhone data) {
         ClientPhone phone = new ClientPhone();
         ClientPhonePK pk = new ClientPhonePK();
         pk.setIdentification(data.getIdentification());
@@ -17,8 +17,8 @@ public class ClientPhoneMapper {
         return phone;
     }
 
-    public static RequestDtoClientPhone map(ClientPhone data) {
-        RequestDtoClientPhone dto = new RequestDtoClientPhone();
+    public static ResponseDtoClientPhone map(ClientPhone data) {
+        ResponseDtoClientPhone dto = new ResponseDtoClientPhone();
         dto.setIdentification(data.getPk().getIdentification());
         dto.setIdentificationType(data.getPk().getIdentificationtype());
         dto.setPhoneNumber(data.getPk().getPhonenumber());
